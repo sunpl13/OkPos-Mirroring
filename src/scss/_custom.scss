@@ -1,0 +1,26 @@
+// Here you can add other styles
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  cursor: pointer;
+  border: 1px solid #d8dbe0;
+}
+
+th.small {
+  min-width: 70px;
+  max-width: 70px;
+}
+
+th {
+  min-width: 150px;
+  max-width: 150px;
+  border: 1px solid #d8dbe0;
+}
+
+th.large {
+  min-width: 300px;
+  max-width: 300px;
+}
