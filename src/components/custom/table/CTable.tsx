@@ -1,8 +1,9 @@
-import React, {forwardRef, TableHTMLAttributes} from 'react'
+import {forwardRef, TableHTMLAttributes} from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
+
 
 import {Colors, colorPropType} from '../Types'
+import classNames from "classnames";
 
 // @ts-ignore
 export interface CTableProps extends TableHTMLAttributes<HTMLTableElement> {

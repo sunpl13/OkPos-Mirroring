@@ -1,4 +1,4 @@
-import React, {ElementType, forwardRef, ReactElement, ReactNode, useEffect, useRef} from 'react'
+import {ElementType, forwardRef, ReactNode, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 
 import {ColumnFilter, ColumnFilterValue, Column, Sorter, SorterValue} from './CSmartTableInterface'
@@ -103,7 +103,9 @@ export const CSmartTableHead = forwardRef<HTMLTableSectionElement, CSmartTableHe
       return 0
     }
 
-    const columnSorterIcon = (column: Column | string) => {
+
+    // @ts-ignore
+    const columnSorterIcon = (column : Column | string) => {
       if (getColumnSorterState(key(column)) === 0) {
         return <span className='opacity-25 float-end me-1'>{sortingIcon}</span>
       }

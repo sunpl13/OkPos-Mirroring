@@ -1,4 +1,4 @@
-import React, {ElementType, forwardRef, HTMLAttributes} from 'react'
+import {ElementType, forwardRef, HTMLAttributes} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 

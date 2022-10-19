@@ -1,4 +1,4 @@
-import React, {forwardRef, HTMLAttributes} from 'react'
+import {forwardRef, HTMLAttributes} from 'react'
 import PropTypes from 'prop-types'
 
 export const CTableCaption = forwardRef<HTMLTableCaptionElement, HTMLAttributes<HTMLTableCaptionElement>>(

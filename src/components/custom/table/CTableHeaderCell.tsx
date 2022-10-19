@@ -1,4 +1,4 @@
-import React, {forwardRef, ThHTMLAttributes} from 'react'
+import {forwardRef, ThHTMLAttributes} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 

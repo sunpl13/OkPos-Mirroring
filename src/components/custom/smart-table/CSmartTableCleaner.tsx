@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
-import React, {forwardRef, HTMLAttributes, ReactNode} from 'react'
-
+import {forwardRef, HTMLAttributes, ReactNode} from 'react'
 import {cilFilterX} from '@coreui/icons'
-
 import CIcon from '@coreui/icons-react'
 
 interface CSmartTableCleanerProps extends HTMLAttributes<HTMLButtonElement> {

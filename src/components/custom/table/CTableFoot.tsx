@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {forwardRef, HTMLAttributes} from 'react'
+import {forwardRef, HTMLAttributes} from 'react'
 import classNames from 'classnames'
 
 import {Colors, colorPropType} from '../Types'

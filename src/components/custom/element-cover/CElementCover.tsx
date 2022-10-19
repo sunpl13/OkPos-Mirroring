@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {CSSProperties, forwardRef, HTMLAttributes, useEffect, useRef, useState} from 'react'
+import {CSSProperties, forwardRef, HTMLAttributes, useEffect, useRef, useState} from 'react'
 import classNames from 'classnames'
 
 import {useForkedRef} from '../hooks'
