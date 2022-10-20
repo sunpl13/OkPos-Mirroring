@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {
   CButton,
   CCard,
@@ -15,10 +15,10 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {cilLockLocked, cilUser} from '@coreui/icons'
-// import ApiConfig, {HttpMethod} from "../../dataManager/apiConfig"
-// import {EndPoint} from "../../dataManager/apiMapper"
+import ApiConfig, {HttpMethod} from '../../dataManager/apiConfig'
+import {EndPoint} from '../../dataManager/apiMapper'
 import {isEmpty} from '../../utils/utility'
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -44,7 +44,7 @@ const Login = () => {
         return
       }
 
-      /*const {data: response} = await ApiConfig.request({
+      const {data: response} = await ApiConfig.request({
         data: {
           email: email,
           password: password,
@@ -53,14 +53,14 @@ const Login = () => {
         url: EndPoint.POST_TEST_V1_LOGIN,
       })
 
-      if (!response ?.isSuccess || isEmpty(response ?.result ?.jwt)) {
-        alert(response ?.message)
+      if (!response?.isSuccess || isEmpty(response?.result?.jwt)) {
+        alert(response?.message)
         return
       }
 
-      window.localStorage.setItem("jwt", response.result.jwt)
-      window.localStorage.setItem("expiredAt", response.result.expiredAt)
-      window.localStorage.setItem("partnerName", response.result.partnerName)*/
+      window.localStorage.setItem('jwt', response.result.jwt)
+      window.localStorage.setItem('expiredAt', response.result.expiredAt)
+      window.localStorage.setItem('partnerName', response.result.partnerName)
 
       window.localStorage.setItem('userName', '테스터')
 
@@ -74,17 +74,12 @@ const Login = () => {
     <div className='bg-light min-vh-100 d-flex flex-row align-items-center'>
       <CContainer>
         <CRow className='justify-content-center'>
-          <CCol md={8}>
+          <CCol md={4}>
             <CCardGroup>
               <CCard className='p-4'>
                 <CCardBody>
                   <CForm>
-                    <h1>파트너 관리자 로그인</h1>
-                    <p className='text-medium-emphasis'>
-                      파트너 관리자 회원가입은 승인 절차가 필요합니다.
-                      <br />
-                      승인받은 이메일, 비밀번호를 입력해주세요.
-                    </p>
+                    <h1 className='text-center mb-3'>관리자 로그인</h1>
                     <CInputGroup className='mb-3'>
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
@@ -120,25 +115,6 @@ const Login = () => {
                       </CButton>
                     </div>
                   </CForm>
-                </CCardBody>
-              </CCard>
-              <CCard className='text-white bg-primary py-5'>
-                <CCardBody className='text-center'>
-                  <div>
-                    <h2>파트너 관리자 회원가입은 신청 절차를 거쳐야합니다.</h2>
-                    <p>너디너리 관리자에게 문의해주세요.</p>
-                    <Link to='/register'>
-                      <CButton
-                        color='primary'
-                        className='mt-3'
-                        active
-                        tabIndex={-1}
-                        onClick={() => navigate('/register')}
-                      >
-                        비밀번호 설정하러가기
-                      </CButton>
-                    </Link>
-                  </div>
                 </CCardBody>
               </CCard>
             </CCardGroup>
