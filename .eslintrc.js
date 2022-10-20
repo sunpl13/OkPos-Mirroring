@@ -41,5 +41,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'prod' ? 'warn' : 'off',
     'import/extensions': ['off'],
     '@typescript-eslint/explicit-function-return-type': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
 }
