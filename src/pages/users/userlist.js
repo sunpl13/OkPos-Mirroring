@@ -20,6 +20,7 @@ import {CSmartTable} from '../../components/custom/smart-table/CSmartTable'
 import {CSmartPagination} from '../../components/custom/pagination/CSmartPagination'
 import SortSelect from '../../components/forms/selectForm/SortSelect'
 import SearchInput from '../../components/forms/inputForm/SearchInput'
+import ListTemplate from '../../components/list/ListTemplate'
 
 const UserList = () => {
   const [page, setPage] = useState(1)
@@ -95,26 +96,13 @@ const UserList = () => {
             </CForm>
           </CCardHeader>
           <CCardBody>
-            <CSmartTable
+            <ListTemplate
               columns={testTableColumns}
               items={items}
               itemsPerPage={size}
               clickableRows
               onRowClick={handleRowClick}
-              onFilteredItemsChange={setItems}
-              noItemsLabel={'데이터가 존재하지 않습니다.'}
-              tableProps={{
-                striped: true,
-                hover: true,
-                responsive: true,
-              }}
-            />
-            <h6>총 {new Intl.NumberFormat().format(itemTotalCount)}건이 검색되었습니다.</h6>
-            <CSmartPagination
-              size='sm'
-              limit={11}
-              activePage={page}
-              pages={Math.ceil(itemTotalCount / size)}
+              page={page}
               onActivePageChange={handlePageChange}
             />
           </CCardBody>
