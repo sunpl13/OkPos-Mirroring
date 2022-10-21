@@ -18,8 +18,8 @@ import TestInfo from '../../components/TestInfo'
 import TestInfo1 from '../../components/TestInfo1'
 import {CSmartTable} from '../../components/custom/smart-table/CSmartTable'
 import {CSmartPagination} from '../../components/custom/pagination/CSmartPagination'
-import SortSelect from '../../components/selectForm/SortSelect'
-import SearchInput from '../../components/inputForm/SearchInput'
+import SortSelect from '../../components/forms/selectForm/SortSelect'
+import SearchInput from '../../components/forms/inputForm/SearchInput'
 
 const UserList = () => {
   const [page, setPage] = useState(1)
@@ -39,9 +39,9 @@ const UserList = () => {
   const [selectedTestId, setSelectedTestId] = useState(0)
   const testInfoRef = useRef()
 
-  const onKeyPress = event => {
+  const handleSearchOnKeyPress = event => {
     if (event.key === 'Enter') {
-      handleRetrieveTestList(page).then()
+      console.log(event.key)
     }
   }
   const handleSortList = event => {
@@ -74,20 +74,18 @@ const UserList = () => {
               <SortSelect
                 md={4}
                 sm={6}
-                title={'정렬'}
+                label={'정렬'}
                 options={testOptions}
                 value={selectedOption}
-                onChange={handleSortList}
+                onchange={handleSortList}
               />
               <SearchInput
                 md={4}
-                sm={10}
                 label='UserSearch'
                 id='userSearchInput'
                 placeholder='UserSearch'
-                onKeyPress={onKeyPress}
+                onKeyPress={handleSearchOnKeyPress}
                 onChange={e => setTestName(e.target.value)}
-                autoComplete='off'
               />
               <CCol xs={12}>
                 <CButton color='primary' onClick={() => handleRetrieveTestList(page)}>
