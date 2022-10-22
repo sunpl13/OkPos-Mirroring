@@ -1,9 +1,16 @@
-import React from 'react'
 import {CCol, CFormInput, CFormLabel, CRow} from '@coreui/react'
 
-const ModalInput = props => {
-  // eslint-disable-next-line react/prop-types
-  const {onChange, id, placeholder, value, label, readOnly} = props
+interface ModalInputProps {
+  type?: string
+  onChange?: () => void
+  id: string
+  placeholder: string
+  value: never | any
+  label: string
+  readOnly?: boolean
+}
+
+const ModalInput = ({type, onChange, id, placeholder, value, label, readOnly}: ModalInputProps) => {
   return (
     <CRow className='mb-3'>
       <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
@@ -11,10 +18,10 @@ const ModalInput = props => {
       </CFormLabel>
       <CCol sm={10}>
         <CFormInput
-          type='text'
+          type={type || 'text'}
           id={id}
           placeholder={placeholder || ''}
-          defaultValue={value}
+          value={value}
           onChange={onChange}
           readOnly={readOnly}
         />

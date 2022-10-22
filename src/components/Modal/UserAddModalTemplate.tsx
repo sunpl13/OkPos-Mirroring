@@ -1,9 +1,14 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
 import ModalInput from '../forms/inputForm/ModalInput'
 type Value = {
-  id: number
-  email: string
+  userName: string
+  businessNumber: string
+  createdAt: string
+  status: boolean
   phoneNumber: string
+  businessRegistration: string
+  businessName: string
+  businessAddress: string
 }
 interface AddProps {
   onClick: () => void
@@ -20,21 +25,48 @@ const UserAddModalTemplate = ({onClick, onChange, value, visible, setVisible}: A
         <CModalTitle>Add User</CModalTitle>
       </CModalHeader>
       <CModalBody>
-        <ModalInput onChange={onChange} id={'userName'} placeholder={'UserName'} label={'UserName'} value={value.id} />
-        <ModalInput onChange={onChange} id={'email'} placeholder={'email'} label={'Email'} value={value.email} />
         <ModalInput
+          id={'userName'}
+          placeholder={'UserName'}
+          label={'UserName'}
+          value={value.userName}
           onChange={onChange}
+        />
+        <ModalInput
+          id={'businessNumber'}
+          placeholder={'Business Number'}
+          label={'Business Number'}
+          value={value.businessNumber}
+          onChange={onChange}
+        />
+        <ModalInput
           id={'phoneNumber'}
           placeholder={'Phone Number'}
           label={'Phone Number'}
           value={value.phoneNumber}
+          onChange={onChange}
         />
         <ModalInput
+          type='file'
+          id={'businessRegistration'}
+          placeholder={'Business Registration'}
+          label={'Business Registration'}
+          value={value.businessRegistration}
           onChange={onChange}
-          id={'userStatus'}
-          placeholder={'User Status'}
-          label={'User Status'}
-          value={''}
+        />
+        <ModalInput
+          id={'businessName'}
+          placeholder={'Business Name'}
+          label={'Business Name'}
+          value={value.businessName}
+          onChange={onChange}
+        />
+        <ModalInput
+          id={'businessAddress'}
+          placeholder={'Business Address'}
+          label={'Business Address'}
+          value={value.businessAddress}
+          onChange={onChange}
         />
       </CModalBody>
       <CModalFooter>

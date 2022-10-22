@@ -4,12 +4,12 @@ import {testUserTableValues} from '../test/testConstant'
 import ListTemplate from '../../components/list/ListTemplate'
 import UserAddModalTemplate from '../../components/Modal/UserAddModalTemplate'
 import UserDetailModal from '../../components/Modal/UserDetailModal'
+import moment from 'moment/moment'
 
 const UserList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [item, setItem] = useState({
-    id: 0,
     userName: '',
     businessNumber: '',
     createdAt: '',
@@ -25,18 +25,39 @@ const UserList = () => {
   const handleRetrieveTestList = async () => {
     setItems(testUserTableValues)
   }
-  const handleUserItemAddModal = () => {
+  /** Open Modal*/
+  const handleShowUserItemAddModal = () => {
     setShowAddModal(!showAddModal)
   }
-  const handleUserDetailModal = () => {
+  const handleShowUserDetailModal = item => {
+    setSelectedItem(item)
     setShowModal(!showModal)
   }
+
+  /** Add User Modal*/
   const handleUserItemAddModalOnChange = ({target}) => {
     const {id, value} = target
     setItem({
       ...item,
       [id]: value,
     })
+  }
+  const handleUserItemAddModalOnClick = () => {
+    if (!item.userName) return alert('Is Not User Name')
+    if (!item.businessNumber) return alert('Is Not Business Number')
+    if (!item.phoneNumber) return alert('Is Not Phone Number')
+    if (!item.businessRegistration) return alert('Is Not Business Registration File')
+    if (!item.businessName) return alert('Is Not Business Name')
+    if (!item.businessAddress) return alert('Is Not Business Address')
+    const createAt = moment().format('YYYY-MM-DD HH-mm')
+    console.log(createAt)
+    setItems([
+      ...items,
+      {
+        ...item,
+        createAt: createAt,
+      },
+    ])
   }
 
   return (
@@ -51,14 +72,14 @@ const UserList = () => {
                 </CButton>
               </CCol>
               <CCol xs={1}>
-                <CButton color='primary' onClick={handleUserItemAddModal}>
+                <CButton color='primary' onClick={handleShowUserItemAddModal}>
                   추가
                 </CButton>
               </CCol>
             </CForm>
           </CCardHeader>
           <CCardBody>
-            <ListTemplate items={items} onClick={handleUserDetailModal} />
+            <ListTemplate items={items} onClick={handleShowUserDetailModal} />
           </CCardBody>
         </CCard>
       </CCol>
@@ -67,8 +88,9 @@ const UserList = () => {
         visible={showAddModal}
         setVisible={setShowAddModal}
         onChange={handleUserItemAddModalOnChange}
+        onClick={handleUserItemAddModalOnClick}
       />
-      <UserDetailModal value={item} visible={showModal} setVisible={setShowModal} readOnly />
+      <UserDetailModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
     </CRow>
   )
 }
