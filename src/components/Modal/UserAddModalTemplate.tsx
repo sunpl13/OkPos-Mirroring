@@ -13,6 +13,7 @@ interface AddProps {
   setVisible: (state: boolean) => void
 }
 
+// Test
 const UserAddModalTemplate = ({onClick, onChange, value, visible, setVisible}: AddProps) => {
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
