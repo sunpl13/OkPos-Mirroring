@@ -17,6 +17,7 @@ import {
 import {testUserTableValues} from '../test/testConstant'
 import ListTemplate from '../../components/list/ListTemplate'
 import UserAddModalTemplate from '../../components/Modal/UserAddModalTemplate'
+import UserDetailModal from '../../components/Modal/UserDetailModal'
 
 const UserList = () => {
   const [items, setItems] = useState([])
@@ -70,38 +71,18 @@ const UserList = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <UserAddModalTemplate value={item} visible={showAddModal} setVisible={setShowAddModal} />
-      <CModal size='lg' visible={showModal} onClose={() => setShowModal(false)}>
-        <CModalHeader>
-          <CModalTitle>{`User ID : ${selectedItem.id}`}</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <CRow className='mb-3'>
-            <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
-              id
-            </CFormLabel>
-            <CCol sm={10}>
-              <CFormInput type='text' id='staticEmail' defaultValue={selectedItem.id} readOnly />
-            </CCol>
-          </CRow>
-          <CRow className='mb-3'>
-            <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
-              Email
-            </CFormLabel>
-            <CCol sm={10}>
-              <CFormInput type='text' id='staticEmail' defaultValue={selectedItem.email} readOnly />
-            </CCol>
-          </CRow>
-          <CRow className='mb-3'>
-            <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
-              Phone Number
-            </CFormLabel>
-            <CCol sm={10}>
-              <CFormInput type='text' id='staticEmail' defaultValue={selectedItem.phoneNumber} readOnly />
-            </CCol>
-          </CRow>
-        </CModalBody>
-      </CModal>
+      <UserAddModalTemplate
+        value={item}
+        visible={showAddModal}
+        setVisible={setShowAddModal}
+        onChange={handleUserItemAddModalOnChange}
+      />
+      <UserDetailModal
+        value={item}
+        visible={showAddModal}
+        setVisible={setShowAddModal}
+        onChange={handleUserItemAddModalOnChange}
+      />
     </CRow>
   )
 }

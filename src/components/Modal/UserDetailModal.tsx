@@ -1,5 +1,6 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
 import ModalInput from '../forms/inputForm/ModalInput'
+
 type Value = {
   id: number
   email: string
@@ -13,7 +14,7 @@ interface AddProps {
   setVisible: (state: boolean) => void
 }
 
-const UserAddModalTemplate = ({onClick, onChange, value, visible, setVisible}: AddProps) => {
+const UserDetailModal = ({onClick, onChange, value, visible, setVisible}: AddProps) => {
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
@@ -49,4 +50,4 @@ const UserAddModalTemplate = ({onClick, onChange, value, visible, setVisible}: A
   )
 }
 
-export default UserAddModalTemplate
+export default UserDetailModal

@@ -14,8 +14,7 @@ const routes = [
   {path: `/test/test-list`, name: '조회', element: TestList},
   {path: `/test/create-test`, name: '생성', element: CreateTest},
   // user
-  {path: `/users/userList`, name: '생성', element: UserList},
-  {path: `/users/userDetail`, name: '생성', element: UserDetail},
+  {path: `/users/userList`, name: 'UserList', element: UserList},
 ]
 
 export default routes
