@@ -1,19 +1,5 @@
 import React, {useState} from 'react'
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CForm,
-  CButton,
-  CRow,
-  CModalBody,
-  CModal,
-  CModalHeader,
-  CModalTitle,
-  CFormLabel,
-  CFormInput,
-} from '@coreui/react'
+import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import {testUserTableValues} from '../test/testConstant'
 import ListTemplate from '../../components/list/ListTemplate'
 import UserAddModalTemplate from '../../components/Modal/UserAddModalTemplate'
@@ -24,21 +10,26 @@ const UserList = () => {
   const [selectedItem, setSelectedItem] = useState({})
   const [item, setItem] = useState({
     id: 0,
-    email: '',
+    userName: '',
+    businessNumber: '',
+    createdAt: '',
+    status: true,
     phoneNumber: '',
+    businessRegistration: '',
+    businessName: '',
+    businessAddress: '',
   })
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
-  const handleRowClick = item => {
-    setSelectedItem(item)
-    setShowModal(!showModal)
-  }
 
   const handleRetrieveTestList = async () => {
     setItems(testUserTableValues)
   }
   const handleUserItemAddModal = () => {
     setShowAddModal(!showAddModal)
+  }
+  const handleUserDetailModal = () => {
+    setShowModal(!showModal)
   }
   const handleUserItemAddModalOnChange = ({target}) => {
     const {id, value} = target
@@ -67,7 +58,7 @@ const UserList = () => {
             </CForm>
           </CCardHeader>
           <CCardBody>
-            <ListTemplate items={items} onClick={handleRowClick} />
+            <ListTemplate items={items} onClick={handleUserDetailModal} />
           </CCardBody>
         </CCard>
       </CCol>
@@ -77,12 +68,7 @@ const UserList = () => {
         setVisible={setShowAddModal}
         onChange={handleUserItemAddModalOnChange}
       />
-      <UserDetailModal
-        value={item}
-        visible={showAddModal}
-        setVisible={setShowAddModal}
-        onChange={handleUserItemAddModalOnChange}
-      />
+      <UserDetailModal value={item} visible={showModal} setVisible={setShowModal} readOnly />
     </CRow>
   )
 }

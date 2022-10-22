@@ -6,7 +6,7 @@ yarn.lock
 build/*
 build-dev/*
 build-stage/*
-
+.yarn
 
 # yarn Zero Install
 `.yarn/*
