@@ -21,6 +21,33 @@ const UserList = () => {
   })
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
+  /** UserList Columns */
+  const userListColumns = [
+    {
+      key: 'id',
+      _props: {color: 'primary', className: 'userId'},
+    },
+    {
+      key: 'userName',
+      _props: {color: 'primary', className: 'userName'},
+    },
+    {
+      key: 'businessNumber',
+      _props: {color: 'primary', className: 'businessNumber'},
+    },
+    {
+      key: 'phoneNumber',
+      _props: {color: 'primary', className: 'phoneNumber'},
+    },
+    {
+      key: 'createdAt',
+      _props: {color: 'primary', className: 'createdAt'},
+    },
+    {
+      key: 'status',
+      _props: {color: 'primary', className: 'status'},
+    },
+  ]
 
   const handleRetrieveTestList = async () => {
     setItems(testUserTableValues)
@@ -50,7 +77,6 @@ const UserList = () => {
     if (!item.businessName) return alert('Is Not Business Name')
     if (!item.businessAddress) return alert('Is Not Business Address')
     const createAt = moment().format('YYYY-MM-DD HH-mm')
-    console.log(createAt)
     setItems([
       ...items,
       {
@@ -79,7 +105,12 @@ const UserList = () => {
             </CForm>
           </CCardHeader>
           <CCardBody>
-            <ListTemplate items={items} onClick={handleShowUserDetailModal} />
+            <ListTemplate
+              items={items}
+              onClick={handleShowUserDetailModal}
+              columns={userListColumns}
+              className={'userList'}
+            />
           </CCardBody>
         </CCard>
       </CCol>

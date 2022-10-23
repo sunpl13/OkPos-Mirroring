@@ -3,7 +3,7 @@ import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
 import {CBadge} from '@coreui/react'
 
-const ListTemplate = ({items, onClick}) => {
+const ListTemplate = ({items, onClick, columns, className}) => {
   const [listItems, setListItems] = useState([])
   const getBadge = status => {
     switch (status) {
@@ -23,6 +23,7 @@ const ListTemplate = ({items, onClick}) => {
   return (
     <CSmartTable
       items={listItems}
+      columns={columns || null}
       activePage={1}
       columnFilter
       columnSorter
@@ -34,6 +35,7 @@ const ListTemplate = ({items, onClick}) => {
         responsive: true,
         striped: true,
         align: 'middle',
+        className: className,
       }}
       scopedColumns={{
         status: ({status}) => (
@@ -52,6 +54,8 @@ const ListTemplate = ({items, onClick}) => {
 ListTemplate.propTypes = {
   items: PropTypes.array,
   onClick: PropTypes.func,
+  columns: PropTypes.array,
+  className: PropTypes.string,
 }
 
 export default ListTemplate
