@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
-import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow, CFormSelect} from '@coreui/react'
 import {testUserTableValues} from '../test/testConstant'
 import ListTemplate from '../../components/list/ListTemplate'
 import UserAddModalTemplate from '../../components/Modal/UserAddModalTemplate'
 import UserDetailModal from '../../components/Modal/UserDetailModal'
-import moment from 'moment/moment'
 
 const UserList = () => {
   const [items, setItems] = useState([])
@@ -19,8 +18,10 @@ const UserList = () => {
     businessName: '',
     businessAddress: '',
   })
+
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
+
   /** UserList Columns */
   const userListColumns = [
     {
@@ -46,11 +47,14 @@ const UserList = () => {
     {
       key: 'status',
       _props: {color: 'primary', className: 'status'},
+      sorter: false,
+      filter: false,
     },
   ]
 
   const handleRetrieveTestList = async () => {
-    setItems(testUserTableValues)
+    const status = testUserTableValues.filter(v => v.status)
+    setItems(status)
   }
   /** Open Modal*/
   const handleShowUserItemAddModal = () => {
@@ -69,6 +73,7 @@ const UserList = () => {
       [id]: value,
     })
   }
+
   const handleUserItemAddModalOnClick = () => {
     if (!item.userName) return alert('Is Not User Name')
     if (!item.businessNumber) return alert('Is Not Business Number')
@@ -76,14 +81,21 @@ const UserList = () => {
     if (!item.businessRegistration) return alert('Is Not Business Registration File')
     if (!item.businessName) return alert('Is Not Business Name')
     if (!item.businessAddress) return alert('Is Not Business Address')
-    const createAt = moment().format('YYYY-MM-DD HH-mm')
     setItems([
       ...items,
       {
         ...item,
-        createAt: createAt,
       },
     ])
+    setItem({
+      userName: '',
+      businessNumber: '',
+      phoneNumber: '',
+      businessRegistration: '',
+      businessName: '',
+      businessAddress: '',
+    })
+    setShowAddModal(!showAddModal)
   }
 
   return (

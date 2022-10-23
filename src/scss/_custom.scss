@@ -8,19 +8,15 @@ table {
     tr {
       text-align: center;
     }
-    td {
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-      max-width: 300px;
-    }
     th.userId{
       min-width: 60px;
       max-width: 100px;
     }
+    th.businessNumber {
+      min-width: 180px;
+    }
     th.phoneNumber {
-      min-width: 150px;
-      max-width: 300px;
+      min-width: 160px;
     }
 
   }

@@ -46,7 +46,7 @@ exports.testUserTableValues = [
     id: 1,
     userName: '122',
     email: 'Test@naver.com',
-    phoneNumber: '111-222-3333111-222-3333111-222-3333',
+    phoneNumber: '111-222-3333',
     firstRegistration: '2022-01-24',
     status: false,
   },
