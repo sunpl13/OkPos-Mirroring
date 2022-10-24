@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow, CFormSelect} from '@coreui/react'
 import {testUserTableValues} from '../test/testConstant'
 import ListTemplate from '../../components/list/ListTemplate'
-import UserAddModalTemplate from '../../components/Modal/UserAddModalTemplate'
-import UserDetailModal from '../../components/Modal/UserDetailModal'
+import UserAddModalTemplate from '../../components/Modal/users/UserAddModalTemplate'
+import UserDetailModal from '../../components/Modal/users/UserDetailModal'
 
 const UserList = () => {
   const [items, setItems] = useState([])
