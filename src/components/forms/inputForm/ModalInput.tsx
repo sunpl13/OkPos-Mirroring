@@ -5,7 +5,7 @@ interface ModalInputProps {
   onChange?: () => void
   id: string
   placeholder: string
-  value: never | any
+  value: string | number | string[] | undefined
   label: string
   readOnly?: boolean
 }
