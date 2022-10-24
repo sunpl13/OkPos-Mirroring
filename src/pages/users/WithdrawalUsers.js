@@ -1,9 +1,10 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import ListTemplate from '../../components/list/ListTemplate'
 import UserDetailModal from '../../components/Modal/users/UserDetailModal'
 import {testUserTableValues} from '../test/testConstant'
-import {CChart} from '@coreui/react-chartjs'
+import BarChartTemplate from '../../components/chart/BarChartTemplate'
+import {ChartTestData} from '../test/ChartTest'
 
 const WithdrawalUsers = () => {
   const [items, setItems] = useState([])
@@ -21,7 +22,7 @@ const WithdrawalUsers = () => {
 
   const [showModal, setShowModal] = useState(false)
 
-  /** Userlist Columns */
+  /** User list Columns */
   const userListColumns = [
     {
       key: 'id',
@@ -71,16 +72,27 @@ const WithdrawalUsers = () => {
     },
   ]
 
+  const [chartData, setChartData] = useState([
+    {
+      label: '',
+      data: [0],
+      backgroundColor: '',
+      borderColor: '',
+      borderWidth: 2,
+    },
+  ])
+
   const handleRetrieveTestList = async () => {
     const status = testUserTableValues.filter(v => !v.status)
     setItems(status)
+    setChartData(ChartTestData)
   }
+
   /** Open Modal*/
   const handleShowUserDetailModal = item => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
-
   return (
     <CRow>
       <CCol xs={12}>
@@ -95,44 +107,7 @@ const WithdrawalUsers = () => {
             </CForm>
           </CCardHeader>
           <CCardBody>
-            <CChart
-              type='bar'
-              data={{
-                datasets: [
-                  {
-                    label: '서비스 문제',
-                    backgroundColor: '#f87979',
-                    data: [20],
-                  },
-                  {
-                    label: '가격 문제',
-                    backgroundColor: 'skyblue',
-                    data: [55],
-                  },
-                  {
-                    label: '제품 문제',
-                    backgroundColor: '#ddd',
-                    data: [38],
-                  },
-                  {
-                    label: '타 업체의 비해 경쟁력이 떨어짐',
-                    backgroundColor: 'blue',
-                    data: [38],
-                  },
-                  {
-                    label: '단순 변심',
-                    backgroundColor: 'yellow',
-                    data: [38],
-                  },
-                  {
-                    label: '그 외에 문제',
-                    backgroundColor: 'origin',
-                    data: [38],
-                  },
-                ],
-              }}
-              labels='months'
-            />
+            <BarChartTemplate title={'탈퇴 사유'} data={chartData || [{}]} />
             <ListTemplate
               items={items}
               onClick={handleShowUserDetailModal}
