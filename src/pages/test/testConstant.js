@@ -230,3 +230,46 @@ exports.testEmployments = [
     status: 'end',
   },
 ]
+
+exports.testPopupValues = [
+  {
+    No: 1,
+    popUpName: 'new',
+    popUpImg: 'ㅁㄷㅎㅁㄷㄴ',
+  },
+  {
+    No: 2,
+    popUpName: 'new',
+    popUpImg: 'ㅁㄷㅎㅁㄷㄴ',
+  },
+  {
+    No: 3,
+    popUpName: 'new',
+    popUpImg: 'ㅁㄷㅎㅁㄷㄴ',
+  },
+  {
+    No: 4,
+    popUpName: 'new',
+    popUpImg: 'ㅁㄷㅎㅁㄷㄴ',
+  },
+  {
+    No: 5,
+    popUpName: 'new',
+    popUpImg: 'ㅁㄷㅎㅁㄷㄴ',
+  },
+  {
+    No: 6,
+    popUpName: 'new',
+    popUpImg: 'ㅁㄷㅎㅁㄷㄴ',
+  },
+  {
+    No: 7,
+    popUpName: 'new',
+    popUpImg: 'ㅁㄷㅎㅁㄷㄴ',
+  },
+  {
+    No: 8,
+    popUpName: 'new',
+    popUpImg: 'ㅁㄷㅎㅁㄷㄴ',
+  },
+]

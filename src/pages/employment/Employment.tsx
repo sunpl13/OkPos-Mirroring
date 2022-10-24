@@ -33,27 +33,27 @@ const Employment = () => {
     },
     {
       key: 'category',
-      Label: '카테고리',
+      label: '카테고리',
       _props: {color: 'primary', className: 'category'},
     },
     {
       key: 'employName',
-      Label: '공고 제목',
+      label: '공고 제목',
       _props: {color: 'primary', className: 'employName'},
     },
     {
       key: 'employStartDate',
-      Label: '공고 시작일',
+      label: '공고 시작일',
       _props: {color: 'primary', className: 'employDate'},
     },
     {
       key: 'employEndDate',
-      Label: '공고 종료일',
+      label: '공고 종료일',
       _props: {color: 'primary', className: 'employDate'},
     },
     {
       key: 'status',
-      Label: '진행 상태',
+      label: '진행 상태',
       _props: {color: 'primary', className: 'status'},
     },
   ]
