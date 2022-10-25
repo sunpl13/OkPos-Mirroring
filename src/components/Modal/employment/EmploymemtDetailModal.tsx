@@ -2,20 +2,10 @@ import React from 'react'
 import {CModal, CModalBody, CModalHeader, CModalTitle} from '@coreui/react'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 import ModalInput from '../../forms/inputForm/ModalInput'
-type Value = {
-  id: number
-  userName: string
-  businessNumber: string
-  createdAt: string
-  status: boolean
-  phoneNumber: string
-  businessRegistration: string
-  businessName: string
-  businessAddress: string
-}
+import {Employment} from '../../../pages/employment/Employment'
 interface AddProps {
   readOnly: boolean
-  value: Value
+  value: Employment
   visible: boolean
   setVisible: (state: boolean) => void
 }
@@ -75,10 +65,10 @@ const EmploymemtDetailModal = ({value, visible, setVisible, readOnly}: AddProps)
       <CModalBody>
         <ModalSelect size='sm' value={category} placeholder='선택해주세요' label='카테고리' />
         <ModalInput
-          id={'userName'}
-          placeholder={'UserName'}
-          label={'UserName'}
-          value={value.userName}
+          id={'category'}
+          placeholder={'카테고리'}
+          label={'카테고리'}
+          value={value.category}
           readOnly={readOnly}
         />
       </CModalBody>
