@@ -9,6 +9,7 @@ const UserList = React.lazy(() => import('./pages/users/userlist'))
 // const UserDetail = React.lazy(() => import('./pages/users/userDetail'))
 
 const Employment = React.lazy(() => import('./pages/employment/Employment'))
+const Popup = React.lazy(() => import('./pages/popup/PopUpPage'))
 const routes = [
   {path: '/dashboard', name: 'Dashboard', element: Dashboard},
 
@@ -19,6 +20,9 @@ const routes = [
 
   //employment
   {path: `/home/employment`, name: '채용관리', element: Employment},
+
+  //popup
+  {path: `/home/popup`, name: '팝업관리', element: Popup},
 ]
 
 export default routes

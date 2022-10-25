@@ -50,8 +50,13 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: '채용관리',
+        name: '채용 관리',
         to: '/home/employment',
+      },
+      {
+        component: CNavItem,
+        name: '팝업 관리',
+        to: '/home/popup',
       },
     ],
   },
