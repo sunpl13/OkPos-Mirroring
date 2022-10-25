@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import ListTemplate from '../../components/list/ListTemplate'
 import UserDetailModal from '../../components/Modal/users/UserDetailModal'
@@ -27,6 +27,10 @@ const WithdrawalUsers = () => {
     {
       key: 'id',
       _props: {color: 'primary', className: 'userId'},
+    },
+    {
+      key: 'images',
+      _props: {color: 'primary', className: 'secessionReason'},
     },
     {
       key: 'userName',
