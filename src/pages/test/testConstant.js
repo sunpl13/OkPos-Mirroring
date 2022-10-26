@@ -48,6 +48,7 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '111-222-3333',
     firstRegistration: '2022-01-24',
+    images: [''],
     status: false,
   },
   {
@@ -56,6 +57,7 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '22222-3333-4444',
     firstRegistration: '2022-01-24',
+    images: [],
     status: true,
   },
   {
@@ -64,6 +66,7 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
+    images: [],
     status: false,
   },
   {
@@ -72,6 +75,7 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
+    images: [],
     status: true,
   },
   {
@@ -80,6 +84,7 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
+    images: [],
     status: true,
   },
   {
@@ -88,6 +93,7 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
+    images: [],
     status: false,
   },
   {
@@ -96,6 +102,7 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
+    images: [],
     status: true,
   },
   {
@@ -104,6 +111,7 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
+    images: [],
     status: true,
   },
   {
@@ -112,6 +120,7 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
+    images: [],
     status: false,
   },
   {
@@ -120,6 +129,7 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
+    images: [],
     status: true,
   },
   {
@@ -128,7 +138,11 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
-    url: 'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    images: [
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    ],
     status: false,
   },
   {
@@ -137,7 +151,9 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
-    url: 'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    images: [
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    ],
     status: false,
   },
   {
@@ -146,7 +162,9 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
-    url: 'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    images: [
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    ],
     status: false,
   },
   {
@@ -155,7 +173,9 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
-    url: 'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    images: [
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    ],
     status: false,
   },
   {
@@ -164,7 +184,9 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
-    url: 'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    images: [
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    ],
     status: false,
   },
   {
@@ -173,7 +195,9 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
-    url: 'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    images: [
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    ],
     status: false,
   },
   {
@@ -182,7 +206,9 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
-    url: 'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    images: [
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    ],
     status: false,
   },
   {
@@ -191,7 +217,9 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
-    url: 'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    images: [
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    ],
     status: false,
   },
   {
@@ -200,7 +228,9 @@ exports.testUserTableValues = [
     email: 'Test@naver.com',
     phoneNumber: '3123-41231-12412312',
     firstRegistration: '2022-01-24',
-    url: 'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    images: [
+      'https://img1.daumcdn.net/thumb/C176x176/?fname=https://k.kakaocdn.net/dn/s5xc6/btrDZImdqkO/MUDaKD6v0M4rxHglbFJ8o1/img.png',
+    ],
     status: false,
   },
 ]

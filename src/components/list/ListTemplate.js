@@ -56,9 +56,9 @@ const ListTemplate = ({items, onClick, columns, className}) => {
               <CBadge color={getBadge(status)}>{status ? 'Activate' : 'Disabled'}</CBadge>
             </td>
           ),
-          images: ({url}) => (
-            <td onClick={event => (url ? testOnClick(event, url) : onClick)}>
-              <CImage src={url} alt='' width={100} height={60} />
+          images: ({images}) => (
+            <td onClick={event => (images.length !== 0 ? testOnClick(event, images) : onClick)}>
+              <CImage rounded src={images.length === 0 ? '' : images[0]} alt='' width={100} height={60} />
             </td>
           ),
         }}

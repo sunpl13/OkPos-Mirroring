@@ -3,7 +3,7 @@ import {CButton, CImage, CModal, CModalBody, CModalFooter, CModalHeader, CModalT
 interface ModalTest {
   onClick: () => void
   onChange: () => void
-  url: string
+  url: Array<string>
   visible: boolean
   setVisible: (state: boolean) => void
 }
@@ -14,9 +14,7 @@ const ListImgClickModalTest = ({visible, setVisible, url}: ModalTest) => {
       <CModalHeader>
         <CModalTitle>User Detail</CModalTitle>
       </CModalHeader>
-      <CModalBody>
-        <CImage fluid src={url} alt='' />
-      </CModalBody>
+      <CModalBody>{url && url?.map((v, i) => <CImage fluid src={v} alt='' key={i} />)}</CModalBody>
       <CModalFooter>
         <CButton color='primary' onClick={() => setVisible(false)}>
           Cancel
