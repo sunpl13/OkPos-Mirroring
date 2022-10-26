@@ -1,13 +1,15 @@
-import React from 'react'
-import {CModal, CModalBody, CModalHeader, CModalTitle} from '@coreui/react'
+import React, {useState} from 'react'
+import {CCol, CFormLabel, CImage, CModal, CModalBody, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 import ModalInput from '../../forms/inputForm/ModalInput'
-import {Employment} from '../../../pages/employment/Employment'
+import {EmploymentType} from '../../../pages/employment/Employment'
+import DatePickerForm from '../../common/DatePickerForm'
 interface AddProps {
   readOnly: boolean
-  value: Employment
+  value?: EmploymentType
   visible: boolean
   setVisible: (state: boolean) => void
+  onChange: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
 }
 
 const category = [
@@ -33,44 +35,138 @@ const category = [
   {key: 'q', value: '운영 혁신 TF'},
 ]
 
-// const status = [
-//   {key: 'p', value: '채용중'},
-//   {key: 'q', value: '마감'},
-// ]
+const status = [
+  {key: 'p', value: '채용중'},
+  {key: 'q', value: '마감'},
+]
 
-const EmploymemtDetailModal = ({value, visible, setVisible, readOnly}: AddProps) => {
+const type = [
+  {key: 'q', value: '정규직'},
+  {key: 'w', value: '계약직'},
+  {key: 'e', value: '인턴'},
+]
+
+const education = [
+  {key: 'q', value: '대졸(4년제) 이상'},
+  {key: 'w', value: '대졸(2,3년제) 이상'},
+  {key: 'e', value: '고졸'},
+]
+
+const career = [
+  {key: 'q', value: '신입'},
+  {key: 'w', value: '경력'},
+  {key: 'e', value: '무관'},
+]
+const EmploymemtDetailModal = ({value, visible, setVisible, readOnly, onChange}: AddProps) => {
+  const [startDate, setstartDate] = useState(new Date())
+  const [endDate, setendDate] = useState(new Date())
   return (
-    <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
+    <CModal alignment='center' size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
         <CModalTitle>채용 상세</CModalTitle>
       </CModalHeader>
-      {/* 
-- 공고 제목 
-- 접수 기간 ( 시작 지점 ~ 마감 지점 ) 
-- 본문 이미지
-- 고용 형태 ( 정규직 / 계약직 / 인턴 )
-- 근무 지역
-- 학력 및 전공 ( 대졸(4년제) 이상 / 대졸 (2,3년제) 이상 / 고졸 )
-- 경력 ( 신입 / 경력 / 둘 다 / 무관 )
-- 직무 내용 
-- 자격 요건 
-- 우대 사항 
-- 채용 사유 
-- 부서 현황 
-- 기타 참고 사항 
-
-- 수정 버튼 
-- 삭제 버튼 "
-*/}
       <CModalBody>
-        <ModalSelect size='sm' value={category} placeholder='선택해주세요' label='카테고리' />
-        <ModalInput
-          id={'category'}
-          placeholder={'카테고리'}
-          label={'카테고리'}
-          value={value.category}
-          readOnly={readOnly}
-        />
+        <CRow className='mb-3'>
+          <ModalInput onChange={onChange} id='No' placeholder='No.' label='No' value={value?.No} readOnly={true} />
+          <ModalSelect onChange={onChange} size='sm' value={category} placeholder='선택해주세요' label='카테고리' />
+        </CRow>
+        <CRow className='mb-3'>
+          <ModalSelect onChange={onChange} size='sm' value={status} placeholder='선택해주세요' label='진행 상태' />
+          <ModalSelect onChange={onChange} size='sm' value={type} placeholder='선택해주세요' label='고용 형태' />
+        </CRow>
+        <CRow className='mb-3'>
+          <DatePickerForm label='시작일' id='startDate' date={startDate} setDate={setstartDate} />
+          <DatePickerForm label='종료일' id='endDate' date={endDate} setDate={setendDate} />
+        </CRow>
+        <CRow className='mb-3'>
+          <ModalInput
+            onChange={onChange}
+            id='workArea'
+            placeholder='workArea'
+            label='근무 지역'
+            value={value?.workArea}
+            readOnly={true}
+          />
+          <ModalSelect
+            onChange={onChange}
+            size='sm'
+            value={education}
+            placeholder='선택해주세요'
+            label='학력 및 전공'
+          />
+        </CRow>
+        <CRow className='mb-3'>
+          <ModalInput
+            onChange={onChange}
+            id='des'
+            placeholder='des'
+            label='직무 내용'
+            value={value?.des}
+            readOnly={true}
+          />
+          <ModalSelect onChange={onChange} size='sm' value={career} placeholder='선택해주세요' label='경력' />
+        </CRow>
+        <CRow className='mb-3'>
+          <CFormLabel>이미지</CFormLabel>
+          <CCol>
+            <CImage
+              rounded
+              src='https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fevents%2F2404%2F54ecb586.jpg&w=1200&q=100'
+              width={200}
+              height={200}
+            />
+          </CCol>
+        </CRow>
+        <CRow className='mb-3'>
+          <ModalInput
+            onChange={onChange}
+            id='qualifications'
+            placeholder='qualifications'
+            label='자격 요건'
+            value={value?.qualifications}
+            readOnly={true}
+          />
+        </CRow>
+        <CRow className='mb-3'>
+          <ModalInput
+            onChange={onChange}
+            id='preferentiaTreatment'
+            placeholder='preferentiaTreatment'
+            label='우대사항'
+            value={value?.preferentiaTreatment}
+            readOnly={true}
+          />
+        </CRow>
+        <CRow className='mb-3'>
+          <ModalInput
+            onChange={onChange}
+            id='reason'
+            placeholder='reason'
+            label='채용 사유'
+            value={value?.reason}
+            readOnly={true}
+          />
+        </CRow>
+        <CRow className='mb-3'>
+          <ModalInput
+            onChange={onChange}
+            id='departmentStatus'
+            placeholder='departmentStatus'
+            label='부서 현황'
+            value={value?.departmentStatus}
+            readOnly={true}
+          />
+        </CRow>
+        <CRow className='mb-3'>
+          <ModalInput
+            onChange={onChange}
+            id='etc'
+            placeholder='etc'
+            label='기타 참고사항'
+            value={value?.etc}
+            readOnly={true}
+          />
+        </CRow>
       </CModalBody>
     </CModal>
   )
