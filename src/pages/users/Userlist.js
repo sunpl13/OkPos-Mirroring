@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import {testUserTableValues} from '../test/testConstant'
 import ListTemplate from '../../components/list/ListTemplate'
@@ -52,10 +52,10 @@ const Userlist = () => {
     },
   ]
 
-  const handleRetrieveTestList = async () => {
-    const status = testUserTableValues.filter(v => v.status)
-    setItems(status)
-  }
+  useEffect(() => {
+    setItems(testUserTableValues.filter(v => v.status))
+  }, [])
+
   /** Open Modal*/
   const handleShowUserItemAddModal = () => {
     setShowAddModal(!showAddModal)
@@ -70,6 +70,12 @@ const Userlist = () => {
     const {id, value} = target
     setItem({
       ...item,
+      [id]: value,
+    })
+  }
+  const handleUserDetailModalOnChange = ({target: {id, value}}) => {
+    setSelectedItem({
+      ...selectedItem,
       [id]: value,
     })
   }
@@ -105,11 +111,6 @@ const Userlist = () => {
           <CCardHeader>
             <CForm className='row g-3'>
               <CCol xs={1}>
-                <CButton color='primary' onClick={handleRetrieveTestList}>
-                  조회하기
-                </CButton>
-              </CCol>
-              <CCol xs={1}>
                 <CButton color='primary' onClick={handleShowUserItemAddModal}>
                   추가
                 </CButton>
@@ -120,6 +121,7 @@ const Userlist = () => {
             <ListTemplate
               items={items}
               onClick={handleShowUserDetailModal}
+              onChange={handleUserDetailModalOnChange}
               columns={userListColumns}
               className={'userList'}
             />
@@ -133,7 +135,13 @@ const Userlist = () => {
         onChange={handleUserItemAddModalOnChange}
         onClick={handleUserItemAddModalOnClick}
       />
-      <UserDetailModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
+      <UserDetailModal
+        value={selectedItem}
+        visible={showModal}
+        setVisible={setShowModal}
+        readOnly
+        onChange={handleUserDetailModalOnChange}
+      />
     </CRow>
   )
 }

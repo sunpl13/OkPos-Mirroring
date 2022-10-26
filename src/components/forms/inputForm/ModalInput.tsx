@@ -1,4 +1,4 @@
-import {CCol, CFormInput, CFormLabel, CRow} from '@coreui/react'
+import {CCol, CFormInput, CFormLabel} from '@coreui/react'
 
 interface ModalInputProps {
   type?: string
@@ -8,15 +8,16 @@ interface ModalInputProps {
   value: never | any
   label: string
   readOnly?: boolean
+  disabled?: boolean
 }
 
-const ModalInput = ({type, onChange, id, placeholder, value, label, readOnly}: ModalInputProps) => {
+const ModalInput = ({type, onChange, id, placeholder, value, label, readOnly, disabled}: ModalInputProps) => {
   return (
-    <CRow className='mb-3'>
-      <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
+    <>
+      <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
         {label || ' * '}
       </CFormLabel>
-      <CCol sm={10}>
+      <CCol className='align-items-center' style={{display: 'flex'}}>
         <CFormInput
           type={type || 'text'}
           id={id}
@@ -24,9 +25,10 @@ const ModalInput = ({type, onChange, id, placeholder, value, label, readOnly}: M
           value={type === 'file' ? undefined : value}
           onChange={onChange}
           readOnly={readOnly}
+          disabled={disabled}
         />
       </CCol>
-    </CRow>
+    </>
   )
 }
 

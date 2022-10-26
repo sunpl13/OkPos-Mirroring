@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
+import React, {useEffect, useState} from 'react'
+import {CCard, CCardBody, CCardHeader, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../test/testConstant'
 import InquiryDetailModal from '../../../components/Modal/users/InquiryDetailModal'
@@ -45,9 +45,9 @@ const UserInquiryList = () => {
     },
   ]
 
-  const handleRetrieveTestList = async () => {
+  useEffect(() => {
     setItems(testUserTableValues)
-  }
+  }, [])
 
   /** Open Modal*/
   const handleShowModal = item => {
@@ -58,24 +58,16 @@ const UserInquiryList = () => {
     setInquiryMsg(value)
   }
   const handleInquiryModalOnClick = () => {
-    setSelectedItem({
-      ...selectedItem,
-      answer: inquiryMsg,
-    })
-    console.log(selectedItem)
+    setItems(items.map(value => (value.id === selectedItem.id ? {...selectedItem, answer: inquiryMsg} : value)))
+    setInquiryMsg('')
+    setShowModal(!showModal)
   }
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardHeader>
-            <CForm className='row g-3'>
-              <CCol xs={12}>
-                <CButton color='primary' onClick={handleRetrieveTestList}>
-                  조회하기
-                </CButton>
-              </CCol>
-            </CForm>
+            <h2>UserInquiryList</h2>
           </CCardHeader>
           <CCardBody>
             <ListTemplate items={items} onClick={handleShowModal} columns={userListColumns} className={'userList'} />

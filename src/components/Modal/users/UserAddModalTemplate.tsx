@@ -1,4 +1,4 @@
-import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
+import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
 type Value = {
   userName: string
@@ -25,13 +25,22 @@ const UserAddModalTemplate = ({onClick, onChange, value, visible, setVisible}: A
         <CModalTitle>Add User</CModalTitle>
       </CModalHeader>
       <CModalBody>
-        <ModalInput
-          id={'userName'}
-          placeholder={'UserName'}
-          label={'UserName'}
-          value={value.userName}
-          onChange={onChange}
-        />
+        <CRow>
+          <ModalInput
+            id={'userName'}
+            placeholder={'UserName'}
+            label={'UserName'}
+            value={value.userName}
+            onChange={onChange}
+          />
+          <ModalInput
+            id={'phoneNumber'}
+            placeholder={'Phone Number'}
+            label={'Phone Number'}
+            value={value.phoneNumber}
+            onChange={onChange}
+          />
+        </CRow>
         <ModalInput
           id={'businessNumber'}
           placeholder={'Business Number'}
@@ -39,13 +48,7 @@ const UserAddModalTemplate = ({onClick, onChange, value, visible, setVisible}: A
           value={value.businessNumber}
           onChange={onChange}
         />
-        <ModalInput
-          id={'phoneNumber'}
-          placeholder={'Phone Number'}
-          label={'Phone Number'}
-          value={value.phoneNumber}
-          onChange={onChange}
-        />
+
         <ModalInput
           type='file'
           id={'businessRegistration'}

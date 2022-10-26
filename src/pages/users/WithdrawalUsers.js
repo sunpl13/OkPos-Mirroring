@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import ListTemplate from '../../components/list/ListTemplate'
 import UserDetailModal from '../../components/Modal/users/UserDetailModal'
@@ -86,11 +86,10 @@ const WithdrawalUsers = () => {
     },
   ])
 
-  const handleRetrieveTestList = async () => {
-    const status = testUserTableValues.filter(v => !v.status)
-    setItems(status)
+  useEffect(() => {
+    setItems(testUserTableValues.filter(v => !v.status))
     setChartData(ChartTestData)
-  }
+  }, [])
 
   /** Open Modal*/
   const handleShowUserDetailModal = item => {
@@ -102,13 +101,7 @@ const WithdrawalUsers = () => {
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardHeader>
-            <CForm className='row g-3'>
-              <CCol xs={12}>
-                <CButton color='primary' onClick={handleRetrieveTestList}>
-                  조회하기
-                </CButton>
-              </CCol>
-            </CForm>
+            <h2>WithdrawalUsers</h2>
           </CCardHeader>
           <CCardBody>
             <BarChartTemplate title={'탈퇴 사유'} data={chartData || [{}]} />

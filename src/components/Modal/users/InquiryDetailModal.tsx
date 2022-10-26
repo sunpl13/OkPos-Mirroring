@@ -7,6 +7,7 @@ type Value = {
   phoneNumber: string
   text: string | undefined
   firstRegistration: string
+  answer: string
 }
 
 interface InquiryDetailProps {
@@ -19,6 +20,7 @@ interface InquiryDetailProps {
 }
 
 const InquiryDetailModal = ({onClick, onChange, value, item, visible, setVisible}: InquiryDetailProps) => {
+  console.log(item.answer)
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
@@ -39,7 +41,7 @@ const InquiryDetailModal = ({onClick, onChange, value, item, visible, setVisible
             label='Inquiry Textarea'
             text='Must be 8-20 words long.'
             rows={9}
-            value={value}
+            value={item.answer || value}
             onChange={onChange}
           ></CFormTextarea>
         </CForm>
