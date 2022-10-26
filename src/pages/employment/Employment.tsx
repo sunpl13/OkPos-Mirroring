@@ -3,6 +3,7 @@ import PageHeader from '../../components/common/PageHeader'
 import {testEmployments} from '../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../components/list/ListTemplate'
+import EmploymemtDetailModal from '../../components/Modal/employment/EmploymemtDetailModal'
 export type EmploymentType = {
   No: number
   category: string
@@ -24,16 +25,44 @@ export type EmploymentType = {
 }
 const Employment = () => {
   const [items, setItems] = useState<EmploymentType[]>([])
-  const [selectedItem, setSelectedItem] = useState({})
-  // const [item, setItem] = useState({
-  //   No: 0,
-  //   category: '',
-  //   employName: '',
-  //   employStartDate: '',
-  //   employEndDate: '',
-  //   status: '',
-  // })
-  console.log(selectedItem)
+  const [selectedItem, setSelectedItem] = useState<EmploymentType>({
+    No: 0,
+    category: '',
+    status: false,
+    employName: '',
+    employStartDate: '',
+    employEndDate: '',
+    employbannerImg: '',
+    employmentType: 'a',
+    workArea: '',
+    education: 'a',
+    career: 'a',
+    des: '',
+    qualifications: '',
+    preferentiaTreatment: '',
+    reason: '',
+    departmentStatus: '',
+    etc: '',
+  })
+  const [item, setItem] = useState<EmploymentType>({
+    No: 0,
+    category: '',
+    status: false,
+    employName: '',
+    employStartDate: '',
+    employEndDate: '',
+    employbannerImg: '',
+    employmentType: 'a',
+    workArea: '',
+    education: 'a',
+    career: 'a',
+    des: '',
+    qualifications: '',
+    preferentiaTreatment: '',
+    reason: '',
+    departmentStatus: '',
+    etc: '',
+  })
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
 
@@ -125,10 +154,7 @@ const Employment = () => {
   ]
 
   const handleRetrieveTestList = async () => {
-    const status = testEmployments.filter(v => v.status)
-    console.log(testEmployments)
-
-    setItems(status as EmploymentType[])
+    setItems(testEmployments as EmploymentType[])
   }
   /** Open Modal*/
   const handleShowUserItemAddModal = () => {
@@ -140,20 +166,15 @@ const Employment = () => {
   }
 
   // /** Add User Modal*/
-  // const handleUserItemAddModalOnChange = ({target}: any) => {
-  //   const {id, value} = target
-  //   setItem({
-  //     ...item,
-  //     [id]: value,
-  //   })
-  // }
+  const handleUserItemAddModalOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    const {id, value} = target
+    setItem({
+      ...item,
+      [id]: value,
+    })
+  }
 
-  // const handleUserItemAddModalOnClick = () => {
-  //   if (!item.employName) return alert('Is Not User Name')
-  //   if (!item.category) return alert('Is Not Business Number')
-  //   if (!item.employStartDate) return alert('Is Not Phone Number')
-  //   if (!item.employEndDate) return alert('Is Not Business Registration File')
-  //   if (!item.status) return alert('Is Not Business Name')
+  // const handleEmployItemAddModalOnClick = () => {
   //   setItems([
   //     ...items,
   //     {
@@ -163,10 +184,21 @@ const Employment = () => {
   //   setItem({
   //     No: 0,
   //     category: '',
+  //     status: false,
   //     employName: '',
   //     employStartDate: '',
   //     employEndDate: '',
-  //     status: '',
+  //     employbannerImg: '',
+  //     employmentType: 'a',
+  //     workArea: '',
+  //     education: 'a',
+  //     career: 'a',
+  //     des: '',
+  //     qualifications: '',
+  //     preferentiaTreatment: '',
+  //     reason: '',
+  //     departmentStatus: '',
+  //     etc: '',
   //   })
   //   setShowAddModal(!showAddModal)
   // }
@@ -202,6 +234,13 @@ const Employment = () => {
           </CCard>
         </CCol>
       </CRow>
+      <EmploymemtDetailModal
+        readOnly={false}
+        onChange={handleUserItemAddModalOnChange}
+        visible={showModal}
+        value={selectedItem}
+        setVisible={setShowModal}
+      />
     </main>
   )
 }
