@@ -44,8 +44,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
   const closeModal = () => {
     console.log(stateCompare)
     console.log(value)
-    if (stateCompare.id !== value.id) return alert('fafafa')
-    if (stateCompare.userName !== value.userName) return alert('fafafa')
+
     setVisible(false)
     setEditMode(false)
   }

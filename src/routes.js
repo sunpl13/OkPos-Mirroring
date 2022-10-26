@@ -6,11 +6,11 @@ const TestList = React.lazy(() => import('./pages/test/TestList'))
 const CreateTest = React.lazy(() => import('./pages/test/CreateTest'))
 
 // 유저 리스트
-const UserList = React.lazy(() => import('./pages/users/Userlist'))
-const WithdrawalUsers = React.lazy(() => import('./pages/users/WithdrawalUsers'))
+const UserList = React.lazy(() => import('./pages/partnerCenter/users/Userlist'))
+const WithdrawalUsers = React.lazy(() => import('./pages/partnerCenter/users/WithdrawalUsers'))
 
 // 1:1 문의 리스트
-const UserInquiryList = React.lazy(() => import('./pages/users/inquiry/UserInquiryList'))
+const UserInquiryList = React.lazy(() => import('./pages/partnerCenter/users/inquiry/UserInquiryList'))
 const UserInquiryDetail = React.lazy(() => import('./components/Modal/users/InquiryDetailModal'))
 
 const routes = [

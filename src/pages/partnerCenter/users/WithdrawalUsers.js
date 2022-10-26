@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
-import ListTemplate from '../../components/list/ListTemplate'
-import UserDetailModal from '../../components/Modal/users/UserDetailModal'
-import {testUserTableValues} from '../test/testConstant'
-import BarChartTemplate from '../../components/chart/BarChartTemplate'
-import {ChartTestData} from '../test/ChartTest'
+import ListTemplate from '../../../components/list/ListTemplate'
+import UserDetailModal from '../../../components/Modal/users/UserDetailModal'
+import {testUserTableValues} from '../../test/testConstant'
+import BarChartTemplate from '../../../components/chart/BarChartTemplate'
+import {ChartTestData} from '../../test/ChartTest'
 
 const WithdrawalUsers = () => {
   const [items, setItems] = useState([])
