@@ -1,5 +1,5 @@
 import React from 'react'
-import {CCol, CFormSelect, CFormLabel, CRow} from '@coreui/react'
+import {CCol, CFormSelect, CFormLabel} from '@coreui/react'
 
 interface IOption {
   key: number | string
@@ -7,7 +7,7 @@ interface IOption {
 }
 
 interface ModalInputProps {
-  onChange?: () => void
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
   placeholder: string
   label: string
   readOnly?: boolean
@@ -20,17 +20,17 @@ const ModalSelect = ({onChange, size, placeholder, label, value, readOnly, id}: 
   const newOptions = value.map(item => <option key={item.key}>{item.value}</option>)
 
   return (
-    <CRow className='mb-3'>
+    <>
       <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
         {label || ' * '}
       </CFormLabel>
-      <CCol sm={10}>
+      <CCol>
         <CFormSelect id={id} size={size} onChange={onChange} readOnly={readOnly}>
           <option>{placeholder}</option>
           {newOptions}
         </CFormSelect>
       </CCol>
-    </CRow>
+    </>
   )
 }
 
