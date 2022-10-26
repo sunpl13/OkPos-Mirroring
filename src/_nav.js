@@ -41,6 +41,16 @@ const _nav = [
         name: 'UserList',
         to: '/users/userList',
       },
+      {
+        component: CNavItem,
+        name: 'WithdrawalUsers',
+        to: '/users/withdrawalUsers',
+      },
+      {
+        component: CNavItem,
+        name: 'UserInquiryList',
+        to: '/users/inquiry/userInquiryList',
+      },
     ],
   },
   {

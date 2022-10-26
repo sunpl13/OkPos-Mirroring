@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
-import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow, CFormSelect} from '@coreui/react'
+import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import {testUserTableValues} from '../test/testConstant'
 import ListTemplate from '../../components/list/ListTemplate'
-import UserAddModalTemplate from '../../components/Modal/UserAddModalTemplate'
-import UserDetailModal from '../../components/Modal/UserDetailModal'
+import UserAddModalTemplate from '../../components/Modal/users/UserAddModalTemplate'
+import UserDetailModal from '../../components/Modal/users/UserDetailModal'
 
-const UserList = () => {
+const Userlist = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [item, setItem] = useState({
@@ -22,7 +22,7 @@ const UserList = () => {
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
 
-  /** UserList Columns */
+  /** Userlist Columns */
   const userListColumns = [
     {
       key: 'id',
@@ -138,4 +138,4 @@ const UserList = () => {
   )
 }
 
-export default UserList
+export default Userlist

@@ -1,8 +1,6 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
-import ModalInput from '../forms/inputForm/ModalInput'
-
+import ModalInput from '../../forms/inputForm/ModalInput'
 type Value = {
-  id: number
   userName: string
   businessNumber: string
   createdAt: string
@@ -13,79 +11,69 @@ type Value = {
   businessAddress: string
 }
 interface AddProps {
-  readOnly: boolean
+  onClick: () => void
+  onChange: () => void
   value: Value
   visible: boolean
   setVisible: (state: boolean) => void
 }
 
-const UserDetailModal = ({value, visible, setVisible, readOnly}: AddProps) => {
+const UserAddModalTemplate = ({onClick, onChange, value, visible, setVisible}: AddProps) => {
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
-        <CModalTitle>User Detail</CModalTitle>
+        <CModalTitle>Add User</CModalTitle>
       </CModalHeader>
       <CModalBody>
-        <ModalInput id={'userId'} placeholder={'User Id'} label={'User Id'} value={value.id} readOnly={readOnly} />
         <ModalInput
           id={'userName'}
           placeholder={'UserName'}
           label={'UserName'}
           value={value.userName}
-          readOnly={readOnly}
+          onChange={onChange}
         />
         <ModalInput
           id={'businessNumber'}
           placeholder={'Business Number'}
           label={'Business Number'}
           value={value.businessNumber}
-          readOnly={readOnly}
-        />
-        <ModalInput
-          id={'createdAt'}
-          placeholder={'CreatedAt'}
-          label={'CreatedAt'}
-          value={value.createdAt}
-          readOnly={readOnly}
-        />
-        <ModalInput
-          id={'userStatus'}
-          placeholder={'User Status'}
-          label={'User Status'}
-          value={value.status ? 'Activate' : 'Disabled'}
-          readOnly={readOnly}
+          onChange={onChange}
         />
         <ModalInput
           id={'phoneNumber'}
           placeholder={'Phone Number'}
           label={'Phone Number'}
           value={value.phoneNumber}
-          readOnly={readOnly}
+          onChange={onChange}
         />
         <ModalInput
+          type='file'
           id={'businessRegistration'}
           placeholder={'Business Registration'}
           label={'Business Registration'}
           value={value.businessRegistration}
-          readOnly={readOnly}
+          onChange={onChange}
         />
         <ModalInput
           id={'businessName'}
           placeholder={'Business Name'}
           label={'Business Name'}
           value={value.businessName}
-          readOnly={readOnly}
+          onChange={onChange}
         />
         <ModalInput
           id={'businessAddress'}
           placeholder={'Business Address'}
           label={'Business Address'}
           value={value.businessAddress}
-          readOnly={readOnly}
+          onChange={onChange}
         />
       </CModalBody>
       <CModalFooter>
-        <CButton color='primary' onClick={() => setVisible(false)}>
+        <CButton onClick={onClick} color='primary'>
+          Add
+        </CButton>
+        <CButton color='secondary' onClick={() => setVisible(false)}>
           Cancel
         </CButton>
       </CModalFooter>
@@ -93,4 +81,4 @@ const UserDetailModal = ({value, visible, setVisible, readOnly}: AddProps) => {
   )
 }
 
-export default UserDetailModal
+export default UserAddModalTemplate

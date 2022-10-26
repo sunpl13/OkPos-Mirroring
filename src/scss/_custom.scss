@@ -13,10 +13,22 @@ table {
       max-width: 100px;
     }
     th.businessNumber {
-      min-width: 180px;
+      min-width: 190px;
     }
     th.phoneNumber {
       min-width: 160px;
+    }
+    th.status {
+      min-width: 90px;
+    }
+    th.businessName {
+      min-width: 160px;
+    }
+    th.businessAddress {
+      min-width: 180px;
+    }
+    th.secessionReason {
+      min-width: 180px;
     }
   }
 }
