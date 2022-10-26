@@ -1,8 +1,8 @@
-import {CCol, CFormInput, CFormLabel, CRow} from '@coreui/react'
+import {CCol, CFormInput, CFormLabel} from '@coreui/react'
 
 interface ModalInputProps {
   type?: string
-  onChange?: () => void
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
   id: string
   placeholder: string
   value: string | number | string[] | undefined
@@ -12,11 +12,11 @@ interface ModalInputProps {
 
 const ModalInput = ({type, onChange, id, placeholder, value, label, readOnly}: ModalInputProps) => {
   return (
-    <CRow className='mb-3'>
+    <>
       <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
         {label || ' * '}
       </CFormLabel>
-      <CCol sm={10}>
+      <CCol>
         <CFormInput
           type={type || 'text'}
           id={id}
@@ -26,7 +26,7 @@ const ModalInput = ({type, onChange, id, placeholder, value, label, readOnly}: M
           readOnly={readOnly}
         />
       </CCol>
-    </CRow>
+    </>
   )
 }
 
