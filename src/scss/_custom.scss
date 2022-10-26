@@ -8,7 +8,7 @@ table {
     tr {
       text-align: center;
     }
-    th.userId{
+    th.userId {
       min-width: 60px;
       max-width: 100px;
     }
@@ -18,7 +18,6 @@ table {
     th.phoneNumber {
       min-width: 160px;
     }
-
   }
 }
 
@@ -41,4 +40,10 @@ th {
 th.large {
   min-width: 300px;
   max-width: 300px;
+}
+
+.react-datepicker__triangle {
+  position: absolute;
+  left: 0 !important;
+  transform: translate(240px, 0px);
 }
