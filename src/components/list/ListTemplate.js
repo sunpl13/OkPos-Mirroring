@@ -24,7 +24,7 @@ const ListTemplate = ({items, onClick, columns, className}) => {
     setShowModal(!showModal)
     setImgClick(url)
   }
-  const modalOnClick = event => {
+  const modalOnClick = () => {
     setShowModal(!showModal)
   }
 

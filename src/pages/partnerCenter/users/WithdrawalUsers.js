@@ -9,16 +9,16 @@ import {ChartTestData} from '../../test/ChartTest'
 const WithdrawalUsers = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
-  const [item, setItem] = useState({
-    userName: '',
-    businessNumber: '',
-    createdAt: '',
-    status: false,
-    phoneNumber: '',
-    businessRegistration: '',
-    businessName: '',
-    businessAddress: '',
-  })
+  // const [item, setItem] = useState({
+  //   userName: '',
+  //   businessNumber: '',
+  //   createdAt: '',
+  //   status: false,
+  //   phoneNumber: '',
+  //   businessRegistration: '',
+  //   businessName: '',
+  //   businessAddress: '',
+  // })
 
   const [showModal, setShowModal] = useState(false)
 
