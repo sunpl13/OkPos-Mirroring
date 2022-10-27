@@ -33,22 +33,22 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: 'Users',
+    name: '유저 관리',
     icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
     items: [
       {
         component: CNavItem,
-        name: 'UserList',
+        name: '회원 리스트',
         to: '/users/userList',
       },
       {
         component: CNavItem,
-        name: 'WithdrawalUsers',
+        name: '탈퇴 회원 리스트',
         to: '/users/withdrawalUsers',
       },
       {
         component: CNavItem,
-        name: 'UserInquiryList',
+        name: '1 : 1 문의 리스트',
         to: '/users/inquiry/userInquiryList',
       },
     ],
