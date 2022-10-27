@@ -40,13 +40,14 @@ const PopUpPage = () => {
     setShowModal(!showModal)
   }
 
+  /*
   const handlePopUpOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const {id, value} = target
     setItem({
       ...item,
       [id]: value,
     })
-  }
+  }*/
 
   const handleUserItemAddModalOnClick = () => {
     setItems([
