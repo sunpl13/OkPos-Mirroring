@@ -74,13 +74,13 @@ const Employment = () => {
   const handleShowUserItemAddModal = () => {
     setShowAddModal(!showAddModal)
   }
-  const handleShowUserDetailModal = (item: EmploymentType) => {
+  const handleShowEmploymentDetailModal = (item: EmploymentType) => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
 
   // /** Add User Modal*/
-  const handleUserItemAddModalOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  const handleEmployDetailOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const {id, value} = target
     setItem({
       ...item,
@@ -140,7 +140,7 @@ const Employment = () => {
             <CCardBody>
               <ListTemplate
                 items={items}
-                onClick={handleShowUserDetailModal}
+                onClick={handleShowEmploymentDetailModal}
                 columns={employmentColumns}
                 className={'userList'}
               />
@@ -150,7 +150,7 @@ const Employment = () => {
       </CRow>
       <EmploymemtDetailModal
         readOnly={false}
-        onChange={handleUserItemAddModalOnChange}
+        onChange={handleEmployDetailOnChange}
         visible={showModal}
         value={selectedItem}
         setVisible={setShowModal}

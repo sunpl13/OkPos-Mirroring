@@ -3,8 +3,9 @@ import PageHeader from '../../components/common/PageHeader'
 import {testPopupValues} from '../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../components/list/ListTemplate'
-
-interface IPopUp {
+import PopupDeatil from '../../components/Modal/popup/PopupDeatil'
+import {popupColumns} from '../../utils/columns/popup/Columns'
+export interface IPopUp {
   No: number
   popUpName: string
   popUpImg: string
@@ -12,15 +13,17 @@ interface IPopUp {
 
 const PopUpPage = () => {
   const [items, setItems] = useState<IPopUp[]>([])
-  const [selectedItem, setSelectedItem] = useState({})
-  // const [item, setItem] = useState({
-  //   No: 0,
-  //   category: '',
-  //   employName: '',
-  //   employStartDate: '',
-  //   employEndDate: '',
-  //   status: '',
-  // })
+  const [selectedItem, setSelectedItem] = useState<IPopUp>({
+    No: 0,
+    popUpName: '',
+    popUpImg: '',
+  })
+  const [item, setItem] = useState({
+    No: 0,
+    popUpName: '',
+    popUpImg: '',
+  })
+  console.log(selectedItem)
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
 
@@ -37,37 +40,28 @@ const PopUpPage = () => {
     setShowModal(!showModal)
   }
 
-  // /** Add User Modal*/
-  // const handleUserItemAddModalOnChange = ({target}: any) => {
-  //   const {id, value} = target
-  //   setItem({
-  //     ...item,
-  //     [id]: value,
-  //   })
-  // }
+  const handlePopUpOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    const {id, value} = target
+    setItem({
+      ...item,
+      [id]: value,
+    })
+  }
 
-  // const handleUserItemAddModalOnClick = () => {
-  //   if (!item.employName) return alert('Is Not User Name')
-  //   if (!item.category) return alert('Is Not Business Number')
-  //   if (!item.employStartDate) return alert('Is Not Phone Number')
-  //   if (!item.employEndDate) return alert('Is Not Business Registration File')
-  //   if (!item.status) return alert('Is Not Business Name')
-  //   setItems([
-  //     ...items,
-  //     {
-  //       ...item,
-  //     },
-  //   ])
-  //   setItem({
-  //     No: 0,
-  //     category: '',
-  //     employName: '',
-  //     employStartDate: '',
-  //     employEndDate: '',
-  //     status: '',
-  //   })
-  //   setShowAddModal(!showAddModal)
-  // }
+  const handleUserItemAddModalOnClick = () => {
+    setItems([
+      ...items,
+      {
+        ...item,
+      },
+    ])
+    setItem({
+      No: 0,
+      popUpName: '',
+      popUpImg: '',
+    })
+    setShowAddModal(!showAddModal)
+  }
 
   return (
     <main>
@@ -93,13 +87,20 @@ const PopUpPage = () => {
               <ListTemplate
                 items={items}
                 onClick={handleShowUserDetailModal}
-                columns={popUpColumns}
-                className={'userList'}
+                columns={popupColumns}
+                className={'popupList'}
               />
             </CCardBody>
           </CCard>
         </CCol>
       </CRow>
+      <PopupDeatil
+        setVisible={setShowModal}
+        readOnly={false}
+        visible={showModal}
+        value={selectedItem}
+        onChange={handleUserItemAddModalOnClick}
+      />
     </main>
   )
 }
