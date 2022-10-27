@@ -19,7 +19,7 @@ const PopupDeatil = ({value, visible, setVisible, readOnly, onChange}: AddProps)
       </CModalHeader>
       <CModalBody>
         <CRow className='mb-3'>
-          <ModalInput onChange={onChange} id='No' placeholder='No.' label='No' value={value?.No} readOnly={true} />
+          <ModalInput onChange={onChange} id='No' placeholder='No.' label='No' value={value?.No} readOnly={readOnly} />
         </CRow>
         <CRow className='mb-3'>
           <ModalInput
