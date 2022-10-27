@@ -33,7 +33,7 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: '유저 관리',
+    name: '회원 관리',
     icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
     items: [
       {

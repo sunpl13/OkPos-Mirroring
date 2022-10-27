@@ -3,6 +3,7 @@ import {CCard, CCardBody, CCardHeader, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../../test/testConstant'
 import InquiryDetailModal from '../../../../components/Modal/users/InquiryDetailModal'
+import PageHeader from '../../../../components/common/PageHeader'
 
 const UserInquiryList = () => {
   const [items, setItems] = useState([])
@@ -64,11 +65,9 @@ const UserInquiryList = () => {
   }
   return (
     <CRow>
+      <PageHeader title='1 : 1 문의 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
-          <CCardHeader>
-            <h2>UserInquiryList</h2>
-          </CCardHeader>
           <CCardBody>
             <ListTemplate items={items} onClick={handleShowModal} columns={userListColumns} className={'userList'} />
           </CCardBody>

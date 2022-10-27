@@ -4,6 +4,7 @@ import {testUserTableValues} from '../../test/testConstant'
 import ListTemplate from '../../../components/list/ListTemplate'
 import UserAddModalTemplate from '../../../components/Modal/users/UserAddModalTemplate'
 import UserDetailModal from '../../../components/Modal/users/UserDetailModal'
+import PageHeader from '../../../components/common/PageHeader'
 
 const Userlist = () => {
   const [items, setItems] = useState([])
@@ -106,6 +107,7 @@ const Userlist = () => {
 
   return (
     <CRow>
+      <PageHeader title='회원 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardHeader>

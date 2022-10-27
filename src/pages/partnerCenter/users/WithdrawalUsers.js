@@ -5,6 +5,7 @@ import UserDetailModal from '../../../components/Modal/users/UserDetailModal'
 import {testUserTableValues} from '../../test/testConstant'
 import BarChartTemplate from '../../../components/chart/BarChartTemplate'
 import {ChartTestData} from '../../test/ChartTest'
+import PageHeader from '../../../components/common/PageHeader'
 
 const WithdrawalUsers = () => {
   const [items, setItems] = useState([])
@@ -98,11 +99,9 @@ const WithdrawalUsers = () => {
   }
   return (
     <CRow>
+      <PageHeader title='탈퇴 회원 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
-          <CCardHeader>
-            <h2>WithdrawalUsers</h2>
-          </CCardHeader>
           <CCardBody>
             <BarChartTemplate title={'탈퇴 사유'} data={chartData || [{}]} />
             <ListTemplate
