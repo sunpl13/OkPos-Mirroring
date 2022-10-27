@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import {CCard, CCardBody, CCardHeader, CCol, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../../test/testConstant'
 import InquiryDetailModal from '../../../../components/Modal/users/InquiryDetailModal'
 import PageHeader from '../../../../components/common/PageHeader'
 import {userListColumns} from '../../../../utils/columns/partnerCenter/Columns'
+import TestDate from '../../../../components/common/TestDate'
 
 const UserInquiryList = () => {
   const [items, setItems] = useState([])
@@ -35,13 +36,19 @@ const UserInquiryList = () => {
   }
   const handleInquiryModalOnClick = () => {
     setItems(items.map(value => (value.id === selectedItem.id ? {...selectedItem, answer: inquiryMsg} : value)))
-    setInquiryMsg('')
     setShowModal(!showModal)
   }
+  useEffect(() => {
+    if (!showModal) {
+      setInquiryMsg('')
+    }
+  }, [showModal])
+
   return (
     <CRow>
       <PageHeader title='1 : 1 문의 리스트' />
       <CCol xs={12}>
+        <TestDate />
         <CCard className='mb-4'>
           <CCardBody>
             <ListTemplate items={items} onClick={handleShowModal} columns={userListColumns} className={'userList'} />

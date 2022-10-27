@@ -45,12 +45,6 @@ const Userlist = () => {
       [id]: value,
     })
   }
-  const handleUserDetailModalOnChange = ({target: {id, value}}) => {
-    setSelectedItem({
-      ...selectedItem,
-      [id]: value,
-    })
-  }
   const handleUserDetailModalUpdateData = data => {
     setItems(items.map(value => (value.id === data.id ? data : value)))
   }
@@ -96,7 +90,6 @@ const Userlist = () => {
             <ListTemplate
               items={items}
               onClick={handleShowUserDetailModal}
-              onChange={handleUserDetailModalOnChange}
               columns={userListColumns}
               className={'userList'}
             />
@@ -115,7 +108,6 @@ const Userlist = () => {
         visible={showModal}
         setVisible={setShowModal}
         readOnly
-        onChange={handleUserDetailModalOnChange}
         upDate={handleUserDetailModalUpdateData}
       />
     </CRow>

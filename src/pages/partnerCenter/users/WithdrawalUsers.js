@@ -11,17 +11,6 @@ import {withdrawalUsersColumns} from '../../../utils/columns/partnerCenter/Colum
 const WithdrawalUsers = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
-  // const [item, setItem] = useState({
-  //   userName: '',
-  //   businessNumber: '',
-  //   createdAt: '',
-  //   status: false,
-  //   phoneNumber: '',
-  //   businessRegistration: '',
-  //   businessName: '',
-  //   businessAddress: '',
-  // })
-
   const [showModal, setShowModal] = useState(false)
 
   const [chartData, setChartData] = useState([
@@ -44,6 +33,9 @@ const WithdrawalUsers = () => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
+  const handleUserDetailModalUpdateData = data => {
+    setItems(items.map(value => (value.id === data.id ? data : value)))
+  }
   return (
     <CRow>
       <PageHeader title='탈퇴 회원 리스트' />
@@ -60,7 +52,13 @@ const WithdrawalUsers = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <UserDetailModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
+      <UserDetailModal
+        value={selectedItem}
+        visible={showModal}
+        setVisible={setShowModal}
+        upDate={handleUserDetailModalUpdateData}
+        readOnly
+      />
     </CRow>
   )
 }

@@ -52,9 +52,9 @@ const UserDetailModal = ({value, visible, setVisible, upDate}: AddProps) => {
     ) {
       if (window.confirm('Edit ?')) {
         upDate(stateCompare)
-        setEditMode(!editMode)
+        setEditMode(false)
       } else {
-        setEditMode(!editMode)
+        setEditMode(false)
       }
     } else {
       setEditMode(!editMode)
@@ -70,8 +70,8 @@ const UserDetailModal = ({value, visible, setVisible, upDate}: AddProps) => {
   }
   //
   const handleCloseModal = () => {
+    userDetailEditMode()
     setVisible(false)
-    setEditMode(false)
   }
   return (
     <CModal size='lg' visible={visible} onClose={handleCloseModal}>
