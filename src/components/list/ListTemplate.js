@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
 import {CBadge, CImage} from '@coreui/react'
-import ListImgClickModalTest from './ListImgClickModalTest'
+import ThumbnailModal from './ThumbnailModal'
 
 const ListTemplate = ({items, onClick, columns, className}) => {
   const [listItems, setListItems] = useState([])
@@ -66,7 +66,7 @@ const ListTemplate = ({items, onClick, columns, className}) => {
         itemsPerPageSelect
         itemsPerPage={10}
       />
-      <ListImgClickModalTest visible={showModal} setVisible={setShowModal} onClick={modalOnClick} url={imgClick} />
+      <ThumbnailModal visible={showModal} setVisible={setShowModal} onClick={modalOnClick} url={imgClick} />
     </>
   )
 }
