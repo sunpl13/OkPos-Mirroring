@@ -1,7 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {cilBank, cilSpeedometer, cilUser, cilHome} from '@coreui/icons'
-import {CNavGroup, CNavItem} from '@coreui/react'
+import {CNavGroup, CNavItem, CNavTitle} from '@coreui/react'
 
 const _nav = [
   {
@@ -30,6 +30,10 @@ const _nav = [
         to: '/test/create-test',
       },
     ],
+  },
+  {
+    component: CNavTitle,
+    name: '오케이포스 홈페이지',
   },
   {
     component: CNavGroup,
@@ -67,6 +71,48 @@ const _nav = [
         component: CNavItem,
         name: '팝업 관리',
         to: '/home/popup',
+      },
+    ],
+  },
+  {
+    component: CNavTitle,
+    name: '가맹점 전용 공식몰',
+  },
+  {
+    component: CNavGroup,
+    name: '회원 관리',
+    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    items: [
+      {
+        component: CNavItem,
+        name: '회원 리스트',
+        to: '/users/userList',
+      },
+      {
+        component: CNavItem,
+        name: '탈퇴 회원 리스트',
+        to: '/users/withdrawalUsers',
+      },
+    ],
+  },
+  {
+    component: CNavTitle,
+    name: '대리점 전용 파트너센터',
+  },
+  {
+    component: CNavGroup,
+    name: '파트너센터 회원 관리',
+    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    items: [
+      {
+        component: CNavItem,
+        name: '회원 리스트',
+        to: '/users/userList',
+      },
+      {
+        component: CNavItem,
+        name: '탈퇴 회원 리스트',
+        to: '/users/withdrawalUsers',
       },
     ],
   },
