@@ -8,7 +8,7 @@ table {
     tr {
       text-align: center;
     }
-    th.userId{
+    th.userId {
       min-width: 60px;
       max-width: 90px;
     }
@@ -21,13 +21,13 @@ table {
     th.status {
       min-width: 90px;
     }
-    th.businessName{
+    th.businessName {
       min-width: 160px;
     }
-    th.businessAddress{
+    th.businessAddress {
       min-width: 180px;
     }
-    th.secessionReason{
+    th.secessionReason {
       min-width: 180px;
     }
   }
@@ -52,4 +52,10 @@ th {
 th.large {
   min-width: 300px;
   max-width: 300px;
+}
+
+.react-datepicker__triangle {
+  position: absolute;
+  left: 0 !important;
+  transform: translate(240px, 0px);
 }

@@ -13,6 +13,8 @@ const WithdrawalUsers = React.lazy(() => import('./pages/partnerCenter/users/Wit
 const UserInquiryList = React.lazy(() => import('./pages/partnerCenter/users/inquiry/UserInquiryList'))
 const UserInquiryDetail = React.lazy(() => import('./components/Modal/users/InquiryDetailModal'))
 
+const Employment = React.lazy(() => import('./pages/employment/Employment'))
+const Popup = React.lazy(() => import('./pages/popup/PopUpPage'))
 const routes = [
   {path: '/dashboard', name: 'Dashboard', element: Dashboard},
 
@@ -21,6 +23,12 @@ const routes = [
   // user
   {path: `/users/userList`, name: 'UserList', element: UserList},
   {path: `/users/withdrawalUsers`, name: 'WithdrawalUsers', element: WithdrawalUsers},
+
+  //employment
+  {path: `/home/employment`, name: '채용관리', element: Employment},
+
+  //popup
+  {path: `/home/popup`, name: '팝업관리', element: Popup},
 
   //UserInquiry
   {path: `/users/inquiry/userInquiryList`, name: 'UserInquiryList', element: UserInquiryList},

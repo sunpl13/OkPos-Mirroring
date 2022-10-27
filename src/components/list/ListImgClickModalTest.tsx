@@ -10,12 +10,12 @@ interface ModalTest {
 
 const ListImgClickModalTest = ({visible, setVisible, url}: ModalTest) => {
   return (
-    <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
+    <CModal alignment='center' size='xl' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
-        <CModalTitle>User Detail</CModalTitle>
+        <CModalTitle>User 안녕하세요</CModalTitle>
       </CModalHeader>
-      <CModalBody>
-        <CImage fluid src={url} alt='' />
+      <CModalBody className='clearfix'>
+        <CImage align='center' fluid src={url} alt='' width={600} />
       </CModalBody>
       <CModalFooter>
         <CButton color='primary' onClick={() => setVisible(false)}>
