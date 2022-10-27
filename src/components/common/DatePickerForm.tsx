@@ -16,7 +16,7 @@ interface IDatePickerProps {
 }
 
 const DatePickerForm = ({id, date, setDate, label, readOnly}: IDatePickerProps) => {
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState<Date | null>(new Date())
 
   useEffect(() => {
     setStartDate(date)
@@ -28,16 +28,11 @@ const DatePickerForm = ({id, date, setDate, label, readOnly}: IDatePickerProps) 
   }
   return (
     <>
-      <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
+      <CFormLabel htmlFor={`${id}Static`} className={'col-sm-2 col-form-label'}>
         {label || ' * '}
       </CFormLabel>
       <CCol>
-        <CDatePicker
-          readOnly={readOnly}
-          dateFormat='yyyy-MM-dd'
-          selected={startDate}
-          onChange={date => onChange(date)}
-        />
+        <CDatePicker readOnly={readOnly} dateFormat='yyyy-MM-dd' selected={startDate} onChange={() => onChange(date)} />
       </CCol>
     </>
   )

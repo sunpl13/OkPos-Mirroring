@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import PageHeader from '../../components/common/PageHeader'
 import {testPopupValues} from '../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
@@ -21,7 +21,6 @@ const PopUpPage = () => {
   //   employEndDate: '',
   //   status: '',
   // })
-  console.log(selectedItem)
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
 
@@ -50,6 +49,7 @@ const PopUpPage = () => {
     setShowAddModal(!showAddModal)
   }
   const handleShowUserDetailModal = (item: IPopUp) => {
+    console.log(selectedItem)
     setSelectedItem(item)
     setShowModal(!showModal)
   }

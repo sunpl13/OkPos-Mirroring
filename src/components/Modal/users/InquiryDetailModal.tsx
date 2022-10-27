@@ -20,7 +20,6 @@ interface InquiryDetailProps {
 }
 
 const InquiryDetailModal = ({onClick, onChange, value, item, visible, setVisible}: InquiryDetailProps) => {
-  console.log(item.answer)
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>

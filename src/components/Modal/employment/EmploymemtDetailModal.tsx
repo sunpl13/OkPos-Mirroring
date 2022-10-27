@@ -4,12 +4,13 @@ import ModalSelect from '../../forms/inputForm/ModalSelect'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import {EmploymentType} from '../../../pages/employment/Employment'
 import DatePickerForm from '../../common/DatePickerForm'
+
 interface AddProps {
   readOnly: boolean
   value?: EmploymentType
   visible: boolean
   setVisible: (state: boolean) => void
-  onChange: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
+  onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
 }
 
 const category = [
@@ -57,7 +58,7 @@ const career = [
   {key: 'w', value: '경력'},
   {key: 'e', value: '무관'},
 ]
-const EmploymemtDetailModal = ({value, visible, setVisible, readOnly, onChange}: AddProps) => {
+const EmploymemtDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
   const [startDate, setstartDate] = useState(new Date())
   const [endDate, setendDate] = useState(new Date())
   return (

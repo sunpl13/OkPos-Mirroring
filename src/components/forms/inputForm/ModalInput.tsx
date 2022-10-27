@@ -1,8 +1,9 @@
 import {CCol, CFormInput, CFormLabel} from '@coreui/react'
+import React from 'react'
 
 interface ModalInputProps {
   type?: string
-  onChange?: () => void
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
   id: string
   placeholder: string
   value: string | number | string[] | undefined
