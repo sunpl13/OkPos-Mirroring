@@ -1,6 +1,6 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 type Value = {
   id: number
@@ -17,10 +17,11 @@ interface AddProps {
   value: Value
   visible: boolean
   setVisible: (state: boolean) => void
-  onChange: () => void
+  onChange?: () => void
+  upDate: (item: Value) => void
 }
 
-const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
+const UserDetailModal = ({value, visible, setVisible, upDate}: AddProps) => {
   const [editMode, setEditMode] = useState(false)
   const [stateCompare, setStateCompare] = useState<Value>({
     id: 0,
@@ -39,18 +40,41 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
       setStateCompare(value)
     }
   }, [visible])
-
   const userDetailEditMode = () => {
-    setEditMode(!editMode)
+    if (
+      (editMode && stateCompare.id !== value.id) ||
+      stateCompare.userName !== value.userName ||
+      stateCompare.phoneNumber !== value.phoneNumber ||
+      stateCompare.businessName !== value.businessName ||
+      stateCompare.businessNumber !== value.businessNumber ||
+      stateCompare.businessAddress !== value.businessAddress ||
+      stateCompare.businessRegistration !== value.businessRegistration
+    ) {
+      if (window.confirm('Edit ?')) {
+        upDate(stateCompare)
+        setEditMode(!editMode)
+      } else {
+        setEditMode(!editMode)
+      }
+    } else {
+      setEditMode(!editMode)
+    }
   }
-  const closeModal = () => {
-    console.log(stateCompare)
-
+  const handleUserDetailModalOnChange = ({
+    target: {id, value},
+  }: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    setStateCompare({
+      ...stateCompare,
+      [id]: value,
+    })
+  }
+  //
+  const handleCloseModal = () => {
     setVisible(false)
     setEditMode(false)
   }
   return (
-    <CModal size='lg' visible={visible} onClose={closeModal}>
+    <CModal size='lg' visible={visible} onClose={handleCloseModal}>
       <CModalHeader>
         <CModalTitle>User Detail</CModalTitle>
       </CModalHeader>
@@ -61,7 +85,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             placeholder={'User Id'}
             label={'User Id'}
             value={stateCompare.id}
-            onChange={onChange}
+            onChange={handleUserDetailModalOnChange}
             disabled={!editMode}
             readOnly={!editMode}
           />
@@ -70,7 +94,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             placeholder={'UserName'}
             label={'UserName'}
             value={stateCompare.userName}
-            onChange={onChange}
+            onChange={handleUserDetailModalOnChange}
             disabled={!editMode}
             readOnly={!editMode}
           />
@@ -81,7 +105,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             placeholder={'Business Number'}
             label={'Business Number'}
             value={stateCompare.businessNumber}
-            onChange={onChange}
+            onChange={handleUserDetailModalOnChange}
             disabled={!editMode}
             readOnly={!editMode}
           />
@@ -90,9 +114,9 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             placeholder={'CreatedAt'}
             label={'CreatedAt'}
             value={stateCompare.createdAt}
-            onChange={onChange}
-            disabled={!editMode}
-            readOnly={!editMode}
+            onChange={handleUserDetailModalOnChange}
+            disabled
+            readOnly
           />
         </CRow>
         <CRow className={'p-2'}>
@@ -101,7 +125,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             placeholder={'User Status'}
             label={'User Status'}
             value={stateCompare.status ? 'Activate' : 'Disabled'}
-            onChange={onChange}
+            onChange={handleUserDetailModalOnChange}
             disabled={!editMode}
             readOnly={!editMode}
           />
@@ -110,7 +134,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             placeholder={'Phone Number'}
             label={'Phone Number'}
             value={stateCompare.phoneNumber}
-            onChange={onChange}
+            onChange={handleUserDetailModalOnChange}
             disabled={!editMode}
             readOnly={!editMode}
           />
@@ -121,7 +145,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             placeholder={'Business Registration'}
             label={'Business Registration'}
             value={stateCompare.businessRegistration}
-            onChange={onChange}
+            onChange={handleUserDetailModalOnChange}
             disabled={!editMode}
             readOnly={!editMode}
           />
@@ -130,7 +154,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             placeholder={'Business Name'}
             label={'Business Name'}
             value={stateCompare.businessName}
-            onChange={onChange}
+            onChange={handleUserDetailModalOnChange}
             disabled={!editMode}
             readOnly={!editMode}
           />
@@ -141,6 +165,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             placeholder={'Business Address'}
             label={'Business Address'}
             value={stateCompare.businessAddress}
+            onChange={handleUserDetailModalOnChange}
             disabled={!editMode}
             readOnly={!editMode}
           />
@@ -150,7 +175,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
         <CButton color={editMode ? 'success' : 'primary'} onClick={userDetailEditMode}>
           Edit
         </CButton>
-        <CButton color='primary' onClick={closeModal}>
+        <CButton color='primary' onClick={handleCloseModal}>
           Cancel
         </CButton>
       </CModalFooter>

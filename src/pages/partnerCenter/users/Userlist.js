@@ -51,7 +51,9 @@ const Userlist = () => {
       [id]: value,
     })
   }
-
+  const handleUserDetailModalUpdateData = data => {
+    setItems(items.map(value => (value.id === data.id ? data : value)))
+  }
   const handleUserItemAddModalOnClick = () => {
     if (!item.userName) return alert('Is Not User Name')
     if (!item.businessNumber) return alert('Is Not Business Number')
@@ -114,6 +116,7 @@ const Userlist = () => {
         setVisible={setShowModal}
         readOnly
         onChange={handleUserDetailModalOnChange}
+        upDate={handleUserDetailModalUpdateData}
       />
     </CRow>
   )
