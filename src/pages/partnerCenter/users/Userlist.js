@@ -5,6 +5,7 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import UserAddModalTemplate from '../../../components/Modal/users/UserAddModalTemplate'
 import UserDetailModal from '../../../components/Modal/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
+import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
 
 const Userlist = () => {
   const [items, setItems] = useState([])
@@ -22,36 +23,6 @@ const Userlist = () => {
 
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
-
-  /** Userlist Columns */
-  const userListColumns = [
-    {
-      key: 'id',
-      _props: {color: 'primary', className: 'userId'},
-    },
-    {
-      key: 'userName',
-      _props: {color: 'primary', className: 'userName'},
-    },
-    {
-      key: 'businessNumber',
-      _props: {color: 'primary', className: 'businessNumber'},
-    },
-    {
-      key: 'phoneNumber',
-      _props: {color: 'primary', className: 'phoneNumber'},
-    },
-    {
-      key: 'createdAt',
-      _props: {color: 'primary', className: 'createdAt'},
-    },
-    {
-      key: 'status',
-      _props: {color: 'primary', className: 'status'},
-      sorter: false,
-      filter: false,
-    },
-  ]
 
   useEffect(() => {
     setItems(testUserTableValues.filter(v => v.status))

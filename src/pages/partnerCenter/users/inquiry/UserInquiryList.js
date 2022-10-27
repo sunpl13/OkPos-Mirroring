@@ -4,6 +4,7 @@ import ListTemplate from '../../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../../test/testConstant'
 import InquiryDetailModal from '../../../../components/Modal/users/InquiryDetailModal'
 import PageHeader from '../../../../components/common/PageHeader'
+import {userListColumns} from '../../../../utils/columns/partnerCenter/Columns'
 
 const UserInquiryList = () => {
   const [items, setItems] = useState([])
@@ -19,32 +20,6 @@ const UserInquiryList = () => {
   const [showModal, setShowModal] = useState(false)
   const [inquiryMsg, setInquiryMsg] = useState('')
   /** User list Columns */
-  const userListColumns = [
-    {
-      key: 'id',
-      _props: {color: 'primary', className: 'userId'},
-    },
-    {
-      key: 'inquiryType',
-      _props: {color: 'primary', className: 'inquiryType'},
-    },
-    {
-      key: 'userName',
-      _props: {color: 'primary', className: 'userName'},
-    },
-    {
-      key: 'email',
-      _props: {color: 'primary', className: 'email'},
-    },
-    {
-      key: 'phoneNumber',
-      _props: {color: 'primary', className: 'phoneNumber'},
-    },
-    {
-      key: 'enrollmentAt',
-      _props: {color: 'primary', className: 'createdAt'},
-    },
-  ]
 
   useEffect(() => {
     setItems(testUserTableValues)

@@ -25,25 +25,26 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
   const [stateCompare, setStateCompare] = useState<Value>({
     id: 0,
     userName: '',
-    businessNumber: '',
     createdAt: '',
     status: true,
     phoneNumber: '',
-    businessRegistration: '',
     businessName: '',
+    businessNumber: '',
+    businessRegistration: '',
     businessAddress: '',
   })
 
   useEffect(() => {
-    setStateCompare(value)
-  }, [])
+    if (visible) {
+      setStateCompare(value)
+    }
+  }, [visible])
 
   const userDetailEditMode = () => {
     setEditMode(!editMode)
   }
   const closeModal = () => {
     console.log(stateCompare)
-    console.log(value)
 
     setVisible(false)
     setEditMode(false)
@@ -59,7 +60,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             id={'id'}
             placeholder={'User Id'}
             label={'User Id'}
-            value={value.id}
+            value={stateCompare.id}
             onChange={onChange}
             disabled={!editMode}
             readOnly={!editMode}
@@ -68,7 +69,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             id={'userName'}
             placeholder={'UserName'}
             label={'UserName'}
-            value={value.userName}
+            value={stateCompare.userName}
             onChange={onChange}
             disabled={!editMode}
             readOnly={!editMode}
@@ -79,7 +80,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             id={'businessNumber'}
             placeholder={'Business Number'}
             label={'Business Number'}
-            value={value.businessNumber}
+            value={stateCompare.businessNumber}
             onChange={onChange}
             disabled={!editMode}
             readOnly={!editMode}
@@ -88,7 +89,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             id={'createdAt'}
             placeholder={'CreatedAt'}
             label={'CreatedAt'}
-            value={value.createdAt}
+            value={stateCompare.createdAt}
             onChange={onChange}
             disabled={!editMode}
             readOnly={!editMode}
@@ -99,7 +100,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             id={'userStatus'}
             placeholder={'User Status'}
             label={'User Status'}
-            value={value.status ? 'Activate' : 'Disabled'}
+            value={stateCompare.status ? 'Activate' : 'Disabled'}
             onChange={onChange}
             disabled={!editMode}
             readOnly={!editMode}
@@ -108,7 +109,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             id={'phoneNumber'}
             placeholder={'Phone Number'}
             label={'Phone Number'}
-            value={value.phoneNumber}
+            value={stateCompare.phoneNumber}
             onChange={onChange}
             disabled={!editMode}
             readOnly={!editMode}
@@ -119,7 +120,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             id={'businessRegistration'}
             placeholder={'Business Registration'}
             label={'Business Registration'}
-            value={value.businessRegistration}
+            value={stateCompare.businessRegistration}
             onChange={onChange}
             disabled={!editMode}
             readOnly={!editMode}
@@ -128,7 +129,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             id={'businessName'}
             placeholder={'Business Name'}
             label={'Business Name'}
-            value={value.businessName}
+            value={stateCompare.businessName}
             onChange={onChange}
             disabled={!editMode}
             readOnly={!editMode}
@@ -139,7 +140,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
             id={'businessAddress'}
             placeholder={'Business Address'}
             label={'Business Address'}
-            value={value.businessAddress}
+            value={stateCompare.businessAddress}
             disabled={!editMode}
             readOnly={!editMode}
           />

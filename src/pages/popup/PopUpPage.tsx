@@ -24,23 +24,6 @@ const PopUpPage = () => {
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
 
-  const employmentColumns = [
-    {
-      key: 'No',
-      _props: {color: 'primary', className: 'employId'},
-    },
-    {
-      key: 'popUpName',
-      label: '팝업 이름',
-      _props: {color: 'primary', className: 'category'},
-    },
-    {
-      key: 'popUpImg',
-      label: '팝업 이미지',
-      _props: {color: 'primary', className: 'employName'},
-    },
-  ]
-
   const handleRetrieveTestList = async () => {
     setItems(testPopupValues)
   }
@@ -110,7 +93,7 @@ const PopUpPage = () => {
               <ListTemplate
                 items={items}
                 onClick={handleShowUserDetailModal}
-                columns={employmentColumns}
+                columns={popUpColumns}
                 className={'userList'}
               />
             </CCardBody>
