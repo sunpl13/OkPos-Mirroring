@@ -51,6 +51,11 @@ const _nav = [
         name: '1 : 1 문의 리스트',
         to: '/users/inquiry/userInquiryList',
       },
+      {
+        component: CNavItem,
+        name: '공지사항 리스트',
+        to: '/users/notice/noticeList',
+      },
     ],
   },
   {

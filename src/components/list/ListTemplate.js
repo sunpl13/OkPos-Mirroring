@@ -3,8 +3,9 @@ import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
 import {CBadge, CImage} from '@coreui/react'
 import ListImgClickModalTest from './ListImgClickModalTest'
+//import RangeDatePickerForm from '../common/RangeDatePickerForm'
 
-const ListTemplate = ({items, onClick, columns, className}) => {
+const ListTemplate = ({items, onClick, columns, className, onDelete}) => {
   const [listItems, setListItems] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [imgClick, setImgClick] = useState('')
@@ -19,7 +20,7 @@ const ListTemplate = ({items, onClick, columns, className}) => {
         return 'primary'
     }
   }
-  const testOnClick = (event, url) => {
+  const imgOnClick = (event, url) => {
     event.stopPropagation()
     setShowModal(!showModal)
     setImgClick(url)
@@ -27,7 +28,11 @@ const ListTemplate = ({items, onClick, columns, className}) => {
   const modalOnClick = () => {
     setShowModal(!showModal)
   }
+  const deleteOnClick = (event, item) => {
+    event.stopPropagation()
 
+    onDelete(item)
+  }
   useEffect(() => {
     setListItems(items)
   }, [items])
@@ -57,8 +62,13 @@ const ListTemplate = ({items, onClick, columns, className}) => {
             </td>
           ),
           images: ({images}) => (
-            <td onClick={event => (images.length !== 0 ? testOnClick(event, images) : onClick)}>
+            <td onClick={event => (images.length !== 0 ? imgOnClick(event, images) : onClick)}>
               <CImage rounded src={images.length === 0 ? '' : images[0]} alt='' width={100} height={60} />
+            </td>
+          ),
+          deleteBtn: item => (
+            <td onClick={event => deleteOnClick(event, item)}>
+              <CBadge color={'danger'}>{'Delete'}</CBadge>
             </td>
           ),
         }}
@@ -76,6 +86,7 @@ ListTemplate.propTypes = {
   onClick: PropTypes.func,
   columns: PropTypes.array,
   className: PropTypes.string,
+  onDelete: PropTypes.func,
 }
 
 export default ListTemplate

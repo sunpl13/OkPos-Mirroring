@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
-import ListTemplate from '../../../../components/list/ListTemplate'
-import {testUserTableValues} from '../../../test/testConstant'
-import InquiryDetailModal from '../../../../components/Modal/users/InquiryDetailModal'
 import PageHeader from '../../../../components/common/PageHeader'
-import {userListColumns} from '../../../../utils/columns/partnerCenter/Columns'
+import ListTemplate from '../../../../components/list/ListTemplate'
+import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
+import InquiryDetailModal from '../../../../components/Modal/users/InquiryDetailModal'
+import {testUserTableValues} from '../../../test/testConstant'
 
-const UserInquiryList = () => {
-  const [items, setItems] = useState([])
+const NoticeList = () => {
+  const [items, setItems] = useState(testUserTableValues)
   const [selectedItem, setSelectedItem] = useState({
     id: 0,
     userName: '',
@@ -21,10 +21,6 @@ const UserInquiryList = () => {
   const [inquiryMsg, setInquiryMsg] = useState('')
   /** User list Columns */
 
-  useEffect(() => {
-    setItems(testUserTableValues)
-  }, [])
-
   /** Open Modal*/
   const handleShowModal = item => {
     setSelectedItem(item)
@@ -37,6 +33,12 @@ const UserInquiryList = () => {
     setItems(items.map(value => (value.id === selectedItem.id ? {...selectedItem, answer: inquiryMsg} : value)))
     setShowModal(!showModal)
   }
+  const handleNoticeDeleteBtnOnClick = ({id}) => {
+    if (window.confirm('해당 공지사항을 삭제하시겠습니까?')) {
+      setItems(items.filter(value => value.id !== id))
+      console.log(items)
+    }
+  }
   useEffect(() => {
     if (!showModal) {
       setInquiryMsg('')
@@ -45,11 +47,17 @@ const UserInquiryList = () => {
 
   return (
     <CRow>
-      <PageHeader title='1 : 1 문의 리스트' />
+      <PageHeader title='공지사항 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
-            <ListTemplate items={items} onClick={handleShowModal} columns={userListColumns} className={'userList'} />
+            <ListTemplate
+              items={items}
+              onClick={handleShowModal}
+              columns={noticeList}
+              className={'userList'}
+              onDelete={handleNoticeDeleteBtnOnClick}
+            />
           </CCardBody>
         </CCard>
       </CCol>
@@ -65,4 +73,4 @@ const UserInquiryList = () => {
   )
 }
 
-export default UserInquiryList
+export default NoticeList

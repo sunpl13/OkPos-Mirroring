@@ -2,11 +2,12 @@ import React, {useState} from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import {getMonth, getYear} from 'date-fns'
+import {ko} from 'date-fns/esm/locale'
 import range from 'lodash/range'
 import {CButton, CCol, CDropdown, CFormSelect, CInputGroup} from '@coreui/react'
 import styled from 'styled-components'
 
-const TestDate = () => {
+const RangeDatePickerForm = () => {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(null)
   const years = range(2000, getYear(new Date()) + 1, 1)
@@ -28,7 +29,15 @@ const TestDate = () => {
         peekNextMonth
         showMonthDropdown
         showYearDropdown
+        locale={ko}
         dropdownMode='select'
+        dayClassName={d =>
+          d.getDate() === startDate.getDate()
+            ? 'custom-day selected-day'
+            : d.getMonth() === startDate.getMonth()
+            ? 'custom-day'
+            : 'custom-day gray-day'
+        }
         renderCustomHeader={({
           date,
           changeYear,
@@ -52,7 +61,7 @@ const TestDate = () => {
                 <CFormSelect size='sm' value={getYear(date)} onChange={({target: {value}}) => changeYear(value)}>
                   {years.map(option => (
                     <option key={option} value={option}>
-                      {option}
+                      {option}년
                     </option>
                   ))}
                 </CFormSelect>
@@ -104,6 +113,9 @@ const CustomCCol = styled(CCol)`
       & .react-datepicker__day-names div {
         width: 2.5rem;
       }
+      & .gray-day {
+        color: gray;
+      }
       & .react-datepicker__month {
         font-size: 1rem;
         & .react-datepicker__week {
@@ -115,4 +127,4 @@ const CustomCCol = styled(CCol)`
     }
   }
 `
-export default TestDate
+export default RangeDatePickerForm

@@ -11,7 +11,9 @@ const WithdrawalUsers = React.lazy(() => import('./pages/partnerCenter/users/Wit
 
 // 1:1 문의 리스트
 const UserInquiryList = React.lazy(() => import('./pages/partnerCenter/users/inquiry/UserInquiryList'))
-const UserInquiryDetail = React.lazy(() => import('./components/Modal/users/InquiryDetailModal'))
+
+// 공지사항 리스트
+const NoticeList = React.lazy(() => import('./pages/partnerCenter/users/notice/NoticeList'))
 
 const Employment = React.lazy(() => import('./pages/employment/Employment'))
 const Popup = React.lazy(() => import('./pages/popup/PopUpPage'))
@@ -33,7 +35,9 @@ const routes = [
 
   //UserInquiry
   {path: `/users/inquiry/userInquiryList`, name: 'UserInquiryList', element: UserInquiryList},
-  {path: `/users/inquiry/userInquiryDetail`, name: 'UserInquiryDetail', element: UserInquiryDetail},
+
+  //Notice
+  {path: `/users/notice/noticeList`, name: 'NoticeList', element: NoticeList},
 ]
 
 export default routes
