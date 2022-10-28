@@ -19,6 +19,7 @@ export const userListColumns = [
   {
     key: 'createdAt',
     _props: {color: 'primary', className: 'createdAt'},
+    //<RangeDatePickerForm size='sm' />
   },
   {
     key: 'status',
@@ -103,7 +104,32 @@ export const userInquiryListColumns = [
     _props: {color: 'primary', className: 'phoneNumber'},
   },
   {
-    key: 'enrollmentAt',
+    key: 'createdAt',
     _props: {color: 'primary', className: 'createdAt'},
+  },
+]
+/** 공지사항 리스트 */
+export const noticeList = [
+  {
+    key: 'title',
+    _props: {color: 'primary', className: 'title'},
+  },
+  {
+    key: 'createdAt',
+    _props: {color: 'primary', className: 'createdAt'},
+  },
+  {
+    key: 'files',
+    _props: {color: 'primary', className: 'files'},
+    filter: false,
+  },
+  {
+    key: 'phoneNumber',
+    _props: {color: 'primary', className: 'phoneNumber'},
+    filter: false,
+  },
+  {
+    key: 'deleteBtn',
+    _props: {color: 'primary', className: 'deleteBtn'},
   },
 ]
