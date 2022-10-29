@@ -1,17 +1,13 @@
 import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
 type Value = {
   id: number
-  userName: string
-  businessNumber: string
+  title: string
+  content: string
   createdAt: string
-  status: boolean
-  phoneNumber: string
-  businessRegistration: string
-  businessName: string
-  businessAddress: string
+  files: string
 }
 interface AddProps {
   value: Value
@@ -22,81 +18,72 @@ interface AddProps {
 }
 
 const NoticeDetailModal = ({value, visible, setVisible, upDate}: AddProps) => {
-  const [editMode, setEditMode] = useState(false)
   const [stateCompare, setStateCompare] = useState<Value>({
     id: 0,
-    userName: '',
+    title: '',
+    content: '',
     createdAt: '',
-    status: true,
-    phoneNumber: '',
-    businessName: '',
-    businessNumber: '',
-    businessRegistration: '',
-    businessAddress: '',
+    files: '',
   })
 
-  useEffect(() => {
-    if (visible) {
-      setStateCompare(value)
-    }
-  }, [visible])
   const userDetailEditMode = () => {
+    console.log(stateCompare, value)
     if (
-      (editMode && stateCompare.id !== value.id) ||
-      stateCompare.userName !== value.userName ||
-      stateCompare.phoneNumber !== value.phoneNumber ||
-      stateCompare.businessName !== value.businessName ||
-      stateCompare.businessNumber !== value.businessNumber ||
-      stateCompare.businessAddress !== value.businessAddress ||
-      stateCompare.businessRegistration !== value.businessRegistration
+      stateCompare.id !== value.id ||
+      stateCompare.title !== value.title ||
+      stateCompare.content !== value.content ||
+      stateCompare.files !== value.files
     ) {
-      if (window.confirm('Edit ?')) {
+      if (window.confirm(value.id === 0 ? 'Add ? ' : 'Edit ?')) {
         upDate(stateCompare)
-        setEditMode(false)
-      } else {
-        setEditMode(false)
       }
-    } else {
-      setEditMode(!editMode)
     }
   }
-  const handleNoticeDetailModalOnChange = ({
+  const handleDetailModalOnChange = ({
     target: {id, value},
-  }: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setStateCompare({
       ...stateCompare,
       [id]: value,
     })
   }
+
   //
   const handleCloseModal = () => {
     userDetailEditMode()
     setVisible(false)
   }
   return (
-    <CModal size='lg' visible={visible} onClose={handleCloseModal}>
+    <CModal size='lg' visible={visible} onClose={() => handleCloseModal()}>
       <CModalHeader>
-        <CModalTitle>Notice Detail</CModalTitle>
+        <CModalTitle>Notice {value.id === 0 ? 'Add' : 'Detail'}</CModalTitle>
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
           <ModalInput
-            id={'noticeTitle'}
+            id={'title'}
             placeholder={'Notice Title'}
             label={'Notice Title'}
-            value={stateCompare.id}
-            onChange={handleNoticeDetailModalOnChange}
+            value={value.title}
+            onChange={handleDetailModalOnChange}
           />
         </CRow>
         <CRow>
-          <CFormTextarea id='notice' label='' rows={15} text='Must be 8-20 words long.' />
+          <CFormTextarea
+            id='content'
+            label=''
+            rows={15}
+            value={value.content}
+            onChange={handleDetailModalOnChange}
+            text='Must be 8-20 words long.'
+          />
         </CRow>
       </CModalBody>
       <CModalFooter>
-        <CButton color={editMode ? 'success' : 'primary'} onClick={userDetailEditMode}>
-          Edit
+        <CButton color={'primary'} onClick={() => userDetailEditMode()}>
+          {value.id === 0 ? 'Add' : 'Edit'}
         </CButton>
-        <CButton color='primary' onClick={handleCloseModal}>
+        <CButton color='primary' onClick={() => handleCloseModal()}>
           Cancel
         </CButton>
       </CModalFooter>

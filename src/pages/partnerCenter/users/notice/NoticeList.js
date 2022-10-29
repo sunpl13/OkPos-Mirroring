@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
+import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import PageHeader from '../../../../components/common/PageHeader'
 import ListTemplate from '../../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../../test/testConstant'
@@ -16,7 +16,6 @@ const NoticeList = () => {
     files: '',
   })
   const [showModal, setShowModal] = useState(false)
-  const [inquiryMsg, setInquiryMsg] = useState('')
   /** User list Columns */
 
   /** Open Modal*/
@@ -24,11 +23,24 @@ const NoticeList = () => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
-  const handleInquiryModalOnChange = ({target: {value}}) => {
-    setInquiryMsg(value)
+  const handleShowAddModal = () => {
+    setShowModal(!showModal)
   }
-  const handleInquiryModalOnClick = () => {
-    setItems(items.map(value => (value.id === selectedItem.id ? {...selectedItem, answer: inquiryMsg} : value)))
+
+  const handleInquiryModalOnChange = ({target: {id, value}}) => {
+    setSelectedItem({
+      ...selectedItem,
+      [id]: value,
+    })
+  }
+  const handleNoticeModalUpdate = item => {
+    setItems([
+      ...items,
+      {
+        id: items.length + 1,
+        ...item,
+      },
+    ])
     setShowModal(!showModal)
   }
   const handleNoticeDeleteBtnOnClick = ({id}) => {
@@ -38,7 +50,13 @@ const NoticeList = () => {
   }
   useEffect(() => {
     if (!showModal) {
-      setInquiryMsg('')
+      setSelectedItem({
+        id: 0,
+        title: '',
+        content: '',
+        createdAt: '',
+        files: '',
+      })
     }
   }, [showModal])
 
@@ -47,7 +65,15 @@ const NoticeList = () => {
       <PageHeader title='공지사항 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
-          <CRow></CRow>
+          <CCardHeader>
+            <CForm className='row g-3'>
+              <CCol xs={1}>
+                <CButton color='primary' onClick={handleShowAddModal}>
+                  추가
+                </CButton>
+              </CCol>
+            </CForm>
+          </CCardHeader>
           <CCardBody>
             <ListTemplate
               items={items}
@@ -60,12 +86,11 @@ const NoticeList = () => {
         </CCard>
       </CCol>
       <NoticeDetailModal
-        item={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
-        value={inquiryMsg}
+        value={selectedItem}
         onChange={handleInquiryModalOnChange}
-        onClick={handleInquiryModalOnClick}
+        upDate={handleNoticeModalUpdate}
       />
     </CRow>
   )
