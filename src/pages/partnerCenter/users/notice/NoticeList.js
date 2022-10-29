@@ -2,21 +2,18 @@ import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import PageHeader from '../../../../components/common/PageHeader'
 import ListTemplate from '../../../../components/list/ListTemplate'
-import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
 import {testUserTableValues} from '../../../test/testConstant'
 import NoticeDetailModal from '../../../../components/Modal/users/NoticeDetailModal'
-import RangeDatePicker from '../../../../components/common/RangeDatePicker'
+import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
 
 const NoticeList = () => {
   const [items, setItems] = useState(testUserTableValues)
   const [selectedItem, setSelectedItem] = useState({
     id: 0,
-    userName: '',
-    email: '',
-    phoneNumber: '',
-    text: '',
-    firstRegistration: '',
-    answer: '',
+    title: '',
+    content: '',
+    createdAt: '',
+    files: '',
   })
   const [showModal, setShowModal] = useState(false)
   const [inquiryMsg, setInquiryMsg] = useState('')
@@ -37,7 +34,6 @@ const NoticeList = () => {
   const handleNoticeDeleteBtnOnClick = ({id}) => {
     if (window.confirm('해당 공지사항을 삭제하시겠습니까?')) {
       setItems(items.filter(value => value.id !== id))
-      console.log(items)
     }
   }
   useEffect(() => {
@@ -51,9 +47,7 @@ const NoticeList = () => {
       <PageHeader title='공지사항 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
-          <CRow>
-            <RangeDatePicker />
-          </CRow>
+          <CRow></CRow>
           <CCardBody>
             <ListTemplate
               items={items}

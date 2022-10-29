@@ -3,17 +3,43 @@ import locale from 'antd/lib/locale/ko_KR'
 import 'antd/dist/antd.min.css'
 import moment from 'moment'
 import 'moment/locale/ko'
+import {CCol} from '@coreui/react'
+import styled from 'styled-components'
 
-const RangeDatePicker = () => {
+interface RangePickerProps {
+  setStartDate: (date: string) => void
+  setEndDate: (date: string) => void
+}
+
+const RangeDatePicker = ({setStartDate, setEndDate}: RangePickerProps) => {
   const {RangePicker} = DatePicker
   moment.locale('ko')
+  const datePickerOnChange = (date: object | any) => {
+    if (date) {
+      setStartDate(moment(date[0]._d).format('YYYY-MM-DD'))
+      setEndDate(moment(date[1]._d).format('YYYY-MM-DD'))
+    } else {
+      setStartDate('')
+      setEndDate('')
+    }
+  }
+
   return (
-    <ConfigProvider locale={locale}>
-      <Space direction='vertical' size={12}>
-        <RangePicker allowClear={true} />
-      </Space>
-    </ConfigProvider>
+    <PickerCCol>
+      <ConfigProvider locale={locale}>
+        <Space direction='vertical'>
+          <RangePicker allowClear={true} onChange={datePickerOnChange} />
+        </Space>
+      </ConfigProvider>
+    </PickerCCol>
   )
 }
 
 export default RangeDatePicker
+
+const PickerCCol = styled(CCol)`
+  display: flex;
+  flex-direction: row;
+  align-content: end;
+  justify-content: end;
+`

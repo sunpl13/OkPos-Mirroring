@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
-import {CBadge, CImage} from '@coreui/react'
+import {CBadge, CImage, CRow} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
+import RangeDatePicker from '../common/RangeDatePicker'
 
 const ListTemplate = ({items, onClick, columns, className, onDelete}) => {
   const [listItems, setListItems] = useState([])
@@ -37,6 +38,7 @@ const ListTemplate = ({items, onClick, columns, className, onDelete}) => {
 
   return (
     <>
+      <RangeDatePicker />
       <CSmartTable
         items={listItems}
         columns={columns || null}

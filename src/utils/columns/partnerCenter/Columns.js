@@ -1,3 +1,5 @@
+import RangeDatePicker from '../../../components/common/RangeDatePicker'
+
 /** 회원 리스트 */
 export const userListColumns = [
   {
@@ -105,6 +107,7 @@ export const noticeList = [
   {
     key: 'createdAt',
     _props: {color: 'primary', className: 'createdAt'},
+    filter: false,
   },
   {
     key: 'files',
