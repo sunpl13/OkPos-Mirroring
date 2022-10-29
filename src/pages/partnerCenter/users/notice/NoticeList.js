@@ -3,8 +3,9 @@ import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import PageHeader from '../../../../components/common/PageHeader'
 import ListTemplate from '../../../../components/list/ListTemplate'
 import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
-import InquiryDetailModal from '../../../../components/Modal/users/InquiryDetailModal'
 import {testUserTableValues} from '../../../test/testConstant'
+import NoticeDetailModal from '../../../../components/Modal/users/NoticeDetailModal'
+import RangeDatePicker from '../../../../components/common/RangeDatePicker'
 
 const NoticeList = () => {
   const [items, setItems] = useState(testUserTableValues)
@@ -50,6 +51,9 @@ const NoticeList = () => {
       <PageHeader title='공지사항 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
+          <CRow>
+            <RangeDatePicker />
+          </CRow>
           <CCardBody>
             <ListTemplate
               items={items}
@@ -61,7 +65,7 @@ const NoticeList = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <InquiryDetailModal
+      <NoticeDetailModal
         item={selectedItem}
         visible={showModal}
         setVisible={setShowModal}

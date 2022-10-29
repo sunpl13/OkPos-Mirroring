@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {CBadge, CImage} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
 
-const ListTemplate = ({items, onClick, columns, className}) => {
+const ListTemplate = ({items, onClick, columns, className, onDelete}) => {
   const [listItems, setListItems] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [imgClick, setImgClick] = useState('')
@@ -27,7 +27,10 @@ const ListTemplate = ({items, onClick, columns, className}) => {
   const modalOnClick = () => {
     setShowModal(!showModal)
   }
-
+  const handleDeleteOnClick = (event, item) => {
+    event.stopPropagation()
+    onDelete(item)
+  }
   useEffect(() => {
     setListItems(items)
   }, [items])
@@ -61,6 +64,11 @@ const ListTemplate = ({items, onClick, columns, className}) => {
               <CImage rounded src={images.length === 0 ? '' : images[0]} alt='' width={100} height={60} />
             </td>
           ),
+          deleteBtn: item => (
+            <td onClick={event => handleDeleteOnClick(event, item)}>
+              <CBadge color={'danger'}>Delete</CBadge>
+            </td>
+          ),
         }}
         noItemsLabel={'Not Date'}
         itemsPerPageSelect
@@ -76,6 +84,7 @@ ListTemplate.propTypes = {
   onClick: PropTypes.func,
   columns: PropTypes.array,
   className: PropTypes.string,
+  onDelete: PropTypes.func,
 }
 
 export default ListTemplate
