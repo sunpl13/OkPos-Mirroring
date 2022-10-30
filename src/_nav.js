@@ -1,6 +1,17 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import {cilBank, cilSpeedometer, cilUser, cilHome} from '@coreui/icons'
+import {
+  cilBank,
+  cilSpeedometer,
+  cilUser,
+  cilHome,
+  cilLibrary,
+  cilChatBubble,
+  cilBasket,
+  cilFindInPage,
+  cilFolder,
+  cilFolderOpen,
+} from '@coreui/icons'
 import {CNavGroup, CNavItem, CNavTitle} from '@coreui/react'
 
 const _nav = [
@@ -31,6 +42,9 @@ const _nav = [
       },
     ],
   },
+  /*
+  오케이포스 홈페이지 메뉴 작성
+  */
   {
     component: CNavTitle,
     name: '오케이포스 홈페이지',
@@ -55,6 +69,11 @@ const _nav = [
         name: '1 : 1 문의 리스트',
         to: '/users/inquiry/userInquiryList',
       },
+      {
+        component: CNavItem,
+        name: '공지사항 리스트',
+        to: '/users/notice/noticeList',
+      },
     ],
   },
   {
@@ -74,6 +93,9 @@ const _nav = [
       },
     ],
   },
+  /*
+  가맹점 전용 공식몰 코드 작성
+  */
   {
     component: CNavTitle,
     name: '가맹점 전용 공식몰',
@@ -95,6 +117,56 @@ const _nav = [
       },
     ],
   },
+  {
+    component: CNavItem,
+    name: '롤링 배너 관리',
+    to: '/dashboard',
+    icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
+  },
+  {
+    component: CNavItem,
+    name: '1:1 문의 관리',
+    to: '/dashboard',
+    icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
+  },
+  {
+    component: CNavItem,
+    name: 'FAQ 관리',
+    to: '/dashboard',
+    icon: <CIcon icon={cilFindInPage} customClassName='nav-icon' />,
+  },
+  {
+    component: CNavItem,
+    name: '자료실 관리',
+    to: '/dashboard',
+    icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
+  },
+  {
+    component: CNavGroup,
+    name: '주문 관리',
+    icon: <CIcon icon={cilBasket} customClassName='nav-icon' />,
+    items: [
+      {
+        component: CNavItem,
+        name: '주문 현황',
+        to: '/users/userList',
+      },
+      {
+        component: CNavItem,
+        name: '교환 현황',
+        to: '/users/withdrawalUsers',
+      },
+      {
+        component: CNavItem,
+        name: '취소 현황',
+        to: '/users/withdrawalUsers',
+      },
+    ],
+  },
+
+  /*
+  대리점 전용 파트너센터 코드 작성
+  */
   {
     component: CNavTitle,
     name: '대리점 전용 파트너센터',
