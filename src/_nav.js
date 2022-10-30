@@ -119,7 +119,7 @@ const _nav = [
   {
     component: CNavItem,
     name: '롤링 배너 관리',
-    to: '/dashboard',
+    to: '/official/banners',
     icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
   },
   {
@@ -131,13 +131,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'FAQ 관리',
-    to: '/dashboard',
+    to: '/official/faq',
     icon: <CIcon icon={cilFindInPage} customClassName='nav-icon' />,
   },
   {
     component: CNavItem,
     name: '자료실 관리',
-    to: '/dashboard',
+    to: '/official/reference',
     icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
   },
   {
