@@ -1,4 +1,4 @@
-import {CCol, CFormInput, CFormLabel} from '@coreui/react'
+import {CBadge, CCol, CFormLabel} from '@coreui/react'
 import React from 'react'
 
 interface ModalInputProps {
@@ -12,25 +12,18 @@ interface ModalInputProps {
   disabled?: boolean
 }
 
-const ModalInput = ({type, onChange, id, placeholder, value, label, readOnly, disabled}: ModalInputProps) => {
+const ModalStatus = ({id, value, label}: ModalInputProps) => {
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
         <strong>{label || ' * '}</strong>
       </CFormLabel>
       <CCol className='align-items-center' style={{display: 'flex'}}>
-        <CFormInput
-          type={type || 'text'}
-          id={id}
-          placeholder={placeholder || ''}
-          value={type === 'file' ? undefined : value}
-          onChange={onChange}
-          readOnly={readOnly}
-          disabled={disabled}
-        />
+        <CBadge color={'success'}>{value ? '활성화' : '비활성화'}</CBadge>
+        {/* <CBadge color={getBadge(value)}>{value ? '활성화' : '비활성화'}</CBadge> */}
       </CCol>
     </>
   )
 }
 
-export default ModalInput
+export default ModalStatus
