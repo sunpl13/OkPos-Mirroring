@@ -1,24 +1,21 @@
 import React, {useEffect, useState} from 'react'
-import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
+import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import PageHeader from '../../../../components/common/PageHeader'
 import ListTemplate from '../../../../components/list/ListTemplate'
-import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
-import InquiryDetailModal from '../../../../components/Modal/users/InquiryDetailModal'
 import {testUserTableValues} from '../../../test/testConstant'
+import NoticeDetailModal from '../../../../components/Modal/users/NoticeDetailModal'
+import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
 
 const NoticeList = () => {
   const [items, setItems] = useState(testUserTableValues)
   const [selectedItem, setSelectedItem] = useState({
     id: 0,
-    userName: '',
-    email: '',
-    phoneNumber: '',
-    text: '',
-    firstRegistration: '',
-    answer: '',
+    title: '',
+    content: '',
+    createdAt: '',
+    files: '',
   })
   const [showModal, setShowModal] = useState(false)
-  const [inquiryMsg, setInquiryMsg] = useState('')
   /** User list Columns */
 
   /** Open Modal*/
@@ -26,22 +23,40 @@ const NoticeList = () => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
-  const handleInquiryModalOnChange = ({target: {value}}) => {
-    setInquiryMsg(value)
+  const handleShowAddModal = () => {
+    setShowModal(!showModal)
   }
-  const handleInquiryModalOnClick = () => {
-    setItems(items.map(value => (value.id === selectedItem.id ? {...selectedItem, answer: inquiryMsg} : value)))
+
+  const handleInquiryModalOnChange = ({target: {id, value}}) => {
+    setSelectedItem({
+      ...selectedItem,
+      [id]: value,
+    })
+  }
+  const handleNoticeModalUpdate = item => {
+    setItems([
+      ...items,
+      {
+        id: items.length + 1,
+        ...item,
+      },
+    ])
     setShowModal(!showModal)
   }
   const handleNoticeDeleteBtnOnClick = ({id}) => {
     if (window.confirm('해당 공지사항을 삭제하시겠습니까?')) {
       setItems(items.filter(value => value.id !== id))
-      console.log(items)
     }
   }
   useEffect(() => {
     if (!showModal) {
-      setInquiryMsg('')
+      setSelectedItem({
+        id: 0,
+        title: '',
+        content: '',
+        createdAt: '',
+        files: '',
+      })
     }
   }, [showModal])
 
@@ -50,6 +65,15 @@ const NoticeList = () => {
       <PageHeader title='공지사항 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
+          <CCardHeader>
+            <CForm className='row g-3'>
+              <CCol xs={1}>
+                <CButton color='primary' onClick={handleShowAddModal}>
+                  추가
+                </CButton>
+              </CCol>
+            </CForm>
+          </CCardHeader>
           <CCardBody>
             <ListTemplate
               items={items}
@@ -61,13 +85,12 @@ const NoticeList = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <InquiryDetailModal
-        item={selectedItem}
+      <NoticeDetailModal
         visible={showModal}
         setVisible={setShowModal}
-        value={inquiryMsg}
+        value={selectedItem}
         onChange={handleInquiryModalOnChange}
-        onClick={handleInquiryModalOnClick}
+        upDate={handleNoticeModalUpdate}
       />
     </CRow>
   )

@@ -4,7 +4,7 @@ import ListTemplate from '../../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../../test/testConstant'
 import InquiryDetailModal from '../../../../components/Modal/users/InquiryDetailModal'
 import PageHeader from '../../../../components/common/PageHeader'
-import {userListColumns} from '../../../../utils/columns/partnerCenter/Columns'
+import {userInquiryListColumns, userListColumns} from '../../../../utils/columns/partnerCenter/Columns'
 
 const UserInquiryList = () => {
   const [items, setItems] = useState([])
@@ -49,7 +49,12 @@ const UserInquiryList = () => {
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
-            <ListTemplate items={items} onClick={handleShowModal} columns={userListColumns} className={'userList'} />
+            <ListTemplate
+              items={items}
+              onClick={handleShowModal}
+              columns={userInquiryListColumns}
+              className={'userList'}
+            />
           </CCardBody>
         </CCard>
       </CCol>
