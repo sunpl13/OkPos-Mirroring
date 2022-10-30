@@ -5,9 +5,10 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import UserAddModalTemplate from '../../../components/Modal/users/UserAddModalTemplate'
 import UserDetailModal from '../../../components/Modal/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
-import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
+import {userListColumns} from '../../../utils/columns/officialMall/Columns'
 
 const Userlist = () => {
+  // Local state 선언
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [item, setItem] = useState({
@@ -24,6 +25,7 @@ const Userlist = () => {
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
 
+  // Life Cycle 선언
   useEffect(() => {
     setItems(testUserTableValues.filter(v => v.status))
   }, [])

@@ -53,7 +53,7 @@ const ListTemplate = ({items, onClick, columns, className}) => {
         scopedColumns={{
           status: ({status}) => (
             <td>
-              <CBadge color={getBadge(status)}>{status ? 'Activate' : 'Disabled'}</CBadge>
+              <CBadge color={getBadge(status)}>{status ? '활성화' : '비활성화'}</CBadge>
             </td>
           ),
           images: ({images}) => (
