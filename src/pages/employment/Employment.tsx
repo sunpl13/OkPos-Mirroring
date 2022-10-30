@@ -79,6 +79,29 @@ const Employment = () => {
     setShowModal(!showModal)
   }
 
+  const handleEmploymentAddModal = () => {
+    setSelectedItem({
+      No: 0,
+      category: '',
+      status: false,
+      employName: '',
+      employStartDate: '',
+      employEndDate: '',
+      employbannerImg: '',
+      employmentType: 'a',
+      workArea: '',
+      education: 'a',
+      career: 'a',
+      des: '',
+      qualifications: '',
+      preferentiaTreatment: '',
+      reason: '',
+      departmentStatus: '',
+      etc: '',
+    })
+    setShowModal(!showModal)
+  }
+
   // /** Add User Modal*/
   const handleEmployDetailOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const {id, value} = target
@@ -131,7 +154,7 @@ const Employment = () => {
                   </CButton>
                 </CCol>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleShowUserItemAddModal}>
+                  <CButton color='primary' onClick={handleEmploymentAddModal}>
                     추가
                   </CButton>
                 </CCol>

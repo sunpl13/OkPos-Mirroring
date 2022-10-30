@@ -30,10 +30,7 @@ const PopUpPage = () => {
   const handleRetrieveTestList = async () => {
     setItems(testPopupValues)
   }
-  /** Open Modal*/
-  const handleShowUserItemAddModal = () => {
-    setShowAddModal(!showAddModal)
-  }
+
   const handleShowUserDetailModal = (item: IPopUp) => {
     console.log(selectedItem)
     setSelectedItem(item)
@@ -48,6 +45,15 @@ const PopUpPage = () => {
       [id]: value,
     })
   }*/
+
+  const handlePopupAddModal = () => {
+    setSelectedItem({
+      No: 0,
+      popUpName: '',
+      popUpImg: '',
+    })
+    setShowModal(!showModal)
+  }
 
   const handleUserItemAddModalOnClick = () => {
     setItems([
@@ -78,7 +84,7 @@ const PopUpPage = () => {
                   </CButton>
                 </CCol>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleShowUserItemAddModal}>
+                  <CButton color='primary' onClick={handlePopupAddModal}>
                     추가
                   </CButton>
                 </CCol>
