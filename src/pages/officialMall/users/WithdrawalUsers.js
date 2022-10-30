@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import UserDetailModal from '../../../components/Modal/users/UserDetailModal'
+import ResignUserModal from '../../../components/Modal/officialMall/ResignUserModal'
 import {testUserTableValues} from '../../test/testConstant'
 import BarChartTemplate from '../../../components/chart/BarChartTemplate'
 import {ChartTestData} from '../../test/ChartTest'
 import PageHeader from '../../../components/common/PageHeader'
-import {withdrawalUsersColumns} from '../../../utils/columns/partnerCenter/Columns'
+import {resignUserListColumns} from '../../../utils/columns/officialMall/Columns'
 
 const WithdrawalUsers = () => {
   const [items, setItems] = useState([])
@@ -51,16 +51,22 @@ const WithdrawalUsers = () => {
         <CCard className='mb-4'>
           <CCardBody>
             <BarChartTemplate title={'탈퇴 사유'} data={chartData || [{}]} />
+          </CCardBody>
+        </CCard>
+      </CCol>
+      <CCol xs={12}>
+        <CCard className='mb-4'>
+          <CCardBody>
             <ListTemplate
               items={items}
               onClick={handleShowUserDetailModal}
-              columns={withdrawalUsersColumns}
+              columns={resignUserListColumns}
               className={'userList'}
             />
           </CCardBody>
         </CCard>
       </CCol>
-      <UserDetailModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
+      <ResignUserModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
     </CRow>
   )
 }

@@ -18,26 +18,21 @@ const popUpColumns = [
 // 회원 리스트
 export const userListColumns = [
   {key: 'id', label: 'No', sorter: false, filter: false},
-  {
-    key: 'userName',
-    label: '사용자명',
-  },
-  {
-    key: 'email',
-    label: '이메일',
-  },
-  {
-    key: 'phoneNumber',
-    label: '휴대전화번호',
-  },
-  {
-    key: 'firstRegistration',
-    label: '최초등록일',
-  },
-  {
-    key: 'status',
-    label: '상태',
-    sorter: false,
-    filter: false,
-  },
+  {key: 'userName', label: '사용자명'},
+  {key: 'email', label: '이메일'},
+  {key: 'phoneNumber', label: '휴대전화번호'},
+  {key: 'firstRegistration', label: '최초등록일'},
+  {key: 'status', label: '상태', sorter: false, filter: false},
+]
+
+// 탈퇴회원 리스트
+export const resignUserListColumns = [
+  {key: 'id', label: 'No', sorter: false, filter: false},
+  {key: 'userName', label: '사용자명'},
+  {key: 'email', label: '이메일'},
+  {key: 'phoneNumber', label: '휴대전화번호'},
+  {key: 'firstRegistration', label: '최초등록일'},
+  {key: 'updatedAt', label: '계정탈퇴일'},
+  {key: 'resignReason', label: '탈퇴사유'},
+  {key: 'status', label: '상태', sorter: false, filter: false},
 ]

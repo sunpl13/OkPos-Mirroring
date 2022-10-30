@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import {testUserTableValues} from '../../test/testConstant'
 import ListTemplate from '../../../components/list/ListTemplate'
-import UserDetailModal from '../../../components/Modal/officialMall/UserDetailModal'
+import UserModal from '../../../components/Modal/officialMall/UserModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userListColumns} from '../../../utils/columns/officialMall/Columns'
 
@@ -93,7 +93,7 @@ const Userlist = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <UserDetailModal
+      <UserModal
         value={selectedItem}
         visible={showModal}
         setVisible={setShowModal}

@@ -46,7 +46,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
   return (
     <CModal size='lg' visible={visible} onClose={closeModal}>
       <CModalHeader>
-        <CModalTitle>상세정보</CModalTitle>
+        <CModalTitle>회원 상세정보</CModalTitle>
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
