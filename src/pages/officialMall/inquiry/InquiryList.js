@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CRow} from '@coreui/react'
-import ListTemplate from '../../../../components/list/ListTemplate'
-import {testUserTableValues} from '../../../test/testConstant'
-import InquiryDetailModal from '../../../../components/Modal/users/InquiryDetailModal'
-import PageHeader from '../../../../components/common/PageHeader'
-import {userListColumns} from '../../../../utils/columns/partnerCenter/Columns'
+import ListTemplate from '../../../components/list/ListTemplate'
+import {testUserTableValues} from '../../test/testConstant'
+import InquiryDetailModal from '../../../components/Modal/users/InquiryDetailModal'
+import PageHeader from '../../../components/common/PageHeader'
+import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
 
-const UserInquiryList = () => {
+const InquiryList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({
     id: 0,
@@ -60,4 +60,4 @@ const UserInquiryList = () => {
   )
 }
 
-export default UserInquiryList
+export default InquiryList

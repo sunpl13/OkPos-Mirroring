@@ -15,6 +15,16 @@ const UserInquiryDetail = React.lazy(() => import('./components/Modal/users/Inqu
 
 const Employment = React.lazy(() => import('./pages/employment/Employment'))
 const Popup = React.lazy(() => import('./pages/popup/PopUpPage'))
+
+// 가맹점 전용 공식몰 페이지
+
+// 회원관리
+const OfficailMallUserList = React.lazy(() => import('./pages/officialMall/users/Userlist'))
+const OfficailMallWithdrawalUserList = React.lazy(() => import('./pages/officialMall/users/WithdrawalUsers'))
+
+// 1:1 문의 관리
+const OfficailMallInquiryList = React.lazy(() => import('./pages/officialMall/inquiry/InquiryList'))
+
 const routes = [
   {path: '/dashboard', name: 'Dashboard', element: Dashboard},
 
@@ -34,6 +44,14 @@ const routes = [
   //UserInquiry
   {path: `/users/inquiry/userInquiryList`, name: 'UserInquiryList', element: UserInquiryList},
   {path: `/users/inquiry/userInquiryDetail`, name: 'UserInquiryDetail', element: UserInquiryDetail},
+
+  // 가맹점 전용 공식몰 페이지
+
+  // 회원관리
+  {path: `/official/users`, name: '회원관리', element: OfficailMallUserList},
+  {path: `/official/withdrawalUsers`, name: '탈퇴회원관리', element: OfficailMallWithdrawalUserList},
+
+  {path: `/official/inquirys`, name: '회원관리', element: OfficailMallInquiryList},
 ]
 
 export default routes

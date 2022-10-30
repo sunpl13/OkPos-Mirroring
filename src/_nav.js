@@ -9,7 +9,6 @@ import {
   cilChatBubble,
   cilBasket,
   cilFindInPage,
-  cilFolder,
   cilFolderOpen,
 } from '@coreui/icons'
 import {CNavGroup, CNavItem, CNavTitle} from '@coreui/react'
@@ -108,12 +107,12 @@ const _nav = [
       {
         component: CNavItem,
         name: '회원 리스트',
-        to: '/users/userList',
+        to: '/official/users',
       },
       {
         component: CNavItem,
         name: '탈퇴 회원 리스트',
-        to: '/users/withdrawalUsers',
+        to: '/official/withdrawalUsers',
       },
     ],
   },
@@ -126,7 +125,7 @@ const _nav = [
   {
     component: CNavItem,
     name: '1:1 문의 관리',
-    to: '/dashboard',
+    to: '/official/inquirys',
     icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
   },
   {
