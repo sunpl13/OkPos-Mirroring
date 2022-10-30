@@ -1,7 +1,6 @@
+import React, {useState} from 'react'
 import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
-import React, {useEffect, useState} from 'react'
-
 type Value = {
   id: number
   title: string
@@ -9,15 +8,13 @@ type Value = {
   createdAt: string
   files: string
 }
-interface DetailProps {
-  value: Value
+interface AddProps {
   visible: boolean
   setVisible: (state: boolean) => void
   onChange?: () => void
   upDate: (item: Value) => void
 }
-
-const NoticeDetailModal = ({value, visible, setVisible, upDate}: DetailProps) => {
+const NoticeAddModal = ({visible, setVisible, upDate}: AddProps) => {
   const [stateCompare, setStateCompare] = useState<Value>({
     id: 0,
     title: '',
@@ -25,24 +22,18 @@ const NoticeDetailModal = ({value, visible, setVisible, upDate}: DetailProps) =>
     createdAt: '',
     files: '',
   })
-  useEffect(() => {
-    if (visible) {
-      setStateCompare(value)
-    }
-  }, [visible])
 
-  const userDetailEditMode = () => {
-    if (
-      stateCompare.id !== value.id ||
-      stateCompare.title !== value.title ||
-      stateCompare.content !== value.content ||
-      stateCompare.files !== value.files
-    ) {
-      if (window.confirm('Edit ?')) {
-        upDate(stateCompare)
-      }
+  const NoticeAddOnClick = () => {
+    if (window.confirm('Add ? ')) {
+      upDate(stateCompare)
     }
-    setVisible(false)
+    setStateCompare({
+      id: 0,
+      title: '',
+      content: '',
+      createdAt: '',
+      files: '',
+    })
   }
   const handleDetailModalOnChange = ({
     target: {id, value},
@@ -53,10 +44,15 @@ const NoticeDetailModal = ({value, visible, setVisible, upDate}: DetailProps) =>
     })
   }
 
+  //
+  const handleCloseModal = () => {
+    NoticeAddOnClick()
+    setVisible(false)
+  }
   return (
-    <CModal size='lg' visible={visible} onClose={() => userDetailEditMode()}>
+    <CModal size='lg' visible={visible} onClose={() => handleCloseModal()}>
       <CModalHeader>
-        <CModalTitle>Notice Detail</CModalTitle>
+        <CModalTitle>Notice Add</CModalTitle>
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
@@ -65,6 +61,16 @@ const NoticeDetailModal = ({value, visible, setVisible, upDate}: DetailProps) =>
             placeholder={'Notice Title'}
             label={'Notice Title'}
             value={stateCompare.title}
+            onChange={handleDetailModalOnChange}
+          />
+        </CRow>
+        <CRow className={'p-2'}>
+          <ModalInput
+            id={'files'}
+            type={'file'}
+            placeholder={'Notice File'}
+            label={'Notice File'}
+            value={stateCompare.files}
             onChange={handleDetailModalOnChange}
           />
         </CRow>
@@ -80,10 +86,10 @@ const NoticeDetailModal = ({value, visible, setVisible, upDate}: DetailProps) =>
         </CRow>
       </CModalBody>
       <CModalFooter>
-        <CButton color={'primary'} onClick={() => userDetailEditMode()}>
-          Edit
+        <CButton color={'primary'} onClick={() => NoticeAddOnClick()}>
+          Add
         </CButton>
-        <CButton color='primary' onClick={() => userDetailEditMode()}>
+        <CButton color='primary' onClick={() => handleCloseModal()}>
           Cancel
         </CButton>
       </CModalFooter>
@@ -91,4 +97,4 @@ const NoticeDetailModal = ({value, visible, setVisible, upDate}: DetailProps) =>
   )
 }
 
-export default NoticeDetailModal
+export default NoticeAddModal

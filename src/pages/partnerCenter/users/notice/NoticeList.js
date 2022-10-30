@@ -5,6 +5,8 @@ import ListTemplate from '../../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../../test/testConstant'
 import NoticeDetailModal from '../../../../components/Modal/users/NoticeDetailModal'
 import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
+import NoticeAddModal from '../../../../components/Modal/users/NoticeAddModal'
+import moment from 'moment'
 
 const NoticeList = () => {
   const [items, setItems] = useState(testUserTableValues)
@@ -16,6 +18,7 @@ const NoticeList = () => {
     files: '',
   })
   const [showModal, setShowModal] = useState(false)
+  const [showAddModal, setShowAddModal] = useState(false)
   /** User list Columns */
 
   /** Open Modal*/
@@ -24,7 +27,7 @@ const NoticeList = () => {
     setShowModal(!showModal)
   }
   const handleShowAddModal = () => {
-    setShowModal(!showModal)
+    setShowAddModal(!showAddModal)
   }
 
   const handleInquiryModalOnChange = ({target: {id, value}}) => {
@@ -34,15 +37,21 @@ const NoticeList = () => {
     })
   }
   const handleNoticeModalUpdate = item => {
-    setItems([
-      ...items,
-      {
-        id: items.length + 1,
-        ...item,
-      },
-    ])
-    setShowModal(!showModal)
+    if (item.id === 0) {
+      setItems([
+        ...items,
+        {
+          ...item,
+          createdAt: moment().format('YYYY-MM-DD'),
+        },
+      ])
+      setShowAddModal(!showAddModal)
+    } else {
+      setItems(items.map(value => (value.id === item.id ? item : value)))
+      setShowModal(!showModal)
+    }
   }
+
   const handleNoticeDeleteBtnOnClick = ({id}) => {
     if (window.confirm('해당 공지사항을 삭제하시겠습니까?')) {
       setItems(items.filter(value => value.id !== id))
@@ -92,6 +101,7 @@ const NoticeList = () => {
         onChange={handleInquiryModalOnChange}
         upDate={handleNoticeModalUpdate}
       />
+      <NoticeAddModal visible={showAddModal} setVisible={setShowAddModal} upDate={handleNoticeModalUpdate} />
     </CRow>
   )
 }
