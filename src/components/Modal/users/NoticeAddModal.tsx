@@ -1,4 +1,3 @@
-import React, {useState} from 'react'
 import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
 type Value = {
@@ -9,48 +8,16 @@ type Value = {
   files: string
 }
 interface AddProps {
+  value: Value
   visible: boolean
-  setVisible: (state: boolean) => void
-  onChange?: () => void
-  upDate: (item: Value) => void
+  onChange: () => void
+  upDate: () => void
 }
-const NoticeAddModal = ({visible, setVisible, upDate}: AddProps) => {
-  const [stateCompare, setStateCompare] = useState<Value>({
-    id: 0,
-    title: '',
-    content: '',
-    createdAt: '',
-    files: '',
-  })
+const NoticeAddModal = ({value, visible, upDate, onChange}: AddProps) => {
+  const {title, content, files} = value
 
-  const NoticeAddOnClick = () => {
-    if (window.confirm('Add ? ')) {
-      upDate(stateCompare)
-    }
-    setStateCompare({
-      id: 0,
-      title: '',
-      content: '',
-      createdAt: '',
-      files: '',
-    })
-  }
-  const handleDetailModalOnChange = ({
-    target: {id, value},
-  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setStateCompare({
-      ...stateCompare,
-      [id]: value,
-    })
-  }
-
-  //
-  const handleCloseModal = () => {
-    NoticeAddOnClick()
-    setVisible(false)
-  }
   return (
-    <CModal size='lg' visible={visible} onClose={() => handleCloseModal()}>
+    <CModal size='lg' visible={visible} onClose={() => upDate()}>
       <CModalHeader>
         <CModalTitle>Notice Add</CModalTitle>
       </CModalHeader>
@@ -60,8 +27,8 @@ const NoticeAddModal = ({visible, setVisible, upDate}: AddProps) => {
             id={'title'}
             placeholder={'Notice Title'}
             label={'Notice Title'}
-            value={stateCompare.title}
-            onChange={handleDetailModalOnChange}
+            value={title}
+            onChange={onChange}
           />
         </CRow>
         <CRow className={'p-2'}>
@@ -70,8 +37,8 @@ const NoticeAddModal = ({visible, setVisible, upDate}: AddProps) => {
             type={'file'}
             placeholder={'Notice File'}
             label={'Notice File'}
-            value={stateCompare.files}
-            onChange={handleDetailModalOnChange}
+            value={files}
+            onChange={onChange}
           />
         </CRow>
         <CRow>
@@ -79,17 +46,17 @@ const NoticeAddModal = ({visible, setVisible, upDate}: AddProps) => {
             id='content'
             label=''
             rows={15}
-            value={stateCompare.content}
-            onChange={handleDetailModalOnChange}
+            value={content}
+            onChange={onChange}
             text='Must be 8-20 words long.'
           />
         </CRow>
       </CModalBody>
       <CModalFooter>
-        <CButton color={'primary'} onClick={() => NoticeAddOnClick()}>
+        <CButton color={'primary'} onClick={() => upDate()}>
           Add
         </CButton>
-        <CButton color='primary' onClick={() => handleCloseModal()}>
+        <CButton color='primary' onClick={() => upDate()}>
           Cancel
         </CButton>
       </CModalFooter>

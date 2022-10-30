@@ -1,6 +1,6 @@
 import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 
 type Value = {
   id: number
@@ -12,51 +12,17 @@ type Value = {
 interface DetailProps {
   value: Value
   visible: boolean
-  setVisible: (state: boolean) => void
-  onChange?: () => void
-  upDate: (item: Value) => void
+  onChange: () => void
+  upDate: () => void
 }
 
-const NoticeDetailModal = ({value, visible, setVisible, upDate}: DetailProps) => {
-  const [stateCompare, setStateCompare] = useState<Value>({
-    id: 0,
-    title: '',
-    content: '',
-    createdAt: '',
-    files: '',
-  })
-  useEffect(() => {
-    if (visible) {
-      setStateCompare(value)
-    }
-  }, [visible])
-
-  const userDetailEditMode = () => {
-    if (
-      stateCompare.id !== value.id ||
-      stateCompare.title !== value.title ||
-      stateCompare.content !== value.content ||
-      stateCompare.files !== value.files
-    ) {
-      if (window.confirm('Edit ?')) {
-        upDate(stateCompare)
-      }
-    }
-    setVisible(false)
-  }
-  const handleDetailModalOnChange = ({
-    target: {id, value},
-  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setStateCompare({
-      ...stateCompare,
-      [id]: value,
-    })
-  }
+const NoticeDetailModal = ({value, visible, onChange, upDate}: DetailProps) => {
+  const {id, title, content, files} = value
 
   return (
-    <CModal size='lg' visible={visible} onClose={() => userDetailEditMode()}>
+    <CModal size='lg' visible={visible} onClose={() => upDate()}>
       <CModalHeader>
-        <CModalTitle>Notice Detail</CModalTitle>
+        <CModalTitle>id : {id} Notice Detail</CModalTitle>
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
@@ -64,26 +30,36 @@ const NoticeDetailModal = ({value, visible, setVisible, upDate}: DetailProps) =>
             id={'title'}
             placeholder={'Notice Title'}
             label={'Notice Title'}
-            value={stateCompare.title}
-            onChange={handleDetailModalOnChange}
+            value={title}
+            onChange={onChange}
+          />
+        </CRow>
+        <CRow className={'p-2'}>
+          <ModalInput
+            id={'files'}
+            type={'file'}
+            placeholder={'Notice File'}
+            label={'Notice File'}
+            value={files}
+            onChange={onChange}
           />
         </CRow>
         <CRow>
           <CFormTextarea
             id='content'
-            label=''
+            label=' '
             rows={15}
-            value={stateCompare.content}
-            onChange={handleDetailModalOnChange}
+            value={content}
+            onChange={onChange}
             text='Must be 8-20 words long.'
           />
         </CRow>
       </CModalBody>
       <CModalFooter>
-        <CButton color={'primary'} onClick={() => userDetailEditMode()}>
+        <CButton color={'primary'} onClick={() => upDate()}>
           Edit
         </CButton>
-        <CButton color='primary' onClick={() => userDetailEditMode()}>
+        <CButton color='primary' onClick={() => upDate()}>
           Cancel
         </CButton>
       </CModalFooter>
@@ -91,4 +67,4 @@ const NoticeDetailModal = ({value, visible, setVisible, upDate}: DetailProps) =>
   )
 }
 
-export default NoticeDetailModal
+export default React.memo(NoticeDetailModal)
