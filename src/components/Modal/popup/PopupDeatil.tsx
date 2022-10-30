@@ -1,5 +1,5 @@
-import React from 'react'
-import {CModal, CModalBody, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import React, {useState} from 'react'
+import {CModal, CButton, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import {IPopUp} from '../../../pages/popup/PopUpPage'
 
@@ -12,6 +12,21 @@ interface AddProps {
 }
 
 const PopupDeatil = ({value, visible, setVisible, readOnly, onChange}: AddProps) => {
+  const [editMode, setEditMode] = useState(false)
+
+  const userDetailEditMode = () => {
+    if (!editMode) {
+      setEditMode(true)
+    } else {
+      //여기에 수정 api 작성
+      setEditMode(false)
+    }
+  }
+  const handleCloseModal = () => {
+    userDetailEditMode()
+    setVisible(false)
+  }
+
   return (
     <CModal alignment='center' size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
@@ -43,6 +58,14 @@ const PopupDeatil = ({value, visible, setVisible, readOnly, onChange}: AddProps)
           />
         </CRow>
       </CModalBody>
+      <CModalFooter>
+        <CButton color={editMode ? 'success' : 'primary'} onClick={userDetailEditMode}>
+          Edit
+        </CButton>
+        <CButton color='primary' onClick={handleCloseModal}>
+          Cancel
+        </CButton>
+      </CModalFooter>
     </CModal>
   )
 }
