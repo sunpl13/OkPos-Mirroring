@@ -106,12 +106,12 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: '회원 리스트',
+        name: '회원 관리',
         to: '/official/users',
       },
       {
         component: CNavItem,
-        name: '탈퇴 회원 리스트',
+        name: '탈퇴 회원 관리',
         to: '/official/withdrawalUsers',
       },
     ],

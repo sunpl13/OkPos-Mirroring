@@ -80,18 +80,9 @@ const Userlist = () => {
 
   return (
     <CRow>
-      <PageHeader title='회원 리스트' />
+      <PageHeader title='회원 관리' />
       <CCol xs={12}>
         <CCard className='mb-4'>
-          <CCardHeader>
-            <CForm className='row g-3'>
-              <CCol xs={1}>
-                <CButton color='primary' onClick={handleShowUserItemAddModal}>
-                  추가
-                </CButton>
-              </CCol>
-            </CForm>
-          </CCardHeader>
           <CCardBody>
             <ListTemplate
               items={items}
