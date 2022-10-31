@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import PageHeader from '../../components/common/PageHeader'
 import {testPopupValues} from '../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
@@ -14,40 +14,51 @@ export interface IPopUp {
 const PopUpPage = () => {
   const [items, setItems] = useState<IPopUp[]>([])
   const [selectedItem, setSelectedItem] = useState<IPopUp>({
-    No: 0,
+    No: -1,
     popUpName: '',
     popUpImg: '',
   })
   const [item, setItem] = useState({
-    No: 0,
+    No: -1,
     popUpName: '',
     popUpImg: '',
   })
-  console.log(selectedItem)
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
+  const [isReadOnly, setIsReadOnly] = useState(true)
+
+  useEffect(() => {
+    if (!showModal) {
+      setIsReadOnly(true)
+    }
+  }, [showModal])
 
   const handleRetrieveTestList = async () => {
     setItems(testPopupValues)
   }
-  /** Open Modal*/
-  const handleShowUserItemAddModal = () => {
-    setShowAddModal(!showAddModal)
-  }
+
   const handleShowUserDetailModal = (item: IPopUp) => {
-    console.log(selectedItem)
     setSelectedItem(item)
     setShowModal(!showModal)
   }
 
-  /*
   const handlePopUpOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const {id, value} = target
-    setItem({
-      ...item,
+    setSelectedItem({
+      ...selectedItem,
       [id]: value,
     })
-  }*/
+  }
+
+  const handlePopupAddModal = () => {
+    setIsReadOnly(false)
+    setSelectedItem({
+      No: -1,
+      popUpName: '',
+      popUpImg: '',
+    })
+    setShowModal(!showModal)
+  }
 
   const handleUserItemAddModalOnClick = () => {
     setItems([
@@ -78,7 +89,7 @@ const PopUpPage = () => {
                   </CButton>
                 </CCol>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleShowUserItemAddModal}>
+                  <CButton color='primary' onClick={handlePopupAddModal}>
                     추가
                   </CButton>
                 </CCol>
@@ -97,10 +108,12 @@ const PopUpPage = () => {
       </CRow>
       <PopupDeatil
         setVisible={setShowModal}
-        readOnly={false}
+        onClick={handleUserItemAddModalOnClick}
         visible={showModal}
         value={selectedItem}
-        onChange={handleUserItemAddModalOnClick}
+        onChange={handlePopUpOnChange}
+        isReadOnly={isReadOnly}
+        setIsReadOnly={setIsReadOnly}
       />
     </main>
   )

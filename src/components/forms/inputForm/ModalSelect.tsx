@@ -14,9 +14,10 @@ interface ModalInputProps {
   size: 'sm' | 'lg' | undefined
   value: IOption[]
   id?: string
+  disabled?: boolean
 }
 
-const ModalSelect = ({onChange, size, placeholder, label, value, readOnly, id}: ModalInputProps) => {
+const ModalSelect = ({onChange, size, placeholder, label, value, readOnly, id, disabled = false}: ModalInputProps) => {
   const newOptions = value.map(item => <option key={item.key}>{item.value}</option>)
 
   return (
@@ -25,7 +26,7 @@ const ModalSelect = ({onChange, size, placeholder, label, value, readOnly, id}: 
         {label || ' * '}
       </CFormLabel>
       <CCol>
-        <CFormSelect id={id} size={size} onChange={onChange} readOnly={readOnly}>
+        <CFormSelect disabled={disabled} id={id} size={size} onChange={onChange} readOnly={readOnly}>
           <option>{placeholder}</option>
           {newOptions}
         </CFormSelect>
