@@ -4,7 +4,7 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../test/testConstant'
 import InquiryDetailModal from '../../../components/Modal/users/InquiryDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
-import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
+import {inquiryListColumns} from '../../../utils/columns/officialMall/Columns'
 
 const InquiryList = () => {
   const [items, setItems] = useState([])
@@ -40,11 +40,11 @@ const InquiryList = () => {
   }
   return (
     <CRow>
-      <PageHeader title='1 : 1 문의 리스트' />
+      <PageHeader title='1 : 1 문의 관리' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
-            <ListTemplate items={items} onClick={handleShowModal} columns={userListColumns} className={'userList'} />
+            <ListTemplate items={items} onClick={handleShowModal} columns={inquiryListColumns} className={'userList'} />
           </CCardBody>
         </CCard>
       </CCol>

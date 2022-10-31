@@ -36,3 +36,12 @@ export const resignUserListColumns = [
   {key: 'resignReason', label: '탈퇴사유'},
   {key: 'status', label: '상태', sorter: false, filter: false},
 ]
+
+// 1:1 문의 리스트
+export const inquiryListColumns = [
+  {key: 'id', label: 'No', sorter: false, filter: false},
+  {key: 'type', label: '문의 유형'},
+  {key: 'userName', label: '이름'},
+  {key: 'email', label: '이메일'},
+  {key: 'phoneNumber', label: '휴대전화번호'},
+]

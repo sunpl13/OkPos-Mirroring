@@ -1,4 +1,16 @@
-import {CButton, CForm, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
+import {
+  CButton,
+  CForm,
+  CFormTextarea,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
+  CRow,
+} from '@coreui/react'
+import {useEffect, useState} from 'react'
+import ModalInput from '../../forms/inputForm/ModalInput'
 
 type Value = {
   id: number
@@ -20,37 +32,100 @@ interface InquiryDetailProps {
 }
 
 const InquiryDetailModal = ({onClick, onChange, value, item, visible, setVisible}: InquiryDetailProps) => {
+  const [stateCompare, setStateCompare] = useState<Value>({
+    id: 0,
+    userName: '',
+    phoneNumber: '',
+    email: '',
+    text: '',
+    firstRegistration: '',
+    answer: '',
+  })
+
+  useEffect(() => {
+    if (visible) {
+      setStateCompare(item)
+    }
+  }, [visible])
+
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
-        <CModalTitle>InquiryDetailModal User ID : {item.id}</CModalTitle>
+        <CModalTitle>문의 상세 내용</CModalTitle>
       </CModalHeader>
       <CModalBody>
+        <CRow className={'p-2'}>
+          <ModalInput
+            id={'id'}
+            placeholder={'User Id'}
+            label={'No'}
+            value={stateCompare.id}
+            onChange={onChange}
+            readOnly
+            disabled
+          />
+          <ModalInput
+            id={'userName'}
+            placeholder={''}
+            label={'이름'}
+            value={stateCompare.userName}
+            onChange={onChange}
+            readOnly
+            disabled
+          />
+        </CRow>
+        <CRow className={'p-2'}>
+          <ModalInput
+            id={'email'}
+            placeholder={'이메일'}
+            label={'이메일'}
+            value={stateCompare.email}
+            onChange={onChange}
+            readOnly
+            disabled
+          />
+          <ModalInput
+            id={'phoneNumber'}
+            placeholder={'휴대전화번호'}
+            label={'휴대전화번호'}
+            value={stateCompare.phoneNumber}
+            onChange={onChange}
+            readOnly
+            disabled
+          />
+        </CRow>
+        <CFormTextarea id='userInquiry' value={item.text} readOnly={true} disabled rows={9} />
+        <CRow className={'p-2'}>
+          <ModalInput
+            id={'email'}
+            placeholder={'첨부파일'}
+            label={'첨부파일'}
+            value={stateCompare.email}
+            onChange={onChange}
+            readOnly
+            disabled
+          />
+        </CRow>
+        <br />
         <CForm>
           <CFormTextarea
-            id='userInquiry'
-            label={`User ID : ${item.id}  User Email : ${item.email}`}
-            text='User Inquiry'
-            value={item.text}
-            readOnly={true}
-            rows={9}
-          ></CFormTextarea>{' '}
-          <CFormTextarea
             id='answer'
-            label='Inquiry Textarea'
-            text='Must be 8-20 words long.'
+            placeholder={'답변 작성'}
             rows={9}
             value={item.answer || value}
             onChange={onChange}
-          ></CFormTextarea>
+          />
         </CForm>
       </CModalBody>
       <CModalFooter>
         <CButton onClick={onClick} color='primary'>
-          Add
+          저장
         </CButton>
-        <CButton color='secondary' onClick={() => setVisible(false)}>
-          Cancel
+        <CButton color='danger' onClick={() => setVisible(false)}>
+          삭제
+        </CButton>
+        <CButton color='danger' onClick={() => setVisible(false)}>
+          취소
         </CButton>
       </CModalFooter>
     </CModal>
