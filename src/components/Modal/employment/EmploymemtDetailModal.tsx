@@ -27,6 +27,13 @@ interface AddProps {
   setIsReadOnly: (state: boolean) => void
 }
 
+const imgs = [
+  {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg', altName: '이미지01'},
+  {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract02.jpg', altName: '이미지02'},
+  {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract03.jpg', altName: '이미지03'},
+  {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract04.jpg', altName: '이미지04'},
+]
+
 const category = [
   {key: 'servicePlanning', value: '서비스 기획'},
   {key: 'serviceDevelop', value: '서비스 개발'},
