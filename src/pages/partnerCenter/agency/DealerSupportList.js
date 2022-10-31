@@ -50,8 +50,6 @@ const DealerSupportList = () => {
   return (
     <main>
       <PageHeader title='딜러 지원 리스트' />
-
-      <ModalFilesInput />
       <CRow>
         <CCol xs={12}>
           <CCard className='mb-4'>

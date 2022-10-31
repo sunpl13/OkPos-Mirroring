@@ -1,6 +1,7 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import React, {useEffect, useState} from 'react'
+import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
 
 type Value = {
   id: number
@@ -141,15 +142,6 @@ const UserDetailModal = ({value, visible, setVisible, upDate}: AddProps) => {
         </CRow>
         <CRow className={'p-2'}>
           <ModalInput
-            id={'businessRegistration'}
-            placeholder={'Business Registration'}
-            label={'Business Registration'}
-            value={stateCompare.businessRegistration}
-            onChange={handleUserDetailModalOnChange}
-            disabled={!editMode}
-            readOnly={!editMode}
-          />
-          <ModalInput
             id={'businessName'}
             placeholder={'Business Name'}
             label={'Business Name'}
@@ -169,6 +161,18 @@ const UserDetailModal = ({value, visible, setVisible, upDate}: AddProps) => {
             disabled={!editMode}
             readOnly={!editMode}
           />
+        </CRow>
+        <CRow>
+          <ModalInput
+            id={'businessRegistration'}
+            placeholder={'Business Registration'}
+            label={'Business Registration'}
+            value={stateCompare.businessRegistration}
+            onChange={handleUserDetailModalOnChange}
+            disabled={!editMode}
+            readOnly={!editMode}
+          />
+          <ModalFilesInput label={'Business Registration'} value={''} />
         </CRow>
       </CModalBody>
       <CModalFooter>

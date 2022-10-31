@@ -185,18 +185,9 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
           </CRow>
         </CModalBody>
         <CModalFooter>
-          {value.no === -1 ? (
-            <CButton color='primary'>Add</CButton>
-          ) : (
-            <>
-              <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
-                delete
-              </CButton>
-              <CButton color={isReadOnly ? 'primary' : 'success'} onClick={() => setEditMode(!editMode)}>
-                Edit
-              </CButton>
-            </>
-          )}
+          <CButton color={isReadOnly ? 'primary' : 'success'} onClick={() => setEditMode(!editMode)}>
+            Edit
+          </CButton>
           <CButton color='primary' onClick={handleCloseModal}>
             Cancel
           </CButton>

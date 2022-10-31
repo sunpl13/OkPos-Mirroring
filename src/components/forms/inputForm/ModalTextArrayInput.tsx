@@ -2,14 +2,15 @@ import {CCol, CFormTextarea} from '@coreui/react'
 
 interface Interface {
   id: string
-  value: string
+  value: string | undefined
   rows: number
   label: string
-  text: string
-  onChange: () => void
+  text?: string
+  onChange?: () => void
+  readOnly?: boolean
 }
 
-const ModalTextArrayInput = ({id, value, rows, label, onChange, text}: Interface) => {
+const ModalTextArrayInput = ({id, value, rows, label, onChange, text, readOnly}: Interface) => {
   return (
     <CCol>
       <CFormTextarea
@@ -19,6 +20,7 @@ const ModalTextArrayInput = ({id, value, rows, label, onChange, text}: Interface
         value={value}
         onChange={onChange}
         text={text || ''}
+        readOnly={readOnly}
       />
     </CCol>
   )

@@ -47,7 +47,7 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}: Detai
           />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalFilesInput value={files} />
+          <ModalFilesInput label={'Files'} value={files} />
         </CRow>
         <CRow className={'p-2'}>
           <ModalTextArrayInput

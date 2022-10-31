@@ -1,4 +1,5 @@
-import {CButton, CForm, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
+import {CButton, CForm, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import ModalTextArrayInput from '../../forms/inputForm/ModalTextArrayInput'
 
 type Value = {
   id: number
@@ -20,6 +21,7 @@ interface InquiryDetailProps {
 }
 
 const InquiryDetailModal = ({onClick, onChange, value, item, visible, setVisible}: InquiryDetailProps) => {
+  const {text, answer} = item
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
@@ -27,22 +29,26 @@ const InquiryDetailModal = ({onClick, onChange, value, item, visible, setVisible
       </CModalHeader>
       <CModalBody>
         <CForm>
-          <CFormTextarea
-            id='userInquiry'
-            label={`User ID : ${item.id}  User Email : ${item.email}`}
-            text='User Inquiry'
-            value={item.text}
-            readOnly={true}
-            rows={9}
-          ></CFormTextarea>{' '}
-          <CFormTextarea
-            id='answer'
-            label='Inquiry Textarea'
-            text='Must be 8-20 words long.'
-            rows={9}
-            value={item.answer || value}
-            onChange={onChange}
-          ></CFormTextarea>
+          <CRow className={'p-2'}>
+            <ModalTextArrayInput
+              id='userInquiry'
+              label={`User ID : ${item.id}  User Email : ${item.email}`}
+              text='User Inquiry'
+              value={text}
+              readOnly
+              rows={9}
+            />
+          </CRow>
+          <CRow className={'p-2'}>
+            <ModalTextArrayInput
+              id='answer'
+              label='Inquiry Textarea'
+              text='Must be 8-20 words long.'
+              rows={9}
+              value={answer || value}
+              onChange={onChange}
+            />
+          </CRow>
         </CForm>
       </CModalBody>
       <CModalFooter>

@@ -1,15 +1,15 @@
 import {InboxOutlined} from '@ant-design/icons'
 import type {UploadProps} from 'antd'
-import {message, Upload} from 'antd'
+import {Upload} from 'antd'
 import styled from 'styled-components'
 import {CFormLabel} from '@coreui/react'
 
 interface FilesInputProps {
   value: string | object | Array<object>
+  label: string
 }
 
-const ModalFilesInput = ({value}: FilesInputProps) => {
-  console.log(value)
+const ModalFilesInput = ({value, label}: FilesInputProps) => {
   const props: UploadProps = {
     name: 'file',
     multiple: true,
@@ -20,9 +20,10 @@ const ModalFilesInput = ({value}: FilesInputProps) => {
         console.log(info.file, info.fileList)
       }
       if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`)
+        console.log(value)
+        //message.success(`${info.file.name} file uploaded successfully.`)
       } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`)
+        //message.error(`${info.file.name} file upload failed.`)
       }
     },
     onDrop(e) {
@@ -31,16 +32,18 @@ const ModalFilesInput = ({value}: FilesInputProps) => {
   }
 
   return (
-    <DivBox>
-      <CFormLabel className='col-sm-2 col-form-label'>Files</CFormLabel>
-      <Upload.Dragger {...props}>
-        <p className='ant-upload-drag-icon'>
-          <InboxOutlined />
-        </p>
-        <p className='ant-upload-text'>업로드하려면 이 영역으로 파일을 클릭하거나 드래그하세요.</p>
-        <p className='ant-upload-hint'>추가설명</p>
-      </Upload.Dragger>
-    </DivBox>
+    <>
+      <DivBox>
+        <CFormLabel className=' col-form-label'>{label || ''}</CFormLabel>
+        <Upload.Dragger {...props}>
+          <p className='ant-upload-drag-icon'>
+            <InboxOutlined />
+          </p>
+          <p className='ant-upload-text'>업로드하려면 이 영역으로 파일을 클릭하거나 드래그하세요.</p>
+          <p className='ant-upload-hint'>추가설명</p>
+        </Upload.Dragger>
+      </DivBox>
+    </>
   )
 }
 const DivBox = styled.div`
