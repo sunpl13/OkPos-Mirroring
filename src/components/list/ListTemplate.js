@@ -3,12 +3,15 @@ import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
 import {CBadge, CImage} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
+import RangeDatePicker from '../common/RangeDatePicker'
 
-const ListTemplate = ({items, onClick, columns, className}) => {
+const ListTemplate = ({items, onClick, columns, className, onDelete}) => {
   const [listItems, setListItems] = useState([])
+  const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
   const [imgClick, setImgClick] = useState('')
-
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
   const getBadge = status => {
     switch (status) {
       case true:
@@ -27,15 +30,26 @@ const ListTemplate = ({items, onClick, columns, className}) => {
   const modalOnClick = () => {
     setShowModal(!showModal)
   }
-
+  const handleDeleteOnClick = (event, item) => {
+    event.stopPropagation()
+    onDelete(item)
+  }
   useEffect(() => {
     setListItems(items)
   }, [items])
+  useEffect(() => {
+    if (endDate) {
+      setFilterItems(listItems.filter(value => value.createdAt >= startDate && value.createdAt <= endDate))
+    } else {
+      setFilterItems('')
+    }
+  }, [endDate])
 
   return (
     <>
+      <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
       <CSmartTable
-        items={listItems}
+        items={filterItems || listItems}
         columns={columns || null}
         activePage={1}
         columnFilter
@@ -61,6 +75,11 @@ const ListTemplate = ({items, onClick, columns, className}) => {
               <CImage rounded src={images.length === 0 ? '' : images[0]} alt='' width={100} height={60} />
             </td>
           ),
+          deleteBtn: item => (
+            <td onClick={event => handleDeleteOnClick(event, item)}>
+              <CBadge color={'danger'}>Delete</CBadge>
+            </td>
+          ),
         }}
         noItemsLabel={'Not Date'}
         itemsPerPageSelect
@@ -76,6 +95,7 @@ ListTemplate.propTypes = {
   onClick: PropTypes.func,
   columns: PropTypes.array,
   className: PropTypes.string,
+  onDelete: PropTypes.func,
 }
 
 export default ListTemplate

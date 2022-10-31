@@ -11,7 +11,9 @@ const WithdrawalUsers = React.lazy(() => import('./pages/partnerCenter/users/Wit
 
 // 1:1 문의 리스트
 const UserInquiryList = React.lazy(() => import('./pages/partnerCenter/users/inquiry/UserInquiryList'))
-const UserInquiryDetail = React.lazy(() => import('./components/Modal/users/InquiryDetailModal'))
+
+// 공지사항 리스트
+const NoticeList = React.lazy(() => import('./pages/partnerCenter/users/notice/NoticeList'))
 
 const Employment = React.lazy(() => import('./pages/employment/Employment'))
 const Popup = React.lazy(() => import('./pages/popup/PopUpPage'))
@@ -43,7 +45,6 @@ const routes = [
 
   //UserInquiry
   {path: `/users/inquiry/userInquiryList`, name: 'UserInquiryList', element: UserInquiryList},
-  {path: `/users/inquiry/userInquiryDetail`, name: 'UserInquiryDetail', element: UserInquiryDetail},
 
   // 가맹점 전용 공식몰 페이지
 
@@ -51,7 +52,10 @@ const routes = [
   {path: `/official/users`, name: '회원관리', element: OfficailMallUserList},
   {path: `/official/withdrawalUsers`, name: '탈퇴회원관리', element: OfficailMallWithdrawalUserList},
 
-  {path: `/official/inquirys`, name: '회원관리', element: OfficailMallInquiryList},
+  {path: `/official/inquirys`, name: '문의관리', element: OfficailMallInquiryList},
+
+  //Notice
+  {path: `/users/notice/noticeList`, name: 'NoticeList', element: NoticeList},
 ]
 
 export default routes

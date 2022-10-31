@@ -9,8 +9,9 @@ table {
       text-align: center;
     }
     th.userId {
-      min-width: 60px;
+      width: 10%;
       max-width: 90px;
+      min-width: 80px;
     }
     th.businessNumber {
       min-width: 190px;
@@ -19,6 +20,8 @@ table {
       min-width: 160px;
     }
     th.status {
+      width: 10%;
+      max-width: 90px;
       min-width: 90px;
     }
     th.businessName {
@@ -29,6 +32,19 @@ table {
     }
     th.secessionReason {
       min-width: 180px;
+    }
+
+    th.createdAt {
+      width: 10%;
+      max-width: 140px;
+      min-width: 130px;
+    }
+    th.deleteBtn,
+    th.files,
+     {
+      width:10%;
+      max-width: 30px;
+      min-width: 20px;
     }
   }
 }
