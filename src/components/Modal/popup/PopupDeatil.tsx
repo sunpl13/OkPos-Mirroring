@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {CModal, CButton, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import {IPopUp} from '../../../pages/popup/PopUpPage'
@@ -16,6 +16,7 @@ interface AddProps {
 
 const PopupDeatil = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}: AddProps) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
+
   const userDetailEditMode = () => {
     if (!isReadOnly) {
       setIsReadOnly(true)
@@ -79,7 +80,7 @@ const PopupDeatil = ({value, visible, setVisible, onChange, isReadOnly, setIsRea
               <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
                 delete
               </CButton>
-              <CButton color={isReadOnly ? 'success' : 'primary'} onClick={userDetailEditMode}>
+              <CButton color={isReadOnly ? 'primary' : 'success'} onClick={userDetailEditMode}>
                 Edit
               </CButton>
             </>

@@ -44,9 +44,6 @@ const PopUpPage = () => {
 
   const handlePopUpOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const {id, value} = target
-    console.log(id)
-    console.log(value)
-
     setSelectedItem({
       ...selectedItem,
       [id]: value,

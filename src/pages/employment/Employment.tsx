@@ -27,7 +27,7 @@ export type EmploymentType = {
 const Employment = () => {
   const [items, setItems] = useState<EmploymentType[]>([])
   const [selectedItem, setSelectedItem] = useState<EmploymentType>({
-    No: 0,
+    No: -1,
     category: '',
     status: false,
     employName: '',
@@ -45,43 +45,23 @@ const Employment = () => {
     departmentStatus: '',
     etc: '',
   })
-  const [item, setItem] = useState<EmploymentType>({
-    No: 0,
-    category: '',
-    status: false,
-    employName: '',
-    employStartDate: '',
-    employEndDate: '',
-    employbannerImg: '',
-    employmentType: 'a',
-    workArea: '',
-    education: 'a',
-    career: 'a',
-    des: '',
-    qualifications: '',
-    preferentiaTreatment: '',
-    reason: '',
-    departmentStatus: '',
-    etc: '',
-  })
+
   const [showModal, setShowModal] = useState(false)
-  const [showAddModal, setShowAddModal] = useState(false)
+  const [isReadOnly, setIsReadOnly] = useState(true)
 
   const handleRetrieveTestList = async () => {
     setItems(testEmployments as EmploymentType[])
   }
-  /** Open Modal*/
-  const handleShowUserItemAddModal = () => {
-    setShowAddModal(!showAddModal)
-  }
+
   const handleShowEmploymentDetailModal = (item: EmploymentType) => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
 
   const handleEmploymentAddModal = () => {
+    setIsReadOnly(false)
     setSelectedItem({
-      No: 0,
+      No: -1,
       category: '',
       status: false,
       employName: '',
@@ -102,43 +82,13 @@ const Employment = () => {
     setShowModal(!showModal)
   }
 
-  // /** Add User Modal*/
   const handleEmployDetailOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const {id, value} = target
-    setItem({
-      ...item,
+    setSelectedItem({
+      ...selectedItem,
       [id]: value,
     })
   }
-
-  // const handleEmployItemAddModalOnClick = () => {
-  //   setItems([
-  //     ...items,
-  //     {
-  //       ...item,
-  //     },
-  //   ])
-  //   setItem({
-  //     No: 0,
-  //     category: '',
-  //     status: false,
-  //     employName: '',
-  //     employStartDate: '',
-  //     employEndDate: '',
-  //     employbannerImg: '',
-  //     employmentType: 'a',
-  //     workArea: '',
-  //     education: 'a',
-  //     career: 'a',
-  //     des: '',
-  //     qualifications: '',
-  //     preferentiaTreatment: '',
-  //     reason: '',
-  //     departmentStatus: '',
-  //     etc: '',
-  //   })
-  //   setShowAddModal(!showAddModal)
-  // }
 
   return (
     <main>
@@ -177,6 +127,8 @@ const Employment = () => {
         visible={showModal}
         value={selectedItem}
         setVisible={setShowModal}
+        isReadOnly={isReadOnly}
+        setIsReadOnly={setIsReadOnly}
       />
     </main>
   )
