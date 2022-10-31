@@ -1,6 +1,8 @@
-import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import React, {useEffect, useState} from 'react'
+import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
+import ModalTextArrayInput from '../../forms/inputForm/ModalTextArrayInput'
 
 type Value = {
   id: number
@@ -45,19 +47,12 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}: Detai
           />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalInput
-            id={'files'}
-            type={'file'}
-            placeholder={'Notice File'}
-            label={'Notice File'}
-            value={files}
-            onChange={onChange}
-          />
+          <ModalFilesInput value={files} />
         </CRow>
-        <CRow>
-          <CFormTextarea
+        <CRow className={'p-2'}>
+          <ModalTextArrayInput
             id='content'
-            label=' '
+            label={'Notice'}
             rows={15}
             value={content}
             onChange={onChange}

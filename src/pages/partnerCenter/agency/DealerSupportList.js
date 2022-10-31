@@ -5,7 +5,7 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {dealerSupportListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 import {dealerSupportList} from '../../../utils/columns/partnerCenter/Columns'
 import DealerSupportDetailModal from '../../../components/Modal/users/DealerSupportDetailModal'
-import ModalImgInput from '../../../components/forms/inputForm/ModalImgInput'
+import ModalFilesInput from '../../../components/forms/inputForm/ModalFilesInput'
 
 const DealerSupportList = () => {
   const [items, setItems] = useState([])
@@ -51,7 +51,7 @@ const DealerSupportList = () => {
     <main>
       <PageHeader title='딜러 지원 리스트' />
 
-      <ModalImgInput />
+      <ModalFilesInput />
       <CRow>
         <CCol xs={12}>
           <CCard className='mb-4'>
