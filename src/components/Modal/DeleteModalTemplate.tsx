@@ -2,8 +2,8 @@ import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} fr
 
 interface IProps {
   visible: boolean
-  title: string
-  children: JSX.Element
+  title?: string
+  children?: JSX.Element
   onDelete: () => void
   setVisible: (state: boolean) => void
 }
