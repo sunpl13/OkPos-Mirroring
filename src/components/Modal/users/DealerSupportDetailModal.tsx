@@ -13,7 +13,6 @@ import {
 } from '@coreui/react'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 import ModalInput from '../../forms/inputForm/ModalInput'
-import DatePickerForm from '../../common/DatePickerForm'
 import DeleteModalTemplate from '../DeleteModalTemplate'
 
 type SupportDetailType = {
@@ -69,9 +68,9 @@ const career = [
   {key: 7, value: '6년 이상'},
 ]
 const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}: AddProps) => {
-  console.log(value)
-  const [startDate, setStartDate] = useState(new Date())
   const [showDeleteModal, setshowDeleteModal] = useState(false)
+  const [editMode, setEditMode] = useState(true)
+
   const userDetailEditMode = () => {
     if (!isReadOnly) {
       setIsReadOnly(true)
@@ -84,19 +83,15 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
     userDetailEditMode()
     setVisible(false)
   }
-  //"- 지원한 공지 제목
-  // - 지원한 공지 본문
-  // - 지원한 공지 이미지
-  // - 지원 분야 (대리점 / 딜러)
-  // - 이름
-  // - 이메일
-  // - 전화번호
-  // - VAN 영업 경력 (유/무)"
+  const onClose = () => {
+    setVisible(false)
+    setEditMode(true)
+  }
   return (
     <>
-      <CModal alignment='center' size='lg' visible={visible} onClose={() => setVisible(false)}>
+      <CModal alignment='center' size='lg' visible={visible} onClose={() => onClose()}>
         <CModalHeader>
-          <CModalTitle>채용 상세</CModalTitle>
+          <CModalTitle>지원 상세</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
@@ -107,11 +102,11 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
               label='No'
               readOnly={true}
               disabled={true}
-              value={value.no === -1 ? '' : value.no}
+              value={value.no || '0'}
             />
             <ModalSelect
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
+              readOnly={editMode}
+              disabled={editMode}
               onChange={onChange}
               size='sm'
               value={category}
@@ -131,8 +126,18 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
             />
           </CRow>
           <CRow className='mb-3'>
-            <DatePickerForm label='지원 일자' id='startDate' date={startDate} setDate={setStartDate} readOnly={true} />
-            <ModalSelect onChange={onChange} size='sm' value={career} placeholder='선택해주세요' label='경력' />
+            <CRow className='mb-3'>
+              <ModalInput
+                onChange={onChange}
+                id='startDate'
+                placeholder='AnnouncementTitle.'
+                label='지원 일자'
+                readOnly={true}
+                disabled={true}
+                value={value.employStartDate || ''}
+              />
+              <ModalSelect onChange={onChange} size='sm' value={career} placeholder='선택해주세요' label='경력' />
+            </CRow>
           </CRow>
           <CRow className='mb-3'>
             <CFormLabel>이미지</CFormLabel>
@@ -152,8 +157,8 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
               placeholder='userName'
               label='이름'
               value={value.userName}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
+              readOnly={editMode}
+              disabled={editMode}
             />
           </CRow>
           <CRow className='mb-3'>
@@ -163,8 +168,8 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
               placeholder='email'
               label='Email'
               value={value.email}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
+              readOnly={editMode}
+              disabled={editMode}
             />
           </CRow>
           <CRow className='mb-3'>
@@ -174,8 +179,8 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
               placeholder='Phone Number'
               label='전화번호'
               value={value.phoneNumber}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
+              readOnly={editMode}
+              disabled={editMode}
             />
           </CRow>
         </CModalBody>
@@ -187,7 +192,7 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
               <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
                 delete
               </CButton>
-              <CButton color={isReadOnly ? 'primary' : 'success'} onClick={userDetailEditMode}>
+              <CButton color={isReadOnly ? 'primary' : 'success'} onClick={() => setEditMode(!editMode)}>
                 Edit
               </CButton>
             </>

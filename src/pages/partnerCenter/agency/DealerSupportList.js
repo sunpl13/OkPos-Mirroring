@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import PageHeader from '../../../components/common/PageHeader'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {dealerSupportListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 import {dealerSupportList} from '../../../utils/columns/partnerCenter/Columns'
 import DealerSupportDetailModal from '../../../components/Modal/users/DealerSupportDetailModal'
+import ModalImgInput from '../../../components/forms/inputForm/ModalImgInput'
 
 const DealerSupportList = () => {
   const [items, setItems] = useState([])
@@ -16,10 +17,10 @@ const DealerSupportList = () => {
     employStartDate: '',
     employEndDate: '',
     employbannerImg: '',
-    employmentType: 'a',
+    employmentType: '',
     workArea: '',
-    education: 'a',
-    career: 'a',
+    education: '',
+    career: '',
     des: '',
     qualifications: '',
     preferentiaTreatment: '',
@@ -34,32 +35,8 @@ const DealerSupportList = () => {
   const [showModal, setShowModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
 
-  const handleShowEmploymentDetailModal = item => {
+  const handleShowDealerSupportDetailModal = item => {
     setSelectedItem(item)
-    setShowModal(!showModal)
-  }
-
-  const handleEmploymentAddModal = () => {
-    setIsReadOnly(false)
-    setSelectedItem({
-      No: -1,
-      category: '',
-      status: false,
-      employName: '',
-      employStartDate: '',
-      employEndDate: '',
-      employbannerImg: '',
-      employmentType: 'a',
-      workArea: '',
-      education: 'a',
-      career: 'a',
-      des: '',
-      qualifications: '',
-      preferentiaTreatment: '',
-      reason: '',
-      departmentStatus: '',
-      etc: '',
-    })
     setShowModal(!showModal)
   }
 
@@ -72,14 +49,16 @@ const DealerSupportList = () => {
 
   return (
     <main>
-      <PageHeader title='채용관리' />
+      <PageHeader title='딜러 지원 리스트' />
+
+      <ModalImgInput />
       <CRow>
         <CCol xs={12}>
           <CCard className='mb-4'>
             <CCardBody>
               <ListTemplate
                 items={items}
-                onClick={handleShowEmploymentDetailModal}
+                onClick={handleShowDealerSupportDetailModal}
                 columns={dealerSupportList}
                 className={'userList'}
               />
