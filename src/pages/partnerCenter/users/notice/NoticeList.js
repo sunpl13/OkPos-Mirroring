@@ -58,12 +58,12 @@ const NoticeList = () => {
         if (!title) return alert('Not Title')
         if (!files) return alert('Not File')
         if (!content) return alert('Not Content')
-        return setItems(items.map(value => (value.id === id ? selectedItem : value)))
-      } else {
-        return
+        setItems(items.map(value => (value.id === id ? selectedItem : value)))
+        setShowModal(false)
       }
+    } else {
+      setShowModal(false)
     }
-    setShowModal(false)
   }
 
   /** Add Modal */
@@ -74,18 +74,18 @@ const NoticeList = () => {
         if (!title) return alert('Not Title')
         if (!files) return alert('Not File')
         if (!content) return alert('Not Content')
-        return setItems([
+        setItems([
           ...items,
           {
             ...selectedItem,
             createdAt: moment().format('YYYY-MM-DD'),
           },
         ])
-      } else {
-        return
+        setShowAddModal(false)
       }
+    } else {
+      setShowAddModal(false)
     }
-    setShowAddModal(false)
   }
 
   /** List Row onDelete */

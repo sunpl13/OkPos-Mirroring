@@ -1,5 +1,6 @@
 import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
+import {useEffect, useState} from 'react'
 type Value = {
   id: number
   title: string
@@ -11,13 +12,23 @@ interface AddProps {
   value: Value
   visible: boolean
   onChange: () => void
+  setVisible: (state: boolean) => void
   upDate: () => void
 }
-const NoticeAddModal = ({value, visible, upDate, onChange}: AddProps) => {
+const NoticeAddModal = ({value, visible, setVisible, upDate, onChange}: AddProps) => {
   const {title, content, files} = value
-
+  const [toggle, setToggle] = useState(true)
+  useEffect(() => {
+    if (visible) {
+      setToggle(true)
+    }
+  }, [visible])
+  const btnClick = () => {
+    setToggle(false)
+    upDate()
+  }
   return (
-    <CModal size='lg' visible={visible} onClose={() => upDate()}>
+    <CModal size='lg' visible={visible} onClose={() => toggle && upDate()}>
       <CModalHeader>
         <CModalTitle>Notice Add</CModalTitle>
       </CModalHeader>
@@ -53,10 +64,10 @@ const NoticeAddModal = ({value, visible, upDate, onChange}: AddProps) => {
         </CRow>
       </CModalBody>
       <CModalFooter>
-        <CButton color={'primary'} onClick={() => upDate()}>
+        <CButton color={'primary'} onClick={() => btnClick()}>
           Add
         </CButton>
-        <CButton color='primary' onClick={() => upDate()}>
+        <CButton color='primary' onClick={() => setVisible(false)}>
           Cancel
         </CButton>
       </CModalFooter>

@@ -172,10 +172,10 @@ const UserDetailModal = ({value, visible, setVisible, upDate}: AddProps) => {
         </CRow>
       </CModalBody>
       <CModalFooter>
-        <CButton color={editMode ? 'success' : 'primary'} onClick={userDetailEditMode}>
+        <CButton color={editMode ? 'success' : 'primary'} onClick={() => setEditMode(!editMode)}>
           Edit
         </CButton>
-        <CButton color='primary' onClick={handleCloseModal}>
+        <CButton color='primary' onClick={() => setVisible(false)}>
           Cancel
         </CButton>
       </CModalFooter>

@@ -6,7 +6,6 @@ import UserAddModalTemplate from '../../../components/Modal/users/UserAddModalTe
 import UserDetailModal from '../../../components/Modal/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
-import axios from 'axios'
 
 const Userlist = () => {
   const [items, setItems] = useState([])
