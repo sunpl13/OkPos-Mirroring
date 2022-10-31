@@ -1,5 +1,3 @@
-import RangeDatePicker from '../../../components/common/RangeDatePicker'
-
 /** 회원 리스트 */
 export const userListColumns = [
   {
@@ -121,5 +119,39 @@ export const noticeList = [
     _props: {color: 'primary', className: 'deleteBtn'},
     filter: false,
     sorter: false,
+  },
+]
+
+/** 영업 대리점/ 딜러 지원 리스트 */
+export const dealerSupportList = [
+  {
+    key: 'no',
+    _props: {color: 'primary', className: 'no'},
+  },
+  {
+    key: 'category',
+    _props: {color: 'primary', className: 'Category'},
+  },
+  {
+    key: 'announcementTitle',
+    _props: {color: 'primary', className: 'announcementTitle'},
+  },
+
+  {
+    key: 'userName',
+    _props: {color: 'primary', className: 'userName'},
+  },
+  {
+    key: 'email',
+    _props: {color: 'primary', className: 'email'},
+  },
+  {
+    key: 'phoneNumber',
+    _props: {color: 'primary', className: 'phoneNumber'},
+  },
+  {
+    key: 'createdAt',
+    _props: {color: 'primary', className: 'createdAt'},
+    filter: false,
   },
 ]

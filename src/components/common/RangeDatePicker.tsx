@@ -22,7 +22,6 @@ const RangeDatePicker = ({setStartDate, setEndDate}: RangePickerProps) => {
       setStartDate('')
       setEndDate('')
     }
-    console.log(date)
   }
 
   return (

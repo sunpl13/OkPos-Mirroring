@@ -23,7 +23,6 @@ const Userlist = () => {
 
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
-
   useEffect(() => {
     setItems(testUserTableValues.filter(v => v.status))
   }, [])

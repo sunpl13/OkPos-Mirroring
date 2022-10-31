@@ -8,42 +8,41 @@ table {
     tr {
       text-align: center;
     }
-    th.userId {
-      width: 10%;
-      max-width: 90px;
-      min-width: 80px;
-    }
-    th.businessNumber {
-      min-width: 190px;
-    }
-    th.phoneNumber {
-      min-width: 160px;
-    }
-    th.status {
-      width: 10%;
-      max-width: 90px;
-      min-width: 90px;
-    }
-    th.businessName {
-      min-width: 160px;
-    }
-    th.businessAddress {
-      min-width: 180px;
-    }
-    th.secessionReason {
-      min-width: 180px;
-    }
+    th {
+      width: 100%;
+      &.deleteBtn,
+      &.files {
+        max-width: 30px;
+        min-width: 20px;
+      }
+      &.userId,
+      &.status,
+      &.no{
+        max-width: 90px;
+        min-width: 80px;
+      }
 
-    th.createdAt {
-      width: 10%;
-      max-width: 140px;
-      min-width: 130px;
-    }
-    th.deleteBtn,
-    th.files {
-      width: 10%;
-      max-width: 30px;
-      min-width: 20px;
+      &.createdAt,
+      &.category{
+        max-width: 140px;
+        min-width: 130px;
+      }
+      &.phoneNumber,
+      &.businessName{
+        min-width: 160px;
+      }
+
+      &.businessAddress,
+      &.secessionReason,
+      &.businessNumber{
+        min-width: 180px;
+      }
+
+
+      &.announcementTitle{
+        max-width: 250px;
+        min-width: 200px;
+      }
     }
   }
 }

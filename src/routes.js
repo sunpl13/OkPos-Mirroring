@@ -15,6 +15,9 @@ const UserInquiryList = React.lazy(() => import('./pages/partnerCenter/users/inq
 // 공지사항 리스트
 const NoticeList = React.lazy(() => import('./pages/partnerCenter/users/notice/NoticeList'))
 
+// 영업 데리점 딜러 지원 리스트
+const DealerSupportList = React.lazy(() => import('./pages/partnerCenter/agency/DealerSupportList'))
+
 const Employment = React.lazy(() => import('./pages/employment/Employment'))
 const Popup = React.lazy(() => import('./pages/popup/PopUpPage'))
 
@@ -56,6 +59,9 @@ const routes = [
 
   //Notice
   {path: `/users/notice/noticeList`, name: 'NoticeList', element: NoticeList},
+
+  // Dealer Support
+  {path: '/users/dealerSupport', name: 'DealerSupport', element: DealerSupportList},
 ]
 
 export default routes

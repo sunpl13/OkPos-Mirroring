@@ -77,6 +77,18 @@ const _nav = [
   },
   {
     component: CNavGroup,
+    name: '영업 대리점',
+    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    items: [
+      {
+        component: CNavItem,
+        name: '딜러 지원 리스트',
+        to: '/users/dealerSupport',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
     name: '홈페이지 관리',
     icon: <CIcon icon={cilHome} customClassName='nav-icon' />,
     items: [
