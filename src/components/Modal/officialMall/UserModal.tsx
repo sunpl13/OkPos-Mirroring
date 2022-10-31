@@ -142,12 +142,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
           />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalStatus
-            id={'userStatus'}
-            placeholder={'상태'}
-            label={'상태'}
-            value={stateCompare.status ? 'Activate' : 'Disabled'}
-          />
+          <ModalStatus id={'userStatus'} placeholder={'상태'} label={'상태'} value={stateCompare.status} />
         </CRow>
       </CModalBody>
       <CModalFooter>
