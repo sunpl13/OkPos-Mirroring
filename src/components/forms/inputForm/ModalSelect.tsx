@@ -14,10 +14,10 @@ interface ModalInputProps {
   size: 'sm' | 'lg' | undefined
   value: IOption[]
   id?: string
-  disabled: boolean
+  disabled?: boolean
 }
 
-const ModalSelect = ({onChange, size, placeholder, label, value, readOnly, id, disabled}: ModalInputProps) => {
+const ModalSelect = ({onChange, size, placeholder, label, value, readOnly, id, disabled = false}: ModalInputProps) => {
   const newOptions = value.map(item => <option key={item.key}>{item.value}</option>)
 
   return (
