@@ -1,24 +1,30 @@
 import {CButton, CImage, CModal, CModalBody, CModalFooter, CModalHeader} from '@coreui/react'
 import {useEffect, useState} from 'react'
 import styled from 'styled-components'
-interface ModalTest {
-  onClick: () => void
-  onChange: () => void
-  url: string
+
+export interface IImage {
+  img: string
+  altName: string
+}
+
+interface IThumbnail {
+  thumbnails: any
   visible: boolean
   setVisible: (state: boolean) => void
 }
 
-const ThumbnailModal = ({visible, setVisible, url}: ModalTest) => {
+const ThumbnailModal = ({visible, setVisible, thumbnails}: IThumbnail) => {
+  console.log('thumbnails', thumbnails)
+
   const [imgUrl, setImgUrl] = useState('')
 
-  useEffect(() => {
-    setImgUrl(url)
+  // useEffect(() => {
+  //   setImgUrl(thumbnails[0].img)
 
-    return () => {
-      setImgUrl(url)
-    }
-  }, [url])
+  //   return () => {
+  //     setImgUrl(thumbnails[0].img)
+  //   }
+  // }, [thumbnails])
   const onChangeImg = (selectedUrl: string) => {
     setImgUrl(selectedUrl)
   }
@@ -27,28 +33,11 @@ const ThumbnailModal = ({visible, setVisible, url}: ModalTest) => {
       <CModalHeader></CModalHeader>
       <CModalBody className='clearfix'>
         <CImage align='center' fluid src={imgUrl} alt='안녕하세요' width={600} />
-        <MultipleRows>
-          <img
-            src='https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg'
-            alt='이미지1'
-            onClick={() => onChangeImg('https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg')}
-          />
-          <img
-            src='https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract02.jpg'
-            alt='이미지2'
-            onClick={() => onChangeImg('https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract02.jpg')}
-          />
-          <img
-            src='https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract03.jpg'
-            alt='이미지3'
-            onClick={() => onChangeImg('https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract03.jpg')}
-          />
-          <img
-            src='https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract04.jpg'
-            alt='이미지4'
-            onClick={() => onChangeImg('https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract04.jpg')}
-          />
-        </MultipleRows>
+        {/* <MultipleRows>
+          {thumbnails.map(item => (
+            <CImage key={item.img} src={item.img} alt={item.altName} width={80} height={60} />
+          ))}
+        </MultipleRows> */}
       </CModalBody>
       <CModalFooter>
         <CButton color='danger' onClick={() => setVisible(false)}>
