@@ -15,15 +15,26 @@ interface ModalInputProps {
   value: IOption[]
   id?: string
   disabled?: boolean
+  isRequired?: boolean
 }
 
-const ModalSelect = ({onChange, size, placeholder, label, value, readOnly, id, disabled = false}: ModalInputProps) => {
+const ModalSelect = ({
+  onChange,
+  size,
+  placeholder,
+  label,
+  value,
+  readOnly,
+  id,
+  disabled = false,
+  isRequired,
+}: ModalInputProps) => {
   const newOptions = value.map(item => <option key={item.key}>{item.value}</option>)
 
   return (
     <>
       <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
-        {label || ' * '}
+        <span className={isRequired ? 'required' : ''}>{label || ' * '}</span>
       </CFormLabel>
       <CCol>
         <CFormSelect disabled={disabled} id={id} size={size} onChange={onChange} readOnly={readOnly}>

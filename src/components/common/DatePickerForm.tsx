@@ -13,9 +13,10 @@ interface IDatePickerProps {
   setDate: (date: Date) => void
   label: string
   readOnly?: boolean
+  isRequired?: boolean
 }
 
-const DatePickerForm = ({id, date, setDate, label, readOnly}: IDatePickerProps) => {
+const DatePickerForm = ({id, date, setDate, label, readOnly, isRequired}: IDatePickerProps) => {
   const [startDate, setStartDate] = useState<Date | null>(new Date())
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const DatePickerForm = ({id, date, setDate, label, readOnly}: IDatePickerProps) 
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className={'col-sm-2 col-form-label'}>
-        {label || ' * '}
+        <span className={isRequired ? 'required' : ''}>{label || ' * '}</span>
       </CFormLabel>
       <CCol>
         <CDatePicker readOnly={readOnly} dateFormat='yyyy-MM-dd' selected={startDate} onChange={() => onChange(date)} />

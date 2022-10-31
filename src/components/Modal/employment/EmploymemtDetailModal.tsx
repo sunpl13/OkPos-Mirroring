@@ -119,6 +119,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               onChange={onChange}
               size='sm'
               value={category}
+              isRequired={true}
               placeholder='선택해주세요'
               label='카테고리'
             />
@@ -130,6 +131,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               onChange={onChange}
               size='sm'
               value={status}
+              isRequired={true}
               placeholder='선택해주세요'
               label='진행 상태'
             />
@@ -139,13 +141,14 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               onChange={onChange}
               size='sm'
               value={type}
+              isRequired={true}
               placeholder='선택해주세요'
               label='고용 형태'
             />
           </CRow>
           <CRow className='mb-3'>
-            <DatePickerForm label='시작일' id='startDate' date={startDate} setDate={setstartDate} />
-            <DatePickerForm label='종료일' id='endDate' date={endDate} setDate={setendDate} />
+            <DatePickerForm label='시작일' isRequired={true} id='startDate' date={startDate} setDate={setstartDate} />
+            <DatePickerForm label='종료일' isRequired={true} id='endDate' date={endDate} setDate={setendDate} />
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
@@ -154,6 +157,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               placeholder='workArea'
               label='근무 지역'
               value={value.workArea}
+              isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />

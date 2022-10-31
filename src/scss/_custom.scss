@@ -74,3 +74,11 @@ th.large {
   left: 0 !important;
   transform: translate(240px, 0px);
 }
+
+//필수값
+.required {
+  font-weight: 700;
+  &:after {
+    content: ' *';
+  }
+}

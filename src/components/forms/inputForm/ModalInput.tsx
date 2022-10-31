@@ -10,13 +10,24 @@ interface ModalInputProps {
   label: string
   readOnly?: boolean
   disabled?: boolean
+  isRequired?: boolean
 }
 
-const ModalInput = ({type, onChange, id, placeholder, value, label, readOnly, disabled}: ModalInputProps) => {
+const ModalInput = ({
+  type,
+  onChange,
+  id,
+  placeholder,
+  value,
+  label,
+  readOnly,
+  disabled,
+  isRequired,
+}: ModalInputProps) => {
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
-        <strong>{label || ' * '}</strong>
+        <span className={isRequired ? 'required' : ''}>{label || ' * '}</span>
       </CFormLabel>
       <CCol className='align-items-center' style={{display: 'flex'}}>
         <CFormInput
