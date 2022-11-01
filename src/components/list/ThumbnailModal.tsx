@@ -14,8 +14,6 @@ interface IThumbnail {
 }
 
 const ThumbnailModal = ({visible, setVisible, thumbnails}: IThumbnail) => {
-  console.log('thumbnails', thumbnails)
-
   const [imgUrl, setImgUrl] = useState('')
 
   // useEffect(() => {

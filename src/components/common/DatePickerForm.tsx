@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react'
 import {CCol, CFormLabel} from '@coreui/react'
 import DatePicker from 'react-datepicker'
 import styled from 'styled-components'
@@ -14,18 +13,20 @@ interface IDatePickerProps {
   label: string
   readOnly?: boolean
   isRequired?: boolean
+  isDisabled?: boolean
 }
 
-const DatePickerForm = ({id, date, setDate, label, readOnly, isRequired}: IDatePickerProps) => {
-  const [startDate, setStartDate] = useState<Date | null>(new Date())
-
-  useEffect(() => {
-    setStartDate(date)
-  }, [date])
-
+const DatePickerForm = ({
+  id,
+  date,
+  setDate,
+  label,
+  readOnly = false,
+  isRequired,
+  isDisabled = false,
+}: IDatePickerProps) => {
   const onChange = (date: Date) => {
     setDate(date)
-    setStartDate(date)
   }
   return (
     <>
@@ -33,7 +34,13 @@ const DatePickerForm = ({id, date, setDate, label, readOnly, isRequired}: IDateP
         <span className={isRequired ? 'required' : ''}>{label || ' * '}</span>
       </CFormLabel>
       <CCol>
-        <CDatePicker readOnly={readOnly} dateFormat='yyyy-MM-dd' selected={startDate} onChange={() => onChange(date)} />
+        <CDatePicker
+          readOnly={readOnly}
+          dateFormat='yyyy-MM-dd'
+          selected={date}
+          onChange={(date: Date) => onChange(date)}
+          disabled={isDisabled}
+        />
       </CCol>
     </>
   )
@@ -55,4 +62,8 @@ const CDatePicker = styled(DatePicker)`
   appearance: none;
   border-radius: 0.375rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &:disabled {
+    background-color: #d8dbe0;
+  }
 `
