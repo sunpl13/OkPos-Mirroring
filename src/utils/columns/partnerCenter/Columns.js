@@ -155,3 +155,25 @@ export const dealerSupportList = [
     filter: false,
   },
 ]
+
+/** 자료 리스트 */
+export const materiaList = [
+  {
+    key: 'no',
+    _props: {color: 'primary', className: 'no'},
+  },
+  {
+    key: 'title',
+    _props: {color: 'primary', className: 'title'},
+  },
+  {
+    key: 'category',
+    _props: {color: 'primary', className: 'Category'},
+  },
+
+  {
+    key: 'createdAt',
+    _props: {color: 'primary', className: 'createdAt'},
+    filter: false,
+  },
+]

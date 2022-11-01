@@ -18,6 +18,9 @@ const NoticeList = React.lazy(() => import('./pages/partnerCenter/users/notice/N
 // 영업 데리점 딜러 지원 리스트
 const DealerSupportList = React.lazy(() => import('./pages/partnerCenter/agency/DealerSupportList'))
 
+// 자료실
+const MaterialList = React.lazy(() => import('./pages/partnerCenter/material/MaterialList'))
+
 const Employment = React.lazy(() => import('./pages/employment/Employment'))
 const Popup = React.lazy(() => import('./pages/popup/PopUpPage'))
 
@@ -40,6 +43,8 @@ const routes = [
   {path: `/users/userList`, name: 'UserList', element: UserList},
   {path: `/users/withdrawalUsers`, name: 'WithdrawalUsers', element: WithdrawalUsers},
 
+  // materialList
+  {path: `/material/materialList`, name: 'MaterialList', element: MaterialList},
   //employment
   {path: `/home/employment`, name: '채용관리', element: Employment},
 

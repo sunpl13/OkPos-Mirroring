@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
-import {testUserTableValues} from '../../test/testConstant'
 import ListTemplate from '../../../components/list/ListTemplate'
 import UserAddModalTemplate from '../../../components/Modal/partnerCenter/users/UserAddModalTemplate'
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
-import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
+import {materiaList, userListColumns} from '../../../utils/columns/partnerCenter/Columns'
+import MeterialLDetailModal from '../../../components/Modal/partnerCenter/users/MeterialLDetailModal'
+import {meterialListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 
-const Userlist = () => {
+const MaterialList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [item, setItem] = useState({
@@ -24,7 +25,7 @@ const Userlist = () => {
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
   useEffect(() => {
-    setItems(testUserTableValues.filter(v => v.status))
+    setItems(meterialListData)
   }, [])
 
   /** Open Modal*/
@@ -72,7 +73,7 @@ const Userlist = () => {
   }
   return (
     <CRow>
-      <PageHeader title='회원 리스트' />
+      <PageHeader title='자료 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardHeader>
@@ -88,7 +89,7 @@ const Userlist = () => {
             <ListTemplate
               items={items}
               onClick={handleShowUserDetailModal}
-              columns={userListColumns}
+              columns={materiaList}
               className={'userList'}
             />
           </CCardBody>
@@ -101,7 +102,7 @@ const Userlist = () => {
         onChange={handleUserItemAddModalOnChange}
         onClick={handleUserItemAddModalOnClick}
       />
-      <UserDetailModal
+      <MeterialLDetailModal
         value={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
@@ -112,4 +113,4 @@ const Userlist = () => {
   )
 }
 
-export default Userlist
+export default MaterialList

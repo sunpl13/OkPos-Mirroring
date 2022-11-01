@@ -1,7 +1,7 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
-import ModalInput from '../../forms/inputForm/ModalInput'
+import ModalInput from '../../../forms/inputForm/ModalInput'
 import React, {useEffect, useState} from 'react'
-import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
+import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 
 type Value = {
   id: number
@@ -172,7 +172,7 @@ const UserDetailModal = ({value, visible, setVisible, upDate}: AddProps) => {
             disabled={!editMode}
             readOnly={!editMode}
           />
-          <ModalFilesInput label={'Business Registration'} value={''} />
+          <ModalFilesInput id={'files'} label={'Business Registration'} value={''} />
         </CRow>
       </CModalBody>
       <CModalFooter>
