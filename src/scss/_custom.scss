@@ -17,29 +17,28 @@ table {
       }
       &.userId,
       &.status,
-      &.no{
+      &.no {
         max-width: 90px;
         min-width: 80px;
       }
 
       &.createdAt,
-      &.category{
+      &.category {
         max-width: 140px;
         min-width: 130px;
       }
       &.phoneNumber,
-      &.businessName{
+      &.businessName {
         min-width: 160px;
       }
 
       &.businessAddress,
       &.secessionReason,
-      &.businessNumber{
+      &.businessNumber {
         min-width: 180px;
       }
 
-
-      &.announcementTitle{
+      &.announcementTitle {
         max-width: 250px;
         min-width: 200px;
       }
