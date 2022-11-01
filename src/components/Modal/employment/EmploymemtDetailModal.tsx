@@ -16,6 +16,8 @@ import ModalInput from '../../forms/inputForm/ModalInput'
 import {EmploymentType} from '../../../pages/employment/Employment'
 import DatePickerForm from '../../common/DatePickerForm'
 import DeleteModalTemplate from '../DeleteModalTemplate'
+import CCustomModalHeader from '../../custom/Modal/CCustomModalHeader'
+import CloseCheckModal from '../CloseCheckModal'
 
 interface AddProps {
   readOnly: boolean
@@ -83,6 +85,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
   const [startDate, setstartDate] = useState(new Date())
   const [endDate, setendDate] = useState(new Date())
   const [showDeleteModal, setshowDeleteModal] = useState(false)
+  const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const userDetailEditMode = () => {
     if (!isReadOnly) {
       setIsReadOnly(true)
@@ -91,17 +94,29 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
       setIsReadOnly(false)
     }
   }
-  const handleCloseModal = () => {
-    userDetailEditMode()
+
+  const onCloseCheck = () => {
+    if (!isReadOnly && value.No !== -1) {
+      setCloseCheckModalState(true)
+    } else {
+      setVisible(false)
+      setIsReadOnly(true)
+    }
+  }
+
+  const onClose = () => {
+    setCloseCheckModalState(false)
     setVisible(false)
+    setIsReadOnly(true)
   }
 
   return (
     <>
-      <CModal alignment='center' size='lg' visible={visible} onClose={() => setVisible(false)}>
-        <CModalHeader>
+      <CModal alignment='center' size='lg' visible={visible}>
+        {/* <CModalHeader>
           <CModalTitle>채용 상세</CModalTitle>
-        </CModalHeader>
+        </CModalHeader> */}
+        <CCustomModalHeader onClick={onCloseCheck}>채용 상세</CCustomModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
             <ModalInput
@@ -147,8 +162,24 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            <DatePickerForm label='시작일' isRequired={true} id='startDate' date={startDate} setDate={setstartDate} />
-            <DatePickerForm label='종료일' isRequired={true} id='endDate' date={endDate} setDate={setendDate} />
+            <DatePickerForm
+              readOnly={false}
+              label='시작일'
+              isRequired={true}
+              id='startDate'
+              date={startDate}
+              setDate={setstartDate}
+              isDisabled={isReadOnly}
+            />
+            <DatePickerForm
+              readOnly={false}
+              label='종료일'
+              isRequired={true}
+              id='endDate'
+              date={endDate}
+              setDate={setendDate}
+              isDisabled={isReadOnly}
+            />
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
@@ -181,7 +212,15 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
-            <ModalSelect onChange={onChange} size='sm' value={career} placeholder='선택해주세요' label='경력' />
+            <ModalSelect
+              onChange={onChange}
+              size='sm'
+              value={career}
+              placeholder='선택해주세요'
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              label='경력'
+            />
           </CRow>
           <CRow className='mb-3'>
             <CFormLabel>이미지</CFormLabel>
@@ -263,7 +302,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               </CButton>
             </>
           )}
-          <CButton color='primary' onClick={handleCloseModal}>
+          <CButton color='primary' onClick={onCloseCheck}>
             Cancel
           </CButton>
         </CModalFooter>
@@ -273,6 +312,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
         visible={showDeleteModal}
         setVisible={setshowDeleteModal}
       />
+      <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
 }
