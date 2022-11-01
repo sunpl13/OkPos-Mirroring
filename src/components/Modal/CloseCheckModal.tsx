@@ -1,5 +1,4 @@
-import React from 'react'
-import {CButton, CHeader, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
+import {CButton, CHeader, CModal, CModalBody, CModalFooter, CModalTitle} from '@coreui/react'
 
 interface IProps {
   onClick: () => void

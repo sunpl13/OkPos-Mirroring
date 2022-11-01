@@ -5,7 +5,6 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {dealerSupportListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 import {dealerSupportList} from '../../../utils/columns/partnerCenter/Columns'
 import DealerSupportDetailModal from '../../../components/Modal/users/DealerSupportDetailModal'
-import ModalFilesInput from '../../../components/forms/inputForm/ModalFilesInput'
 
 const DealerSupportList = () => {
   const [items, setItems] = useState([])
