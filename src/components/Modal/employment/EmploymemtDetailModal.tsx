@@ -9,7 +9,6 @@ import CCustomModalHeader from '../../custom/Modal/CCustomModalHeader'
 import CloseCheckModal from '../CloseCheckModal'
 
 interface AddProps {
-  readOnly: boolean
   value: EmploymentType
   visible: boolean
   setVisible: (state: boolean) => void

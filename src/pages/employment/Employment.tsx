@@ -125,7 +125,6 @@ const Employment = () => {
         </CCol>
       </CRow>
       <EmploymemtDetailModal
-        readOnly={false}
         onChange={handleEmployDetailOnChange}
         visible={showModal}
         value={selectedItem}
