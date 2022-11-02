@@ -3,10 +3,8 @@ import PageHeader from '../../components/common/PageHeader'
 import {testTalentValues} from '../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../components/list/ListTemplate'
-import EmploymemtDetailModal from '../../components/Modal/employment/EmploymemtDetailModal'
 import {talentRetentionColumns} from '../../utils/columns/talentRetetion/Columns'
-import {category} from '../../components/Modal/employment/EmploymemtDetailModal'
-
+import TalentRetentionDetail from '../../components/Modal/talentRetention/TalentRetentionDetail'
 export type TalentRetentionType = {
   No: number
   name: string
@@ -61,7 +59,7 @@ const TalentRetention = () => {
 
   return (
     <main>
-      <PageHeader title='채용관리' />
+      <PageHeader title='인재풀 관리' />
       <CRow>
         <CCol xs={12}>
           <CCard className='mb-4'>
@@ -90,15 +88,14 @@ const TalentRetention = () => {
           </CCard>
         </CCol>
       </CRow>
-      {/* <EmploymemtDetailModal
-        readOnly={false}
+      <TalentRetentionDetail
         onChange={handleEmployDetailOnChange}
         visible={showModal}
         value={selectedItem}
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
-      /> */}
+      />
     </main>
   )
 }
