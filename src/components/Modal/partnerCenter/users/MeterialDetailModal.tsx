@@ -24,6 +24,7 @@ interface InquiryDetailProps {
 
 const MeterialDetailModal = ({onClick, onChange, value, visible, setVisible}: InquiryDetailProps) => {
   const {no, title, content, createdAt} = value
+  const [editMode, setEditMode] = useState(false)
   const [stateCompare, setStateCompare] = useState<Value>({
     no: 0,
     title: '',
@@ -31,7 +32,7 @@ const MeterialDetailModal = ({onClick, onChange, value, visible, setVisible}: In
     createdAt: '',
     category: {key: 0, value: ''},
   })
-  const [editMode, setEditMode] = useState(false)
+
   const onClickEditMode = () => {
     setEditMode(!editMode)
     if (false && onClick !== undefined) {
@@ -93,7 +94,7 @@ const MeterialDetailModal = ({onClick, onChange, value, visible, setVisible}: In
           />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalFilesInput id={'files'} value={''} label={'첨부파일'} />
+          <ModalFilesInput id={'files'} value={''} label={'첨부파일'} disabled={!editMode} />
         </CRow>
         <br />
         <CForm>

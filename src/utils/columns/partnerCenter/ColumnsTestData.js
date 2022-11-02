@@ -1,4 +1,3 @@
-const MeterialLDetailModal = require('../../../components/Modal/partnerCenter/users/MeterialDetailModal')
 exports.testUserTableValues = [
   {
     id: 1,
@@ -654,26 +653,7 @@ exports.meterialListData = [
     category: '대리점',
     title: '자료실 Title',
     content: '111111111',
-    files: {
-      uid: 'rc-upload-1667390492877-2',
-      lastModified: 1650792700178,
-      lastModifiedDate: '2022-04-24T09:31:40.178Z',
-      name: '이력서 사진.jpg',
-      size: 5528754,
-      type: 'image/jpeg',
-      percent: 0,
-      originFileObj: {
-        uid: 'rc-upload-1667390492877-2',
-      },
-      error: {
-        status: 404,
-        method: 'post',
-        url: '업로드 URL',
-      },
-      response:
-        '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /%EC%97%85%EB%A1%9C%EB%93%9C%20URL</pre>\n</body>\n</html>\n',
-      status: 'error',
-    },
+    files: {},
     createdAt: '2022-10-1',
   },
   {
