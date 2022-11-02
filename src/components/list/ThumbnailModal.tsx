@@ -1,6 +1,5 @@
-import {CButton, CImage, CModal, CModalBody, CModalFooter, CModalHeader} from '@coreui/react'
-import {useEffect, useState} from 'react'
-import styled from 'styled-components'
+import {CButton, CImage, CModal, CModalBody, CModalFooter} from '@coreui/react'
+import {useState} from 'react'
 
 export interface IImage {
   img: string
@@ -13,9 +12,9 @@ interface IThumbnail {
   setVisible: (state: boolean) => void
 }
 
-const ThumbnailModal = ({visible, setVisible, thumbnails}: IThumbnail) => {
+const ThumbnailModal = ({visible, setVisible}: IThumbnail) => {
   const [imgUrl, setImgUrl] = useState('')
-
+  console.log(setImgUrl)
   // useEffect(() => {
   //   setImgUrl(thumbnails[0].img)
 
@@ -23,12 +22,12 @@ const ThumbnailModal = ({visible, setVisible, thumbnails}: IThumbnail) => {
   //     setImgUrl(thumbnails[0].img)
   //   }
   // }, [thumbnails])
-  const onChangeImg = (selectedUrl: string) => {
-    setImgUrl(selectedUrl)
-  }
+  //const onChangeImg = (selectedUrl: string) => {
+  //     setImgUrl(selectedUrl)
+  //   }
   return (
     <CModal alignment='center' size='xl' visible={visible} onClose={() => setVisible(false)}>
-      <CModalHeader></CModalHeader>
+      {/*<CModalHeader></CModalHeader>*/}
       <CModalBody className='clearfix'>
         <CImage align='center' fluid src={imgUrl} alt='안녕하세요' width={600} />
         {/* <MultipleRows>
@@ -51,14 +50,14 @@ const ThumbnailModal = ({visible, setVisible, thumbnails}: IThumbnail) => {
 
 export default ThumbnailModal
 
-const MultipleRows = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0 10px;
-  margin-top: 20px;
-  & img {
-    width: 80px;
-    height: 60px;
-  }
-`
+//const MultipleRows = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   flex-wrap: wrap;
+//   gap: 0 10px;
+//   margin-top: 20px;
+//   & img {
+//     width: 80px;
+//     height: 60px;
+//   }
+// `

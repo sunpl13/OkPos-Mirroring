@@ -1,9 +1,6 @@
-import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
-import ModalInput from '../../forms/inputForm/ModalInput'
-import React, {useEffect, useState} from 'react'
-import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
-import ModalTextArrayInput from '../../forms/inputForm/ModalTextArrayInput'
-
+import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import ModalInput from '../../../forms/inputForm/ModalInput'
+import {useEffect, useState} from 'react'
 type Value = {
   id: number
   title: string
@@ -11,16 +8,15 @@ type Value = {
   createdAt: string
   files: string
 }
-interface DetailProps {
+interface AddProps {
   value: Value
   visible: boolean
-  setVisible: (state: boolean) => void
   onChange: () => void
+  setVisible: (state: boolean) => void
   upDate: () => void
 }
-
-const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}: DetailProps) => {
-  const {id, title, content, files} = value
+const NoticeAddModal = ({value, visible, setVisible, upDate, onChange}: AddProps) => {
+  const {title, content, files} = value
   const [toggle, setToggle] = useState(true)
   useEffect(() => {
     if (visible) {
@@ -34,7 +30,7 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}: Detai
   return (
     <CModal size='lg' visible={visible} onClose={() => toggle && upDate()}>
       <CModalHeader>
-        <CModalTitle>id : {id} Notice Detail</CModalTitle>
+        <CModalTitle>Notice Add</CModalTitle>
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
@@ -47,12 +43,19 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}: Detai
           />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalFilesInput label={'Files'} value={files} />
+          <ModalInput
+            id={'files'}
+            type={'file'}
+            placeholder={'Notice File'}
+            label={'Notice File'}
+            value={files}
+            onChange={onChange}
+          />
         </CRow>
-        <CRow className={'p-2'}>
-          <ModalTextArrayInput
+        <CRow>
+          <CFormTextarea
             id='content'
-            label={'Notice'}
+            label=''
             rows={15}
             value={content}
             onChange={onChange}
@@ -62,7 +65,7 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}: Detai
       </CModalBody>
       <CModalFooter>
         <CButton color={'primary'} onClick={() => btnClick()}>
-          Edit
+          Add
         </CButton>
         <CButton color='primary' onClick={() => setVisible(false)}>
           Cancel
@@ -72,4 +75,4 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}: Detai
   )
 }
 
-export default React.memo(NoticeDetailModal)
+export default NoticeAddModal

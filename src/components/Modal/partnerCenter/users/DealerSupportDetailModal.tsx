@@ -11,9 +11,9 @@ import {
   CModalFooter,
   CButton,
 } from '@coreui/react'
-import ModalSelect from '../../forms/inputForm/ModalSelect'
-import ModalInput from '../../forms/inputForm/ModalInput'
-import DeleteModalTemplate from '../DeleteModalTemplate'
+import ModalSelect from '../../../forms/inputForm/ModalSelect'
+import ModalInput from '../../../forms/inputForm/ModalInput'
+import DeleteModalTemplate from '../../DeleteModalTemplate'
 
 type SupportDetailType = {
   no: number

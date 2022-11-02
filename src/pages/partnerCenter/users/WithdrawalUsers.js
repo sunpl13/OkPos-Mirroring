@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import UserDetailModal from '../../../components/Modal/users/UserDetailModal'
+import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
 import {testUserTableValues} from '../../test/testConstant'
 import BarChartTemplate from '../../../components/chart/BarChartTemplate'
 import {ChartTestData} from '../../test/ChartTest'

@@ -1,6 +1,9 @@
-import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
-import ModalInput from '../../forms/inputForm/ModalInput'
-import {useEffect, useState} from 'react'
+import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import ModalInput from '../../../forms/inputForm/ModalInput'
+import React, {useEffect, useState} from 'react'
+import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
+import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
+
 type Value = {
   id: number
   title: string
@@ -8,15 +11,16 @@ type Value = {
   createdAt: string
   files: string
 }
-interface AddProps {
+interface DetailProps {
   value: Value
   visible: boolean
-  onChange: () => void
   setVisible: (state: boolean) => void
+  onChange: () => void
   upDate: () => void
 }
-const NoticeAddModal = ({value, visible, setVisible, upDate, onChange}: AddProps) => {
-  const {title, content, files} = value
+
+const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}: DetailProps) => {
+  const {id, title, content, files} = value
   const [toggle, setToggle] = useState(true)
   useEffect(() => {
     if (visible) {
@@ -30,7 +34,7 @@ const NoticeAddModal = ({value, visible, setVisible, upDate, onChange}: AddProps
   return (
     <CModal size='lg' visible={visible} onClose={() => toggle && upDate()}>
       <CModalHeader>
-        <CModalTitle>Notice Add</CModalTitle>
+        <CModalTitle>id : {id} Notice Detail</CModalTitle>
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
@@ -43,19 +47,12 @@ const NoticeAddModal = ({value, visible, setVisible, upDate, onChange}: AddProps
           />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalInput
-            id={'files'}
-            type={'file'}
-            placeholder={'Notice File'}
-            label={'Notice File'}
-            value={files}
-            onChange={onChange}
-          />
+          <ModalFilesInput id={'files'} label={'Files'} value={files} />
         </CRow>
-        <CRow>
-          <CFormTextarea
+        <CRow className={'p-2'}>
+          <ModalTextArrayInput
             id='content'
-            label=''
+            label={'Notice'}
             rows={15}
             value={content}
             onChange={onChange}
@@ -65,7 +62,7 @@ const NoticeAddModal = ({value, visible, setVisible, upDate, onChange}: AddProps
       </CModalBody>
       <CModalFooter>
         <CButton color={'primary'} onClick={() => btnClick()}>
-          Add
+          Edit
         </CButton>
         <CButton color='primary' onClick={() => setVisible(false)}>
           Cancel
@@ -75,4 +72,4 @@ const NoticeAddModal = ({value, visible, setVisible, upDate, onChange}: AddProps
   )
 }
 
-export default NoticeAddModal
+export default React.memo(NoticeDetailModal)

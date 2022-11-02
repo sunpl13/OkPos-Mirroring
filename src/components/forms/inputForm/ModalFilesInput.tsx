@@ -7,9 +7,10 @@ import {CFormLabel} from '@coreui/react'
 interface FilesInputProps {
   value: string | object | Array<object>
   label: string
+  id: string
 }
 
-const ModalFilesInput = ({value, label}: FilesInputProps) => {
+const ModalFilesInput = ({value, label, id}: FilesInputProps) => {
   const props: UploadProps = {
     name: 'file',
     multiple: true,
@@ -35,7 +36,7 @@ const ModalFilesInput = ({value, label}: FilesInputProps) => {
     <>
       <DivBox>
         <CFormLabel className=' col-form-label'>{label || ''}</CFormLabel>
-        <Upload.Dragger {...props}>
+        <Upload.Dragger {...props} id={id}>
           <p className='ant-upload-drag-icon'>
             <InboxOutlined />
           </p>

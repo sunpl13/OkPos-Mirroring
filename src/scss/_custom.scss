@@ -2,44 +2,45 @@
 
 table {
   border-collapse: collapse;
-
   /** userList */
   &.userList {
     tr {
       text-align: center;
     }
+
     th {
-      width: 100%;
       &.deleteBtn,
       &.files {
+        width: 10%;
         max-width: 30px;
         min-width: 20px;
       }
       &.userId,
       &.status,
       &.no {
+        width: 10%;
         max-width: 90px;
         min-width: 80px;
       }
-
       &.createdAt,
-      &.category {
-        max-width: 140px;
+      &.category,
+      &.userName {
+        max-width: 200px;
         min-width: 130px;
       }
       &.phoneNumber,
       &.businessName {
         min-width: 160px;
       }
-
       &.businessAddress,
       &.secessionReason,
       &.businessNumber {
         min-width: 180px;
       }
 
-      &.announcementTitle {
-        max-width: 250px;
+      &.announcementTitle,
+      &.title{
+        width: 100%;
         min-width: 200px;
       }
     }

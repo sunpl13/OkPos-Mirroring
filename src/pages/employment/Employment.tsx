@@ -5,6 +5,8 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../components/list/ListTemplate'
 import EmploymemtDetailModal from '../../components/Modal/employment/EmploymemtDetailModal'
 import {employmentColumns} from '../../utils/columns/employment/Columns'
+import {categorys} from '../../utils/columns/employment/ColumnsSelectedValue'
+
 export type EmploymentType = {
   No: number
   category: string
@@ -116,6 +118,7 @@ const Employment = () => {
                 onClick={handleShowEmploymentDetailModal}
                 columns={employmentColumns}
                 className={'userList'}
+                selectedOptions={categorys}
               />
             </CCardBody>
           </CCard>

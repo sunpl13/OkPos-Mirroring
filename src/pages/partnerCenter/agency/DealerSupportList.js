@@ -4,8 +4,7 @@ import PageHeader from '../../../components/common/PageHeader'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {dealerSupportListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 import {dealerSupportList} from '../../../utils/columns/partnerCenter/Columns'
-import DealerSupportDetailModal from '../../../components/Modal/users/DealerSupportDetailModal'
-import ModalFilesInput from '../../../components/forms/inputForm/ModalFilesInput'
+import DealerSupportDetailModal from '../../../components/Modal/partnerCenter/users/DealerSupportDetailModal'
 
 const DealerSupportList = () => {
   const [items, setItems] = useState([])

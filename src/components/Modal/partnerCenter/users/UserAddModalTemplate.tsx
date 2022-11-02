@@ -1,5 +1,5 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
-import ModalInput from '../../forms/inputForm/ModalInput'
+import ModalInput from '../../../forms/inputForm/ModalInput'
 type Value = {
   userName: string
   businessNumber: string

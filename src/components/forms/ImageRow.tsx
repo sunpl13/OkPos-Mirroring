@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {CFormLabel, CCol, CImage, CRow} from '@coreui/react'
 import styled from 'styled-components'
 import ThumbnailModal from '../list/ThumbnailModal'

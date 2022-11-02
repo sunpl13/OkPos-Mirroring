@@ -89,6 +89,18 @@ const _nav = [
   },
   {
     component: CNavGroup,
+    name: '자료실',
+    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    items: [
+      {
+        component: CNavItem,
+        name: '자료 리스트',
+        to: '/material/materialList',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
     name: '홈페이지 관리',
     icon: <CIcon icon={cilHome} customClassName='nav-icon' />,
     items: [

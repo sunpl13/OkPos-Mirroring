@@ -10,7 +10,7 @@ import {
   CRow,
 } from '@coreui/react'
 import {useEffect, useState} from 'react'
-import ModalInput from '../../forms/inputForm/ModalInput'
+import ModalInput from '../../../forms/inputForm/ModalInput'
 
 type Value = {
   id: number

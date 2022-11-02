@@ -1,16 +1,5 @@
 import React, {useState} from 'react'
-import {
-  CCol,
-  CFormLabel,
-  CImage,
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CModalTitle,
-  CRow,
-  CModalFooter,
-  CButton,
-} from '@coreui/react'
+import {CCol, CFormLabel, CImage, CModal, CModalBody, CRow, CModalFooter, CButton} from '@coreui/react'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import {EmploymentType} from '../../../pages/employment/Employment'
@@ -29,12 +18,12 @@ interface AddProps {
   setIsReadOnly: (state: boolean) => void
 }
 
-const imgs = [
-  {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg', altName: '이미지01'},
-  {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract02.jpg', altName: '이미지02'},
-  {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract03.jpg', altName: '이미지03'},
-  {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract04.jpg', altName: '이미지04'},
-]
+//const imgs = [
+//   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg', altName: '이미지01'},
+//   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract02.jpg', altName: '이미지02'},
+//   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract03.jpg', altName: '이미지03'},
+//   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract04.jpg', altName: '이미지04'},
+// ]
 
 const category = [
   {key: 'servicePlanning', value: '서비스 기획'},

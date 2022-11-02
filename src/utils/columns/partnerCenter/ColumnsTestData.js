@@ -1,3 +1,4 @@
+const MeterialLDetailModal = require('../../../components/Modal/partnerCenter/users/MeterialDetailModal')
 exports.testUserTableValues = [
   {
     id: 1,
@@ -643,5 +644,124 @@ exports.testPopupValues = [
     no: 8,
     popUpName: 'new',
     popUpImg: 'ㅁㄷㅎㅁㄷㄴ',
+  },
+]
+
+// 자료실 리스트
+exports.meterialListData = [
+  {
+    no: 1,
+    category: '대리점',
+    title: '자료실 Title',
+    content: '111111111',
+    files: {
+      uid: 'rc-upload-1667390492877-2',
+      lastModified: 1650792700178,
+      lastModifiedDate: '2022-04-24T09:31:40.178Z',
+      name: '이력서 사진.jpg',
+      size: 5528754,
+      type: 'image/jpeg',
+      percent: 0,
+      originFileObj: {
+        uid: 'rc-upload-1667390492877-2',
+      },
+      error: {
+        status: 404,
+        method: 'post',
+        url: '업로드 URL',
+      },
+      response:
+        '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /%EC%97%85%EB%A1%9C%EB%93%9C%20URL</pre>\n</body>\n</html>\n',
+      status: 'error',
+    },
+    createdAt: '2022-10-1',
+  },
+  {
+    no: 2,
+    category: '대리점',
+    title: '자료실 Title',
+    content: '22222222',
+    files: {},
+    createdAt: '2022-10-2',
+  },
+  {
+    no: 3,
+    category: '대리점',
+    title: '자료실 Title',
+    content: '333333333',
+    files: {},
+    createdAt: '2022-10-3',
+  },
+  {
+    no: 4,
+    category: '딜러',
+    title: '자료실 Title',
+    content: '44444444',
+    files: {},
+    createdAt: '2022-10-4',
+  },
+  {
+    no: 5,
+    category: '대리점',
+    title: '자료실 Title',
+    content: '5555555',
+    files: {},
+    createdAt: '2022-10-5',
+  },
+  {
+    no: 6,
+    category: '딜러',
+    title: '자료실 Title',
+    content: '666666',
+    files: {},
+    createdAt: '2022-10-6',
+  },
+  {
+    no: 7,
+    category: '대리점',
+    title: '자료실 Title',
+    content: '7777777',
+    files: {},
+    createdAt: '2022-10-7',
+  },
+  {
+    no: 8,
+    category: '딜러',
+    title: '자료실 Title',
+    content: '888888',
+    files: {},
+    createdAt: '2022-10-8',
+  },
+  {
+    no: 9,
+    category: '딜러',
+    title: '자료실 Title',
+    content: '99999999',
+    files: {},
+    createdAt: '2022-10-9',
+  },
+  {
+    no: 10,
+    category: '딜러',
+    title: '자료실 Title',
+    content: '0000000',
+    files: {},
+    createdAt: '2022-10-10',
+  },
+  {
+    no: 11,
+    category: '딜러',
+    title: '자료실 Title',
+    content: '111111111',
+    files: {},
+    createdAt: '2022-10-11',
+  },
+  {
+    no: 12,
+    category: '딜러',
+    title: '자료실 Title',
+    content: '12121212',
+    files: {},
+    createdAt: '2022-10-12',
   },
 ]
