@@ -176,4 +176,11 @@ export const materiaList = [
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },
+  {
+    key: 'deleteBtn',
+    label: ' ',
+    _props: {color: 'primary', className: 'deleteBtn'},
+    filter: false,
+    sorter: false,
+  },
 ]

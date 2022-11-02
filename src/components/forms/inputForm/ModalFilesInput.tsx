@@ -89,6 +89,7 @@ const ModalFilesInput = ({value, label, id, disabled}: FilesInputProps) => {
   )
 }
 const DivBox = styled.div`
+  border-radius: 0.375rem;
   &.disabled {
     background: #d8dbe0;
   }
