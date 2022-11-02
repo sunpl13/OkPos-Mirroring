@@ -1,5 +1,6 @@
-const MeterialLDetailModal = require('../../../components/Modal/partnerCenter/users/MeterialDetailModal')
-exports.testUserTableValues = [
+import MeterialLDetailModal from '../../../components/Modal/partnerCenter/users/MeterialDetailModal'
+
+export const testUserTableValues = [
   {
     id: 1,
     userName: '122',
@@ -289,7 +290,7 @@ exports.testUserTableValues = [
 ]
 
 // 딜러 지원 리스트
-exports.dealerSupportListData = [
+export const dealerSupportListData = [
   {
     no: 1,
     category: '대리점',
@@ -604,7 +605,7 @@ exports.dealerSupportListData = [
   },
 ]
 
-exports.testPopupValues = [
+export const testPopupValues = [
   {
     no: 1,
     popUpName: 'new',
@@ -648,7 +649,7 @@ exports.testPopupValues = [
 ]
 
 // 자료실 리스트
-exports.meterialListData = [
+export const meterialListData = [
   {
     no: 1,
     category: '대리점',
