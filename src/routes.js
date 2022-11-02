@@ -9,6 +9,7 @@ const CreateTest = React.lazy(() => import('./pages/test/CreateTest'))
 
 const Employment = React.lazy(() => import('./pages/employment/Employment'))
 const Popup = React.lazy(() => import('./pages/popup/PopUpPage'))
+const TalentRetention = React.lazy(() => import('./pages/talentRetention/TalentRetention'))
 
 // ------ 가맹점 전용 공식몰 페이지
 
@@ -45,11 +46,10 @@ const routes = [
 
   // ------ 오케이포스 홈페이지
 
-  //employment
+  //홈페이지 관리
   {path: `/home/employment`, name: '채용관리', element: Employment},
-
-  //popup
   {path: `/home/popup`, name: '팝업관리', element: Popup},
+  {path: '/home/talentRetention', name: '인재풀 관리', element: TalentRetention},
 
   // ------ 가맹점 전용 공식몰 페이지
 

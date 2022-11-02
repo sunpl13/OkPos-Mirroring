@@ -114,6 +114,11 @@ const _nav = [
         name: '팝업 관리',
         to: '/home/popup',
       },
+      {
+        component: CNavItem,
+        name: '인재풀 관리',
+        to: '/home/talentRetention',
+      },
     ],
   },
   /*
