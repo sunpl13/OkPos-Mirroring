@@ -7,33 +7,36 @@ import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import {meterialOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 
 type Value = {
-  no?: string | undefined
-  userName?: string
-  email?: string
-  phoneNumber?: string
-  text?: string | undefined
-  firstRegistration?: string
-  answer?: string
+  no: number | undefined
+  title: string
+  content: string
+  category: object
+  createdAt: string
 }
 
 interface InquiryDetailProps {
   onClick?: () => void
   onChange?: () => void
-  value?: Value
+  value: Value
   visible: boolean
   setVisible: (state: boolean) => void
 }
 
-const MeterialLDetailModal = ({onClick, onChange, value, visible, setVisible}: InquiryDetailProps) => {
+const MeterialDetailModal = ({onClick, onChange, value, visible, setVisible}: InquiryDetailProps) => {
+  const {no, title, content, createdAt} = value
   const [stateCompare, setStateCompare] = useState<Value>({
-    userName: '',
-    phoneNumber: '',
-    email: '',
-    text: '',
-    firstRegistration: '',
-    answer: '',
+    no: 0,
+    title: '',
+    content: '',
+    createdAt: '',
+    category: {key: 0, value: ''},
   })
-
+  const [editMode, setEditMode] = useState(false)
+  const onClickEditMode = () => {
+    setEditMode(!editMode)
+    if (false && onClick !== undefined) {
+    }
+  }
   useEffect(() => {
     if (visible) {
       console.log(stateCompare, setStateCompare, value)
@@ -51,7 +54,7 @@ const MeterialLDetailModal = ({onClick, onChange, value, visible, setVisible}: I
             id={'no'}
             placeholder={'No'}
             label={'No'}
-            value={value?.no || ''}
+            value={no || ''}
             onChange={onChange}
             readOnly
             disabled
@@ -63,8 +66,8 @@ const MeterialLDetailModal = ({onClick, onChange, value, visible, setVisible}: I
             value={meterialOptions || []}
             onChange={onChange}
             size={'sm'}
-            readOnly
-            disabled
+            readOnly={!editMode}
+            disabled={!editMode}
           />
         </CRow>
         <CRow className={'p-2'}>
@@ -72,14 +75,22 @@ const MeterialLDetailModal = ({onClick, onChange, value, visible, setVisible}: I
             id={'title'}
             placeholder={'제목'}
             label={'제목'}
-            value={''}
+            value={title || ''}
             onChange={onChange}
-            readOnly
-            disabled
+            readOnly={!editMode}
+            disabled={!editMode}
           />
         </CRow>
         <CRow>
-          <ModalTextArrayInput id='userInquiry' label={'본문'} value={''} readOnly={true} rows={9} />
+          <ModalTextArrayInput
+            id='content'
+            label={'본문'}
+            value={content}
+            onChange={onChange}
+            rows={9}
+            readOnly={!editMode}
+            disabled={!editMode}
+          />
         </CRow>
         <CRow className={'p-2'}>
           <ModalFilesInput id={'files'} value={''} label={'첨부파일'} />
@@ -87,21 +98,13 @@ const MeterialLDetailModal = ({onClick, onChange, value, visible, setVisible}: I
         <br />
         <CForm>
           <CRow className={'p-2'}>
-            <ModalInput
-              id={'createdAd'}
-              placeholder={'작성일'}
-              label={'작성일'}
-              value={''}
-              onChange={onChange}
-              readOnly
-              disabled
-            />
+            <ModalInput id={'createdAd'} placeholder={'작성일'} label={'작성일'} value={createdAt} readOnly disabled />
           </CRow>
         </CForm>
       </CModalBody>
       <CModalFooter>
-        <CButton onClick={onClick} color='primary'>
-          저장
+        <CButton onClick={onClickEditMode} color={editMode ? 'success' : 'primary'}>
+          수정
         </CButton>
         <CButton color='danger' onClick={() => setVisible(false)}>
           삭제
@@ -114,4 +117,4 @@ const MeterialLDetailModal = ({onClick, onChange, value, visible, setVisible}: I
   )
 }
 
-export default MeterialLDetailModal
+export default MeterialDetailModal

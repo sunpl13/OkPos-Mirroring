@@ -5,21 +5,19 @@ import UserAddModalTemplate from '../../../components/Modal/partnerCenter/users/
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {materiaList, userListColumns} from '../../../utils/columns/partnerCenter/Columns'
-import MeterialLDetailModal from '../../../components/Modal/partnerCenter/users/MeterialLDetailModal'
+import MeterialDetailModal from '../../../components/Modal/partnerCenter/users/MeterialDetailModal'
 import {meterialListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 
 const MaterialList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [item, setItem] = useState({
-    userName: '',
-    businessNumber: '',
+    no: 0,
+    title: '',
+    category: {key: 0, value: ''},
+    content: '',
+    files: {},
     createdAt: '',
-    status: true,
-    phoneNumber: '',
-    businessRegistration: '',
-    businessName: '',
-    businessAddress: '',
   })
 
   const [showModal, setShowModal] = useState(false)
@@ -29,15 +27,15 @@ const MaterialList = () => {
   }, [])
 
   /** Open Modal*/
-  const handleShowUserItemAddModal = () => {
+  const handleShowMaterialItemAddModal = () => {
     setShowAddModal(!showAddModal)
   }
-  const handleShowUserDetailModal = item => {
+  const handleShowMaterialDetailModal = item => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
 
-  /** Add User Modal*/
+  /** Add Modal*/
   const handleUserItemAddModalOnChange = ({target}) => {
     const {id, value} = target
     setItem({
@@ -49,12 +47,10 @@ const MaterialList = () => {
     setItems(items.map(value => (value.id === data.id ? data : value)))
   }
   const handleUserItemAddModalOnClick = () => {
-    if (!item.userName) return alert('Is Not User Name')
-    if (!item.businessNumber) return alert('Is Not Business Number')
-    if (!item.phoneNumber) return alert('Is Not Phone Number')
-    if (!item.businessRegistration) return alert('Is Not Business Registration File')
-    if (!item.businessName) return alert('Is Not Business Name')
-    if (!item.businessAddress) return alert('Is Not Business Address')
+    if (!item.title) return alert('Is Not Title')
+    if (!item.content) return alert('Is Not Content')
+    if (!item.category) return alert('Is Not Business Registration File')
+
     setItems([
       ...items,
       {
@@ -62,15 +58,21 @@ const MaterialList = () => {
       },
     ])
     setItem({
-      userName: '',
-      businessNumber: '',
-      phoneNumber: '',
-      businessRegistration: '',
-      businessName: '',
-      businessAddress: '',
+      no: 0,
+      title: '',
+      content: '',
+      createdAt: '',
+      category: {key: 0, value: ''},
     })
     setShowAddModal(!showAddModal)
   }
+  const handleMaterialDetailModalOnChange = ({target: {id, value}}) => {
+    setSelectedItem({
+      ...selectedItem,
+      [id]: value,
+    })
+  }
+
   return (
     <CRow>
       <PageHeader title='자료 리스트' />
@@ -79,7 +81,7 @@ const MaterialList = () => {
           <CCardHeader>
             <CForm className='row g-3'>
               <CCol xs={1}>
-                <CButton color='primary' onClick={handleShowUserItemAddModal}>
+                <CButton color='primary' onClick={handleShowMaterialItemAddModal}>
                   추가
                 </CButton>
               </CCol>
@@ -88,7 +90,7 @@ const MaterialList = () => {
           <CCardBody>
             <ListTemplate
               items={items}
-              onClick={handleShowUserDetailModal}
+              onClick={handleShowMaterialDetailModal}
               columns={materiaList}
               className={'userList'}
             />
@@ -102,10 +104,11 @@ const MaterialList = () => {
         onChange={handleUserItemAddModalOnChange}
         onClick={handleUserItemAddModalOnClick}
       />
-      <MeterialLDetailModal
+      <MeterialDetailModal
         value={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
+        onChange={handleMaterialDetailModalOnChange}
         readOnly
         upDate={handleUserDetailModalUpdateData}
       />

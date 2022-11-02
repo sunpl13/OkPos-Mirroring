@@ -5,7 +5,7 @@ import {CBadge, CImage} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
 
-const ListTemplate = ({items, onClick, columns, className, onDelete}) => {
+const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOptions}) => {
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
@@ -80,6 +80,9 @@ const ListTemplate = ({items, onClick, columns, className, onDelete}) => {
               <CBadge color={'danger'}>Delete</CBadge>
             </td>
           ),
+          employmentType: ({employmentType}) => <td>{selectedOptions ? selectedOptions[employmentType] : ''}</td>,
+          education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
+          career: ({career}) => <td>{selectedOptions ? selectedOptions[career] : ''}</td>,
         }}
         noItemsLabel={'Not Date'}
         itemsPerPageSelect
@@ -96,6 +99,7 @@ ListTemplate.propTypes = {
   columns: PropTypes.array,
   className: PropTypes.string,
   onDelete: PropTypes.func,
+  selectedOptions: PropTypes.object,
 }
 
 export default ListTemplate
