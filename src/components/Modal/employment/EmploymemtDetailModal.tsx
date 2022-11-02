@@ -25,7 +25,7 @@ interface AddProps {
 //   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract04.jpg', altName: '이미지04'},
 // ]
 
-const category = [
+export const category = [
   {key: 'servicePlanning', value: '서비스 기획'},
   {key: 'serviceDevelop', value: '서비스 개발'},
   {key: 'design', value: '디자인'},
