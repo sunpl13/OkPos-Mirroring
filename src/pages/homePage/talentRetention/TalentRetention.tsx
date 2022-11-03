@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import PageHeader from '../../components/common/PageHeader'
-import {testTalentValues} from '../test/testConstant'
+import PageHeader from '../../../components/common/PageHeader'
+import {testTalentValues} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
-import ListTemplate from '../../components/list/ListTemplate'
-import {talentRetentionColumns} from '../../utils/columns/talentRetetion/Columns'
-import TalentRetentionDetail from '../../components/Modal/talentRetention/TalentRetentionDetail'
+import ListTemplate from '../../../components/list/ListTemplate'
+import {talentRetentionColumns} from '../../../utils/columns/talentRetetion/Columns'
+import TalentRetentionDetail from '../../../components/Modal/talentRetention/TalentRetentionDetail'
 export type TalentRetentionType = {
   No: number
   name: string

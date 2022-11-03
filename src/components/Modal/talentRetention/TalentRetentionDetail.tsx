@@ -16,7 +16,7 @@ import ModalInput from '../../forms/inputForm/ModalInput'
 import {category} from '../employment/EmploymemtDetailModal'
 import CloseCheckModal from '../CloseCheckModal'
 import DeleteModalTemplate from '../DeleteModalTemplate'
-import {TalentRetentionType} from '../../../pages/talentRetention/TalentRetention'
+import {TalentRetentionType} from '../../../pages/homePage/talentRetention/TalentRetention'
 
 interface AddProps {
   value: TalentRetentionType
