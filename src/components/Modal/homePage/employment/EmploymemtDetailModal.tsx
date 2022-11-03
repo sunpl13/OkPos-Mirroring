@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import {CCol, CFormLabel, CImage, CModal, CModalBody, CRow, CModalFooter, CButton} from '@coreui/react'
-import ModalSelect from '../../forms/inputForm/ModalSelect'
-import ModalInput from '../../forms/inputForm/ModalInput'
-import {EmploymentType} from '../../../pages/homePage/employment/Employment'
-import DatePickerForm from '../../common/DatePickerForm'
-import DeleteModalTemplate from '../DeleteModalTemplate'
-import CCustomModalHeader from '../../custom/Modal/CCustomModalHeader'
-import CloseCheckModal from '../CloseCheckModal'
+import ModalSelect from '../../../forms/inputForm/ModalSelect'
+import ModalInput from '../../../forms/inputForm/ModalInput'
+import {EmploymentType} from '../../../../pages/homePage/employment/Employment'
+import DatePickerForm from '../../../common/DatePickerForm'
+import DeleteModalTemplate from '../../DeleteModalTemplate'
+import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
+import CloseCheckModal from '../../CloseCheckModal'
 
 interface AddProps {
   value: EmploymentType
