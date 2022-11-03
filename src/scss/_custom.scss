@@ -1,9 +1,11 @@
 // Here you can add other styles
 
+// 테이블 CSS 모음
 table {
   border-collapse: collapse;
   /** userList */
-  &.userList {
+  &.userList,
+  &.faqList {
     tr {
       text-align: center;
     }

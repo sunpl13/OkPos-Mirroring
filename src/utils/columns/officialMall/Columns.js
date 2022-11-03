@@ -48,8 +48,7 @@ export const inquiryListColumns = [
 
 // FAQ 리스트
 export const faqListColumns = [
-  {key: 'id', label: 'No', sorter: false, filter: false},
-  {key: 'category', label: '분류'},
-  {key: 'title', label: '제목'},
-  {key: 'management', label: '관리'},
+  {key: 'id', label: 'No', _style: {width: '100px'}, sorter: false, filter: false},
+  {key: 'category', label: '분류', _style: {width: '100px%'}},
+  {key: 'title', label: '제목', _style: {width: '200px'}},
 ]
