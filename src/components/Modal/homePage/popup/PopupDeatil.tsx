@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import {CModal, CButton, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
-import ModalInput from '../../forms/inputForm/ModalInput'
-import {IPopUp} from '../../../pages/homePage/popup/PopUpPage'
-import DeleteModalTemplate from '../DeleteModalTemplate'
+import ModalInput from '../../../forms/inputForm/ModalInput'
+import {IPopUp} from '../../../../pages/homePage/popup/PopUpPage'
+import DeleteModalTemplate from '../../DeleteModalTemplate'
 
 interface AddProps {
   value: IPopUp

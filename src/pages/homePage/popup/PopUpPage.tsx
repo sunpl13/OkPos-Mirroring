@@ -3,7 +3,7 @@ import PageHeader from '../../../components/common/PageHeader'
 import {testPopupValues} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import PopupDeatil from '../../../components/Modal/popup/PopupDeatil'
+import PopupDeatil from '../../../components/Modal/homePage/popup/PopupDeatil'
 import {popupColumns} from '../../../utils/columns/homePage/popup/Columns'
 export interface IPopUp {
   No: number
