@@ -184,3 +184,32 @@ export const materiaList = [
     sorter: false,
   },
 ]
+
+/** 발주 신청 리스트 */
+export const orderList = [
+  {
+    key: 'no',
+    _props: {color: 'primary', className: 'no'},
+  },
+  {
+    key: 'title',
+    _props: {color: 'primary', className: 'title'},
+  },
+  {
+    key: 'category',
+    _props: {color: 'primary', className: 'Category'},
+  },
+
+  {
+    key: 'createdAt',
+    _props: {color: 'primary', className: 'createdAt'},
+    filter: false,
+  },
+  {
+    key: 'deleteBtn',
+    label: ' ',
+    _props: {color: 'primary', className: 'deleteBtn'},
+    filter: false,
+    sorter: false,
+  },
+]

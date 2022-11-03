@@ -20,6 +20,8 @@ const DealerSupportList = React.lazy(() => import('./pages/partnerCenter/agency/
 
 // 자료실
 const MaterialList = React.lazy(() => import('./pages/partnerCenter/material/MaterialList'))
+// 발주 신청
+const OrderList = React.lazy(() => import('./pages/partnerCenter/order/OrderList'))
 
 const Employment = React.lazy(() => import('./pages/employment/Employment'))
 const Popup = React.lazy(() => import('./pages/popup/PopUpPage'))
@@ -45,6 +47,10 @@ const routes = [
 
   // materialList
   {path: `/material/materialList`, name: 'MaterialList', element: MaterialList},
+
+  // orderList
+  {path: `/order/orderList`, name: 'OrderList', element: OrderList},
+
   //employment
   {path: `/home/employment`, name: '채용관리', element: Employment},
 

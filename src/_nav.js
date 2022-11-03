@@ -101,6 +101,18 @@ const _nav = [
   },
   {
     component: CNavGroup,
+    name: '발주',
+    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    items: [
+      {
+        component: CNavItem,
+        name: '발주 신청 리스트',
+        to: '/order/orderList',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
     name: '홈페이지 관리',
     icon: <CIcon icon={cilHome} customClassName='nav-icon' />,
     items: [
