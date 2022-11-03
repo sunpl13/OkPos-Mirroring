@@ -81,6 +81,7 @@ const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOpt
             </td>
           ),
           employmentType: ({employmentType}) => <td>{selectedOptions ? selectedOptions[employmentType] : ''}</td>,
+          position: ({position}) => <td>{selectedOptions ? selectedOptions[position] : ''}</td>,
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           career: ({career}) => <td>{selectedOptions ? selectedOptions[career] : ''}</td>,
         }}
