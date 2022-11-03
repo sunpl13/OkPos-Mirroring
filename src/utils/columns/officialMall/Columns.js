@@ -45,3 +45,11 @@ export const inquiryListColumns = [
   {key: 'email', label: '이메일'},
   {key: 'phoneNumber', label: '휴대전화번호'},
 ]
+
+// FAQ 리스트
+export const faqListColumns = [
+  {key: 'id', label: 'No', sorter: false, filter: false},
+  {key: 'category', label: '분류'},
+  {key: 'title', label: '제목'},
+  {key: 'management', label: '관리'},
+]

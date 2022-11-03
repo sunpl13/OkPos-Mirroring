@@ -19,6 +19,9 @@ const OfficailMallUserList = React.lazy(() => import('./pages/officialMall/users
 const OfficailMallWithdrawalUserList = React.lazy(() => import('./pages/officialMall/users/WithdrawalUsers'))
 // 1:1 문의 관리
 const OfficailMallInquiryList = React.lazy(() => import('./pages/officialMall/inquiry/InquiryList'))
+// FAQ 관리
+const OfficialMallFaqList = React.lazy(() => import('./pages/officialMall/faq/FaqList'))
+
 // ------ 대리점 전용 파트너 센터
 
 // 유저 리스트
@@ -56,9 +59,10 @@ const routes = [
   // 회원관리
   {path: `/official/users`, name: '회원관리', element: OfficailMallUserList},
   {path: `/official/withdrawalUsers`, name: '탈퇴회원관리', element: OfficailMallWithdrawalUserList},
-
   // 1:1 문의 관리
   {path: `/official/inquirys`, name: '문의관리', element: OfficailMallInquiryList},
+  // FAQ 관리
+  {path: `/official/faq`, name: 'FAQ관리', element: OfficialMallFaqList},
 
   // ------ 대리점 전용 파트너 센터
 

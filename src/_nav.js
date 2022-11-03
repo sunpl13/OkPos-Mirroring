@@ -150,12 +150,12 @@ const _nav = [
       },
     ],
   },
-  {
-    component: CNavItem,
-    name: '롤링 배너 관리',
-    to: '/official/banners',
-    icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: '롤링 배너 관리',
+  //   to: '/official/banners',
+  //   icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
+  // },
   {
     component: CNavItem,
     name: '1:1 문의 관리',
