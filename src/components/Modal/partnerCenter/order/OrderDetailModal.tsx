@@ -3,6 +3,7 @@ import ModalInput from '../../../forms/inputForm/ModalInput'
 import DetailModalTemplate from '../DetailModalTemplate'
 import {CRow} from '@coreui/react'
 import ListTemplate from '../../../list/ListTemplate'
+import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 
 type Value = {
   no: number | undefined
@@ -48,7 +49,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
   const orderListColumns = [
     {
       key: 'productId',
-      _props: {color: 'primary', className: 'productId'},
+      label: '제품 번호',
+      _props: {color: 'primary', className: 'no'},
     },
     {
       key: 'productImg',
@@ -59,6 +61,12 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
     {
       key: 'productName',
       _props: {color: 'primary', className: 'productName'},
+    },
+    {
+      key: 'deliveryStatus',
+      label: '배송 현황',
+      _props: {color: 'primary', className: 'deliveryStatus'},
+      filter: false,
     },
     {
       key: 'deleteBtn',
@@ -149,6 +157,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
         <ModalInput id={'receive'} placeholder={'수령 방법'} label={'수령 방법'} value={receive} onChange={onChange} />
         <ModalInput
           id={'taxInvoiceEmail'}
+          type={'email'}
           placeholder={'세금계산서 수령 이메일'}
           label={'세금계산서 수령 이메일'}
           value={taxInvoiceEmail}
@@ -163,6 +172,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           className={'userList'}
           onDelete={onDelete}
           datePickerHidden={false}
+          selectedOptions={deliveryStatusOptions}
         />
       </CRow>
     </DetailModalTemplate>

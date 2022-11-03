@@ -5,3 +5,10 @@ exports.meterialOptions = [
   {key: 4, value: '기술자료'},
   {key: 5, value: '기타'},
 ]
+
+exports.deliveryStatusOptions = {
+  1: '결제 완료',
+  2: '배송 준비중',
+  3: '배송중',
+  4: '배송 완료',
+}

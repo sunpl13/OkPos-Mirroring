@@ -205,8 +205,9 @@ export const orderList = [
   },
 
   {
-    key: 'orderDate',
-    _props: {color: 'primary', className: 'orderDate'},
+    key: 'createdAt',
+    label: 'Order Date',
+    _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },
   {

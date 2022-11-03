@@ -83,6 +83,16 @@ const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOpt
           employmentType: ({employmentType}) => <td>{selectedOptions ? selectedOptions[employmentType] : ''}</td>,
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           career: ({career}) => <td>{selectedOptions ? selectedOptions[career] : ''}</td>,
+          deliveryStatus: ({deliveryStatus}) => (
+            <td>
+              <CBadge color={'primary'}>{selectedOptions ? selectedOptions[deliveryStatus] : 'Not Data'} </CBadge>
+            </td>
+          ),
+          productImg: ({productImg}) => (
+            <td>
+              <CImage rounded src={productImg || ''} alt='' width={100} height={60} />
+            </td>
+          ),
         }}
         noItemsLabel={'Not Date'}
         itemsPerPageSelect
