@@ -15,12 +15,10 @@ const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
 // ------ 가맹점 전용 공식몰 페이지
 
 // 회원관리
-const OfficailMallUserList = React.lazy(() => import('./pages/officialMall/users/Userlist'))
+const OfficailMallUserList = React.lazy(() => import('./pages/officialMall/users/UserList'))
 const OfficailMallWithdrawalUserList = React.lazy(() => import('./pages/officialMall/users/WithdrawalUsers'))
-
 // 1:1 문의 관리
 const OfficailMallInquiryList = React.lazy(() => import('./pages/officialMall/inquiry/InquiryList'))
-
 // ------ 대리점 전용 파트너 센터
 
 // 유저 리스트

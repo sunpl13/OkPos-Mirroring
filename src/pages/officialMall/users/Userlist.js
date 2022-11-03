@@ -6,7 +6,7 @@ import UserModal from '../../../components/Modal/officialMall/UserModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userListColumns} from '../../../utils/columns/officialMall/Columns'
 
-const Userlist = () => {
+const UserList = () => {
   // Local state 선언
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
@@ -104,4 +104,4 @@ const Userlist = () => {
   )
 }
 
-export default Userlist
+export default UserList
