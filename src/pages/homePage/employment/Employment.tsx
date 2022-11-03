@@ -4,8 +4,8 @@ import {testEmployments} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import EmploymemtDetailModal from '../../../components/Modal/employment/EmploymemtDetailModal'
-import {employmentColumns} from '../../../utils/columns/employment/Columns'
-import {categorys} from '../../../utils/columns/employment/ColumnsSelectedValue'
+import {employmentColumns} from '../../../utils/columns/homePage/employment/Columns'
+import {categorys} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
 
 export type EmploymentType = {
   No: number
