@@ -4,8 +4,8 @@ import {testQnAValues} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {qnaColumns} from '../../../utils/columns/homePage/qna/Columns'
-import TalentRetentionDetail from '../../../components/Modal/talentRetention/TalentRetentionDetail'
-
+import {inquirys} from '../../../utils/columns/homePage/qna/ColumnsSelectedValue'
+import QnADetail from '../../../components/Modal/homePage/QnA/QnADetail'
 export type QnAType = {
   No: number
   name: string
@@ -81,6 +81,7 @@ const QnAList = () => {
               <ListTemplate
                 items={items}
                 onClick={handleShowEmploymentDetailModal}
+                selectedOptions={inquirys}
                 columns={qnaColumns}
                 className={'userList'}
               />
@@ -88,14 +89,14 @@ const QnAList = () => {
           </CCard>
         </CCol>
       </CRow>
-      {/* <TalentRetentionDetail
+      <QnADetail
         onChange={handleEmployDetailOnChange}
         visible={showModal}
         value={selectedItem}
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
-      /> */}
+      />
     </main>
   )
 }
