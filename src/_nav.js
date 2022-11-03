@@ -78,7 +78,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: '영업 대리점',
-    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    icon: <CIcon icon={cilHome} customClassName='nav-icon' />,
     items: [
       {
         component: CNavItem,
@@ -90,7 +90,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: '자료실',
-    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
     items: [
       {
         component: CNavItem,
@@ -102,7 +102,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: '발주',
-    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    icon: <CIcon icon={cilBasket} customClassName='nav-icon' />,
     items: [
       {
         component: CNavItem,
