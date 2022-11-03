@@ -7,9 +7,9 @@ const CreateTest = React.lazy(() => import('./pages/test/CreateTest'))
 
 // ------ 오케이포스 홈페이지
 
-const Popup = React.lazy(() => import('./pages/popup/PopUpPage'))
 const TalentRetention = React.lazy(() => import('./pages/talentRetention/TalentRetention'))
 const Employment = React.lazy(() => import('./pages/homePage/employment/Employment'))
+const Popup = React.lazy(() => import('./pages/homePage/popup/PopUpPage'))
 
 // ------ 가맹점 전용 공식몰 페이지
 
