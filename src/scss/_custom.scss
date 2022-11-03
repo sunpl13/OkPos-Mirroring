@@ -24,9 +24,15 @@ table {
         max-width: 90px;
         min-width: 80px;
       }
+      &.deliveryStatus {
+        width: 10%;
+        max-width: 110px;
+        min-width: 90px;
+      }
       &.createdAt,
       &.category,
-      &.userName {
+      &.userName,
+      &.orderDate{
         max-width: 200px;
         min-width: 130px;
       }

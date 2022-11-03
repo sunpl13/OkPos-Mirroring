@@ -29,7 +29,11 @@ const ModalSelect = ({
   disabled = false,
   isRequired,
 }: ModalInputProps) => {
-  const newOptions = value.map(item => <option key={item.key}>{item.value}</option>)
+  const newOptions = value.map(item => (
+    <option key={item.key} value={item.key}>
+      {item.value}
+    </option>
+  ))
 
   return (
     <>
@@ -38,7 +42,7 @@ const ModalSelect = ({
       </CFormLabel>
       <CCol>
         <CFormSelect disabled={disabled} id={id} size={size} onChange={onChange} readOnly={readOnly}>
-          <option>{placeholder}</option>
+          <option value={'-1'}>{placeholder}</option>
           {newOptions}
         </CFormSelect>
       </CCol>

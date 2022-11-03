@@ -41,12 +41,9 @@ const _nav = [
       },
     ],
   },
-  /*
-  오케이포스 홈페이지 메뉴 작성
-  */
   {
     component: CNavTitle,
-    name: '오케이포스 홈페이지',
+    name: '파트너센터',
   },
   {
     component: CNavGroup,
@@ -78,7 +75,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: '영업 대리점',
-    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    icon: <CIcon icon={cilHome} customClassName='nav-icon' />,
     items: [
       {
         component: CNavItem,
@@ -90,7 +87,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: '자료실',
-    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
     items: [
       {
         component: CNavItem,
@@ -98,6 +95,31 @@ const _nav = [
         to: '/material/materialList',
       },
     ],
+  },
+  {
+    component: CNavGroup,
+    name: '발주, 유지보수 신청',
+    icon: <CIcon icon={cilBasket} customClassName='nav-icon' />,
+    items: [
+      {
+        component: CNavItem,
+        name: '발주 신청 리스트',
+        to: '/order/orderList',
+      },
+      {
+        component: CNavItem,
+        name: '유지보수 신청 리스트',
+        to: '/order/appliedForMaintenanceList',
+      },
+    ],
+  },
+  /*
+
+  오케이포스 홈페이지 메뉴 작성
+  */
+  {
+    component: CNavTitle,
+    name: '오케이포스 홈페이지',
   },
   {
     component: CNavGroup,

@@ -1,7 +1,7 @@
 exports.categorys = {
-  servicePlanning: {key: 'servicePlanning', value: '서비스 기획'},
-  serviceDevelop: {key: 'serviceDevelop', value: '서비스 개발'},
-  design: {key: 'design', value: '디자인'},
+  servicePlanning: '서비스 기획',
+  serviceDevelop: '서비스 개발',
+  design: '디자인',
   a: '사업 개발',
   b: 'B2B 개발',
   c: 'B2B 운영 ',

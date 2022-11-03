@@ -4,7 +4,7 @@ import PageHeader from '../../../components/common/PageHeader'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {dealerSupportListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 import {dealerSupportList} from '../../../utils/columns/partnerCenter/Columns'
-import DealerSupportDetailModal from '../../../components/Modal/partnerCenter/users/DealerSupportDetailModal'
+import DealerSupportDetailModal from '../../../components/Modal/partnerCenter/agency/DealerSupportDetailModal'
 
 const DealerSupportList = () => {
   const [items, setItems] = useState([])
