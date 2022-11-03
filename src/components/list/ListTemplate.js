@@ -5,7 +5,7 @@ import {CBadge, CImage} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
 
-const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOptions}) => {
+const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOptions, datePickerHidden = true}) => {
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
@@ -47,7 +47,7 @@ const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOpt
 
   return (
     <>
-      <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
+      {datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}
       <CSmartTable
         items={filterItems || listItems}
         columns={columns || null}
@@ -100,6 +100,7 @@ ListTemplate.propTypes = {
   className: PropTypes.string,
   onDelete: PropTypes.func,
   selectedOptions: PropTypes.object,
+  datePickerHidden: PropTypes.bool,
 }
 
 export default ListTemplate

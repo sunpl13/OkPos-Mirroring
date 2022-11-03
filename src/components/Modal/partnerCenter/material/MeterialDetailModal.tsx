@@ -27,7 +27,6 @@ const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}: Inq
   const {no, title, content, createdAt} = value
 
   useEffect(() => {
-    console.log(value)
     if (visible) {
     }
   }, [visible])

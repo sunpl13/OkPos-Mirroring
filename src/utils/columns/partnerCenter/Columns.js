@@ -192,17 +192,21 @@ export const orderList = [
     _props: {color: 'primary', className: 'no'},
   },
   {
-    key: 'title',
-    _props: {color: 'primary', className: 'title'},
+    key: 'orderNo',
+    _props: {color: 'primary', className: 'orderNo'},
   },
   {
-    key: 'category',
-    _props: {color: 'primary', className: 'Category'},
+    key: 'businessName',
+    _props: {color: 'primary', className: 'BusinessName'},
+  },
+  {
+    key: 'representativeName',
+    _props: {color: 'primary', className: 'RepresentativeName'},
   },
 
   {
-    key: 'createdAt',
-    _props: {color: 'primary', className: 'createdAt'},
+    key: 'orderDate',
+    _props: {color: 'primary', className: 'orderDate'},
     filter: false,
   },
   {

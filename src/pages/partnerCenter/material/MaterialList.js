@@ -3,7 +3,7 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {materiaList} from '../../../utils/columns/partnerCenter/Columns'
-import MeterialDetailModal from '../../../components/Modal/partnerCenter/users/MeterialDetailModal'
+import MeterialDetailModal from '../../../components/Modal/partnerCenter/material/MeterialDetailModal'
 import {meterialListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 
 const MaterialList = () => {

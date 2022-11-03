@@ -3,9 +3,9 @@ import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui
 import PageHeader from '../../../../components/common/PageHeader'
 import ListTemplate from '../../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../../test/testConstant'
-import NoticeDetailModal from '../../../../components/Modal/partnerCenter/users/NoticeDetailModal'
+import NoticeDetailModal from '../../../../components/Modal/partnerCenter/notice/NoticeDetailModal'
 import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
-import NoticeAddModal from '../../../../components/Modal/partnerCenter/users/NoticeAddModal'
+import NoticeAddModal from '../../../../components/Modal/partnerCenter/notice/NoticeAddModal'
 import moment from 'moment'
 
 const NoticeList = () => {
