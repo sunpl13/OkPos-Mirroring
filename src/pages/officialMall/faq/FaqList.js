@@ -29,10 +29,10 @@ const Faqlist = () => {
     },
   ]
 
-  // 실행 시 렌더링
+  // 첫실행 시 렌더링
   useEffect(() => {
     setItems(testValues)
-  }, [testValues])
+  }, [])
 
   function setInitItem() {
     return {

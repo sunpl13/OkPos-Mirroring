@@ -79,9 +79,14 @@ const FaqDetailModal = ({onClick, onChange, item, visible, setVisible, isUpdate}
           </CButton>
         )}
         {isUpdate && (
-          <CButton onClick={onClick} color='primary'>
-            수정
-          </CButton>
+          <>
+            <CButton onClick={onClick} color='success'>
+              수정
+            </CButton>
+            <CButton onClick={onClick} color='danger'>
+              삭제
+            </CButton>
+          </>
         )}
         <CButton color='secondary' onClick={() => setVisible(false)}>
           취소
