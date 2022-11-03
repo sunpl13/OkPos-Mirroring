@@ -11,12 +11,12 @@ import {
   CModalFooter,
   CButton,
 } from '@coreui/react'
-import ModalSelect from '../../forms/inputForm/ModalSelect'
-import ModalInput from '../../forms/inputForm/ModalInput'
+import ModalSelect from '../../../forms/inputForm/ModalSelect'
+import ModalInput from '../../../forms/inputForm/ModalInput'
 import {category} from '../employment/EmploymemtDetailModal'
-import CloseCheckModal from '../CloseCheckModal'
-import DeleteModalTemplate from '../DeleteModalTemplate'
-import {TalentRetentionType} from '../../../pages/homePage/talentRetention/TalentRetention'
+import CloseCheckModal from '../../CloseCheckModal'
+import DeleteModalTemplate from '../../DeleteModalTemplate'
+import {TalentRetentionType} from '../../../../pages/homePage/talentRetention/TalentRetention'
 
 interface AddProps {
   value: TalentRetentionType
