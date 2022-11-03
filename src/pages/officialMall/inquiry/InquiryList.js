@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../test/testConstant'
-import InquiryDetailModal from '../../../components/Modal/partnerCenter/users/InquiryDetailModal'
+import InquiryDetailModal from '../../../components/Modal/officialMall/InquiryDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {inquiryListColumns} from '../../../utils/columns/officialMall/Columns'
 

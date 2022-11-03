@@ -146,7 +146,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
         </CRow>
       </CModalBody>
       <CModalFooter>
-        <CButton color='danger' onClick={closeModal}>
+        <CButton color='secondary' onClick={closeModal}>
           취소
         </CButton>
       </CModalFooter>
