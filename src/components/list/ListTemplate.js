@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
 import {CBadge, CImage} from '@coreui/react'
@@ -84,6 +84,7 @@ const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOpt
           position: ({position}) => <td>{selectedOptions ? selectedOptions[position] : ''}</td>,
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           career: ({career}) => <td>{selectedOptions ? selectedOptions[career] : ''}</td>,
+          inquiryType: ({inquiryType}) => <td>{selectedOptions ? selectedOptions[inquiryType] : ''}</td>,
         }}
         noItemsLabel={'Not Date'}
         itemsPerPageSelect
