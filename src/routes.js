@@ -15,7 +15,7 @@ const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
 // ------ 가맹점 전용 공식몰 페이지
 
 // 회원관리
-const OfficailMallUserList = React.lazy(() => import('./pages/officialMall/users/UserList'))
+const OfficailMallUserList = React.lazy(() => import('./pages/officialMall/users/Userlist'))
 const OfficailMallWithdrawalUserList = React.lazy(() => import('./pages/officialMall/users/WithdrawalUsers'))
 // 1:1 문의 관리
 const OfficailMallInquiryList = React.lazy(() => import('./pages/officialMall/inquiry/InquiryList'))
@@ -39,6 +39,10 @@ const DealerSupportList = React.lazy(() => import('./pages/partnerCenter/agency/
 
 // 자료실
 const MaterialList = React.lazy(() => import('./pages/partnerCenter/material/MaterialList'))
+
+// 발주, 유지보수 신청
+const OrderList = React.lazy(() => import('./pages/partnerCenter/order/OrderList'))
+const AppliedForMaintenanceList = React.lazy(() => import('./pages/partnerCenter/order/AppliedForMaintenanceList'))
 
 const routes = [
   {path: '/dashboard', name: 'Dashboard', element: Dashboard},
@@ -81,6 +85,10 @@ const routes = [
 
   //UserInquiry
   {path: `/users/inquiry/userInquiryList`, name: 'UserInquiryList', element: UserInquiryList},
+
+  // orderList
+  {path: `/order/orderList`, name: 'OrderList', element: OrderList},
+  {path: `/order/appliedForMaintenanceList`, name: 'AppliedForMaintenanceList', element: AppliedForMaintenanceList},
 ]
 
 export default routes

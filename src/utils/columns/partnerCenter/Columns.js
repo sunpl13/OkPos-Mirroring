@@ -218,3 +218,40 @@ export const orderList = [
     sorter: false,
   },
 ]
+
+export const maintenanceApplicationList = [
+  {
+    key: 'no',
+    _props: {color: 'primary', className: 'no'},
+  },
+  {
+    key: 'maintenanceApplicationNo',
+    _props: {color: 'primary', className: 'maintenanceApplicationNo'},
+  },
+  {
+    key: 'businessName',
+    _props: {color: 'primary', className: 'BusinessName'},
+  },
+  {
+    key: 'businessNumber',
+    _props: {color: 'primary', className: 'businessNumber'},
+  },
+  {
+    key: 'representativeName',
+    _props: {color: 'primary', className: 'RepresentativeName'},
+  },
+
+  {
+    key: 'createdAt',
+    label: 'Order Date',
+    _props: {color: 'primary', className: 'createdAt'},
+    filter: false,
+  },
+  {
+    key: 'deleteBtn',
+    label: ' ',
+    _props: {color: 'primary', className: 'deleteBtn'},
+    filter: false,
+    sorter: false,
+  },
+]

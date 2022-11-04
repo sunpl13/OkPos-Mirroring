@@ -1,6 +1,4 @@
-import MeterialLDetailModal from '../../../components/Modal/partnerCenter/users/MeterialDetailModal'
-
-export const testUserTableValues = [
+exports.testUserTableValues = [
   {
     id: 1,
     userName: '122',
@@ -290,7 +288,7 @@ export const testUserTableValues = [
 ]
 
 // 딜러 지원 리스트
-export const dealerSupportListData = [
+exports.dealerSupportListData = [
   {
     no: 1,
     category: '대리점',
@@ -605,7 +603,7 @@ export const dealerSupportListData = [
   },
 ]
 
-export const testPopupValues = [
+exports.testPopupValues = [
   {
     no: 1,
     popUpName: 'new',
@@ -649,32 +647,13 @@ export const testPopupValues = [
 ]
 
 // 자료실 리스트
-export const meterialListData = [
+exports.meterialListData = [
   {
     no: 1,
     category: '대리점',
     title: '자료실 Title',
     content: '111111111',
-    files: {
-      uid: 'rc-upload-1667390492877-2',
-      lastModified: 1650792700178,
-      lastModifiedDate: '2022-04-24T09:31:40.178Z',
-      name: '이력서 사진.jpg',
-      size: 5528754,
-      type: 'image/jpeg',
-      percent: 0,
-      originFileObj: {
-        uid: 'rc-upload-1667390492877-2',
-      },
-      error: {
-        status: 404,
-        method: 'post',
-        url: '업로드 URL',
-      },
-      response:
-        '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /%EC%97%85%EB%A1%9C%EB%93%9C%20URL</pre>\n</body>\n</html>\n',
-      status: 'error',
-    },
+    files: {},
     createdAt: '2022-10-1',
   },
   {
@@ -764,5 +743,368 @@ export const meterialListData = [
     content: '12121212',
     files: {},
     createdAt: '2022-10-12',
+  },
+]
+
+// 발주신청 리스트
+exports.AppliedForMaintenanceData = [
+  {
+    no: 1,
+    orderNo: '3212',
+    createdAt: '2022-10-01',
+    businessName: '111111111',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 1,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 2,
+    orderNo: '1243',
+    businessName: '22222222',
+    createdAt: '2022-10-02',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 2,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 3,
+    orderNo: '4123',
+    businessName: '333333333',
+    createdAt: '2022-10-03',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 3,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 4,
+    orderNo: '124123',
+    businessName: '44444444',
+    createdAt: '2022-10-04',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 4,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 5,
+    orderNo: '123432',
+    businessName: '5555555',
+    createdAt: '2022-10-05',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 2,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 6,
+    orderNo: '123124',
+    businessName: '666666',
+    createdAt: '2022-10-06',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 1,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 7,
+    orderNo: '4123123',
+    businessName: '7777777',
+    createdAt: '2022-10-07',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 4,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 8,
+    orderNo: '123124',
+    businessName: '888888',
+    createdAt: '2022-10-08',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 3,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 9,
+    orderNo: '123124',
+    businessName: '99999999',
+    createdAt: '2022-10-09',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 2,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 10,
+    orderNo: '123124',
+    businessName: '0000000',
+    createdAt: '2022-10-10',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 3,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 11,
+    orderNo: '444123',
+    businessName: '111111111',
+    createdAt: '2022-10-11',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 4,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
+    productList: [],
+  },
+  {
+    no: 12,
+    orderNo: '1123444123',
+    businessName: '12121212',
+    createdAt: '2022-10-12',
+    businessNumber: '',
+    email: 'Test@naver.com',
+    phoneNumber: '111-222-3333',
+    homePhoneNumber: '2022-01-24',
+    businessAddress: '',
+    receive: 'pickUp',
+    orderList: [
+      {
+        productId: 3214,
+        productImg: 'https://sitem.ssgcdn.com/41/94/77/item/1000294779441_i1_1200.jpg',
+        productName: 'Bibibig',
+        deliveryStatus: 3,
+      },
+      {
+        productId: 6823,
+        productImg:
+          'https://shop3.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop3.daumcdn.net%2Fshophow%2Fp%2FN18505524302.jpg%3Fut%3D20220803155609',
+        productName: 'Babamba',
+        deliveryStatus: 4,
+      },
+    ],
+
+    taxInvoiceEmail: '',
   },
 ]

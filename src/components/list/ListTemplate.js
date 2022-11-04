@@ -1,11 +1,11 @@
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
 import {CBadge, CImage} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
 
-const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOptions}) => {
+const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOptions, datePickerHidden = true}) => {
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
@@ -47,7 +47,7 @@ const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOpt
 
   return (
     <>
-      <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
+      {datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}
       <CSmartTable
         items={filterItems || listItems}
         columns={columns || null}
@@ -81,15 +81,24 @@ const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOpt
             </td>
           ),
           employmentType: ({employmentType}) => <td>{selectedOptions ? selectedOptions[employmentType] : ''}</td>,
-          position: ({position}) => <td>{selectedOptions ? selectedOptions[position] : ''}</td>,
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           career: ({career}) => <td>{selectedOptions ? selectedOptions[career] : ''}</td>,
-          inquiryType: ({inquiryType}) => <td>{selectedOptions ? selectedOptions[inquiryType] : ''}</td>,
+          deliveryStatus: ({deliveryStatus}) => (
+            <td>
+              <CBadge color={'primary'}>{selectedOptions ? selectedOptions[deliveryStatus] : 'Not Data'} </CBadge>
+            </td>
+          ),
+          productImg: ({productImg}) => (
+            <td>
+              <CImage rounded src={productImg || ''} alt='' width={100} height={60} />
+            </td>
+          ),
         }}
         noItemsLabel={'Not Date'}
         itemsPerPageSelect
         itemsPerPage={10}
       />
+      <ThumbnailModal visible={showModal} setVisible={setShowModal} onClick={modalOnClick} url={imgClick} />
     </>
   )
 }
@@ -101,6 +110,7 @@ ListTemplate.propTypes = {
   className: PropTypes.string,
   onDelete: PropTypes.func,
   selectedOptions: PropTypes.object,
+  datePickerHidden: PropTypes.bool,
 }
 
 export default ListTemplate

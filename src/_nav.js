@@ -41,12 +41,9 @@ const _nav = [
       },
     ],
   },
-  /*
-  오케이포스 홈페이지 메뉴 작성
-  */
   {
     component: CNavTitle,
-    name: '오케이포스 홈페이지',
+    name: '파트너센터',
   },
   {
     component: CNavGroup,
@@ -101,7 +98,7 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: '발주',
+    name: '발주, 유지보수 신청',
     icon: <CIcon icon={cilBasket} customClassName='nav-icon' />,
     items: [
       {
@@ -109,7 +106,20 @@ const _nav = [
         name: '발주 신청 리스트',
         to: '/order/orderList',
       },
+      {
+        component: CNavItem,
+        name: '유지보수 신청 리스트',
+        to: '/order/appliedForMaintenanceList',
+      },
     ],
+  },
+  /*
+
+  오케이포스 홈페이지 메뉴 작성
+  */
+  {
+    component: CNavTitle,
+    name: '오케이포스 홈페이지',
   },
   {
     component: CNavGroup,
@@ -125,16 +135,6 @@ const _nav = [
         component: CNavItem,
         name: '팝업 관리',
         to: '/home/popup',
-      },
-      {
-        component: CNavItem,
-        name: '인재풀 관리',
-        to: '/home/talentRetention',
-      },
-      {
-        component: CNavItem,
-        name: '1:1 문의',
-        to: '/home/QnA',
       },
     ],
   },
@@ -162,12 +162,12 @@ const _nav = [
       },
     ],
   },
-  // {
-  //   component: CNavItem,
-  //   name: '롤링 배너 관리',
-  //   to: '/official/banners',
-  //   icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
-  // },
+  {
+    component: CNavItem,
+    name: '롤링 배너 관리',
+    to: '/official/banners',
+    icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
+  },
   {
     component: CNavItem,
     name: '1:1 문의 관리',
