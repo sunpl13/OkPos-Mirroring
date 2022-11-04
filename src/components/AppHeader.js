@@ -63,7 +63,7 @@ const AppHeader = () => {
                 취소
               </CButton>
               <Link to='/login'>
-                <CButton color='primary' onClick={() => window.localStorage.clear()}>
+                <CButton color='primary' onClick={() => window.sessionStorage.clear()}>
                   확인
                 </CButton>
               </Link>

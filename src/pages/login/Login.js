@@ -58,12 +58,7 @@ const Login = () => {
         return
       }
 
-      window.localStorage.setItem('jwt', response.result.jwt)
-      window.localStorage.setItem('expiredAt', response.result.expiredAt)
-      window.localStorage.setItem('partnerName', response.result.partnerName)
-
-      window.localStorage.setItem('userName', '테스터')
-
+      window.sessionStorage.setItem('jwt', response.result.jwt)
       navigate(`/`)
     } catch (error) {
       alert(`네트워크 통신 실패. 잠시후 다시 시도해주세요.\n${error.message}`)

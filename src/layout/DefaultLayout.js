@@ -9,8 +9,8 @@ const DefaultLayout = () => {
   /*const navigate = useNavigate()
 
   useEffect(() => {
-    if (isEmpty(window.localStorage.getItem('jwt'))) {
-      window.localStorage.clear()
+    if (isEmpty(window.sessionStorage.getItem('jwt'))) {
+      window.sessionStorage.clear()
       navigate(`/login`)
       return false
     }
