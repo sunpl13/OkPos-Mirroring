@@ -8,7 +8,6 @@ const CreateTest = React.lazy(() => import('./pages/test/CreateTest'))
 // ------ 오케이포스 홈페이지
 
 const Employment = React.lazy(() => import('./pages/homePage/employment/Employment'))
-const Popup = React.lazy(() => import('./pages/homePage/popup/PopUpPage'))
 const TalentRetention = React.lazy(() => import('./pages/homePage/talentRetention/TalentRetention'))
 const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
 
@@ -46,7 +45,6 @@ const AppliedForMaintenanceList = React.lazy(() => import('./pages/partnerCenter
 
 const routes = [
   {path: '/dashboard', name: 'Dashboard', element: Dashboard},
-
   {path: `/test/test-list`, name: '조회', element: TestList},
   {path: `/test/create-test`, name: '생성', element: CreateTest},
 
@@ -54,7 +52,6 @@ const routes = [
 
   //홈페이지 관리
   {path: `/home/employment`, name: '채용관리', element: Employment},
-  {path: `/home/popup`, name: '팝업관리', element: Popup},
   {path: '/home/talentRetention', name: '인재풀 관리', element: TalentRetention},
   {path: '/home/QnA', name: '1:1문의', element: HomePageQnA},
 

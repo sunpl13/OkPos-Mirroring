@@ -133,8 +133,13 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: '팝업 관리',
-        to: '/home/popup',
+        name: '인재풀 관리',
+        to: '/home/talentRetention',
+      },
+      {
+        component: CNavItem,
+        name: '1:1 문의',
+        to: '/home/QnA',
       },
     ],
   },
