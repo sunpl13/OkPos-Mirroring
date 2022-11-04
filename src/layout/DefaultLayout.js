@@ -1,40 +1,40 @@
-import React from 'react'
+import {useEffect} from 'react'
 import {AppContent, AppFooter, AppHeader, AppSidebar} from '../components/index'
-// import {useNavigate} from "react-router-dom"
-// import {isEmpty} from "../utils/utility"
-// import ApiConfig, {HttpMethod} from "../dataManager/ApiConfig"
-// import {EndPoint} from "../dataManager/ApiMapper"
+import {useNavigate} from 'react-router-dom'
+import {isEmpty} from '../utils/utility'
+import ApiConfig, {HttpMethod} from '../dataManager/apiConfig'
+import {EndPoint} from '../dataManager/apiMapper'
 
 const DefaultLayout = () => {
-  /*const navigate = useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (isEmpty(window.sessionStorage.getItem('jwt'))) {
       window.sessionStorage.clear()
       navigate(`/login`)
-      return false
+      return
     }
 
-    const fetchData = async () => {
-      try {
-        const {data: response} = await ApiConfig.request({
-          method: HttpMethod.GET,
-          url: EndPoint.GET_V1_TEST_AUTO_LOGIN,
-          path: {isManual: false},
-        })
+    // const fetchData = async () => {
+    //   try {
+    //     const {data: response} = await ApiConfig.request({
+    //       method: HttpMethod.GET,
+    //       url: EndPoint.GET_V1_TEST_AUTO_LOGIN,
+    //       path: {isManual: false},
+    //     })
 
-        if (!response.isSuccess) {
-          alert(response.message)
-          window.localStorage.clear()
-          navigate(`/login`)
-        }
-      } catch (error) {
-        alert(`네트워크 통신 실패. 잠시후 다시 시도해주세요.\n${error.message}`)
-        return false
-      }
-    }
-    fetchData().then()
-  }, [])*/
+    //     if (!response.isSuccess) {
+    //       alert(response.message)
+    //       window.localStorage.clear()
+    //       navigate(`/login`)
+    //     }
+    //   } catch (error) {
+    //     alert(`네트워크 통신 실패. 잠시후 다시 시도해주세요.\n${error.message}`)
+    //     return false
+    //   }
+    // }
+    // fetchData().then()
+  }, [])
 
   return (
     <>

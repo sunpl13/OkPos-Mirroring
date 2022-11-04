@@ -46,11 +46,11 @@ const Login = () => {
 
       const {data: response} = await ApiConfig.request({
         data: {
-          email: email,
+          loginId: email,
           password: password,
         },
         method: HttpMethod.POST,
-        url: EndPoint.POST_TEST_V1_LOGIN,
+        url: EndPoint.POST_LOGIN,
       })
 
       if (!response?.isSuccess || isEmpty(response?.result?.jwt)) {
