@@ -173,6 +173,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           onDelete={onDelete}
           datePickerHidden={false}
           selectedOptions={deliveryStatusOptions}
+          itemPerPageHidden={false}
         />
       </CRow>
     </DetailModalTemplate>
