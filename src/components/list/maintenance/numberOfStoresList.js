@@ -1,32 +1,24 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {Table, Typography} from 'antd'
-import styled from 'styled-components'
-import {generalListApplicationColumns} from '../utils/columns/partnerCenter/Columns'
-import {GeneralList} from '../utils/columns/partnerCenter/ColumnsTestData'
+import AntDesignListForm from './AntDesignListForm'
 const {Text} = Typography
-const GeneralTable = ({items, onClick, columns, className}) => {
+
+const NumberOfStoresList = ({items, onClick, columns, className}) => {
   const [listItems, setListItems] = useState([])
 
   useEffect(() => {
     setListItems(items)
   }, [items])
 
-  const handleDeleteOnClick = (event, item) => {
-    event.stopPropagation()
-    console.log(item)
-  }
-
   return (
     <>
-      <AntTable
-        style={{width: '100%', display: 'flex', position: 'relative'}}
-        columns={generalListApplicationColumns || []}
-        dataSource={GeneralList || []}
-        columnTitle={[{key: 1, region: '서울, 경기, 인천'}]}
+      <AntDesignListForm
+        listIndex={1}
+        title={'신청 가맹점 수'}
+        columns={columns}
+        items={listItems}
         className={className}
-        pagination={false}
-        bordered
         summary={pageData => {
           let totalCat = 0
           let totalPos = 0
@@ -38,7 +30,6 @@ const GeneralTable = ({items, onClick, columns, className}) => {
             totalKiosk += kiosk
             totalSum += sum
           })
-
           return (
             <>
               <Table.Summary.Row>
@@ -56,7 +47,7 @@ const GeneralTable = ({items, onClick, columns, className}) => {
                   <Text>{totalSum}</Text>
                 </Table.Summary.Cell>
                 <Table.Summary.Cell index={2}>
-                  <Text>{' * '}</Text>
+                  <Text>{'  '}</Text>
                 </Table.Summary.Cell>
               </Table.Summary.Row>
             </>
@@ -67,7 +58,7 @@ const GeneralTable = ({items, onClick, columns, className}) => {
   )
 }
 
-GeneralTable.propTypes = {
+NumberOfStoresList.propTypes = {
   items: PropTypes.array,
   onClick: PropTypes.func,
   columns: PropTypes.array,
@@ -75,23 +66,4 @@ GeneralTable.propTypes = {
   onDelete: PropTypes.func,
 }
 
-export default GeneralTable
-
-const AntTable = styled(Table)`
-  &.userList {
-    width: 100%;
-    & > div {
-    width:100%
-  }
-  & th {
-    width: 100&;
-    min-width: auto;
-    background:#d6d2f8;
-  }
-  & th,
-  & td{
-    text-align: center;
-    padding:8px;
-  }
-  
-`
+export default NumberOfStoresList

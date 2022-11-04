@@ -256,7 +256,12 @@ export const maintenanceApplicationList = [
   },
 ]
 
-// AntDesign Table Columns
+/**
+ * AntDesign Table Columns
+ * 유지보수 상세모달 유지보수 신청서
+ */
+
+// 유지보수 신청 정보 / 신청 가맹점 수
 export const generalListApplicationColumns = [
   {
     title: '지역',
@@ -286,6 +291,34 @@ export const generalListApplicationColumns = [
   {
     title: '비고',
     dataIndex: 'remark',
+    width: '10%',
+  },
+]
+// 유지보수 신청 정보 / 주력 솔루션 및 VAN 사
+export const solutionListColum = [
+  {
+    title: 'No.',
+    dataIndex: 'no',
+    width: '20%',
+  },
+  {
+    title: '구분',
+    dataIndex: 'cat',
+    width: '10%',
+  },
+  {
+    title: '솔루션명',
+    dataIndex: 'pos',
+    width: '10%',
+  },
+  {
+    title: 'No.',
+    dataIndex: 'kiosk',
+    width: '10%',
+  },
+  {
+    title: '주력 VAN사',
+    dataIndex: 'sum',
     width: '10%',
   },
 ]

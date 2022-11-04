@@ -1110,9 +1110,11 @@ exports.AppliedForMaintenanceData = [
 ]
 
 /**
-  유지보수 상세모달 일반 리스트 유지보수 신청서
+  유지보수 상세모달 유지보수 신청서
   AntDesign Table Columns
 */
+
+// 유지보수 신청 정보 / 신청 가맹점 수
 exports.GeneralList = [
   {
     key: '1',
@@ -1136,7 +1138,7 @@ exports.GeneralList = [
     key: '3',
     region: '충청도',
     cat: 10,
-    pos: 33,
+    pos: 11,
     kiosk: 24,
     sum: 4,
     remark: 'Test',
@@ -1153,6 +1155,64 @@ exports.GeneralList = [
   {
     key: '5',
     region: '제주도',
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+]
+
+// 유지보수 신청 정보 / 주력 솔루션 및 VAN 사
+exports.SolutionList = [
+  {
+    key: '1',
+    no: 1,
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '2',
+    no: 2,
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '3',
+    no: 3,
+    cat: 10,
+    pos: 11,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '4',
+    no: 4,
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '5',
+    no: 5,
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '6',
+    no: '기타',
     cat: 10,
     pos: 33,
     kiosk: 24,
