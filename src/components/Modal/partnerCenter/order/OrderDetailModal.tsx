@@ -4,6 +4,9 @@ import DetailModalTemplate from '../DetailModalTemplate'
 import {CRow} from '@coreui/react'
 import ListTemplate from '../../../list/ListTemplate'
 import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
+import GeneralTable from '../../../GeneralTable'
+import {GeneralList} from '../../../../utils/columns/partnerCenter/ColumnsTestData'
+import {generalListApplicationColumns} from '../../../../utils/columns/partnerCenter/Columns'
 
 type Value = {
   no: number | undefined
@@ -175,6 +178,9 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           selectedOptions={deliveryStatusOptions}
           itemPerPageHidden={false}
         />
+      </CRow>
+      <CRow className={'p-2'}>
+        <GeneralTable className={'userList'} columns={generalListApplicationColumns} items={GeneralList} />
       </CRow>
     </DetailModalTemplate>
   )

@@ -24,7 +24,11 @@ table {
         max-width: 90px;
         min-width: 80px;
       }
-      &.deliveryStatus {
+      &.deliveryStatus,
+      &.CAT,
+      &.POS,
+      &.KIOSK,
+      &.sum{
         width: 10%;
         max-width: 110px;
         min-width: 90px;
@@ -32,7 +36,9 @@ table {
       &.createdAt,
       &.category,
       &.userName,
-      &.orderDate{
+      &.orderDate,
+      &.region,
+      &.remark{
         max-width: 200px;
         min-width: 130px;
       }

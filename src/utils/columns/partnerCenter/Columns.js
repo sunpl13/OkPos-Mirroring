@@ -1,4 +1,4 @@
-/** 회원 리스트 */
+// 회원 리스트
 export const userListColumns = [
   {
     key: 'id',
@@ -28,7 +28,7 @@ export const userListColumns = [
     filter: false,
   },
 ]
-/** 탈퇴 회원 리스트 */
+// 탈퇴 회원 리스트
 export const withdrawalUsersColumns = [
   {
     key: 'userName',
@@ -73,7 +73,7 @@ export const withdrawalUsersColumns = [
     _props: {color: 'primary', className: 'secessionReason'},
   },
 ]
-/** 1:1 문의 리스트 */
+// 1:1 문의 리스트
 export const userInquiryListColumns = [
   {
     key: 'inquiryType',
@@ -96,7 +96,7 @@ export const userInquiryListColumns = [
     _props: {color: 'primary', className: 'createdAt'},
   },
 ]
-/** 공지사항 리스트 */
+// 공지사항 리스트
 export const noticeList = [
   {
     key: 'title',
@@ -122,7 +122,7 @@ export const noticeList = [
   },
 ]
 
-/** 영업 대리점/ 딜러 지원 리스트 */
+// 영업 대리점/ 딜러 지원 리스트
 export const dealerSupportList = [
   {
     key: 'no',
@@ -156,7 +156,7 @@ export const dealerSupportList = [
   },
 ]
 
-/** 자료 리스트 */
+// 자료 리스트
 export const materiaList = [
   {
     key: 'no',
@@ -185,7 +185,7 @@ export const materiaList = [
   },
 ]
 
-/** 발주 신청 리스트 */
+// 발주 신청 리스트
 export const orderList = [
   {
     key: 'no',
@@ -253,5 +253,39 @@ export const maintenanceApplicationList = [
     _props: {color: 'primary', className: 'deleteBtn'},
     filter: false,
     sorter: false,
+  },
+]
+
+// AntDesign Table Columns
+export const generalListApplicationColumns = [
+  {
+    title: '지역',
+    dataIndex: 'region',
+    width: '20%',
+  },
+  {
+    title: 'CAT',
+    dataIndex: 'cat',
+    width: '10%',
+  },
+  {
+    title: 'POS',
+    dataIndex: 'pos',
+    width: '10%',
+  },
+  {
+    title: 'KIOSK',
+    dataIndex: 'kiosk',
+    width: '10%',
+  },
+  {
+    title: 'SUM',
+    dataIndex: 'sum',
+    width: '10%',
+  },
+  {
+    title: '비고',
+    dataIndex: 'remark',
+    width: '10%',
   },
 ]

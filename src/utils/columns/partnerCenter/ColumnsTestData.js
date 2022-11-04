@@ -1108,3 +1108,55 @@ exports.AppliedForMaintenanceData = [
     taxInvoiceEmail: '',
   },
 ]
+
+/**
+  유지보수 상세모달 일반 리스트 유지보수 신청서
+  AntDesign Table Columns
+*/
+exports.GeneralList = [
+  {
+    key: '1',
+    region: '서울, 경기, 인천',
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '2',
+    region: '강원도',
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '3',
+    region: '충청도',
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '4',
+    region: '전라도',
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '5',
+    region: '제주도',
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+]
