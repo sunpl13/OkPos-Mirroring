@@ -1,4 +1,7 @@
 // 회원 리스트
+import {CFormSelect} from '@coreui/react'
+import React from 'react'
+
 export const userListColumns = [
   {
     key: 'id',
@@ -295,30 +298,70 @@ export const generalListApplicationColumns = [
   },
 ]
 // 유지보수 신청 정보 / 주력 솔루션 및 VAN 사
-export const solutionListColum = [
+export const solutionListColumns = [
   {
     title: 'No.',
     dataIndex: 'no',
-    width: '20%',
+    width: '5%',
   },
   {
     title: '구분',
     dataIndex: 'cat',
-    width: '10%',
+    width: '20%',
+    render: (value, row) => {
+      return (
+        <CFormSelect
+          aria-label='Default select example'
+          options={[
+            'Open this select menu',
+            {label: 'One', value: '1'},
+            {label: 'Two', value: '2'},
+            {label: 'Three', value: '3', disabled: true},
+          ]}
+        />
+      )
+    },
   },
   {
     title: '솔루션명',
     dataIndex: 'pos',
-    width: '10%',
+    width: '20%',
   },
   {
     title: 'No.',
     dataIndex: 'kiosk',
-    width: '10%',
+    width: '5%',
   },
   {
     title: '주력 VAN사',
     dataIndex: 'sum',
+    width: '20%',
+    render: (value, row) => {
+      //console.log(value, row)
+      return (
+        <CFormSelect
+          aria-label='Default select example'
+          options={[
+            'Open this select menu',
+            {label: 'One', value: '1'},
+            {label: 'Two', value: '2'},
+            {label: 'Three', value: '3', disabled: true},
+          ]}
+        />
+      )
+    },
+  },
+]
+// 유지보수 신청 정보 / 관리 대상 H/W 현황
+export const managementTargetColumns = [
+  {
+    title: '구분.',
+    dataIndex: 'division',
     width: '10%',
+  },
+  {
+    title: '제조사/모델명',
+    dataIndex: 'manufactureCompany',
+    width: '40%',
   },
 ]

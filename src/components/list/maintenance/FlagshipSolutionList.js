@@ -4,10 +4,10 @@ import AntDesignListForm from './AntDesignListForm'
 
 const FlagshipSolutionList = ({items, onClick, columns, className}) => {
   const [listItems, setListItems] = useState([])
-
   useEffect(() => {
     setListItems(items)
   }, [items])
+
   return (
     <>
       <AntDesignListForm
@@ -16,14 +16,6 @@ const FlagshipSolutionList = ({items, onClick, columns, className}) => {
         className={className}
         title={'주력 솔루션 및 VAN 사'}
         listIndex={2}
-      />
-      <AntDesignListForm
-        columns={columns || []}
-        dataSource={listItems || []}
-        className={className}
-        pagination={false}
-        title={'주력 솔루션 및 VAN 사'}
-        listIndex={3}
       />
     </>
   )

@@ -4,10 +4,15 @@ import DetailModalTemplate from '../DetailModalTemplate'
 import {CRow} from '@coreui/react'
 import ListTemplate from '../../../list/ListTemplate'
 import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
-import NumberOfStoresList from '../../../list/maintenance/numberOfStoresList'
+import NumberOfStoresList from '../../../list/maintenance/NumberOfStoresList'
 import {GeneralList, SolutionList} from '../../../../utils/columns/partnerCenter/ColumnsTestData'
-import {generalListApplicationColumns, solutionListColum} from '../../../../utils/columns/partnerCenter/Columns'
+import {
+  generalListApplicationColumns,
+  solutionListColumns,
+  managementTargetColumns,
+} from '../../../../utils/columns/partnerCenter/Columns'
 import FlagshipSolutionList from '../../../list/maintenance/FlagshipSolutionList'
+import ManagementTarget from '../../../list/maintenance/ManagementTarget'
 
 type Value = {
   no: number | undefined
@@ -184,7 +189,10 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
         <NumberOfStoresList className={'userList'} columns={generalListApplicationColumns} items={GeneralList} />
       </CRow>
       <CRow className={'p-2'}>
-        <FlagshipSolutionList className={'userList'} columns={solutionListColum} items={SolutionList} />
+        <FlagshipSolutionList className={'userList'} columns={solutionListColumns} items={SolutionList} />
+      </CRow>
+      <CRow className={'p-2'}>
+        <ManagementTarget className={'userList'} columns={managementTargetColumns} items={SolutionList} />
       </CRow>
     </DetailModalTemplate>
   )

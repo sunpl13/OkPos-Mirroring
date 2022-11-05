@@ -1167,21 +1167,17 @@ exports.GeneralList = [
 exports.SolutionList = [
   {
     key: '1',
+    division: 'POS',
+  },
+  {
+    key: '2',
     no: 1,
     cat: 10,
     pos: 33,
     kiosk: 24,
     sum: 4,
     remark: 'Test',
-  },
-  {
-    key: '2',
-    no: 2,
-    cat: 10,
-    pos: 33,
-    kiosk: 24,
-    sum: 4,
-    remark: 'Test',
+    editable: true,
   },
   {
     key: '3',
@@ -1191,6 +1187,7 @@ exports.SolutionList = [
     kiosk: 24,
     sum: 4,
     remark: 'Test',
+    editable: true,
   },
   {
     key: '4',
@@ -1200,6 +1197,7 @@ exports.SolutionList = [
     kiosk: 24,
     sum: 4,
     remark: 'Test',
+    editable: true,
   },
   {
     key: '5',
@@ -1209,6 +1207,7 @@ exports.SolutionList = [
     kiosk: 24,
     sum: 4,
     remark: 'Test',
+    editable: true,
   },
   {
     key: '6',
@@ -1218,5 +1217,6 @@ exports.SolutionList = [
     kiosk: 24,
     sum: 4,
     remark: 'Test',
+    editable: true,
   },
 ]

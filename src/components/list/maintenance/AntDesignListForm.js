@@ -4,7 +4,7 @@ import {Table} from 'antd'
 import {CFormLabel} from '@coreui/react'
 import PropTypes from 'prop-types'
 
-const AntDesignListForm = ({items, onClick, columns, className, title, listIndex, summary}) => {
+const AntDesignListForm = ({items, onClick, columns, className, title, listIndex, summary, children}) => {
   const getListIndex = num => {
     switch (+num) {
       case 1:
@@ -37,7 +37,24 @@ const AntDesignListForm = ({items, onClick, columns, className, title, listIndex
         <span>{getListIndex(listIndex)}</span>
         {title}
       </ListTitleForm>
+      {children}
       <AntTable
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: event => {
+              console.log(event, record, rowIndex)
+            }, // click row
+            onDoubleClick: event => {
+              console.log(event, record, rowIndex)
+            }, // double click row
+          }
+        }}
+        onCell={{
+          cat: item => {
+            console.log(item)
+            return <div>asdasd</div>
+          },
+        }}
         columns={columns || []}
         dataSource={items || []}
         className={className}
@@ -57,6 +74,7 @@ AntDesignListForm.propTypes = {
   title: PropTypes.string,
   listIndex: PropTypes.number,
   summary: PropTypes.func,
+  children: PropTypes.element,
 }
 export default AntDesignListForm
 
