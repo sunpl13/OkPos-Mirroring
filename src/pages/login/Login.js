@@ -19,6 +19,7 @@ import ApiConfig, {HttpMethod} from '../../dataManager/apiConfig'
 import {EndPoint} from '../../dataManager/apiMapper'
 import {isEmpty} from '../../utils/utility'
 import {useNavigate} from 'react-router-dom'
+import styled from 'styled-components'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -108,6 +109,7 @@ const Login = () => {
                       <CButton color='primary' onClick={handleSubmit}>
                         로그인
                       </CButton>
+                      <SignUp>회원가입</SignUp>
                     </div>
                   </CForm>
                 </CCardBody>
@@ -121,3 +123,13 @@ const Login = () => {
 }
 
 export default Login
+
+const SignUp = styled.span`
+  margin-top: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 0.875rem;
+  color: #606374;
+  text-decoration: underline;
+  cursor: pointer;
+`
