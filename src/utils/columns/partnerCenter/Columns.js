@@ -290,6 +290,11 @@ export const generalListApplicationColumns = [
     title: 'SUM',
     dataIndex: 'sum',
     width: '10%',
+    render: (value, row) => {
+      if (value) {
+        return row.pos + row.cat + row.kiosk
+      }
+    },
   },
   {
     title: '비고',
@@ -306,49 +311,53 @@ export const solutionListColumns = [
   },
   {
     title: '구분',
-    dataIndex: 'cat',
+    dataIndex: 'division',
     width: '20%',
     render: (value, row) => {
-      return (
-        <CFormSelect
-          aria-label='Default select example'
-          options={[
-            'Open this select menu',
-            {label: 'One', value: '1'},
-            {label: 'Two', value: '2'},
-            {label: 'Three', value: '3', disabled: true},
-          ]}
-        />
-      )
+      console.log(value)
+      if (value) {
+        return (
+          <CFormSelect
+            aria-label='Default select example'
+            options={[
+              'Open this select menu',
+              {label: 'One', value: '1'},
+              {label: 'Two', value: '2'},
+              {label: 'Three', value: '3', disabled: true},
+            ]}
+          />
+        )
+      }
     },
   },
   {
     title: '솔루션명',
-    dataIndex: 'pos',
+    dataIndex: 'solution',
     width: '20%',
   },
   {
     title: 'No.',
-    dataIndex: 'kiosk',
+    dataIndex: 'no',
     width: '5%',
   },
   {
     title: '주력 VAN사',
-    dataIndex: 'sum',
+    dataIndex: 'flagshipCompany',
     width: '20%',
     render: (value, row) => {
-      //console.log(value, row)
-      return (
-        <CFormSelect
-          aria-label='Default select example'
-          options={[
-            'Open this select menu',
-            {label: 'One', value: '1'},
-            {label: 'Two', value: '2'},
-            {label: 'Three', value: '3', disabled: true},
-          ]}
-        />
-      )
+      if (value) {
+        return (
+          <CFormSelect
+            aria-label='Default select example'
+            options={[
+              'Open this select menu',
+              {label: 'One', value: '1'},
+              {label: 'Two', value: '2'},
+              {label: 'Three', value: '3', disabled: true},
+            ]}
+          />
+        )
+      }
     },
   },
 ]

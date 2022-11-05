@@ -94,7 +94,21 @@ const AntTable = styled(Table)`
   border: 1px solid #d8dbe0;
     text-align: center;
     padding:0.5rem;
+    & select {
+     border:none;
+    }
   }
+  
+  }
+  &.solutionList{
+  & td:nth-child(2),
+  & td:nth-child(5){
+  padding:0;
+    & select{
+      padding:.8rem;
+    }
+  }
+  
 `
 const ListTitleForm = styled(CFormLabel)`
   display: flex;

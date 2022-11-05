@@ -189,7 +189,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
         <NumberOfStoresList className={'userList'} columns={generalListApplicationColumns} items={GeneralList} />
       </CRow>
       <CRow className={'p-2'}>
-        <FlagshipSolutionList className={'userList'} columns={solutionListColumns} items={SolutionList} />
+        <FlagshipSolutionList className={'userList solutionList'} columns={solutionListColumns} items={SolutionList} />
       </CRow>
       <CRow className={'p-2'}>
         <ManagementTarget className={'userList'} columns={managementTargetColumns} items={SolutionList} />
