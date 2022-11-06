@@ -44,6 +44,9 @@ const MaterialList = React.lazy(() => import('./pages/partnerCenter/material/Mat
 const OrderList = React.lazy(() => import('./pages/partnerCenter/order/OrderList'))
 const AppliedForMaintenanceList = React.lazy(() => import('./pages/partnerCenter/order/AppliedForMaintenanceList'))
 
+// 교육 일정 리스트
+const EducationScheduleList = React.lazy(() => import('./pages/partnerCenter/educationSchedule/EducationScheduleList'))
+
 const routes = [
   {path: '/dashboard', name: 'Dashboard', element: Dashboard},
 
@@ -89,6 +92,9 @@ const routes = [
   // orderList
   {path: `/order/orderList`, name: 'OrderList', element: OrderList},
   {path: `/order/appliedForMaintenanceList`, name: 'AppliedForMaintenanceList', element: AppliedForMaintenanceList},
+
+  // EducationScheduleList
+  {path: `/educationSchedule/educationScheduleList`, name: 'educationScheduleList', element: EducationScheduleList},
 ]
 
 export default routes
