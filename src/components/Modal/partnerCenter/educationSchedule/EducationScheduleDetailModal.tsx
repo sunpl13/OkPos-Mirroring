@@ -25,31 +25,38 @@ interface OrderListDetailProps {
 }
 
 const EducationScheduleDetailModal = ({onChange, value, visible, setVisible, upDate}: OrderListDetailProps) => {
-  const {title, createdAt, files, content} = value
+  const {no, title, createdAt, files, content} = value
 
   useEffect(() => {
     if (visible) {
     }
   }, [visible])
-  //"- 공고 제목
-  // - 등록일
-  // - 첨부파일
-  // - 이미지
-  // - 본문 "
   return (
     <DetailModalTemplate
-      title={'교육 일정 상세'}
+      title={no !== 0 ? '교육 일정 상세' : '교육 일정 추가'}
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={'수정'}
+      btnText={no !== 0 ? '수정' : '추가'}
     >
       <CRow className={'p-2'}>
         <ModalInput id={'title'} placeholder={'공고 제목'} label={'공고 제목'} value={title} onChange={onChange} />
       </CRow>
+
       <CRow className={'p-2'}>
-        <ModalInput id={'createdAt'} placeholder={'등록일'} label={'등록일'} value={createdAt} onChange={onChange} />
+        {no !== 0 && (
+          <ModalInput
+            id={'createdAt'}
+            placeholder={'등록일'}
+            label={'등록일'}
+            value={createdAt}
+            onChange={onChange}
+            readOnly={true}
+            disabled={true}
+          />
+        )}
       </CRow>
+
       <CRow className={'p-2'}>
         <ModalFilesInput label={'첨부 파일'} id={'files'} />
       </CRow>
@@ -57,7 +64,7 @@ const EducationScheduleDetailModal = ({onChange, value, visible, setVisible, upD
         <ModalImageInput id={'imageInput'} label={'이미지 리스트'} />
       </CRow>
       <CRow className={'p-2'}>
-        <ModalTextArrayInput id={'content'} label={'본문'} value={content} onChange={onChange} rows={7} />
+        <ModalTextArrayInput id={'content'} label={'본문'} value={content} onChange={onChange} rows={10} />
       </CRow>
     </DetailModalTemplate>
   )

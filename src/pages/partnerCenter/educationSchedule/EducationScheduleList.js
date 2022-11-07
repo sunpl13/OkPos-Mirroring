@@ -18,13 +18,57 @@ const EducationScheduleList = () => {
 
   /** Open Modal*/
   const handleShowMaterialDetailModal = item => {
-    setSelectedItem(item)
-    setEditCheck(item)
-    setShowModal(!showModal)
+    if (!item) {
+      setShowModal(!showModal)
+      setSelectedItem({
+        no: 0,
+        title: '',
+        content: '',
+        files: '',
+        images: '',
+      })
+    } else {
+      setSelectedItem(item)
+      setEditCheck(item)
+      setShowModal(!showModal)
+    }
   }
 
   const handleDetailModalUpDate = () => {
-    console.log('test')
+    const {no, title, content, files, images} = selectedItem
+    if (no !== 0) {
+      if (editCheck.title !== title || editCheck.content !== content) {
+        if (window.confirm('Edit ?')) {
+          if (!title) return alert('Not Title')
+          //if (!files) return alert('Not File')
+          //if (!images) return alert('Not image')
+          if (!content) return alert('Not Content')
+          setItems(items.map(value => (value.no === no ? selectedItem : value)))
+          setShowModal(false)
+        }
+      } else {
+        setShowModal(false)
+      }
+    } else {
+      if (title || content || files) {
+        if (window.confirm('Add ?')) {
+          if (!title) return alert('Not Title')
+          //if (!files) return alert('Not File')
+          //if (!images) return alert('Not Image')
+          if (!content) return alert('Not Content')
+          setItems([
+            ...items,
+            {
+              ...selectedItem,
+              no: items.length + 1,
+            },
+          ])
+          setShowModal(false)
+        }
+      } else {
+        setShowModal(false)
+      }
+    }
     setShowModal(false)
   }
 
@@ -55,7 +99,7 @@ const EducationScheduleList = () => {
           <CCardHeader>
             <CForm className='row g-3'>
               <CCol xs={1}>
-                <CButton color='primary' onClick={() => console.log('asdf')}>
+                <CButton color='primary' onClick={() => handleShowMaterialDetailModal()}>
                   추가
                 </CButton>
               </CCol>
