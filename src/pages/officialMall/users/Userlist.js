@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import {testUserTableValues} from '../../test/testConstant'
 import ListTemplate from '../../../components/list/ListTemplate'
 import UserModal from '../../../components/Modal/officialMall/UserModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userListColumns} from '../../../utils/columns/officialMall/Columns'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const UserList = () => {
+  // 모듈 선언'
+  const navigate = useNavigate()
   // Local state 선언
-  const [items, setItems] = useState([])
+  const [userList, setUserList] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [item, setItem] = useState({
     userName: '',
@@ -24,9 +30,34 @@ const UserList = () => {
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
 
+  // API 통신 함수
+  const loadMallUserList = async () => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: 'http://13.209.93.181/admin/mall/users',
+        //url: EndPoint.GET_USERS,
+      })
+      if (!res?.isSuccess || isEmpty(res?.result)) {
+        console.log('loadMallUserList error')
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      setUserList(res.result.result)
+    } catch (error) {
+      console.log(error)
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
   // Life Cycle 선언
   useEffect(() => {
-    setItems(testUserTableValues.filter(v => v.status))
+    loadMallUserList()
+    // setItems(testUserTableValues.filter(v => v.status))
   }, [])
 
   /** Open Modal*/
@@ -38,45 +69,6 @@ const UserList = () => {
     setShowModal(!showModal)
   }
 
-  /** Add User Modal*/
-  const handleUserItemAddModalOnChange = ({target}) => {
-    const {id, value} = target
-    setItem({
-      ...item,
-      [id]: value,
-    })
-  }
-  const handleUserDetailModalOnChange = ({target: {id, value}}) => {
-    setSelectedItem({
-      ...selectedItem,
-      [id]: value,
-    })
-  }
-
-  const handleUserItemAddModalOnClick = () => {
-    if (!item.userName) return alert('Is Not User Name')
-    if (!item.businessNumber) return alert('Is Not Business Number')
-    if (!item.phoneNumber) return alert('Is Not Phone Number')
-    if (!item.businessRegistration) return alert('Is Not Business Registration File')
-    if (!item.businessName) return alert('Is Not Business Name')
-    if (!item.businessAddress) return alert('Is Not Business Address')
-    setItems([
-      ...items,
-      {
-        ...item,
-      },
-    ])
-    setItem({
-      userName: '',
-      businessNumber: '',
-      phoneNumber: '',
-      businessRegistration: '',
-      businessName: '',
-      businessAddress: '',
-    })
-    setShowAddModal(!showAddModal)
-  }
-
   return (
     <CRow>
       <PageHeader title='회원 관리' />
@@ -84,22 +76,15 @@ const UserList = () => {
         <CCard className='mb-4'>
           <CCardBody>
             <ListTemplate
-              items={items}
+              items={userList}
               onClick={handleShowUserDetailModal}
-              onChange={handleUserDetailModalOnChange}
               columns={userListColumns}
               className={'userList'}
             />
           </CCardBody>
         </CCard>
       </CCol>
-      <UserModal
-        value={selectedItem}
-        visible={showModal}
-        setVisible={setShowModal}
-        readOnly
-        onChange={handleUserDetailModalOnChange}
-      />
+      <UserModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
     </CRow>
   )
 }
