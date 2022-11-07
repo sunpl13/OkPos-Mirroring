@@ -1205,3 +1205,67 @@ exports.SolutionList = [
     no: '기타',
   },
 ]
+
+// 교육 일정 리스트
+exports.educationScheduleListData = [
+  {
+    no: 1,
+    title: 'Test',
+    createdAt: '2022-10-21',
+  },
+  {
+    no: 2,
+    title: 'Test',
+    createdAt: '2022-10-22',
+  },
+  {
+    no: 3,
+    title: 'Test',
+    createdAt: '2022-10-23',
+  },
+  {
+    no: 4,
+    title: 'Test',
+    createdAt: '2022-10-24',
+  },
+  {
+    no: 5,
+    title: 'Test',
+    createdAt: '2022-10-25',
+  },
+  {
+    no: 6,
+    title: 'Test',
+    createdAt: '2022-10-26',
+  },
+  {
+    no: 7,
+    title: 'Test',
+    createdAt: '2022-10-27',
+  },
+  {
+    no: 8,
+    title: 'Test',
+    createdAt: '2022-10-28',
+  },
+  {
+    no: 9,
+    title: 'Test',
+    createdAt: '2022-10-29',
+  },
+  {
+    no: 10,
+    title: 'Test',
+    createdAt: '2022-10-30',
+  },
+  {
+    no: 11,
+    title: 'Test',
+    createdAt: '2022-10-31',
+  },
+  {
+    no: 12,
+    title: 'Test',
+    createdAt: '2022-11-01',
+  },
+]

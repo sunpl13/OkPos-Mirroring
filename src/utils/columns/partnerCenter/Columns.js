@@ -1,6 +1,7 @@
 // 회원 리스트
 import {CFormSelect} from '@coreui/react'
 import React from 'react'
+import EducationScheduleList from '../../../pages/partnerCenter/educationSchedule/EducationScheduleList'
 
 export const userListColumns = [
   {
@@ -372,5 +373,30 @@ export const managementTargetColumns = [
     title: '제조사/모델명',
     dataIndex: 'manufactureCompany',
     width: '40%',
+  },
+]
+
+// 교육 일정 / 교육 일정 리스트
+export const educationScheduleListColumns = [
+  {
+    key: 'no',
+    _props: {color: 'primary', className: 'no'},
+  },
+  {
+    key: 'title',
+    _props: {color: 'primary', className: 'title'},
+  },
+
+  {
+    key: 'createdAt',
+    _props: {color: 'primary', className: 'createdAt'},
+    filter: false,
+  },
+  {
+    key: 'deleteBtn',
+    label: ' ',
+    _props: {color: 'primary', className: 'deleteBtn'},
+    filter: false,
+    sorter: false,
   },
 ]
