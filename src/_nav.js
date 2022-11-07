@@ -183,7 +183,7 @@ const _nav = [
   {
     component: CNavItem,
     name: '자료실 관리',
-    to: '/official/reference',
+    to: '/official/archieve',
     icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
   },
   {

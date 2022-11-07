@@ -52,3 +52,11 @@ export const faqListColumns = [
   {key: 'category', label: '분류', _style: {width: '100px%'}},
   {key: 'title', label: '제목', _style: {width: '200px'}},
 ]
+
+// FAQ 리스트
+export const archieveColumns = [
+  {key: 'id', label: 'No', sorter: false, filter: false},
+  {key: 'category', label: '분류'},
+  {key: 'title', label: '제목'},
+  {key: 'createAt', label: '작성일'},
+]

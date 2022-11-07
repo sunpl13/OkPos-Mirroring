@@ -23,8 +23,9 @@ const UserList = () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_V1_MALL_USERS,
+        url: 'http://13.209.93.181/admin/mall/users',
       })
+
       if (!res?.isSuccess || isEmpty(res?.result)) {
         console.log('loadMallUserList error')
         if (res?.code === 2014) {
@@ -34,7 +35,8 @@ const UserList = () => {
         }
         return
       }
-      setUserList(res.result.result)
+      console.log(res)
+      setUserList(res.result)
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -43,8 +45,8 @@ const UserList = () => {
 
   // Life Cycle 선언
   useEffect(() => {
-    //loadMallUserList()
-    setUserList(testUserTableValues.filter(v => v.status))
+    loadMallUserList()
+    //setUserList(testUserTableValues.filter(v => v.status))
   }, [])
 
   // 함수 선언
