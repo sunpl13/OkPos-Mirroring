@@ -99,7 +99,11 @@ const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOpt
         itemsPerPageSelect
         itemsPerPage={10}
       />
-      <ThumbnailModal visible={showModal} setVisible={setShowModal} onClick={modalOnClick} url={imgClick} />
+      {showModal ? (
+        <ThumbnailModal visible={showModal} setVisible={setShowModal} onClick={modalOnClick} url={imgClick} />
+      ) : (
+        ''
+      )}
     </>
   )
 }

@@ -11,32 +11,19 @@ import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 
 const UserList = () => {
-  // 모듈 선언'
+  // 모듈 선언
   const navigate = useNavigate()
   // Local state 선언
   const [userList, setUserList] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
-  const [item, setItem] = useState({
-    userName: '',
-    businessNumber: '',
-    createdAt: '',
-    status: true,
-    phoneNumber: '',
-    businessRegistration: '',
-    businessName: '',
-    businessAddress: '',
-  })
-
   const [showModal, setShowModal] = useState(false)
-  const [showAddModal, setShowAddModal] = useState(false)
 
   // API 통신 함수
   const loadMallUserList = async () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: 'http://13.209.93.181/admin/mall/users',
-        //url: EndPoint.GET_USERS,
+        url: EndPoint.GET_V1_MALL_USERS,
       })
       if (!res?.isSuccess || isEmpty(res?.result)) {
         console.log('loadMallUserList error')
@@ -56,14 +43,11 @@ const UserList = () => {
 
   // Life Cycle 선언
   useEffect(() => {
-    loadMallUserList()
-    // setItems(testUserTableValues.filter(v => v.status))
+    //loadMallUserList()
+    setUserList(testUserTableValues.filter(v => v.status))
   }, [])
 
-  /** Open Modal*/
-  const handleShowUserItemAddModal = () => {
-    setShowAddModal(!showAddModal)
-  }
+  // 함수 선언
   const handleShowUserDetailModal = item => {
     setSelectedItem(item)
     setShowModal(!showModal)

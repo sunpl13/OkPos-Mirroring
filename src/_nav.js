@@ -5,7 +5,6 @@ import {
   cilSpeedometer,
   cilUser,
   cilHome,
-  cilLibrary,
   cilChatBubble,
   cilBasket,
   cilFindInPage,
@@ -25,22 +24,16 @@ const _nav = [
     },
   },
   {
-    component: CNavGroup,
-    name: '테스트 관리',
-    icon: <CIcon icon={cilBank} customClassName='nav-icon' />,
-    items: [
-      {
-        component: CNavItem,
-        name: '조회',
-        to: '/test/test-list',
-      },
-      {
-        component: CNavItem,
-        name: '생성',
-        to: '/test/create-test',
-      },
-    ],
+    component: CNavItem,
+    name: '조회',
+    to: '/test/test-list',
   },
+  {
+    component: CNavItem,
+    name: '생성',
+    to: '/test/create-test',
+  },
+
   {
     component: CNavTitle,
     name: '파트너센터',
