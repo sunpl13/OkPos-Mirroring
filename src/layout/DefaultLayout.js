@@ -9,12 +9,11 @@ const DefaultLayout = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isEmpty(window.sessionStorage.getItem('jwt'))) {
-      window.sessionStorage.clear()
-      navigate(`/login`)
-      return
-    }
-
+    // if (isEmpty(window.sessionStorage.getItem('jwt'))) {
+    //   window.sessionStorage.clear()
+    //   navigate(`/login`)
+    //   return
+    // }
     // const fetchData = async () => {
     //   try {
     //     const {data: response} = await ApiConfig.request({
@@ -22,7 +21,6 @@ const DefaultLayout = () => {
     //       url: EndPoint.GET_V1_TEST_AUTO_LOGIN,
     //       path: {isManual: false},
     //     })
-
     //     if (!response.isSuccess) {
     //       alert(response.message)
     //       window.localStorage.clear()
