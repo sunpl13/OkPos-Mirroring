@@ -7,6 +7,7 @@ import DatePickerForm from '../../../common/DatePickerForm'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
 import CloseCheckModal from '../../CloseCheckModal'
+import ModalBooleanSelect from '../../../forms/inputForm/ModalBooleanSelect'
 
 interface AddProps {
   value: EmploymentType
@@ -48,26 +49,26 @@ export const category = [
 ]
 
 const status = [
-  {key: 'p', value: '채용중'},
-  {key: 'q', value: '마감'},
+  {key: true, value: '채용중'},
+  {key: false, value: '마감'},
 ]
 
 const type = [
-  {key: 'q', value: '정규직'},
-  {key: 'w', value: '계약직'},
-  {key: 'e', value: '인턴'},
+  {key: 'FULL_TIME', value: '정규직'},
+  {key: 'PART_TIME', value: '계약직'},
+  {key: 'INTERN', value: '인턴'},
 ]
 
 const education = [
-  {key: 'q', value: '대졸(4년제) 이상'},
-  {key: 'w', value: '대졸(2,3년제) 이상'},
-  {key: 'e', value: '고졸'},
+  {key: 'UNIVERSITY_GRADUATE_4_YEAR', value: '대졸(4년제) 이상'},
+  {key: 'UNIVERSITY_GRADUATE_2_3_YEAR', value: '대졸(2,3년제) 이상'},
+  {key: 'HIGH_SCHOOL_GRADUATE', value: '고졸'},
 ]
 
 const career = [
-  {key: 'q', value: '신입'},
-  {key: 'w', value: '경력'},
-  {key: 'e', value: '무관'},
+  {key: 'NEW', value: '신입'},
+  {key: 'EXPERIENCED', value: '경력'},
+  {key: 'ANY', value: '무관'},
 ]
 const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}: AddProps) => {
   const [startDate, setstartDate] = useState(new Date())
@@ -84,7 +85,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
   }
 
   const onCloseCheck = () => {
-    if (!isReadOnly && value.No !== -1) {
+    if (!isReadOnly && value.recruitmentId !== -1) {
       setCloseCheckModalState(true)
     } else {
       setVisible(false)
@@ -109,30 +110,33 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='No'
-              placeholder='No.'
-              label='No'
+              id='recruitmentId'
+              placeholder='recruitmentId.'
+              label='ID'
               readOnly={true}
               disabled={true}
-              value={value.No === -1 ? '' : value.No}
+              value={value.recruitmentId === -1 ? '' : value.recruitmentId}
             />
             <ModalSelect
+              options={category}
               readOnly={isReadOnly}
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
-              value={category}
+              id='category'
+              value={value.category}
               isRequired={true}
               placeholder='선택해주세요'
               label='카테고리'
             />
           </CRow>
           <CRow className='mb-3'>
-            <ModalSelect
+            <ModalBooleanSelect
               readOnly={isReadOnly}
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
+              id='proceed'
               value={status}
               isRequired={true}
               placeholder='선택해주세요'
@@ -156,7 +160,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               readOnly={false}
               label='시작일'
               isRequired={true}
-              id='startDate'
+              id='startedAt'
               date={startDate}
               setDate={setstartDate}
               isDisabled={isReadOnly}
@@ -165,7 +169,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               readOnly={false}
               label='종료일'
               isRequired={true}
-              id='endDate'
+              id='closedAt'
               date={endDate}
               setDate={setendDate}
               isDisabled={isReadOnly}
@@ -174,10 +178,10 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='workArea'
-              placeholder='workArea'
+              id='location'
+              placeholder='location'
               label='근무 지역'
-              value={value.workArea}
+              value={value.location}
               isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -197,10 +201,10 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='des'
-              placeholder='des'
+              id='duty'
+              placeholder='duty'
               label='직무 내용'
-              value={value.des}
+              value={value.duty}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -230,10 +234,10 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='qualifications'
-              placeholder='qualifications'
+              id='qualification'
+              placeholder='qualification'
               label='자격 요건'
-              value={value.qualifications}
+              value={value.qualification}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -241,10 +245,10 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='preferentiaTreatment'
-              placeholder='preferentiaTreatment'
+              id='preference'
+              placeholder='preference'
               label='우대사항'
-              value={value.preferentiaTreatment}
+              value={value.preference}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -252,10 +256,10 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='reason'
-              placeholder='reason'
+              id='hiringReason'
+              placeholder='hiringReason'
               label='채용 사유'
-              value={value.reason}
+              value={value.hiringReason}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -274,17 +278,17 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='etc'
-              placeholder='etc'
+              id='otherNote'
+              placeholder='otherNote'
               label='기타 참고사항'
-              value={value.etc}
+              value={value.otherNote}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
           </CRow>
         </CModalBody>
         <CModalFooter>
-          {value.No === -1 ? (
+          {value.recruitmentId === -1 ? (
             <CButton color='primary'>Add</CButton>
           ) : (
             <>

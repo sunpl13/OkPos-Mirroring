@@ -1,4 +1,4 @@
-exports.categorys = {
+exports.category = {
   SERVICE_PLANNING: '서비스 기획',
   SERVICE_DEVELOPMENT: '서비스 개발',
   DESIGN: '디자인',

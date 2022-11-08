@@ -1,7 +1,7 @@
 export const employmentColumns = [
   {
-    key: 'No',
-    _props: {color: 'primary', className: 'employId'},
+    key: 'recruitmentId',
+    _props: {color: 'primary', className: 'recruitmentId'},
   },
   {
     key: 'category',
@@ -9,39 +9,39 @@ export const employmentColumns = [
     _props: {color: 'primary', className: 'category'},
   },
   {
-    key: 'employName',
+    key: 'title',
     label: '공고 제목',
-    _props: {color: 'primary', className: 'employName'},
+    _props: {color: 'primary', className: 'title'},
   },
   {
-    key: 'employStartDate',
+    key: 'startedAt',
     label: '공고 시작일',
-    _props: {color: 'primary', className: 'employStartDate'},
+    _props: {color: 'primary', className: 'startedAt'},
   },
   {
-    key: 'employEndDate',
+    key: 'closedAt',
     label: '공고 종료일',
     _props: {color: 'primary', className: 'employEndDate'},
   },
   {
-    key: 'status',
+    key: 'proceed',
     label: '진행 상태',
-    _props: {color: 'primary', className: 'status'},
+    _props: {color: 'primary', className: 'proceed'},
   },
   {
-    key: 'employbannerImg',
+    key: 'imageUrl',
     label: '채용 이미지',
-    _props: {color: 'primary', className: 'employbannerImg'},
+    _props: {color: 'primary', className: 'imageUrl'},
   },
   {
-    key: 'employmentType',
-    label: '채용 형태',
-    _props: {color: 'primary', className: 'employmentType'},
+    key: 'jobType',
+    label: '고용 형태',
+    _props: {color: 'primary', className: 'jobType'},
   },
   {
-    key: 'workArea',
+    key: 'location',
     label: '근무 지역',
-    _props: {color: 'primary', className: 'workArea'},
+    _props: {color: 'primary', className: 'location'},
   },
   {
     key: 'education',
@@ -54,24 +54,24 @@ export const employmentColumns = [
     _props: {color: 'primary', className: 'career'},
   },
   {
-    key: 'des',
+    key: 'duty',
     label: '직무내용',
-    _props: {color: 'primary', className: 'des'},
+    _props: {color: 'primary', className: 'duty'},
   },
   {
-    key: 'qualifications',
+    key: 'qualification',
     label: '자격 요건',
-    _props: {color: 'primary', className: 'qualifications'},
+    _props: {color: 'primary', className: 'qualification'},
   },
   {
-    key: 'preferentiaTreatment',
+    key: 'preference',
     label: '우대 사항',
-    _props: {color: 'primary', className: 'preferentiaTreatment'},
+    _props: {color: 'primary', className: 'preference'},
   },
   {
-    key: 'reason',
+    key: 'hiringReason',
     label: '채용 사유',
-    _props: {color: 'primary', className: 'reason'},
+    _props: {color: 'primary', className: 'hiringReason'},
   },
   {
     key: 'departmentStatus',
@@ -79,8 +79,8 @@ export const employmentColumns = [
     _props: {color: 'primary', className: 'departmentStatus'},
   },
   {
-    key: 'etc',
+    key: 'otherNote',
     label: '기타',
-    _props: {color: 'primary', className: 'etc'},
+    _props: {color: 'primary', className: 'otherNote'},
   },
 ]

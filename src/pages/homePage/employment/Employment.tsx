@@ -5,47 +5,47 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../../components/list/ListTemplate'
 import EmploymemtDetailModal from '../../../components/Modal/homePage/employment/EmploymemtDetailModal'
 import {employmentColumns} from '../../../utils/columns/homePage/employment/Columns'
-import {categorys} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
+import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
 
 export type EmploymentType = {
-  No: number
+  recruitmentId: number
   category: string
-  status: boolean
-  employName: string
-  employStartDate: string
-  employEndDate: string
-  employbannerImg: string
-  employmentType: 'a' | 'b' | 'c'
-  workArea: string
-  education: 'a' | 'b' | 'c' | 'd'
-  career: 'a' | 'b' | 'c'
-  des: string
-  qualifications: string
-  preferentiaTreatment: string
-  reason: string
+  proceed: boolean
+  title: string
+  startedAt: string
+  closedAt: string
+  imageUrl: string
+  jobType: 'FULL_TIME' | 'PART_TIME' | 'INTERN'
+  location: string
+  education: 'UNIVERSITY_GRADUATE_4_YEAR' | 'UNIVERSITY_GRADUATE_2_3_YEAR' | 'HIGH_SCHOOL_GRADUATE'
+  career: 'NEW' | 'EXPERIENCED' | 'ANY'
+  duty: string
+  qualification: string
+  preference: string
+  hiringReason: string
   departmentStatus: string
-  etc: string
+  otherNote: string
 }
 const Employment = () => {
   const [items, setItems] = useState<EmploymentType[]>([])
   const [selectedItem, setSelectedItem] = useState<EmploymentType>({
-    No: -1,
+    recruitmentId: -1,
     category: '',
-    status: false,
-    employName: '',
-    employStartDate: '',
-    employEndDate: '',
-    employbannerImg: '',
-    employmentType: 'a',
-    workArea: '',
-    education: 'a',
-    career: 'a',
-    des: '',
-    qualifications: '',
-    preferentiaTreatment: '',
-    reason: '',
+    proceed: false,
+    title: '',
+    startedAt: '',
+    closedAt: '',
+    imageUrl: '',
+    jobType: 'FULL_TIME',
+    location: '',
+    education: 'UNIVERSITY_GRADUATE_4_YEAR',
+    career: 'ANY',
+    duty: '',
+    qualification: '',
+    preference: '',
+    hiringReason: '',
     departmentStatus: '',
-    etc: '',
+    otherNote: '',
   })
 
   const [showModal, setShowModal] = useState(false)
@@ -63,29 +63,31 @@ const Employment = () => {
   const handleEmploymentAddModal = () => {
     setIsReadOnly(false)
     setSelectedItem({
-      No: -1,
+      recruitmentId: -1,
       category: '',
-      status: false,
-      employName: '',
-      employStartDate: '',
-      employEndDate: '',
-      employbannerImg: '',
-      employmentType: 'a',
-      workArea: '',
-      education: 'a',
-      career: 'a',
-      des: '',
-      qualifications: '',
-      preferentiaTreatment: '',
-      reason: '',
+      proceed: false,
+      title: '',
+      startedAt: '',
+      closedAt: '',
+      imageUrl: '',
+      jobType: 'FULL_TIME',
+      location: '',
+      education: 'UNIVERSITY_GRADUATE_4_YEAR',
+      career: 'ANY',
+      duty: '',
+      qualification: '',
+      preference: '',
+      hiringReason: '',
       departmentStatus: '',
-      etc: '',
+      otherNote: '',
     })
     setShowModal(!showModal)
   }
 
   const handleEmployDetailOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const {id, value} = target
+    console.log(id, value)
+
     setSelectedItem({
       ...selectedItem,
       [id]: value,
@@ -118,7 +120,7 @@ const Employment = () => {
                 onClick={handleShowEmploymentDetailModal}
                 columns={employmentColumns}
                 className={'userList'}
-                selectedOptions={categorys}
+                selectedOptions={category}
               />
             </CCardBody>
           </CCard>

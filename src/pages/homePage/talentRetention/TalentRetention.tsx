@@ -5,7 +5,7 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../../components/list/ListTemplate'
 import {talentRetentionColumns} from '../../../utils/columns/homePage/talentRetetion/Columns'
 import TalentRetentionDetail from '../../../components/Modal/homePage/talentRetention/TalentRetentionDetail'
-import {categorys} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
+import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
 export type TalentRetentionType = {
   No: number
   name: string
@@ -83,7 +83,7 @@ const TalentRetention = () => {
                 items={items}
                 onClick={handleShowEmploymentDetailModal}
                 columns={talentRetentionColumns}
-                selectedOptions={categorys}
+                selectedOptions={category}
                 className={'userList'}
               />
             </CCardBody>
