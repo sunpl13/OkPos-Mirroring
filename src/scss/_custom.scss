@@ -19,7 +19,8 @@ table {
       }
       &.userId,
       &.status,
-      &.no {
+      &.no,
+      &.trainingPersonnel{
         width: 10%;
         max-width: 90px;
         min-width: 80px;
@@ -38,7 +39,8 @@ table {
       &.userName,
       &.orderDate,
       &.region,
-      &.remark{
+      &.remark,
+      &.trainingDate{
         max-width: 200px;
         min-width: 130px;
       }
@@ -48,7 +50,8 @@ table {
       }
       &.businessAddress,
       &.secessionReason,
-      &.businessNumber {
+      &.businessNumber,
+      &.distributorName{
         min-width: 180px;
       }
 

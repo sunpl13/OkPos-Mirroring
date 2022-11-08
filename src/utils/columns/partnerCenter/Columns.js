@@ -2,6 +2,7 @@
 import {CFormSelect} from '@coreui/react'
 import React from 'react'
 import EducationScheduleList from '../../../pages/partnerCenter/educationSchedule/EducationScheduleList'
+import EducationApplicationList from '../../../pages/partnerCenter/educationSchedule/EducationApplicationList'
 
 export const userListColumns = [
   {
@@ -391,6 +392,41 @@ export const educationScheduleListColumns = [
     key: 'createdAt',
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
+  },
+  {
+    key: 'deleteBtn',
+    label: ' ',
+    _props: {color: 'primary', className: 'deleteBtn'},
+    filter: false,
+    sorter: false,
+  },
+]
+
+// 교육 일정 / 교육 신청 리스트
+export const educationApplicationListColumns = [
+  {
+    key: 'no',
+    _props: {color: 'primary', className: 'no'},
+  },
+  {
+    key: 'distributorName',
+    _props: {color: 'primary', className: 'distributorName'},
+  },
+
+  {
+    key: 'distributorContact',
+    _props: {color: 'primary', className: 'distributorContact'},
+  },
+  {
+    key: 'trainingDate',
+    _props: {color: 'primary', className: 'trainingDate'},
+    filter: false,
+  },
+  {
+    key: 'trainingPersonnel',
+    _props: {color: 'primary', className: 'trainingPersonnel'},
+    filter: false,
+    sorter: false,
   },
   {
     key: 'deleteBtn',

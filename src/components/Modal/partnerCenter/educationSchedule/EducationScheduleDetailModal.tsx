@@ -15,7 +15,7 @@ type Value = {
   createdAt: string
 }
 
-interface OrderListDetailProps {
+interface DetailModalProps {
   onChange?: () => void
   value: Value
   visible: boolean
@@ -24,7 +24,7 @@ interface OrderListDetailProps {
   onDelete?: () => void
 }
 
-const EducationScheduleDetailModal = ({onChange, value, visible, setVisible, upDate}: OrderListDetailProps) => {
+const EducationScheduleDetailModal = ({onChange, value, visible, setVisible, upDate}: DetailModalProps) => {
   const {no, title, createdAt, files, content} = value
 
   useEffect(() => {

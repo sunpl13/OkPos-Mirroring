@@ -122,7 +122,12 @@ const _nav = [
       {
         component: CNavItem,
         name: '교육 일정 리스트',
-        to: '/educationSchedule/educationScheduleList',
+        to: '/education/educationScheduleList',
+      },
+      {
+        component: CNavItem,
+        name: '교육 신청 리스트',
+        to: '/education/educationApplicationList',
       },
     ],
   },
