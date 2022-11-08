@@ -1108,3 +1108,276 @@ exports.AppliedForMaintenanceData = [
     taxInvoiceEmail: '',
   },
 ]
+
+/**
+  유지보수 상세모달 유지보수 신청서
+  AntDesign Table Columns
+*/
+
+// 유지보수 신청 정보 / 신청 가맹점 수
+exports.GeneralList = [
+  {
+    key: '1',
+    region: '서울, 경기, 인천',
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '2',
+    region: '강원도',
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '3',
+    region: '충청도',
+    cat: 10,
+    pos: 11,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '4',
+    region: '전라도',
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+  {
+    key: '5',
+    region: '제주도',
+    cat: 10,
+    pos: 33,
+    kiosk: 24,
+    sum: 4,
+    remark: 'Test',
+  },
+]
+
+// 유지보수 신청 정보 / 주력 솔루션 및 VAN 사
+exports.SolutionList = [
+  {
+    key: '1',
+    no: 1,
+    division: 'POS',
+    solution: 'dadada',
+    flagshipCompany: 'af',
+  },
+  {
+    key: '2',
+    no: 2,
+    division: 'POS',
+    solution: 'dadada',
+    flagshipCompany: 'af',
+  },
+  {
+    key: '3',
+    no: 3,
+    division: 'POS',
+    solution: 'dadada',
+    flagshipCompany: 'af',
+  },
+  {
+    key: '4',
+    no: 4,
+    division: 'POS',
+    solution: 'dadada',
+    flagshipCompany: 'af',
+  },
+  {
+    key: '5',
+    no: 5,
+    division: 'POS',
+    solution: 'dadada',
+    flagshipCompany: 'af',
+  },
+  {
+    key: '6',
+    no: '기타',
+  },
+]
+
+// 교육 일정 리스트
+exports.educationScheduleListData = [
+  {
+    no: 1,
+    title: 'Test',
+    createdAt: '2022-10-21',
+  },
+  {
+    no: 2,
+    title: 'Test',
+    createdAt: '2022-10-22',
+  },
+  {
+    no: 3,
+    title: 'Test',
+    createdAt: '2022-10-23',
+  },
+  {
+    no: 4,
+    title: 'Test',
+    createdAt: '2022-10-24',
+  },
+  {
+    no: 5,
+    title: 'Test',
+    createdAt: '2022-10-25',
+  },
+  {
+    no: 6,
+    title: 'Test',
+    createdAt: '2022-10-26',
+  },
+  {
+    no: 7,
+    title: 'Test',
+    createdAt: '2022-10-27',
+  },
+  {
+    no: 8,
+    title: 'Test',
+    createdAt: '2022-10-28',
+  },
+  {
+    no: 9,
+    title: 'Test',
+    createdAt: '2022-10-29',
+  },
+  {
+    no: 10,
+    title: 'Test',
+    createdAt: '2022-10-30',
+  },
+  {
+    no: 11,
+    title: 'Test',
+    createdAt: '2022-10-31',
+  },
+  {
+    no: 12,
+    title: 'Test',
+    createdAt: '2022-11-01',
+  },
+]
+
+// 교육 신청 리스트
+exports.educationScheduleListData = [
+  {
+    no: 1,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 2,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 3,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 4,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 5,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 6,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 7,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 8,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 9,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 10,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 11,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+  {
+    no: 12,
+    distributorName: 'GS25',
+    distributorContact: '010-0101-0404',
+    distributorAddress: 'asddfad',
+    trainingDate: '2022-11-01',
+    trainingPersonnel: '5',
+    applicantInformationList: [],
+  },
+]
