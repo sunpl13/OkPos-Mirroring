@@ -89,7 +89,8 @@ const ListTemplate = ({
               <CBadge color={'danger'}>Delete</CBadge>
             </td>
           ),
-          employmentType: ({employmentType}) => <td>{selectedOptions ? selectedOptions[employmentType] : ''}</td>,
+          category: ({category}) => <td>{selectedOptions ? selectedOptions[category] : ''}</td>,
+          jobType: ({jobType}) => <td>{selectedOptions ? selectedOptions[jobType] : ''}</td>,
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           inquiryType: ({inquiryType}) => <td>{selectedOptions ? selectedOptions[inquiryType] : ''}</td>,
           career: ({career}) => <td>{selectedOptions ? selectedOptions[career] : ''}</td>,

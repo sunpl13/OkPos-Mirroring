@@ -20,7 +20,7 @@ table {
       &.userId,
       &.status,
       &.no,
-      &.trainingPersonnel{
+      &.trainingPersonnel {
         width: 10%;
         max-width: 90px;
         min-width: 80px;
@@ -29,7 +29,7 @@ table {
       &.CAT,
       &.POS,
       &.KIOSK,
-      &.sum{
+      &.sum {
         width: 10%;
         max-width: 110px;
         min-width: 90px;
@@ -40,7 +40,7 @@ table {
       &.orderDate,
       &.region,
       &.remark,
-      &.trainingDate{
+      &.trainingDate {
         max-width: 200px;
         min-width: 130px;
       }
@@ -51,7 +51,7 @@ table {
       &.businessAddress,
       &.secessionReason,
       &.businessNumber,
-      &.distributorName{
+      &.distributorName {
         min-width: 180px;
       }
 
