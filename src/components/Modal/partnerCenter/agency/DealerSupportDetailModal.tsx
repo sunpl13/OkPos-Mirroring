@@ -109,7 +109,8 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
               disabled={editMode}
               onChange={onChange}
               size='sm'
-              value={category}
+              value={value.category}
+              options={category}
               placeholder='선택해주세요'
               label='지원 분야'
             />
@@ -136,7 +137,14 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
                 disabled={true}
                 value={value.employStartDate || ''}
               />
-              <ModalSelect onChange={onChange} size='sm' value={career} placeholder='선택해주세요' label='경력' />
+              <ModalSelect
+                options={career}
+                onChange={onChange}
+                size='sm'
+                value={value.career}
+                placeholder='선택해주세요'
+                label='경력'
+              />
             </CRow>
           </CRow>
           <CRow className='mb-3'>

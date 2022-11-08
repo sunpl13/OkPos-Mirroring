@@ -12,7 +12,8 @@ interface ModalInputProps {
   label: string
   readOnly?: boolean
   size: 'sm' | 'lg' | undefined
-  value: IOption[]
+  value: string | number | string[]
+  options: IOption[]
   id?: string
   disabled?: boolean
   isRequired?: boolean
@@ -28,8 +29,9 @@ const ModalSelect = ({
   id,
   disabled = false,
   isRequired,
+  options,
 }: ModalInputProps) => {
-  const newOptions = value.map(item => (
+  const newOptions = options.map(item => (
     <option key={item.key} value={item.key}>
       {item.value}
     </option>
@@ -41,8 +43,8 @@ const ModalSelect = ({
         <span className={isRequired ? 'required' : ''}>{label || ' * '}</span>
       </CFormLabel>
       <CCol>
-        <CFormSelect disabled={disabled} id={id} size={size} onChange={onChange} readOnly={readOnly}>
-          <option value={'-1'}>{placeholder}</option>
+        <CFormSelect value={value} disabled={disabled} id={id} size={size} onChange={onChange} readOnly={readOnly}>
+          <option>{placeholder}</option>
           {newOptions}
         </CFormSelect>
       </CCol>

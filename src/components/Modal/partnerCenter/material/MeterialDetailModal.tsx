@@ -11,7 +11,7 @@ type Value = {
   no: number | undefined
   title: string
   content: string
-  category: object
+  category: string
   createdAt: string
 }
 
@@ -45,7 +45,8 @@ const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}: Inq
           id={'category'}
           placeholder={'category'}
           label={'카테고리'}
-          value={meterialOptions || []}
+          options={meterialOptions || []}
+          value={value.category}
           onChange={onChange}
           size={'sm'}
         />
