@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
-import {testUserTableValues} from '../../test/testConstant'
+import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import UserModal from '../../../components/Modal/officialMall/UserModal'
 import PageHeader from '../../../components/common/PageHeader'
@@ -13,6 +12,7 @@ import {isEmpty} from '../../../utils/utility'
 const UserList = () => {
   // 모듈 선언
   const navigate = useNavigate()
+
   // Local state 선언
   const [userList, setUserList] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
@@ -23,7 +23,7 @@ const UserList = () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: 'http://13.209.93.181/admin/mall/users',
+        url: EndPoint.GET_V1_MALL_USERS,
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
@@ -46,7 +46,6 @@ const UserList = () => {
   // Life Cycle 선언
   useEffect(() => {
     loadMallUserList()
-    //setUserList(testUserTableValues.filter(v => v.status))
   }, [])
 
   // 함수 선언

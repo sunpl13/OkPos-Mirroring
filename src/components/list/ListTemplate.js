@@ -6,22 +6,40 @@ import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
 
 const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOptions, datePickerHidden = true}) => {
+  // Local state 선언
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
   const [imgClick, setImgClick] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const getBadge = status => {
+
+  // 함수 선언
+
+  // 상태값 Color get 함수
+  const getBadgeColor = status => {
     switch (status) {
-      case true:
+      case 'ACTIVE':
         return 'success'
-      case false:
+      case 'INACTIVE':
         return 'danger'
       default:
         return 'primary'
     }
   }
+
+  // 상태값 Text get 함수
+  const getBadgeText = status => {
+    switch (status) {
+      case 'ACTIVE':
+        return '활성화'
+      case 'INACTIVE':
+        return '비활성화'
+      default:
+        return '기타'
+    }
+  }
+
   const testOnClick = (event, url) => {
     event.stopPropagation()
     setShowModal(!showModal)
@@ -67,7 +85,7 @@ const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOpt
         scopedColumns={{
           status: ({status}) => (
             <td>
-              <CBadge color={getBadge(status)}>{status ? '활성화' : '비활성화'}</CBadge>
+              <CBadge color={getBadgeColor(status)}>{getBadgeText(status)}</CBadge>
             </td>
           ),
           images: ({images}) => (
