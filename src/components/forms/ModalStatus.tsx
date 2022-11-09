@@ -6,7 +6,7 @@ interface ModalInputProps {
   onChange?: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
   id: string
   placeholder: string
-  value: boolean
+  value: string
   label: string
   readOnly?: boolean
   disabled?: boolean
@@ -14,16 +14,29 @@ interface ModalInputProps {
 }
 
 const ModalStatus = ({id, value, label}: ModalInputProps) => {
-  const getBadge = (status: boolean) => {
+  const getBadgeColor = (status: string) => {
     switch (status) {
-      case true:
+      case 'ACTTIVE':
         return 'success'
-      case false:
+      case 'INACTIVE':
         return 'danger'
       default:
         return 'primary'
     }
   }
+
+  // 상태값 Text get 함수
+  const getBadgeText = (status: string) => {
+    switch (status) {
+      case 'ACTIVE':
+        return '활성화'
+      case 'INACTIVE':
+        return '비활성화'
+      default:
+        return '기타'
+    }
+  }
+
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
@@ -31,7 +44,7 @@ const ModalStatus = ({id, value, label}: ModalInputProps) => {
       </CFormLabel>
       <CCol className='align-items-center' style={{display: 'flex'}}>
         {/* <CBadge color={'success'}>{value ? '활성화' : '비활성화'}</CBadge> */}
-        <CBadge color={getBadge(value)}>{value ? '활성화' : '비활성화'}</CBadge>
+        <CBadge color={getBadgeColor(value)}>{getBadgeText(value)}</CBadge>
       </CCol>
     </>
   )

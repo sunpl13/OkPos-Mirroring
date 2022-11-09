@@ -7,7 +7,6 @@ import DatePickerForm from '../../../common/DatePickerForm'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
 import CloseCheckModal from '../../CloseCheckModal'
-import ModalBooleanSelect from '../../../forms/inputForm/ModalBooleanSelect'
 
 interface AddProps {
   value: EmploymentType

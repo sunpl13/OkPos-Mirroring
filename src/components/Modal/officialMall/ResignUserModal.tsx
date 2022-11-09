@@ -8,7 +8,7 @@ type Value = {
   userName: string
   businessNumber: string
   createdAt: string
-  status: boolean
+  status: string
   phoneNumber: string
   businessRegistration: string
   businessName: string
@@ -28,7 +28,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: AddProps) => {
     id: 0,
     userName: '',
     createdAt: '',
-    status: true,
+    status: '',
     phoneNumber: '',
     businessName: '',
     businessNumber: '',

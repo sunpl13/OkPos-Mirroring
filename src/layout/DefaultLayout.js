@@ -14,15 +14,13 @@ const DefaultLayout = () => {
       navigate(`/login`)
       return
     }
-
     // const fetchData = async () => {
     //   try {
     //     const {data: response} = await ApiConfig.request({
     //       method: HttpMethod.GET,
-    //       url: EndPoint.GET_V1_TEST_AUTO_LOGIN,
+    //       url: EndPoint.POST_LOGIN,
     //       path: {isManual: false},
     //     })
-
     //     if (!response.isSuccess) {
     //       alert(response.message)
     //       window.localStorage.clear()

@@ -17,11 +17,11 @@ const popUpColumns = [
 
 // 회원 리스트
 export const userListColumns = [
-  {key: 'id', label: 'No', sorter: false, filter: false},
-  {key: 'userName', label: '사용자명'},
+  {key: 'userId', label: 'No', sorter: false, filter: false},
+  {key: 'name', label: '사용자명'},
   {key: 'email', label: '이메일'},
   {key: 'phoneNumber', label: '휴대전화번호'},
-  {key: 'firstRegistration', label: '최초등록일'},
+  {key: 'createdAt', label: '최초등록일'},
   {key: 'status', label: '상태', sorter: false, filter: false},
 ]
 
@@ -51,4 +51,12 @@ export const faqListColumns = [
   {key: 'id', label: 'No', _style: {width: '100px'}, sorter: false, filter: false},
   {key: 'category', label: '분류', _style: {width: '100px%'}},
   {key: 'title', label: '제목', _style: {width: '200px'}},
+]
+
+// FAQ 리스트
+export const archieveColumns = [
+  {key: 'id', label: 'No', sorter: false, filter: false},
+  {key: 'category', label: '분류'},
+  {key: 'title', label: '제목'},
+  {key: 'createAt', label: '작성일'},
 ]
