@@ -59,7 +59,7 @@ const Employment = () => {
         query: {},
         path: {},
         method: HttpMethod.GET,
-        url: EndPoint.GET_RECRUITMENT_LIST,
+        url: EndPoint.RECRUITMENT,
       })
       setItems(data?.data.result)
     } catch (error) {

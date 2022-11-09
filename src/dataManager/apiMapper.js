@@ -13,7 +13,7 @@ export const EndPoint = {
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
 
-  GET_RECRUITMENT_LIST: `${API}/admin/recruitment`,
+  RECRUITMENT: `${API}/admin/recruitment`,
 }
 
 const ApiMapper = {
