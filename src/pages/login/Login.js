@@ -109,7 +109,7 @@ const Login = () => {
                       <CButton color='primary' onClick={handleSubmit}>
                         로그인
                       </CButton>
-                      <SignUp>회원가입</SignUp>
+                      <SignUp onClick={() => navigate('/register')}>회원가입</SignUp>
                     </div>
                   </CForm>
                 </CCardBody>
