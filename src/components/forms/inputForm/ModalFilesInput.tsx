@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {CFormLabel} from '@coreui/react'
 
 interface FilesInputProps {
-  value: string | object | Array<object>
+  value?: string | object | Array<object>
   label: string
   id: string
   disabled?: boolean

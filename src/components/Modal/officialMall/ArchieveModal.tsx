@@ -11,9 +11,17 @@ type Value = {
   no: number | undefined
   title: string
   content: string
-  category: object
+  category: string
   createdAt: string
 }
+
+const archieveCategory = [
+  {key: 'DRIVE', value: '드라이브'},
+  {key: 'MANUAL', value: '메뉴얼'},
+  {key: 'FIRMWARE', value: '펌웨어'},
+  {key: 'TECH_DATA', value: '기술자료'},
+  {key: 'ETC', value: '기타'},
+]
 
 interface InquiryDetailProps {
   onChange?: () => void
@@ -24,7 +32,7 @@ interface InquiryDetailProps {
 }
 
 const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}: InquiryDetailProps) => {
-  const {no, title, content, createdAt} = value
+  const {no, title, content, category, createdAt} = value
 
   useEffect(() => {
     if (visible) {
@@ -41,13 +49,16 @@ const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}: Inq
     >
       <CRow className={'p-2'}>
         <ModalInput id={'no'} placeholder={'No'} label={'No'} value={no} onChange={onChange} readOnly disabled />
+
         <ModalSelect
-          id={'category'}
-          placeholder={'category'}
-          label={'카테고리'}
-          value={meterialOptions || []}
+          options={archieveCategory}
           onChange={onChange}
-          size={'sm'}
+          size='sm'
+          id='category'
+          value={category}
+          isRequired={true}
+          placeholder='선택해주세요'
+          label='카테고리'
         />
       </CRow>
       <CRow className={'p-2'}>

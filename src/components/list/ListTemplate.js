@@ -4,9 +4,18 @@ import PropTypes from 'prop-types'
 import {CBadge, CImage} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
+import moment from 'moment'
 
-const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOptions, datePickerHidden = true}) => {
-  // Local state 선언
+const ListTemplate = ({
+  items,
+  onClick,
+  columns,
+  className,
+  onDelete,
+  selectedOptions,
+  datePickerHidden = true,
+  itemPerPageHidden = true,
+}) => {
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
@@ -98,10 +107,12 @@ const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOpt
               <CBadge color={'danger'}>Delete</CBadge>
             </td>
           ),
-          employmentType: ({employmentType}) => <td>{selectedOptions ? selectedOptions[employmentType] : ''}</td>,
+          category: ({category}) => <td>{selectedOptions ? selectedOptions[category] : ''}</td>,
+          jobType: ({jobType}) => <td>{selectedOptions ? selectedOptions[jobType] : ''}</td>,
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           inquiryType: ({inquiryType}) => <td>{selectedOptions ? selectedOptions[inquiryType] : ''}</td>,
           career: ({career}) => <td>{selectedOptions ? selectedOptions[career] : ''}</td>,
+          proceed: ({proceed}) => <td>{proceed ? '채용중' : '채용 마감'}</td>,
           deliveryStatus: ({deliveryStatus}) => (
             <td>
               <CBadge color={'primary'}>{selectedOptions ? selectedOptions[deliveryStatus] : 'Not Data'} </CBadge>
@@ -112,9 +123,11 @@ const ListTemplate = ({items, onClick, columns, className, onDelete, selectedOpt
               <CImage rounded src={productImg || ''} alt='' width={100} height={60} />
             </td>
           ),
+          startedAt: ({startedAt}) => <td>{moment(startedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          closedAt: ({closedAt}) => <td>{moment(closedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
         }}
         noItemsLabel={'Not Date'}
-        itemsPerPageSelect
+        itemsPerPageSelect={itemPerPageHidden}
         itemsPerPage={10}
       />
       {showModal ? (
@@ -134,6 +147,7 @@ ListTemplate.propTypes = {
   onDelete: PropTypes.func,
   selectedOptions: PropTypes.object,
   datePickerHidden: PropTypes.bool,
+  itemPerPageHidden: PropTypes.bool,
 }
 
 export default ListTemplate

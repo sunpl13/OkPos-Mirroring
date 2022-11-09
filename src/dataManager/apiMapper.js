@@ -11,6 +11,9 @@ export const EndPoint = {
   GET_V1_MALL_USER: `${API}/admin/mall/users/:userId`,
 
   // ------ 대리점 전용 파트너 센터
+  POST_REGISTER: `${API}/admin/join`,
+
+  GET_RECRUITMENT_LIST: `${API}/admin/recruitment`,
 }
 
 const ApiMapper = {
@@ -23,7 +26,7 @@ const ApiMapper = {
   },
   post: {
     [EndPoint.POST_LOGIN]: {},
-    [EndPoint.POST_TEST_V1_REGISTER]: {},
+    [EndPoint.POST_REGISTER]: {},
   },
   patch: {},
   put: {},

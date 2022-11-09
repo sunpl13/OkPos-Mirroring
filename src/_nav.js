@@ -9,6 +9,7 @@ import {
   cilBasket,
   cilFindInPage,
   cilFolderOpen,
+  cilBook,
 } from '@coreui/icons'
 import {CNavGroup, CNavItem, CNavTitle} from '@coreui/react'
 
@@ -106,8 +107,25 @@ const _nav = [
       },
     ],
   },
-  /*
+  {
+    component: CNavGroup,
+    name: '교육 일정',
+    icon: <CIcon icon={cilBook} customClassName='nav-icon' />,
+    items: [
+      {
+        component: CNavItem,
+        name: '교육 일정 리스트',
+        to: '/education/educationScheduleList',
+      },
+      {
+        component: CNavItem,
+        name: '교육 신청 리스트',
+        to: '/education/educationApplicationList',
+      },
+    ],
+  },
 
+  /*
   오케이포스 홈페이지 메뉴 작성
   */
   {

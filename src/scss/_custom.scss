@@ -19,12 +19,17 @@ table {
       }
       &.userId,
       &.status,
-      &.no {
+      &.no,
+      &.trainingPersonnel {
         width: 10%;
         max-width: 90px;
         min-width: 80px;
       }
-      &.deliveryStatus {
+      &.deliveryStatus,
+      &.CAT,
+      &.POS,
+      &.KIOSK,
+      &.sum {
         width: 10%;
         max-width: 110px;
         min-width: 90px;
@@ -32,7 +37,10 @@ table {
       &.createdAt,
       &.category,
       &.userName,
-      &.orderDate {
+      &.orderDate,
+      &.region,
+      &.remark,
+      &.trainingDate {
         max-width: 200px;
         min-width: 130px;
       }
@@ -42,7 +50,8 @@ table {
       }
       &.businessAddress,
       &.secessionReason,
-      &.businessNumber {
+      &.businessNumber,
+      &.distributorName {
         min-width: 180px;
       }
 
