@@ -13,7 +13,7 @@ import {
   CRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import {cilInstitution, cilLockLocked, cilSpreadsheet, cilUser} from '@coreui/icons'
+import {cilLockLocked, cilLowVision, cilUser} from '@coreui/icons'
 import {useNavigate} from 'react-router-dom'
 // import ApiConfig, {HttpMethod} from "../../dataManager/apiConfig"
 // import {EndPoint} from "../../dataManager/apiMapper"
@@ -93,23 +93,20 @@ const Register = () => {
             <CCard className='mx-4'>
               <CCardBody className='p-4'>
                 <CForm>
-                  <h1>비밀번호 설정하기</h1>
-                  <p className='text-medium-emphasis'>
-                    아이디를 부여받고 처음 로그인 하기 위해선 비밀번호를 설정해야합니다.
-                  </p>
+                  <h1 className='text-center mb-3'>회원 가입</h1>
+
                   <CInputGroup className='mb-3'>
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
                     <CFormInput
                       type='email'
-                      id='email'
-                      placeholder='이메일주소를 입력해주세요.'
+                      id='loginId'
+                      placeholder='ID를 입력해주세요.'
                       autoComplete='on'
                       maxLength={50}
-                      onChange={e => setEmail(e.target.value)}
+                      onChange={e => setLoginId(e.target.value)}
                     />
-                    <CFormFeedback invalid>이메일을 올바르게 입력해주세요.</CFormFeedback>
                   </CInputGroup>
                   <CInputGroup className='mb-3'>
                     <CInputGroupText>
@@ -121,10 +118,11 @@ const Register = () => {
                       placeholder='비밀번호를 입력해주세요.'
                       autoComplete='off'
                       maxLength={20}
+                      onKeyPress={onKeyPress}
                       onChange={e => setPassword(e.target.value)}
                     />
                   </CInputGroup>
-                  <CInputGroup className='mb-4'>
+                  <CInputGroup className='mb-3'>
                     <CInputGroupText>
                       <CIcon icon={cilLockLocked} />
                     </CInputGroupText>
@@ -134,40 +132,22 @@ const Register = () => {
                       placeholder='비밀번호를 한번 더 입력해주세요.'
                       autoComplete='off'
                       maxLength={20}
+                      onKeyPress={onKeyPress}
                       onChange={e => setPasswordConfirm(e.target.value)}
                     />
                   </CInputGroup>
-                  <CInputGroup className='mb-4'>
+                  <CInputGroup className='mb-5'>
                     <CInputGroupText>
-                      <CIcon icon={cilSpreadsheet} />
+                      <CIcon icon={cilLowVision} />
                     </CInputGroupText>
-                    <CFormInput
-                      type='text'
-                      id='companyRegistrationNumber'
-                      onKeyPress={onKeyPress}
-                      aria-label='companyRegistrationNumber'
-                      placeholder='(-포함) 사업자등록번호를입력해주세요.'
-                      autoComplete='on'
-                      onChange={e => setCompanyRegistrationNumber(e.target.value)}
-                    />
-                  </CInputGroup>
-                  <CInputGroup className='mb-4'>
-                    <CInputGroupText>
-                      <CIcon icon={cilInstitution} />
-                    </CInputGroupText>
-                    <CFormInput
-                      type='text'
-                      id='corporateRegistrationNumber'
-                      onKeyPress={onKeyPress}
-                      aria-label='corporateRegistrationNumber'
-                      placeholder='(-포함) 법인일 경우 법인등록번호를 입력해주세요.'
-                      autoComplete='on'
-                      onChange={e => setCorporateRegistrationNumber(e.target.value)}
+                    <CFormSelect
+                      options={['담당 페이지를 선택해주세요', ...ACCESS_AUTHORITY]}
+                      onChange={e => setResponsiblePage(e.target.value)}
                     />
                   </CInputGroup>
                   <div className='d-grid'>
                     <CButton color='primary' onClick={handleSubmit}>
-                      저장하기
+                      가입하기
                     </CButton>
                   </div>
                 </CForm>
