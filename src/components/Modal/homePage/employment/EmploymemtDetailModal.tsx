@@ -7,7 +7,9 @@ import DatePickerForm from '../../../common/DatePickerForm'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
 import CloseCheckModal from '../../CloseCheckModal'
-
+import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
+import {EndPoint} from '../../../../dataManager/apiMapper'
+import {AxiosResponse} from 'axios'
 interface AddProps {
   value: EmploymentType
   visible: boolean
@@ -15,6 +17,12 @@ interface AddProps {
   onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
   isReadOnly: boolean
   setIsReadOnly: (state: boolean) => void
+}
+
+interface ReseponseType extends AxiosResponse {
+  code: number
+  isSuccess: boolean
+  result: EmploymentType
 }
 
 //const imgs = [
@@ -48,8 +56,8 @@ export const category = [
 ]
 
 const status = [
-  {key: true, value: '채용중'},
-  {key: false, value: '마감'},
+  {key: 1, value: '채용중'},
+  {key: 0, value: '채용 마감'},
 ]
 
 const type = [
@@ -76,10 +84,27 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const userDetailEditMode = () => {
     if (!isReadOnly) {
+      onUpdate()
       setIsReadOnly(true)
     } else {
-      //여기에 수정 api 작성
       setIsReadOnly(false)
+    }
+  }
+
+  const onUpdate = async () => {
+    try {
+      const {data} = (await ApiConfig.request({
+        data: {...value, startedAt: startDate, closedAt: endDate},
+        query: {},
+        path: {
+          recruitmentId: value.recruitmentId,
+        },
+        method: HttpMethod.PATCH,
+        url: `${EndPoint.RECRUITMENT}/:recruitmentId`,
+      })) as ReseponseType
+      console.log(data)
+    } catch (error) {
+      alert(error)
     }
   }
 
@@ -130,41 +155,18 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
-              <span className='required'>진행 상태</span>
-            </CFormLabel>
-            <CFormCheck
-              type='radio'
-              onChange={onChange}
-              id='proceed'
-              readOnly={isReadOnly}
-              inline
-              value='true'
-              name='proceed'
-              label='채용중'
-            />
-            <CFormCheck
-              type='radio'
-              onChange={onChange}
-              id='proceed'
-              readOnly={isReadOnly}
-              inline
-              value='false'
-              name='proceed'
-              label='채용 마감'
-            />
-            {/* <ModalBooleanSelect
+            <ModalSelect
               readOnly={isReadOnly}
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
               id='proceed'
               options={status}
-              value={value.proceed ? '채용중' : '채용 마감'}
+              value={value.proceed}
               isRequired={true}
               placeholder='선택해주세요'
               label='진행 상태'
-            /> */}
+            />
             <ModalSelect
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -260,7 +262,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='qualification'
               placeholder='qualification'
               label='자격 요건'
-              value={value.qualification}
+              value={value.qualification === null ? '' : value.qualification}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -271,7 +273,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='preference'
               placeholder='preference'
               label='우대사항'
-              value={value.preference}
+              value={value.preference === null ? '' : value.preference}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -282,7 +284,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='hiringReason'
               placeholder='hiringReason'
               label='채용 사유'
-              value={value.hiringReason}
+              value={value.hiringReason === null ? '' : value.hiringReason}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -293,7 +295,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='departmentStatus'
               placeholder='departmentStatus'
               label='부서 현황'
-              value={value.departmentStatus}
+              value={value.departmentStatus === null ? '' : value.departmentStatus}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -304,7 +306,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='otherNote'
               placeholder='otherNote'
               label='기타 참고사항'
-              value={value.otherNote}
+              value={value.otherNote === null ? '' : value.otherNote}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />

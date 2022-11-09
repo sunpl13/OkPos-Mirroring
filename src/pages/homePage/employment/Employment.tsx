@@ -8,11 +8,12 @@ import {employmentColumns} from '../../../utils/columns/homePage/employment/Colu
 import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
+import {AxiosResponse} from 'axios'
 
 export type EmploymentType = {
   recruitmentId: number
   category: string
-  proceed: boolean
+  proceed: 0 | 1
   title: string
   startedAt: string
   closedAt: string
@@ -28,6 +29,12 @@ export type EmploymentType = {
   departmentStatus: string
   otherNote: string
 }
+
+interface ReseponseType extends AxiosResponse {
+  code: number
+  isSuccess: boolean
+  result: EmploymentType
+}
 const Employment = () => {
   const [items, setItems] = useState<EmploymentType[]>([])
   const [showModal, setShowModal] = useState(false)
@@ -35,7 +42,7 @@ const Employment = () => {
   const [selectedItem, setSelectedItem] = useState<EmploymentType>({
     recruitmentId: -1,
     category: '',
-    proceed: false,
+    proceed: 0,
     title: '',
     startedAt: '',
     closedAt: '',
@@ -67,6 +74,24 @@ const Employment = () => {
     }
   }
 
+  const getListDetail = async (id: number) => {
+    try {
+      const {data} = (await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {
+          recruitmentId: id,
+        },
+        method: HttpMethod.GET,
+        url: `${EndPoint.RECRUITMENT}/:recruitmentId`,
+      })) as ReseponseType
+
+      setSelectedItem(data.result)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
   useEffect(() => {
     getList()
   }, [])
@@ -75,8 +100,8 @@ const Employment = () => {
     setItems(testEmployments as EmploymentType[])
   }
 
-  const handleShowEmploymentDetailModal = (item: EmploymentType) => {
-    setSelectedItem(item)
+  const handleShowEmploymentDetailModal = async (item: EmploymentType) => {
+    getListDetail(item.recruitmentId)
     setShowModal(!showModal)
   }
 
@@ -85,7 +110,7 @@ const Employment = () => {
     setSelectedItem({
       recruitmentId: -1,
       category: '',
-      proceed: false,
+      proceed: 0,
       title: '',
       startedAt: '',
       closedAt: '',
@@ -106,7 +131,6 @@ const Employment = () => {
 
   const handleEmployDetailOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const {id, value} = target
-    console.log(id, value)
 
     setSelectedItem({
       ...selectedItem,
