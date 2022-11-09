@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {CCol, CFormLabel, CImage, CModal, CModalBody, CRow, CModalFooter, CButton} from '@coreui/react'
+import {CCol, CFormLabel, CImage, CModal, CModalBody, CRow, CModalFooter, CButton, CFormCheck} from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import {EmploymentType} from '../../../../pages/homePage/employment/Employment'
@@ -131,17 +131,41 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            <ModalBooleanSelect
+            <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
+              <span className='required'>진행 상태</span>
+            </CFormLabel>
+            <CFormCheck
+              type='radio'
+              onChange={onChange}
+              id='proceed'
+              readOnly={isReadOnly}
+              inline
+              value='true'
+              name='proceed'
+              label='채용중'
+            />
+            <CFormCheck
+              type='radio'
+              onChange={onChange}
+              id='proceed'
+              readOnly={isReadOnly}
+              inline
+              value='false'
+              name='proceed'
+              label='채용 마감'
+            />
+            {/* <ModalBooleanSelect
               readOnly={isReadOnly}
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
               id='proceed'
-              value={status}
+              options={status}
+              value={value.proceed ? '채용중' : '채용 마감'}
               isRequired={true}
               placeholder='선택해주세요'
               label='진행 상태'
-            />
+            /> */}
             <ModalSelect
               readOnly={isReadOnly}
               disabled={isReadOnly}

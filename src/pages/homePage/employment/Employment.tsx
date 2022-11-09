@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
 import {testEmployments} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
@@ -6,6 +6,8 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import EmploymemtDetailModal from '../../../components/Modal/homePage/employment/EmploymemtDetailModal'
 import {employmentColumns} from '../../../utils/columns/homePage/employment/Columns'
 import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
 
 export type EmploymentType = {
   recruitmentId: number
@@ -28,6 +30,8 @@ export type EmploymentType = {
 }
 const Employment = () => {
   const [items, setItems] = useState<EmploymentType[]>([])
+  const [showModal, setShowModal] = useState(false)
+  const [isReadOnly, setIsReadOnly] = useState(true)
   const [selectedItem, setSelectedItem] = useState<EmploymentType>({
     recruitmentId: -1,
     category: '',
@@ -48,8 +52,24 @@ const Employment = () => {
     otherNote: '',
   })
 
-  const [showModal, setShowModal] = useState(false)
-  const [isReadOnly, setIsReadOnly] = useState(true)
+  const getList = async () => {
+    try {
+      const data = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {},
+        method: HttpMethod.GET,
+        url: EndPoint.GET_RECRUITMENT_LIST,
+      })
+      setItems(data?.data.result)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  useEffect(() => {
+    getList()
+  }, [])
 
   const handleRetrieveTestList = async () => {
     setItems(testEmployments as EmploymentType[])
@@ -103,7 +123,7 @@ const Employment = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleRetrieveTestList}>
+                  <CButton color='primary' onClick={getList}>
                     조회하기
                   </CButton>
                 </CCol>

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import {CBadge, CImage} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
+import moment from 'moment'
 
 const ListTemplate = ({
   items,
@@ -94,6 +95,7 @@ const ListTemplate = ({
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           inquiryType: ({inquiryType}) => <td>{selectedOptions ? selectedOptions[inquiryType] : ''}</td>,
           career: ({career}) => <td>{selectedOptions ? selectedOptions[career] : ''}</td>,
+          proceed: ({proceed}) => <td>{proceed ? '채용중' : '채용 마감'}</td>,
           deliveryStatus: ({deliveryStatus}) => (
             <td>
               <CBadge color={'primary'}>{selectedOptions ? selectedOptions[deliveryStatus] : 'Not Data'} </CBadge>
@@ -104,6 +106,8 @@ const ListTemplate = ({
               <CImage rounded src={productImg || ''} alt='' width={100} height={60} />
             </td>
           ),
+          startedAt: ({startedAt}) => <td>{moment(startedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          closedAt: ({closedAt}) => <td>{moment(closedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
         }}
         noItemsLabel={'Not Date'}
         itemsPerPageSelect={itemPerPageHidden}
