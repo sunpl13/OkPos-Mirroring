@@ -35,7 +35,6 @@ const UserList = () => {
         }
         return
       }
-      console.log(res)
       setUserList(res.result)
     } catch (error) {
       console.log(error)

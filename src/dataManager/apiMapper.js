@@ -8,6 +8,7 @@ export const EndPoint = {
 
   // ------ 가맹점 전용 공식몰 페이지
   GET_V1_MALL_USERS: `${API}/admin/mall/users`,
+  GET_V1_MALL_USER: `${API}/admin/mall/users/:userId`,
 
   // ------ 대리점 전용 파트너 센터
 }
@@ -18,6 +19,7 @@ const ApiMapper = {
 
     // ------ 가맹점 전용 공식몰 페이지
     [EndPoint.GET_V1_MALL_USERS]: {},
+    [EndPoint.GET_V1_MALL_USER]: {},
   },
   post: {
     [EndPoint.POST_LOGIN]: {},
