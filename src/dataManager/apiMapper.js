@@ -3,7 +3,9 @@ const API = process.env.REACT_APP_API
 export const EndPoint = {
   GET_V1_TEST_AUTO_LOGIN: `${API}/test/v1/jwt/check/:isManual`,
   POST_LOGIN: `${API}/admin/login`,
-  POST_TEST_V1_REGISTER: `${API}/test/v1/register`,
+  POST_REGISTER: `${API}/admin/register`,
+
+  GET_RECRUITMENT_LIST: `${API}/admin/recruitment`,
 }
 
 const ApiMapper = {
@@ -12,7 +14,7 @@ const ApiMapper = {
   },
   post: {
     [EndPoint.POST_LOGIN]: {},
-    [EndPoint.POST_TEST_V1_REGISTER]: {},
+    [EndPoint.POST_REGISTER]: {},
   },
   patch: {},
   put: {},

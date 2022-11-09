@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {
   CButton,
   CCard,
@@ -6,8 +6,8 @@ import {
   CCol,
   CContainer,
   CForm,
-  CFormFeedback,
   CFormInput,
+  CFormSelect,
   CInputGroup,
   CInputGroupText,
   CRow,
@@ -15,18 +15,23 @@ import {
 import CIcon from '@coreui/icons-react'
 import {cilLockLocked, cilLowVision, cilUser} from '@coreui/icons'
 import {useNavigate} from 'react-router-dom'
-// import ApiConfig, {HttpMethod} from "../../dataManager/apiConfig"
-// import {EndPoint} from "../../dataManager/apiMapper"
+import ApiConfig, {HttpMethod} from '../../dataManager/apiConfig'
+import {EndPoint} from '../../dataManager/apiMapper'
 import {isEmpty} from '../../utils/utility'
+
+const ACCESS_AUTHORITY = [
+  {value: 'HOME', label: '공식 홈페이지'},
+  {value: 'PARTNER', label: '파트너'},
+  {value: 'MALL', label: '공식몰'},
+]
 
 const Register = () => {
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState('')
+  const [loginId, setLoginId] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
-  const [companyRegistrationNumber, setCompanyRegistrationNumber] = useState('')
-  const [, setCorporateRegistrationNumber] = useState('')
+  const [responsiblePage, setResponsiblePage] = useState('')
 
   const onKeyPress = event => {
     if (event.key === 'Enter') {
@@ -36,7 +41,7 @@ const Register = () => {
 
   const handleSubmit = async () => {
     try {
-      if (isEmpty(email)) {
+      if (isEmpty(loginId)) {
         alert('이메일을 입력해 주세요.')
         return
       }
@@ -56,29 +61,27 @@ const Register = () => {
         return
       }
 
-      if (isEmpty(companyRegistrationNumber)) {
-        alert('(-포함) 사업자등록번호를 입력해주세요.')
+      if (isEmpty(responsiblePage) || responsiblePage === '담당 페이지를 선택해주세요') {
+        alert('담당 페이지가 선택되지 않았습니다.')
         return
       }
 
-      /*const {data: response} = await ApiConfig.request({
+      const {data: response} = await ApiConfig.request({
         data: {
-          email: email,
+          loginId: loginId,
           password: password,
-          passwordConfirm: passwordConfirm,
-          companyRegistrationNumber: companyRegistrationNumber,
-          corporateRegistrationNumber: corporateRegistrationNumber,
+          accessAuthority: responsiblePage,
         },
         method: HttpMethod.POST,
-        url: EndPoint.POST_TEST_V1_REGISTER,
-      })*/
+        url: EndPoint.POST_REGISTER,
+      })
 
-      /*if (!response?.isSuccess) {
+      if (!response?.isSuccess) {
         alert(response?.message)
         return
-      }*/
+      }
 
-      alert('비밀번호가 설정되었습니다.')
+      alert(response.result)
       navigate(`/login`)
     } catch (error) {
       alert(`네트워크 통신 실패. 잠시후 다시 시도해주세요.\n${error.message}`)
