@@ -3,7 +3,7 @@ const API = process.env.REACT_APP_API
 export const EndPoint = {
   GET_V1_TEST_AUTO_LOGIN: `${API}/test/v1/jwt/check/:isManual`,
   POST_LOGIN: `${API}/admin/login`,
-  POST_REGISTER: `${API}/admin/register`,
+  POST_REGISTER: `${API}/admin/join`,
 
   GET_RECRUITMENT_LIST: `${API}/admin/recruitment`,
 }
