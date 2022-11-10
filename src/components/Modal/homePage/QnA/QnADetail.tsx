@@ -10,6 +10,7 @@ import {
   CRow,
   CModalFooter,
   CButton,
+  CFormTextarea,
 } from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
@@ -21,7 +22,7 @@ interface AddProps {
   value: QnAType
   visible: boolean
   setVisible: (state: boolean) => void
-  onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
+  onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>) => void
   isReadOnly: boolean
   setIsReadOnly: (state: boolean) => void
 }
@@ -122,6 +123,18 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
               isRequired={true}
               placeholder='선택해주세요'
               label='문의 유형'
+            />
+          </CRow>
+          <CRow>
+            <CFormLabel>문의 내용</CFormLabel>
+            <CFormTextarea
+              placeholder='문의 내용'
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              onChange={onChange}
+              value={value.content}
+              rows={15}
+              id='content'
             />
           </CRow>
         </CModalBody>

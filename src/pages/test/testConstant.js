@@ -697,6 +697,7 @@ exports.testQnAValues = [
     name: '테스터1',
     email: 'test01@naver.com',
     pNum: '010-1234-0001',
+    content: '.',
     inquiryType: 'a',
   },
   {
@@ -704,6 +705,7 @@ exports.testQnAValues = [
     name: '테스터2',
     email: 'test02@naver.com',
     pNum: '010-1234-0002',
+    content: '.',
     inquiryType: 'b',
   },
   {
@@ -711,6 +713,7 @@ exports.testQnAValues = [
     name: '테스터3',
     email: 'test03@naver.com',
     pNum: '010-1234-0003',
+    content: '.',
     inquiryType: 'c',
   },
   {
@@ -718,6 +721,7 @@ exports.testQnAValues = [
     name: '테스터4',
     email: 'test04@naver.com',
     pNum: '010-1234-0004',
+    content: '.',
     inquiryType: 'd',
   },
   {
@@ -725,6 +729,7 @@ exports.testQnAValues = [
     name: '테스터5',
     email: 'test05@naver.com',
     pNum: '010-1234-0005',
+    content: '.',
     inquiryType: 'e',
   },
   {
@@ -732,6 +737,7 @@ exports.testQnAValues = [
     name: '테스터6',
     email: 'test06@naver.com',
     pNum: '010-1234-0006',
+    content: '.',
     inquiryType: 'b',
   },
   {
@@ -739,6 +745,7 @@ exports.testQnAValues = [
     name: '테스터7',
     email: 'test07@naver.com',
     pNum: '010-1234-0007',
+    content: '.',
     inquiryType: 'a',
   },
   {
@@ -746,6 +753,7 @@ exports.testQnAValues = [
     name: '테스터8',
     email: 'test08@naver.com',
     pNum: '010-1234-0008',
+    content: '.',
     inquiryType: 'b',
   },
   {
@@ -753,6 +761,7 @@ exports.testQnAValues = [
     name: '테스터9',
     email: 'test09@naver.com',
     pNum: '010-1234-0009',
+    content: '.',
     inquiryType: 'b',
   },
   {
@@ -760,6 +769,7 @@ exports.testQnAValues = [
     name: '테스터10',
     email: 'test10@naver.com',
     pNum: '010-1234-0001',
+    content: '.',
     inquiryType: 'c',
   },
   {
@@ -767,6 +777,7 @@ exports.testQnAValues = [
     name: '테스터11',
     email: 'test11@naver.com',
     pNum: '010-1234-0011',
+    content: '.',
     inquiryType: 'c',
   },
   {
@@ -774,6 +785,7 @@ exports.testQnAValues = [
     name: '테스터12',
     email: 'test12@naver.com',
     pNum: '010-1234-0012',
+    content: '.',
     inquiryType: 'd',
   },
 ]

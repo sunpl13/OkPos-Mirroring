@@ -12,13 +12,14 @@ export type QnAType = {
   email: string
   pNum: string
   inquiryType: string
+  content: ''
 }
 
 const QnAList = () => {
   const [items, setItems] = useState<QnAType[]>([])
   const [selectedItem, setSelectedItem] = useState<QnAType>({
     No: -1,
-
+    content: '',
     name: '',
     email: '',
     pNum: '',
@@ -41,7 +42,7 @@ const QnAList = () => {
     setIsReadOnly(false)
     setSelectedItem({
       No: -1,
-
+      content: '',
       name: '',
       email: '',
       pNum: '',
@@ -50,7 +51,9 @@ const QnAList = () => {
     setShowModal(!showModal)
   }
 
-  const handleEmployDetailOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  const handleEmployDetailOnChange = ({
+    target,
+  }: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>) => {
     const {id, value} = target
     setSelectedItem({
       ...selectedItem,
