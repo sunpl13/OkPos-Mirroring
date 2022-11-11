@@ -152,6 +152,11 @@ const _nav = [
         name: '1:1 문의',
         to: '/home/QnA',
       },
+      {
+        component: CNavItem,
+        name: '공지사항',
+        to: '/home/notice',
+      },
     ],
   },
   /*

@@ -10,7 +10,7 @@ const CreateTest = React.lazy(() => import('./pages/test/CreateTest'))
 const Employment = React.lazy(() => import('./pages/homePage/employment/Employment'))
 const TalentRetention = React.lazy(() => import('./pages/homePage/talentRetention/TalentRetention'))
 const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
-
+const HopageNotice = React.lazy(() => import('./pages/homePage/notice/Notice'))
 // ------ 가맹점 전용 공식몰 페이지
 
 // 회원관리
@@ -62,6 +62,7 @@ const routes = [
   {path: `/home/employment`, name: '채용관리', element: Employment},
   {path: '/home/talentRetention', name: '인재풀 관리', element: TalentRetention},
   {path: '/home/QnA', name: '1:1문의', element: HomePageQnA},
+  {path: '/home/notice', name: '공지사항', element: HopageNotice},
 
   // ------ 가맹점 전용 공식몰 페이지
 
