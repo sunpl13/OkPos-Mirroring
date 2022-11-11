@@ -1,20 +1,9 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {CModal, CButton, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import {IPopUp} from '../../../../pages/homePage/popup/PopUpPage'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 
-interface AddProps {
-  value: IPopUp
-  visible: boolean
-  setVisible: (state: boolean) => void
-  onChange: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
-  onClick: () => void
-  isReadOnly: boolean
-  setIsReadOnly: (state: boolean) => void
-}
-
-const PopupDeatil = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}: AddProps) => {
+const PopupDeatil = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
 
   const userDetailEditMode = () => {

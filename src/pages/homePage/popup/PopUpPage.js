@@ -5,15 +5,10 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../../components/list/ListTemplate'
 import PopupDeatil from '../../../components/Modal/homePage/popup/PopupDeatil'
 import {popupColumns} from '../../../utils/columns/homePage/popup/Columns'
-export interface IPopUp {
-  No: number
-  popUpName: string
-  popUpImg: string
-}
 
 const PopUpPage = () => {
-  const [items, setItems] = useState<IPopUp[]>([])
-  const [selectedItem, setSelectedItem] = useState<IPopUp>({
+  const [items, setItems] = useState([])
+  const [selectedItem, setSelectedItem] = useState({
     No: -1,
     popUpName: '',
     popUpImg: '',
@@ -37,12 +32,12 @@ const PopUpPage = () => {
     setItems(testPopupValues)
   }
 
-  const handleShowUserDetailModal = (item: IPopUp) => {
+  const handleShowUserDetailModal = item => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
 
-  const handlePopUpOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  const handlePopUpOnChange = ({target}) => {
     const {id, value} = target
     setSelectedItem({
       ...selectedItem,
