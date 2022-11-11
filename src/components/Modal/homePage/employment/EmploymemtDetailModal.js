@@ -1,29 +1,14 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {CCol, CFormLabel, CImage, CModal, CModalBody, CRow, CModalFooter, CButton, CFormCheck} from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import {EmploymentType} from '../../../../pages/homePage/employment/Employment'
 import DatePickerForm from '../../../common/DatePickerForm'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
 import CloseCheckModal from '../../CloseCheckModal'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
-import {AxiosResponse} from 'axios'
-interface AddProps {
-  value: EmploymentType
-  visible: boolean
-  setVisible: (state: boolean) => void
-  onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
-  isReadOnly: boolean
-  setIsReadOnly: (state: boolean) => void
-}
-
-interface ReseponseType extends AxiosResponse {
-  code: number
-  isSuccess: boolean
-  result: EmploymentType
-}
+import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 
 //const imgs = [
 //   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg', altName: '이미지01'},
@@ -77,7 +62,7 @@ const career = [
   {key: 'EXPERIENCED', value: '경력'},
   {key: 'ANY', value: '무관'},
 ]
-const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}: AddProps) => {
+const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [startDate, setstartDate] = useState(new Date())
   const [endDate, setendDate] = useState(new Date())
   const [showDeleteModal, setshowDeleteModal] = useState(false)
@@ -91,9 +76,26 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
     }
   }
 
+  const onDelete = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {...value, startedAt: startDate, closedAt: endDate},
+        query: {},
+        path: {
+          recruitmentId: value.recruitmentId,
+        },
+        method: HttpMethod.PATCH,
+        url: `${EndPoint.RECRUITMENT}/:recruitmentId/d`,
+      })
+      console.log(data)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
   const onUpdate = async () => {
     try {
-      const {data} = (await ApiConfig.request({
+      const {data} = await ApiConfig.request({
         data: {...value, startedAt: startDate, closedAt: endDate},
         query: {},
         path: {
@@ -101,7 +103,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
         },
         method: HttpMethod.PATCH,
         url: `${EndPoint.RECRUITMENT}/:recruitmentId`,
-      })) as ReseponseType
+      })
       console.log(data)
     } catch (error) {
       alert(error)
@@ -246,15 +248,21 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            <CFormLabel>이미지</CFormLabel>
-            <CCol>
-              <CImage
-                rounded
-                src='https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fevents%2F2404%2F54ecb586.jpg&w=1200&q=100'
-                width={200}
-                height={200}
-              />
-            </CCol>
+            {value.recruitmentId === -1 ? (
+              <ModalImageInput id='image' label='이미지 첨부' />
+            ) : (
+              <>
+                <CFormLabel>이미지</CFormLabel>
+                <CCol>
+                  <CImage
+                    rounded
+                    src='https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fevents%2F2404%2F54ecb586.jpg&w=1200&q=100'
+                    width={200}
+                    height={200}
+                  />
+                </CCol>
+              </>
+            )}
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
@@ -330,11 +338,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
           </CButton>
         </CModalFooter>
       </CModal>
-      <DeleteModalTemplate
-        onDelete={() => setshowDeleteModal(false)}
-        visible={showDeleteModal}
-        setVisible={setshowDeleteModal}
-      />
+      <DeleteModalTemplate onDelete={onDelete} visible={showDeleteModal} setVisible={setshowDeleteModal} />
       <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
