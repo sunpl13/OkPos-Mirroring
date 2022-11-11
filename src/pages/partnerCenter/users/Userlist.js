@@ -6,6 +6,7 @@ import UserAddModalTemplate from '../../../components/Modal/partnerCenter/users/
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
+import axios from 'axios'
 
 const Userlist = () => {
   const [items, setItems] = useState([])
@@ -25,6 +26,15 @@ const Userlist = () => {
   const [showAddModal, setShowAddModal] = useState(false)
   useEffect(() => {
     setItems(testUserTableValues.filter(v => v.status))
+    //axios
+    //       .get('http://13.209.93.181/admin/mall/users', {
+    //         headers: {
+    //           'X-ACCESS-TOKEN':
+    //             'eyJhbGciOiJIUzI1NiJ9.eyJhZG1pbklkIjoxLCJhdXRob3JpdHkiOiJBRE1JTiIsImlhdCI6MTY2NzIwMDIxOH0.0Qn3qiG4lPKFwDokyX_T02PLJd2iHpFK94tz8HVEkWU',
+    //         },
+    //       })
+    //       .then(res => console.log(res))
+    //       .catch(err => console.log(err))
   }, [])
 
   /** Open Modal*/

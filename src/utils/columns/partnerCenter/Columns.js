@@ -436,3 +436,39 @@ export const educationApplicationListColumns = [
     sorter: false,
   },
 ]
+
+// 교육 일정 / 교육 신청 인원 상세정보
+export const educationApplicationListDetailColumns = [
+  {
+    key: 'no',
+    _props: {color: 'primary', className: 'no'},
+    filter: false,
+    sorter: false,
+  },
+  {
+    key: 'name',
+    _props: {color: 'primary', className: 'distributorName'},
+
+    sorter: false,
+  },
+
+  {
+    key: 'email',
+    _props: {color: 'primary', className: 'distributorContact'},
+
+    sorter: false,
+  },
+  {
+    key: 'phoneNumber',
+    _props: {color: 'primary', className: 'trainingDate'},
+
+    sorter: false,
+  },
+  {
+    key: 'deleteBtn',
+    label: ' ',
+    _props: {color: 'primary', className: 'deleteBtn'},
+    filter: false,
+    sorter: false,
+  },
+]

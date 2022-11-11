@@ -1,4 +1,5 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
+import PropTypes from 'prop-types'
 
 const DeleteModalTemplate = ({visible, title = '삭제 확인', children, onDelete, setVisible}) => {
   return (
@@ -17,6 +18,14 @@ const DeleteModalTemplate = ({visible, title = '삭제 확인', children, onDele
       </CModalFooter>
     </CModal>
   )
+}
+
+DeleteModalTemplate.propTypes = {
+  visible: PropTypes.bool,
+  title: PropTypes.string,
+  children: PropTypes.any,
+  onDelete: PropTypes.func,
+  setVisible: PropTypes.func,
 }
 
 export default DeleteModalTemplate

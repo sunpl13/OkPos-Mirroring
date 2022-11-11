@@ -14,6 +14,7 @@ import {
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
+import PropTypes from 'prop-types'
 
 const category = [
   {key: 1, value: '딜러'},
@@ -170,6 +171,15 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
       />
     </>
   )
+}
+
+DealerSupportDetailModal.propTypes = {
+  value: PropTypes.any,
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+  onChange: PropTypes.func,
+  isReadOnly: PropTypes.bool,
+  setIsReadOnly: PropTypes.func,
 }
 
 export default DealerSupportDetailModal

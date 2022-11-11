@@ -74,7 +74,11 @@ const ModalImageInput = ({id, label}: ImageInputProps) => {
         <span>{label || ' * '}</span>
       </CFormLabel>
       <Upload
-        action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+        //action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+        beforeUpload={file => {
+          setFileList(fileList.concat(file))
+          return false
+        }}
         listType='picture-card'
         fileList={fileList}
         onPreview={handlePreview}

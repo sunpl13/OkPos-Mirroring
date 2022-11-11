@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {educationApplicationListColumns} from '../../../utils/columns/partnerCenter/Columns'
-import {educationScheduleListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 import EducationApplicationDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationApplicationDetailModal'
+import {educationApplicationListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 
 const EducationApplicationList = () => {
   const [items, setItems] = useState([])
@@ -13,7 +13,7 @@ const EducationApplicationList = () => {
 
   const [showModal, setShowModal] = useState(false)
   useEffect(() => {
-    setItems(educationScheduleListData)
+    setItems(educationApplicationListData)
   }, [])
 
   /** Open Modal*/
@@ -80,6 +80,9 @@ const EducationApplicationList = () => {
         orderList: selectedItem.orderList.filter(value => value.productId !== productId),
       })
     }
+  }
+  const handlePersonnelOnDelete = () => {
+    console.log('sdf')
   }
   return (
     <CRow>
