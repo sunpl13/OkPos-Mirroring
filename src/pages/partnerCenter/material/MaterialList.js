@@ -82,6 +82,7 @@ const MaterialList = () => {
       [id]: value,
     })
   }
+
   const handleMaterialModalOnDelete = ({no}) => {
     if (window.confirm('Delete ?')) {
       setItems(items.filter(value => value.no !== no))

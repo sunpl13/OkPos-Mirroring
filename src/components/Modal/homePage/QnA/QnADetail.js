@@ -14,6 +14,8 @@ import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
+import * as PorpTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 const inquiries = [
   {key: 'a', value: '제품'},
@@ -152,6 +154,14 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
       <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
+}
+QnADetail.propTypes = {
+  value: PropTypes.any,
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+  onChange: PropTypes.func,
+  isReadOnly: PropTypes.bool,
+  setIsReadOnly: PropTypes.bool,
 }
 
 export default QnADetail
