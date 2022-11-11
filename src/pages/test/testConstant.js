@@ -789,3 +789,78 @@ exports.testQnAValues = [
     inquiryType: 'd',
   },
 ]
+
+exports.testHomePageNoticeValues = [
+  {
+    No: 0,
+    title: '공고제목1',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 1,
+    title: '공고제목2',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 2,
+    title: '공고제목3',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 3,
+    title: '공고제목4',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 4,
+    title: '공고제목5',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 5,
+    title: '공고제목6',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 6,
+    title: '공고제목7',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 7,
+    title: '공고제목8',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 8,
+    title: '공고제목9',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 9,
+    title: '공고제목10',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 10,
+    title: '공고제목11',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+  {
+    No: 11,
+    title: '공고제목12',
+    startedAt: '2022-11-12',
+    content: '.',
+  },
+]
