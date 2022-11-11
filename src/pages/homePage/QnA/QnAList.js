@@ -6,18 +6,10 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {qnaColumns} from '../../../utils/columns/homePage/qna/Columns'
 import {inquirys} from '../../../utils/columns/homePage/qna/ColumnsSelectedValue'
 import QnADetail from '../../../components/Modal/homePage/QnA/QnADetail'
-export type QnAType = {
-  No: number
-  name: string
-  email: string
-  pNum: string
-  inquiryType: string
-  content: ''
-}
 
 const QnAList = () => {
-  const [items, setItems] = useState<QnAType[]>([])
-  const [selectedItem, setSelectedItem] = useState<QnAType>({
+  const [items, setItems] = useState([])
+  const [selectedItem, setSelectedItem] = useState({
     No: -1,
     content: '',
     name: '',
@@ -30,10 +22,10 @@ const QnAList = () => {
   const [isReadOnly, setIsReadOnly] = useState(true)
 
   const handleRetrieveTestList = async () => {
-    setItems(testQnAValues as QnAType[])
+    setItems(testQnAValues)
   }
 
-  const handleShowEmploymentDetailModal = (item: QnAType) => {
+  const handleShowEmploymentDetailModal = item => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
@@ -51,9 +43,7 @@ const QnAList = () => {
     setShowModal(!showModal)
   }
 
-  const handleEmployDetailOnChange = ({
-    target,
-  }: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>) => {
+  const handleEmployDetailOnChange = ({target}) => {
     const {id, value} = target
     setSelectedItem({
       ...selectedItem,
