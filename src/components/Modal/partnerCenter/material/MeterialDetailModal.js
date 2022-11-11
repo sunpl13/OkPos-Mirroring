@@ -7,23 +7,7 @@ import {meterialOptions} from '../../../../utils/columns/partnerCenter/ColumnsSe
 import DetailModalTemplate from '../DetailModalTemplate'
 import {CForm, CRow} from '@coreui/react'
 
-type Value = {
-  no: number | undefined
-  title: string
-  content: string
-  category: string
-  createdAt: string
-}
-
-interface InquiryDetailProps {
-  onChange?: () => void
-  value: Value
-  visible: boolean
-  setVisible: (state: boolean) => void
-  upDate: () => void
-}
-
-const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}: InquiryDetailProps) => {
+const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
   const {no, title, content, createdAt} = value
 
   useEffect(() => {

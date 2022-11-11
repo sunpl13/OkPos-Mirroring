@@ -3,17 +3,8 @@ import ModalInput from '../../forms/inputForm/ModalInput'
 import ModalTextArrayInput from '../../forms/inputForm/ModalTextArrayInput'
 import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
-import {meterialOptions} from '../../../utils/columns/partnerCenter/ColumnsSelectData'
 import DetailModalTemplate from './DetailModalTemplate'
 import {CForm, CRow} from '@coreui/react'
-
-type Value = {
-  no: number | undefined
-  title: string
-  content: string
-  category: string
-  createdAt: string
-}
 
 const archieveCategory = [
   {key: 'DRIVE', value: '드라이브'},
@@ -23,15 +14,7 @@ const archieveCategory = [
   {key: 'ETC', value: '기타'},
 ]
 
-interface InquiryDetailProps {
-  onChange?: () => void
-  value: Value
-  visible: boolean
-  setVisible: (state: boolean) => void
-  upDate: () => void
-}
-
-const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}: InquiryDetailProps) => {
+const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
   const {no, title, content, category, createdAt} = value
 
   useEffect(() => {
