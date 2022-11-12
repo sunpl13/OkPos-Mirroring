@@ -133,7 +133,7 @@ TalentRetentionDetail.propTypes = {
   setVisible: PropTypes.func,
   onChange: PropTypes.func,
   isReadOnly: PropTypes.bool,
-  setIsReadOnly: PropTypes.bool,
+  setIsReadOnly: PropTypes.func,
 }
 
 export default TalentRetentionDetail

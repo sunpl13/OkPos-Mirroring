@@ -14,7 +14,6 @@ import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
-import * as PorpTypes from 'prop-types'
 import PropTypes from 'prop-types'
 
 const inquiries = [
@@ -161,7 +160,7 @@ QnADetail.propTypes = {
   setVisible: PropTypes.func,
   onChange: PropTypes.func,
   isReadOnly: PropTypes.bool,
-  setIsReadOnly: PropTypes.bool,
+  setIsReadOnly: PropTypes.func,
 }
 
 export default QnADetail
