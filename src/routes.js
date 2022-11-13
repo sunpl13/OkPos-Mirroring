@@ -15,7 +15,7 @@ const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
 
 // 회원관리
 const OfficailMallUserList = React.lazy(() => import('./pages/officialMall/users/UserList'))
-const OfficailMallWithdrawalUserList = React.lazy(() => import('./pages/officialMall/users/WithdrawalUsers'))
+const OfficailMallResignUserList = React.lazy(() => import('./pages/officialMall/users/ResignUserList'))
 // 1:1 문의 관리
 const OfficailMallInquiryList = React.lazy(() => import('./pages/officialMall/inquiry/InquiryList'))
 // FAQ 관리
@@ -67,7 +67,7 @@ const routes = [
 
   // 회원관리
   {path: `/official/users`, name: '회원관리', element: OfficailMallUserList},
-  {path: `/official/withdrawalUsers`, name: '탈퇴회원관리', element: OfficailMallWithdrawalUserList},
+  {path: `/official/resign/users`, name: '탈퇴회원관리', element: OfficailMallResignUserList},
   // 1:1 문의 관리
   {path: `/official/inquirys`, name: '문의관리', element: OfficailMallInquiryList},
   // FAQ 관리

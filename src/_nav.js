@@ -174,7 +174,7 @@ const _nav = [
       {
         component: CNavItem,
         name: '탈퇴 회원 관리',
-        to: '/official/withdrawalUsers',
+        to: '/official/resign/users',
       },
     ],
   },

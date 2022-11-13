@@ -61,7 +61,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: Props) => {
         query: {},
         path: {userId},
         method: HttpMethod.GET,
-        url: EndPoint.GET_V1_MALL_USER,
+        url: EndPoint.GET_MALL_USER,
       })
       if (!data?.data?.isSuccess || isEmpty(data?.data?.result)) {
         console.log('loadMallUserList error')

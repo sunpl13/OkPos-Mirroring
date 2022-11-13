@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import ResignUserModal from '../../../components/Modal/officialMall/ResignUserModal'
@@ -7,8 +8,16 @@ import BarChartTemplate from '../../../components/chart/BarChartTemplate'
 import {ChartTestData} from '../../test/ChartTest'
 import PageHeader from '../../../components/common/PageHeader'
 import {resignUserListColumns} from '../../../utils/columns/officialMall/Columns'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
-const WithdrawalUsers = () => {
+const ResignUserList = () => {
+  // 모듈 선언
+  const navigate = useNavigate()
+
+  // Local state 선언
+  const [resignUserList, setResignUserList] = useState([])
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   // const [item, setItem] = useState({
@@ -23,7 +32,6 @@ const WithdrawalUsers = () => {
   // })
 
   const [showModal, setShowModal] = useState(false)
-
   const [chartData, setChartData] = useState([
     {
       label: '',
@@ -34,9 +42,34 @@ const WithdrawalUsers = () => {
     },
   ])
 
+  // API 통신 함수
+  const onLoadMallReginUserList = async () => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: EndPoint.GET_V1_MALL_USERS,
+      })
+
+      if (!res?.isSuccess || isEmpty(res?.result)) {
+        console.log('loadMallUserList error')
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      setResignUserList(res.result)
+    } catch (error) {
+      console.log(error)
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
   useEffect(() => {
     setItems(testUserTableValues.filter(v => !v.status))
     setChartData(ChartTestData)
+    onLoadMallReginUserList()
   }, [])
 
   /** Open Modal*/
@@ -70,4 +103,4 @@ const WithdrawalUsers = () => {
     </CRow>
   )
 }
-export default WithdrawalUsers
+export default ResignUserList
