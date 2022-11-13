@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
-import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow, CToast, CToastBody, CToaster} from '@coreui/react'
+import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import EmploymemtDetailModal from '../../../components/Modal/homePage/employment/EmploymemtDetailModal'
 import {employmentColumns} from '../../../utils/columns/homePage/employment/Columns'
@@ -33,7 +33,7 @@ const Employment = () => {
     otherNote: '',
   })
 
-  const getList = async () => {
+  const onLoadEmploymentList = async () => {
     try {
       const data = await ApiConfig.request({
         data: {},
@@ -52,7 +52,7 @@ const Employment = () => {
   //생성 onCreate
   //수정 onUpdate
   //삭제 onDelete
-  const getListDetail = async id => {
+  const onLoadDetail = async id => {
     try {
       const {data} = await ApiConfig.request({
         data: {},
@@ -71,11 +71,11 @@ const Employment = () => {
   }
 
   useEffect(() => {
-    getList()
+    onLoadEmploymentList()
   }, [])
 
   const handleShowEmploymentDetailModal = async item => {
-    getListDetail(item.recruitmentId)
+    onLoadDetail(item.recruitmentId)
     setShowModal(!showModal)
   }
 
@@ -121,7 +121,7 @@ const Employment = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={getList}>
+                  <CButton color='primary' onClick={onLoadEmploymentList}>
                     조회하기
                   </CButton>
                 </CCol>
