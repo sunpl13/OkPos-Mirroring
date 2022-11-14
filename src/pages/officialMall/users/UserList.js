@@ -48,6 +48,8 @@ const UserList = () => {
   }, [])
 
   // 함수 선언
+
+  // Open Modal
   const handleShowUserDetailModal = item => {
     setSelectedItem(item)
     setShowModal(!showModal)

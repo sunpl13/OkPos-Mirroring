@@ -5,8 +5,8 @@ import {useEffect, useState} from 'react'
 import ModalStatus from '../../forms/ModalStatus'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from 'lodash'
 import BasicFileDownloadForm from '../../forms/downloadForm/BasicFileDownloadForm'
+import {isEmpty} from '../../../utils/utility'
 
 type Value = {
   userId: number
@@ -20,13 +20,6 @@ type Value = {
   businessNumber: string
   businessAddress: string
 }
-
-// type Data = {
-//   isSuccess: string
-//   code: number
-//   message: string
-//   result: Value
-// }
 
 interface Props {
   value: Value
@@ -54,7 +47,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: Props) => {
   })
 
   // API 통신 함수
-  const loadMallUser = async (value: Value) => {
+  const onloadMallUser = async (value: Value) => {
     const {userId} = value
     try {
       const data = await ApiConfig.request({
@@ -83,7 +76,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: Props) => {
   // Life Cycle 선언
   useEffect(() => {
     if (visible) {
-      loadMallUser(value)
+      onloadMallUser(value)
     }
   }, [visible])
 

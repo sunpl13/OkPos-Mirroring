@@ -18,18 +18,7 @@ const ResignUserList = () => {
 
   // Local state 선언
   const [resignUserList, setResignUserList] = useState([])
-  const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
-  // const [item, setItem] = useState({
-  //   userName: '',
-  //   businessNumber: '',
-  //   createdAt: '',
-  //   status: false,
-  //   phoneNumber: '',
-  //   businessRegistration: '',
-  //   businessName: '',
-  //   businessAddress: '',
-  // })
 
   const [showModal, setShowModal] = useState(false)
   const [chartData, setChartData] = useState([
@@ -66,20 +55,23 @@ const ResignUserList = () => {
     }
   }
 
+  // Life Cycle 선언
   useEffect(() => {
-    setItems(testUserTableValues.filter(v => !v.status))
     setChartData(ChartTestData)
     onLoadMallReginUserList()
   }, [])
 
-  /** Open Modal*/
+  // 함수 선언
+
+  // Open Modal
   const handleShowUserDetailModal = item => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
+
   return (
     <CRow>
-      <PageHeader title='탈퇴 회원 리스트' />
+      <PageHeader title='탈퇴 회원 관리' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
