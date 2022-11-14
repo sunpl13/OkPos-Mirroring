@@ -6,6 +6,7 @@ import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import {meterialOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 import DetailModalTemplate from '../DetailModalTemplate'
 import {CForm, CRow} from '@coreui/react'
+import PropTypes from 'prop-types'
 
 const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
   const {no, title, content, createdAt} = value
@@ -52,6 +53,13 @@ const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => 
       </CForm>
     </DetailModalTemplate>
   )
+}
+MeterialDetailModal.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.any,
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+  upDate: PropTypes.func,
 }
 
 export default MeterialDetailModal

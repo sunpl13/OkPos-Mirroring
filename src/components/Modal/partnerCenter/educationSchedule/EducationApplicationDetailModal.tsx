@@ -1,7 +1,9 @@
-import {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DetailModalTemplate from '../DetailModalTemplate'
 import {CRow} from '@coreui/react'
+import {educationApplicationListDetailColumns} from '../../../../utils/columns/partnerCenter/Columns'
+import ListTemplate from '../../../list/ListTemplate'
 
 type Value = {
   no: number | undefined
@@ -14,7 +16,11 @@ type Value = {
   content: string
   createdAt: string
 }
-
+type TrainingPersonnel = {
+  name: string
+  email: string
+  phoneNumber: string
+}
 interface DetailModalProps {
   onChange?: () => void
   value: Value
@@ -33,7 +39,6 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
     trainingPersonnel,
     applicantInformationList,
   } = value
-
   //distributorName: 대리점 명,
   // distributorContact: 대리점 연락처,
   // distributorAddress: 대리점 주소,
@@ -45,6 +50,7 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
     if (visible) {
     }
   }, [visible])
+
   return (
     <DetailModalTemplate
       title={'교육 신청 상세'}
@@ -92,6 +98,16 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
           label={'대리점 주소'}
           value={distributorAddress}
           onChange={onChange}
+        />
+      </CRow>
+      <CRow className={'p-2'}>
+        <ListTemplate
+          items={applicantInformationList}
+          onClick={() => console.log('asd')}
+          columns={educationApplicationListDetailColumns}
+          className={'userList'}
+          onDelete={() => console.log('asd')}
+          datePickerHidden={false}
         />
       </CRow>
     </DetailModalTemplate>

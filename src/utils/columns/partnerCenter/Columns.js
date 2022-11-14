@@ -1,30 +1,32 @@
 // 회원 리스트
 import {CFormSelect} from '@coreui/react'
 import React from 'react'
-import EducationScheduleList from '../../../pages/partnerCenter/educationSchedule/EducationScheduleList'
-import EducationApplicationList from '../../../pages/partnerCenter/educationSchedule/EducationApplicationList'
 
 export const userListColumns = [
   {
     key: 'id',
     _props: {color: 'primary', className: 'userId'},
+    filter: false,
   },
   {
     key: 'userName',
     _props: {color: 'primary', className: 'userName'},
+    filter: false,
   },
   {
-    key: 'businessNumber',
-    _props: {color: 'primary', className: 'businessNumber'},
+    key: 'certificateNum',
+    _props: {color: 'primary', className: 'certificateNum'},
+    filter: false,
   },
   {
-    key: 'phoneNumber',
-    _props: {color: 'primary', className: 'phoneNumber'},
+    key: 'phoneNum',
+    _props: {color: 'primary', className: 'phoneNum'},
+    filter: false,
   },
   {
     key: 'createdAt',
     _props: {color: 'primary', className: 'createdAt'},
-    //<RangeDatePickerForm size='sm' />
+    filter: false,
   },
   {
     key: 'status',
@@ -426,6 +428,42 @@ export const educationApplicationListColumns = [
     key: 'trainingPersonnel',
     _props: {color: 'primary', className: 'trainingPersonnel'},
     filter: false,
+    sorter: false,
+  },
+  {
+    key: 'deleteBtn',
+    label: ' ',
+    _props: {color: 'primary', className: 'deleteBtn'},
+    filter: false,
+    sorter: false,
+  },
+]
+
+// 교육 일정 / 교육 신청 인원 상세정보
+export const educationApplicationListDetailColumns = [
+  {
+    key: 'no',
+    _props: {color: 'primary', className: 'no'},
+    filter: false,
+    sorter: false,
+  },
+  {
+    key: 'name',
+    _props: {color: 'primary', className: 'distributorName'},
+
+    sorter: false,
+  },
+
+  {
+    key: 'email',
+    _props: {color: 'primary', className: 'distributorContact'},
+
+    sorter: false,
+  },
+  {
+    key: 'phoneNumber',
+    _props: {color: 'primary', className: 'trainingDate'},
+
     sorter: false,
   },
   {

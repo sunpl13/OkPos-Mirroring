@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
-import {testUserTableValues} from '../../test/testConstant'
 import ListTemplate from '../../../components/list/ListTemplate'
 import UserAddModalTemplate from '../../../components/Modal/partnerCenter/users/UserAddModalTemplate'
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const Userlist = () => {
   const [items, setItems] = useState([])
@@ -20,20 +22,58 @@ const Userlist = () => {
     businessName: '',
     businessAddress: '',
   })
-
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
+
+  const getUsers = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}?page=${1}`,
+      })
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
+      }
+      if (data?.code === 1000) {
+      } else {
+        alert(data?.message)
+      }
+      setItems(data.result.userInfoPartnerDTOS)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
-    setItems(testUserTableValues.filter(v => v.status))
+    getUsers()
   }, [])
 
   /** Open Modal*/
   const handleShowUserItemAddModal = () => {
     setShowAddModal(!showAddModal)
   }
-  const handleShowUserDetailModal = item => {
+  const handleShowUserDetailModal = async item => {
     setSelectedItem(item)
     setShowModal(!showModal)
+    if (false) {
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.GET,
+          // userId
+          url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}/${item.id}`,
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 
   /** Add User Modal*/
