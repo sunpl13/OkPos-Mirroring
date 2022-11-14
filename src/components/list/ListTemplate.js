@@ -127,8 +127,8 @@ const ListTemplate = ({
           closedAt: ({closedAt}) => <td>{moment(closedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
         }}
         noItemsLabel={'Not Date'}
-        itemsPerPageSelect={itemPerPageHidden}
-        itemsPerPage={10}
+        //itemsPerPageSelect={itemPerPageHidden}
+        itemsPerPage={20}
       />
       {showModal ? (
         <ThumbnailModal visible={showModal} setVisible={setShowModal} onClick={modalOnClick} url={imgClick} />
