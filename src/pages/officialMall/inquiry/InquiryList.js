@@ -17,13 +17,11 @@ const InquiryList = () => {
   // Local state 선언
   const [inquiryList, setInquiryList] = useState([])
   const [selectedItem, setSelectedItem] = useState({
-    id: 0,
-    userName: '',
+    inquiryMallId: 0,
+    name: '',
     email: '',
+    category: '',
     phoneNumber: '',
-    text: '',
-    firstRegistration: '',
-    answer: '',
   })
   const [showModal, setShowModal] = useState(false)
   const [inquiryMsg, setInquiryMsg] = useState('')
@@ -94,10 +92,10 @@ const InquiryList = () => {
         </CCard>
       </CCol>
       <InquiryDetailModal
-        item={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
-        value={inquiryMsg}
+        value={selectedItem}
+        // value={inquiryMsg}
         onChange={handleInquiryModalOnChange}
         onClick={handleInquiryModalOnClick}
       />

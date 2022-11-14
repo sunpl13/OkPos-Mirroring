@@ -13,6 +13,7 @@ export const EndPoint = {
   GET_MALL_RESIGNUSER: `${API}/admin/mall/users/resign/:userId`,
 
   GET_MALL_INQUIRIES: `${API}/admin/mall/inquiries`,
+  GET_MALL_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId`,
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
@@ -30,6 +31,7 @@ const ApiMapper = {
     [EndPoint.GET_MALL_RESIGNUSERS]: {},
     [EndPoint.GET_MALL_RESIGNUSER]: {},
     [EndPoint.GET_MALL_INQUIRIES]: {},
+    [EndPoint.GET_MALL_INQUIRY]: {},
   },
   post: {
     [EndPoint.POST_LOGIN]: {},

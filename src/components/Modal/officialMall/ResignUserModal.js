@@ -27,6 +27,7 @@ const UserDetailModal = ({value, visible, setVisible}) => {
     businessNumber: '',
     businessAddress: '',
   })
+
   // API 통신 함수
   const onloadMallResignUser = async value => {
     const {userId} = value
