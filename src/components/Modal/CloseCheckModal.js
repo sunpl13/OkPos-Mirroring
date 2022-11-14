@@ -1,12 +1,6 @@
 import {CButton, CHeader, CModal, CModalBody, CModalFooter, CModalTitle} from '@coreui/react'
 
-interface IProps {
-  onClick: () => void
-  visible: boolean
-  setVisible: (state: boolean) => void
-}
-
-const CloseCheckModal = ({onClick, visible, setVisible}: IProps) => {
+const CloseCheckModal = ({onClick, visible, setVisible}) => {
   return (
     <CModal visible={visible} alignment='center'>
       <CHeader>

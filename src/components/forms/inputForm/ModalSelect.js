@@ -1,23 +1,4 @@
-import React from 'react'
 import {CCol, CFormSelect, CFormLabel} from '@coreui/react'
-
-interface IOption {
-  key: number | string
-  value: string
-}
-
-interface ModalInputProps {
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
-  placeholder: string
-  label: string
-  readOnly?: boolean
-  size: 'sm' | 'lg' | undefined
-  value: string | number | string[]
-  options: IOption[]
-  id?: string
-  disabled?: boolean
-  isRequired?: boolean
-}
 
 const ModalSelect = ({
   onChange,
@@ -30,7 +11,7 @@ const ModalSelect = ({
   disabled = false,
   isRequired,
   options,
-}: ModalInputProps) => {
+}) => {
   const newOptions = options.map(item => (
     <option key={item.key} value={item.key}>
       {item.value}

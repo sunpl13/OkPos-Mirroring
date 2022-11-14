@@ -1,8 +1,6 @@
 import {useState} from 'react'
 import {
-  CCol,
   CFormLabel,
-  CImage,
   CModal,
   CModalBody,
   CModalHeader,
@@ -10,24 +8,22 @@ import {
   CRow,
   CModalFooter,
   CButton,
+  CFormTextarea,
 } from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import {category} from '../employment/EmploymemtDetailModal'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
-import {TalentRetentionType} from '../../../../pages/homePage/talentRetention/TalentRetention'
 
-interface AddProps {
-  value: TalentRetentionType
-  visible: boolean
-  setVisible: (state: boolean) => void
-  onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
-  isReadOnly: boolean
-  setIsReadOnly: (state: boolean) => void
-}
+const inquiries = [
+  {key: 'a', value: '제품'},
+  {key: 'b', value: '부가 서비스'},
+  {key: 'c', value: '채용'},
+  {key: 'd', value: '제휴'},
+  {key: 'e', value: '기타'},
+]
 
-const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}: AddProps) => {
+const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const userDetailEditMode = () => {
@@ -53,12 +49,11 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
     setVisible(false)
     setIsReadOnly(true)
   }
-
   return (
     <>
       <CModal alignment='center' size='lg' visible={visible}>
         <CModalHeader>
-          <CModalTitle>인재풀 상세</CModalTitle>
+          <CModalTitle>1:1 문의 상세</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
@@ -110,12 +105,24 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
-              id='position'
-              options={category}
-              value={value.position}
+              id='inquiryType'
+              options={inquiries}
+              value={value.inquiryType}
               isRequired={true}
               placeholder='선택해주세요'
-              label='지원 포지션'
+              label='문의 유형'
+            />
+          </CRow>
+          <CRow>
+            <CFormLabel>문의 내용</CFormLabel>
+            <CFormTextarea
+              placeholder='문의 내용'
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              onChange={onChange}
+              value={value.content}
+              rows={15}
+              id='content'
             />
           </CRow>
         </CModalBody>
@@ -147,4 +154,4 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
   )
 }
 
-export default TalentRetentionDetail
+export default QnADetail

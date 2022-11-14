@@ -15,44 +15,6 @@ import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 
-type SupportDetailType = {
-  no: number
-  category: string
-  announcementTitle: string
-  userName: string
-  email: string
-  phoneNumber: string
-  employStartDate: string
-  employEndDate: string
-  status: string
-  businessName: string
-  businessNumber: string
-  businessRegistration: string
-  businessAddress: string
-  employbannerImg: string
-  employmentType: string
-  workArea: string
-  education: string
-  career: string
-  des: string
-  qualifications: string
-  preferentiaTreatment: string
-  reason: string
-  departmentStatus: string
-  etc: string
-  _id: string
-}
-
-interface AddProps {
-  readOnly: boolean
-  value: SupportDetailType
-  visible: boolean
-  setVisible: (state: boolean) => void
-  onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
-  isReadOnly: boolean
-  setIsReadOnly: (state: boolean) => void
-}
-
 const category = [
   {key: 1, value: '딜러'},
   {key: 2, value: '대리점'},
@@ -67,7 +29,7 @@ const career = [
   {key: 6, value: '5년'},
   {key: 7, value: '6년 이상'},
 ]
-const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}: AddProps) => {
+const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
 

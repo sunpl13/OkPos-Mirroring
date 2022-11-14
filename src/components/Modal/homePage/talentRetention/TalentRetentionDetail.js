@@ -13,28 +13,11 @@ import {
 } from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
+import {category} from '../employment/EmploymemtDetailModal'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
-import {QnAType} from '../../../../pages/homePage/QnA/QnAList'
 
-interface AddProps {
-  value: QnAType
-  visible: boolean
-  setVisible: (state: boolean) => void
-  onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
-  isReadOnly: boolean
-  setIsReadOnly: (state: boolean) => void
-}
-
-const inquiries = [
-  {key: 'a', value: '제품'},
-  {key: 'b', value: '부가 서비스'},
-  {key: 'c', value: '채용'},
-  {key: 'd', value: '제휴'},
-  {key: 'e', value: '기타'},
-]
-
-const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}: AddProps) => {
+const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const userDetailEditMode = () => {
@@ -60,11 +43,12 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
     setVisible(false)
     setIsReadOnly(true)
   }
+
   return (
     <>
       <CModal alignment='center' size='lg' visible={visible}>
         <CModalHeader>
-          <CModalTitle>1:1 문의 상세</CModalTitle>
+          <CModalTitle>인재풀 상세</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
@@ -116,12 +100,12 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
-              id='inquiryType'
-              options={inquiries}
-              value={value.inquiryType}
+              id='position'
+              options={category}
+              value={value.position}
               isRequired={true}
               placeholder='선택해주세요'
-              label='문의 유형'
+              label='지원 포지션'
             />
           </CRow>
         </CModalBody>
@@ -153,4 +137,4 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
   )
 }
 
-export default QnADetail
+export default TalentRetentionDetail

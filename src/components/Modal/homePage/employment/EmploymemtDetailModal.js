@@ -1,21 +1,14 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {CCol, CFormLabel, CImage, CModal, CModalBody, CRow, CModalFooter, CButton, CFormCheck} from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import {EmploymentType} from '../../../../pages/homePage/employment/Employment'
 import DatePickerForm from '../../../common/DatePickerForm'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
 import CloseCheckModal from '../../CloseCheckModal'
-
-interface AddProps {
-  value: EmploymentType
-  visible: boolean
-  setVisible: (state: boolean) => void
-  onChange: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
-  isReadOnly: boolean
-  setIsReadOnly: (state: boolean) => void
-}
+import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
+import {EndPoint} from '../../../../dataManager/apiMapper'
+import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 
 //const imgs = [
 //   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg', altName: '이미지01'},
@@ -48,8 +41,8 @@ export const category = [
 ]
 
 const status = [
-  {key: true, value: '채용중'},
-  {key: false, value: '마감'},
+  {key: 1, value: '채용중'},
+  {key: 0, value: '채용 마감'},
 ]
 
 const type = [
@@ -69,17 +62,51 @@ const career = [
   {key: 'EXPERIENCED', value: '경력'},
   {key: 'ANY', value: '무관'},
 ]
-const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}: AddProps) => {
+const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [startDate, setstartDate] = useState(new Date())
   const [endDate, setendDate] = useState(new Date())
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const userDetailEditMode = () => {
     if (!isReadOnly) {
+      onUpdate()
       setIsReadOnly(true)
     } else {
-      //여기에 수정 api 작성
       setIsReadOnly(false)
+    }
+  }
+
+  const onDelete = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {...value, startedAt: startDate, closedAt: endDate},
+        query: {},
+        path: {
+          recruitmentId: value.recruitmentId,
+        },
+        method: HttpMethod.PATCH,
+        url: `${EndPoint.RECRUITMENT}/:recruitmentId/d`,
+      })
+      console.log(data)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  const onUpdate = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {...value, startedAt: startDate, closedAt: endDate},
+        query: {},
+        path: {
+          recruitmentId: value.recruitmentId,
+        },
+        method: HttpMethod.PATCH,
+        url: `${EndPoint.RECRUITMENT}/:recruitmentId`,
+      })
+      console.log(data)
+    } catch (error) {
+      alert(error)
     }
   }
 
@@ -130,41 +157,18 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
-              <span className='required'>진행 상태</span>
-            </CFormLabel>
-            <CFormCheck
-              type='radio'
-              onChange={onChange}
-              id='proceed'
-              readOnly={isReadOnly}
-              inline
-              value='true'
-              name='proceed'
-              label='채용중'
-            />
-            <CFormCheck
-              type='radio'
-              onChange={onChange}
-              id='proceed'
-              readOnly={isReadOnly}
-              inline
-              value='false'
-              name='proceed'
-              label='채용 마감'
-            />
-            {/* <ModalBooleanSelect
+            <ModalSelect
               readOnly={isReadOnly}
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
               id='proceed'
               options={status}
-              value={value.proceed ? '채용중' : '채용 마감'}
+              value={value.proceed}
               isRequired={true}
               placeholder='선택해주세요'
               label='진행 상태'
-            /> */}
+            />
             <ModalSelect
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -244,15 +248,21 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            <CFormLabel>이미지</CFormLabel>
-            <CCol>
-              <CImage
-                rounded
-                src='https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fevents%2F2404%2F54ecb586.jpg&w=1200&q=100'
-                width={200}
-                height={200}
-              />
-            </CCol>
+            {value.recruitmentId === -1 ? (
+              <ModalImageInput id='image' label='이미지 첨부' />
+            ) : (
+              <>
+                <CFormLabel>이미지</CFormLabel>
+                <CCol>
+                  <CImage
+                    rounded
+                    src='https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fevents%2F2404%2F54ecb586.jpg&w=1200&q=100'
+                    width={200}
+                    height={200}
+                  />
+                </CCol>
+              </>
+            )}
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
@@ -260,7 +270,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='qualification'
               placeholder='qualification'
               label='자격 요건'
-              value={value.qualification}
+              value={value.qualification === null ? '' : value.qualification}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -271,7 +281,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='preference'
               placeholder='preference'
               label='우대사항'
-              value={value.preference}
+              value={value.preference === null ? '' : value.preference}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -282,7 +292,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='hiringReason'
               placeholder='hiringReason'
               label='채용 사유'
-              value={value.hiringReason}
+              value={value.hiringReason === null ? '' : value.hiringReason}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -293,7 +303,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='departmentStatus'
               placeholder='departmentStatus'
               label='부서 현황'
-              value={value.departmentStatus}
+              value={value.departmentStatus === null ? '' : value.departmentStatus}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -304,7 +314,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='otherNote'
               placeholder='otherNote'
               label='기타 참고사항'
-              value={value.otherNote}
+              value={value.otherNote === null ? '' : value.otherNote}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -328,11 +338,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
           </CButton>
         </CModalFooter>
       </CModal>
-      <DeleteModalTemplate
-        onDelete={() => setshowDeleteModal(false)}
-        visible={showDeleteModal}
-        setVisible={setshowDeleteModal}
-      />
+      <DeleteModalTemplate onDelete={onDelete} visible={showDeleteModal} setVisible={setshowDeleteModal} />
       <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )

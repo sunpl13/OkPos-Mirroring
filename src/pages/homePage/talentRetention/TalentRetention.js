@@ -6,17 +6,10 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {talentRetentionColumns} from '../../../utils/columns/homePage/talentRetetion/Columns'
 import TalentRetentionDetail from '../../../components/Modal/homePage/talentRetention/TalentRetentionDetail'
 import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
-export type TalentRetentionType = {
-  No: number
-  name: string
-  email: string
-  pNum: string
-  position: string
-}
 
 const TalentRetention = () => {
-  const [items, setItems] = useState<TalentRetentionType[]>([])
-  const [selectedItem, setSelectedItem] = useState<TalentRetentionType>({
+  const [items, setItems] = useState([])
+  const [selectedItem, setSelectedItem] = useState({
     No: -1,
 
     name: '',
@@ -29,10 +22,10 @@ const TalentRetention = () => {
   const [isReadOnly, setIsReadOnly] = useState(true)
 
   const handleRetrieveTestList = async () => {
-    setItems(testTalentValues as TalentRetentionType[])
+    setItems(testTalentValues)
   }
 
-  const handleShowEmploymentDetailModal = (item: TalentRetentionType) => {
+  const handleShowEmploymentDetailModal = item => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
@@ -50,7 +43,7 @@ const TalentRetention = () => {
     setShowModal(!showModal)
   }
 
-  const handleEmployDetailOnChange = ({target}: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  const handleEmployDetailOnChange = ({target}) => {
     const {id, value} = target
     setSelectedItem({
       ...selectedItem,

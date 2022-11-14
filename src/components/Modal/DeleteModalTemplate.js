@@ -1,14 +1,6 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
 
-interface IProps {
-  visible: boolean
-  title?: string
-  children?: JSX.Element
-  onDelete: () => void
-  setVisible: (state: boolean) => void
-}
-
-const DeleteModalTemplate = ({visible, title = '삭제 확인', children, onDelete, setVisible}: IProps) => {
+const DeleteModalTemplate = ({visible, title = '삭제 확인', children, onDelete, setVisible}) => {
   return (
     <CModal visible={visible} alignment='center'>
       <CModalHeader>
