@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
-import {testUserTableValues} from '../../test/testConstant'
 import ListTemplate from '../../../components/list/ListTemplate'
 import UserAddModalTemplate from '../../../components/Modal/partnerCenter/users/UserAddModalTemplate'
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
@@ -40,7 +39,9 @@ const Userlist = () => {
         alert(data?.message)
       }
       setItems(data.result.userInfoPartnerDTOS)
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -51,9 +52,28 @@ const Userlist = () => {
   const handleShowUserItemAddModal = () => {
     setShowAddModal(!showAddModal)
   }
-  const handleShowUserDetailModal = item => {
+  const handleShowUserDetailModal = async item => {
     setSelectedItem(item)
     setShowModal(!showModal)
+    if (false) {
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.GET,
+          // userId
+          url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}/${item.id}`,
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 
   /** Add User Modal*/
