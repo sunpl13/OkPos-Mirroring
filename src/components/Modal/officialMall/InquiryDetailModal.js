@@ -75,14 +75,6 @@ const InquiryDetailModal = ({onClick, onChange, value, visible, setVisible}) => 
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
-          <ModalInput
-            id={'inquiryMallId'}
-            placeholder={'inquiryMallId'}
-            label={'No'}
-            value={inquiry.inquiryMallId}
-            readOnly
-            disabled
-          />
           <ModalInput id={'name'} placeholder={'이름'} label={'이름'} value={inquiry.name} readOnly disabled />
         </CRow>
         <CRow className={'p-2'}>

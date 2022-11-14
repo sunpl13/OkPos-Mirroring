@@ -87,6 +87,7 @@ const InquiryList = () => {
               onClick={handleShowModal}
               columns={inquiryListColumns}
               className={'userList'}
+              datePickerHidden={false}
             />
           </CCardBody>
         </CCard>
