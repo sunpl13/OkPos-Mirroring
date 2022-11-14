@@ -169,12 +169,12 @@ const _nav = [
       {
         component: CNavItem,
         name: '회원 관리',
-        to: '/official/users',
+        to: '/mall/users',
       },
       {
         component: CNavItem,
         name: '탈퇴 회원 관리',
-        to: '/official/withdrawalUsers',
+        to: '/mall/resign/users',
       },
     ],
   },
@@ -189,19 +189,19 @@ const _nav = [
   {
     component: CNavItem,
     name: '1:1 문의 관리',
-    to: '/official/inquirys',
+    to: '/mall/inquirys',
     icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
   },
   {
     component: CNavItem,
     name: 'FAQ 관리',
-    to: '/official/faq',
+    to: '/mall/faq',
     icon: <CIcon icon={cilFindInPage} customClassName='nav-icon' />,
   },
   {
     component: CNavItem,
     name: '자료실 관리',
-    to: '/official/archieve',
+    to: '/mall/archieve',
     icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
   },
   {
