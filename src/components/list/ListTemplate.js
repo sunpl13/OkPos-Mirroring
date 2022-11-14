@@ -96,11 +96,13 @@ const ListTemplate = ({
           className: className,
         }}
         scopedColumns={{
+          // 상태
           status: ({status}) => (
             <td>
               <CBadge color={getBadgeColor(status)}>{getBadgeText(status)}</CBadge>
             </td>
           ),
+          // 이미지
           images: ({images}) => (
             <td onClick={event => (images.length !== 0 ? testOnClick(event, images) : onClick)}>
               <CImage rounded src={images.length === 0 ? '' : images[0]} alt='' width={100} height={60} />
@@ -111,7 +113,8 @@ const ListTemplate = ({
               <CBadge color={'danger'}>Delete</CBadge>
             </td>
           ),
-          category: ({category}) => <td>{selectedOptions ? selectedOptions[category] : ''}</td>,
+          //
+          //category: ({category}) => <td>{selectedOptions ? selectedOptions[category] : ''}</td>,
           jobType: ({jobType}) => <td>{selectedOptions ? selectedOptions[jobType] : ''}</td>,
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           inquiryType: ({inquiryType}) => <td>{selectedOptions ? selectedOptions[inquiryType] : ''}</td>,

@@ -39,7 +39,7 @@ const UserDetailModal = ({value, visible, setVisible}) => {
         url: EndPoint.GET_MALL_RESIGNUSER,
       })
       if (!data?.data?.isSuccess || isEmpty(data?.data?.result)) {
-        console.log('loadMallUserList error')
+        console.log('onloadMallResignUser error')
         if (data?.data?.code === 2014) {
           navigate('/login')
         } else {

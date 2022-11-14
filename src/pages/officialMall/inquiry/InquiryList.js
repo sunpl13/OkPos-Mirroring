@@ -1,13 +1,21 @@
 import React, {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import {CCard, CCardBody, CCardHeader, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {testUserTableValues} from '../../test/testConstant'
 import InquiryDetailModal from '../../../components/Modal/officialMall/InquiryDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {inquiryListColumns} from '../../../utils/columns/officialMall/Columns'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const InquiryList = () => {
-  const [items, setItems] = useState([])
+  // 모듈 선언
+  const navigate = useNavigate()
+
+  // Local state 선언
+  const [inquiryList, setInquiryList] = useState([])
   const [selectedItem, setSelectedItem] = useState({
     id: 0,
     userName: '',
@@ -19,10 +27,40 @@ const InquiryList = () => {
   })
   const [showModal, setShowModal] = useState(false)
   const [inquiryMsg, setInquiryMsg] = useState('')
-  /** User list Columns */
+
+  // API 통신 함수
+  const onLoadMallInquiryList = async () => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: EndPoint.GET_MALL_INQUIRIES,
+      })
+
+      if (!res?.isSuccess || isEmpty(res?.result)) {
+        console.log('onLoadMallInquiryList error')
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      setInquiryList(res.result)
+    } catch (error) {
+      console.log(error)
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // Life Cycle 선언
+  useEffect(() => {
+    onLoadMallInquiryList()
+  }, [])
+
+  // 함수 선언
 
   useEffect(() => {
-    setItems(testUserTableValues)
+    setInquiryList(testUserTableValues)
   }, [])
 
   /** Open Modal*/
@@ -34,7 +72,9 @@ const InquiryList = () => {
     setInquiryMsg(value)
   }
   const handleInquiryModalOnClick = () => {
-    setItems(items.map(value => (value.id === selectedItem.id ? {...selectedItem, answer: inquiryMsg} : value)))
+    setInquiryList(
+      inquiryList.map(value => (value.id === selectedItem.id ? {...selectedItem, answer: inquiryMsg} : value)),
+    )
     setInquiryMsg('')
     setShowModal(!showModal)
   }
@@ -44,7 +84,12 @@ const InquiryList = () => {
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
-            <ListTemplate items={items} onClick={handleShowModal} columns={inquiryListColumns} className={'userList'} />
+            <ListTemplate
+              items={inquiryList}
+              onClick={handleShowModal}
+              columns={inquiryListColumns}
+              className={'userList'}
+            />
           </CCardBody>
         </CCard>
       </CCol>

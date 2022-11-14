@@ -40,7 +40,7 @@ const ResignUserList = () => {
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
-        console.log('loadMallUserList error')
+        console.log('onLoadMallReginUserList error')
         if (res?.code === 2014) {
           navigate('/login')
         } else {

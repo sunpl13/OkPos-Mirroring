@@ -58,7 +58,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: Props) => {
         url: EndPoint.GET_MALL_USER,
       })
       if (!data?.data?.isSuccess || isEmpty(data?.data?.result)) {
-        console.log('loadMallUserList error')
+        console.log('onloadMallUser error')
         if (data?.data?.code === 2014) {
           navigate('/login')
         } else {

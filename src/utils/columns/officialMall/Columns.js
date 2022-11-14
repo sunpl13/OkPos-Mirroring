@@ -39,9 +39,9 @@ export const resignUserListColumns = [
 
 // 1:1 문의 리스트
 export const inquiryListColumns = [
-  {key: 'id', label: 'No', sorter: false, filter: false},
-  {key: 'type', label: '문의 유형'},
-  {key: 'userName', label: '이름'},
+  {key: 'inquiryMallId', label: 'No', sorter: false, filter: false},
+  {key: 'category', label: '문의 유형'},
+  {key: 'name', label: '이름'},
   {key: 'email', label: '이메일'},
   {key: 'phoneNumber', label: '휴대전화번호'},
 ]
