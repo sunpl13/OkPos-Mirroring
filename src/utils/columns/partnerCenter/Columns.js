@@ -1,30 +1,32 @@
 // 회원 리스트
 import {CFormSelect} from '@coreui/react'
 import React from 'react'
-import EducationScheduleList from '../../../pages/partnerCenter/educationSchedule/EducationScheduleList'
-import EducationApplicationList from '../../../pages/partnerCenter/educationSchedule/EducationApplicationList'
 
 export const userListColumns = [
   {
     key: 'id',
     _props: {color: 'primary', className: 'userId'},
+    filter: false,
   },
   {
     key: 'userName',
     _props: {color: 'primary', className: 'userName'},
+    filter: false,
   },
   {
-    key: 'businessNumber',
-    _props: {color: 'primary', className: 'businessNumber'},
+    key: 'certificateNum',
+    _props: {color: 'primary', className: 'certificateNum'},
+    filter: false,
   },
   {
-    key: 'phoneNumber',
-    _props: {color: 'primary', className: 'phoneNumber'},
+    key: 'phoneNum',
+    _props: {color: 'primary', className: 'phoneNum'},
+    filter: false,
   },
   {
     key: 'createdAt',
     _props: {color: 'primary', className: 'createdAt'},
-    //<RangeDatePickerForm size='sm' />
+    filter: false,
   },
   {
     key: 'status',

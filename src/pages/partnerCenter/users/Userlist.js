@@ -6,7 +6,9 @@ import UserAddModalTemplate from '../../../components/Modal/partnerCenter/users/
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
-import axios from 'axios'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const Userlist = () => {
   const [items, setItems] = useState([])
@@ -21,20 +23,28 @@ const Userlist = () => {
     businessName: '',
     businessAddress: '',
   })
-
   const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
+
+  const getUsers = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}?page=${1}`,
+      })
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
+      }
+      if (data?.code === 1000) {
+      } else {
+        alert(data?.message)
+      }
+      setItems(data.result.userInfoPartnerDTOS)
+    } catch (error) {}
+  }
+
   useEffect(() => {
-    setItems(testUserTableValues.filter(v => v.status))
-    //axios
-    //       .get('http://13.209.93.181/admin/mall/users', {
-    //         headers: {
-    //           'X-ACCESS-TOKEN':
-    //             'eyJhbGciOiJIUzI1NiJ9.eyJhZG1pbklkIjoxLCJhdXRob3JpdHkiOiJBRE1JTiIsImlhdCI6MTY2NzIwMDIxOH0.0Qn3qiG4lPKFwDokyX_T02PLJd2iHpFK94tz8HVEkWU',
-    //         },
-    //       })
-    //       .then(res => console.log(res))
-    //       .catch(err => console.log(err))
+    getUsers()
   }, [])
 
   /** Open Modal*/

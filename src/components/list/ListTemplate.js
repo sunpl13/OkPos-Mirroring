@@ -1,7 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
-import {CBadge, CImage} from '@coreui/react'
+import {
+  CBadge,
+  CButton,
+  CCol,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  CFormInput,
+  CImage,
+  CInputGroup,
+  CRow,
+} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
@@ -22,7 +34,7 @@ const ListTemplate = ({
   const [imgClick, setImgClick] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-
+  const [searchOption, setSearchOption] = useState('')
   // 함수 선언
 
   // 상태값 Color get 함수
@@ -63,6 +75,9 @@ const ListTemplate = ({
   }
   useEffect(() => {
     setListItems(items)
+    if (columns) {
+      setSearchOption(columns[0].key)
+    }
   }, [items])
   useEffect(() => {
     if (endDate) {
@@ -71,10 +86,41 @@ const ListTemplate = ({
       setFilterItems('')
     }
   }, [endDate])
-
+  const handleSearchOnClick = () => {
+    console.log('st')
+  }
+  const handleSearchItemOnClick = key => {
+    setSearchOption(key)
+  }
   return (
     <>
-      {datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}
+      <CRow>
+        <CCol>
+          <CInputGroup>
+            <CDropdown alignment='end' variant='input-group'>
+              <CDropdownToggle color='secondary' variant='outline' split>
+                {searchOption}
+              </CDropdownToggle>
+              <CFormInput aria-label='Text input with segmented dropdown button' />
+              <CDropdownMenu>
+                {columns.map(({key}) => {
+                  if (key !== 'createdAt') {
+                    return (
+                      <CDropdownItem key={key} onClick={() => handleSearchItemOnClick(key)}>
+                        {key}
+                      </CDropdownItem>
+                    )
+                  }
+                })}
+              </CDropdownMenu>
+            </CDropdown>
+            <CButton type='button' color='secondary' variant='outline' onClick={() => handleSearchOnClick()}>
+              검색
+            </CButton>
+          </CInputGroup>
+        </CCol>
+        <CCol>{datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}</CCol>
+      </CRow>
       <CSmartTable
         items={filterItems || listItems}
         columns={columns || null}
