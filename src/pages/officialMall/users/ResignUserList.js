@@ -47,7 +47,7 @@ const ResignUserList = () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_V1_MALL_USERS,
+        url: EndPoint.GET_MALL_RESIGNUSERS,
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
@@ -91,7 +91,7 @@ const ResignUserList = () => {
         <CCard className='mb-4'>
           <CCardBody>
             <ListTemplate
-              items={items}
+              items={resignUserList}
               onClick={handleShowUserDetailModal}
               columns={resignUserListColumns}
               className={'userList'}

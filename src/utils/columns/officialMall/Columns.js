@@ -31,9 +31,9 @@ export const resignUserListColumns = [
   {key: 'userName', label: '이름'},
   {key: 'email', label: '이메일'},
   {key: 'phoneNumber', label: '휴대전화번호'},
-  {key: 'firstRegistration', label: '최초등록일'},
-  {key: 'updatedAt', label: '계정탈퇴일'},
   {key: 'resignReason', label: '탈퇴사유'},
+  {key: 'createdAt', label: '최초등록일', sorter: false, filter: false},
+  {key: 'updatedAt', label: '계정탈퇴일', sorter: false, filter: false},
   {key: 'status', label: '상태', sorter: false, filter: false},
 ]
 

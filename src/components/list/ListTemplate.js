@@ -16,6 +16,7 @@ const ListTemplate = ({
   datePickerHidden = true,
   itemPerPageHidden = true,
 }) => {
+  // Local state 선언
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
@@ -61,9 +62,11 @@ const ListTemplate = ({
     event.stopPropagation()
     onDelete(item)
   }
+
   useEffect(() => {
     setListItems(items)
   }, [items])
+
   useEffect(() => {
     if (endDate) {
       setFilterItems(listItems.filter(value => value.createdAt >= startDate && value.createdAt <= endDate))
@@ -126,6 +129,8 @@ const ListTemplate = ({
           ),
           startedAt: ({startedAt}) => <td>{moment(startedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           closedAt: ({closedAt}) => <td>{moment(closedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          createdAt: ({createdAt}) => <td>{moment(createdAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          updatedAt: ({updatedAt}) => <td>{moment(updatedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
         }}
         noItemsLabel={'Not Date'}
         //itemsPerPageSelect={itemPerPageHidden}
