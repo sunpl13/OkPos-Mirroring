@@ -6,6 +6,7 @@ import ModalStatus from '../../forms/ModalStatus'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from 'lodash'
+import BasicFileDownloadForm from '../../forms/downloadForm/BasicFileDownloadForm'
 
 type Value = {
   userId: number
@@ -120,7 +121,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: Props) => {
             id={'email'}
             placeholder={'이메일'}
             label={'이메일'}
-            value={user.businessNumber}
+            value={user.email}
             onChange={onChange}
             readOnly
             disabled
@@ -157,10 +158,10 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: Props) => {
         </CRow>
         <CRow className={'p-2'}>
           <ModalInput
-            id={'businessRegistration'}
+            id={'businessNumber'}
             placeholder={'사업자등록번호'}
             label={'사업자등록번호'}
-            value={user.businessRegistration}
+            value={user.businessNumber}
             onChange={onChange}
             readOnly
             disabled
@@ -177,14 +178,12 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: Props) => {
           />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalInput
+          <BasicFileDownloadForm
             id={'businessRegistration'}
             placeholder={'사업자등록증'}
             label={'사업자등록증'}
             value={user.businessRegistration}
-            onChange={onChange}
-            readOnly
-            disabled
+            isRequired={undefined}
           />
         </CRow>
         <CRow className={'p-2'}>

@@ -9,11 +9,11 @@ const DefaultLayout = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // if (isEmpty(window.sessionStorage.getItem('jwt'))) {
-    //   window.sessionStorage.clear()
-    //   navigate(`/login`)
-    //   return
-    // }
+    if (isEmpty(window.sessionStorage.getItem('jwt'))) {
+      window.sessionStorage.clear()
+      navigate(`/login`)
+      return
+    }
     // const fetchData = async () => {
     //   try {
     //     const {data: response} = await ApiConfig.request({
