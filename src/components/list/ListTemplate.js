@@ -75,6 +75,7 @@ const ListTemplate = ({
   return (
     <>
       {datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}
+      <br />
       <CSmartTable
         items={filterItems || listItems}
         columns={columns || null}
