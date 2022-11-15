@@ -11,24 +11,7 @@ import {
 } from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
 
-type Value = {
-  id: number
-  category: []
-  title: string
-  content: string
-}
-
-interface FaqDetailProps {
-  onClick: () => void
-  onChange: () => void
-  item: Value
-  value: string
-  visible: boolean
-  isUpdate: boolean
-  setVisible: (state: boolean) => void | undefined
-}
-
-const FaqDetailModal = ({onClick, onChange, item, visible, setVisible, isUpdate}: FaqDetailProps) => {
+const FaqDetailModal = ({onClick, onChange, item, visible, setVisible, isUpdate}) => {
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>

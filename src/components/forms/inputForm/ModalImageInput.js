@@ -1,25 +1,18 @@
 import {PlusOutlined} from '@ant-design/icons'
 import {Upload} from 'antd'
-import type {RcFile, UploadProps} from 'antd/es/upload'
-import type {UploadFile} from 'antd/es/upload/interface'
 import React, {useState} from 'react'
 import {CCol, CFormLabel, CImage, CRow} from '@coreui/react'
 import styled from 'styled-components'
 
-interface ImageInputProps {
-  id: string
-  label: string
-}
-
-const getBase64 = (file: RcFile): Promise<string> =>
+const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result as string)
+    reader.onload = () => resolve(reader.result)
     reader.onerror = error => reject(error)
   })
 
-const ModalImageInput = ({id, label}: ImageInputProps) => {
+const ModalImageInput = ({id, label}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -27,7 +20,7 @@ const ModalImageInput = ({id, label}: ImageInputProps) => {
     setPreviewImage('')
   }
   // TestData
-  const [fileList, setFileList] = useState<UploadFile[]>([
+  const [fileList, setFileList] = useState([
     {
       uid: '-1',
       name: 'image.png',
@@ -50,17 +43,17 @@ const ModalImageInput = ({id, label}: ImageInputProps) => {
 
   const handleCancel = () => setPreviewOpen(false)
 
-  const handlePreview = async (file: UploadFile) => {
+  const handlePreview = async file => {
     if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj as RcFile)
+      file.preview = await getBase64(file.originFileObj)
     }
 
-    setPreviewImage(file.url || (file.preview as string))
+    setPreviewImage(file.url || file.preview)
     setPreviewOpen(true)
-    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1))
+    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
   }
 
-  const handleChange: UploadProps['onChange'] = ({fileList: newFileList}) => setFileList(newFileList)
+  const handleChange = ({fileList: newFileList}) => setFileList(newFileList)
 
   const uploadButton = (
     <div>

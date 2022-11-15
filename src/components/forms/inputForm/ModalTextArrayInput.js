@@ -1,17 +1,6 @@
 import {CCol, CFormTextarea} from '@coreui/react'
 
-interface Interface {
-  id: string
-  value: string
-  rows: number
-  label: string
-  text?: string
-  onChange?: () => void
-  readOnly?: boolean
-  disabled?: boolean
-}
-
-const ModalTextArrayInput = ({id, value, rows, label, onChange, text, readOnly, disabled}: Interface) => {
+const ModalTextArrayInput = ({id, value, rows, label, onChange, text, readOnly, disabled}) => {
   return (
     <CCol>
       <CFormTextarea

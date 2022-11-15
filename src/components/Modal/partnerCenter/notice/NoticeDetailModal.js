@@ -4,22 +4,7 @@ import React, {useEffect, useState} from 'react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 
-type Value = {
-  id: number
-  title: string
-  content: string
-  createdAt: string
-  files: string
-}
-interface DetailProps {
-  value: Value
-  visible: boolean
-  setVisible: (state: boolean) => void
-  onChange: () => void
-  upDate: () => void
-}
-
-const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}: DetailProps) => {
+const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
   const {id, title, content, files} = value
   const [toggle, setToggle] = useState(true)
   useEffect(() => {

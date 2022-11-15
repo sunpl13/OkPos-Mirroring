@@ -12,27 +12,8 @@ import {
 import {useEffect, useState} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 
-type Value = {
-  id: number
-  userName: string
-  email: string
-  phoneNumber: string
-  text: string | undefined
-  firstRegistration: string
-  answer: string
-}
-
-interface InquiryDetailProps {
-  onClick: () => void
-  onChange: () => void
-  item: Value
-  value: string
-  visible: boolean
-  setVisible: (state: boolean) => void | undefined
-}
-
-const InquiryDetailModal = ({onClick, onChange, value, item, visible, setVisible}: InquiryDetailProps) => {
-  const [stateCompare, setStateCompare] = useState<Value>({
+const InquiryDetailModal = ({onClick, onChange, value, item, visible, setVisible}) => {
+  const [stateCompare, setStateCompare] = useState({
     id: 0,
     userName: '',
     phoneNumber: '',

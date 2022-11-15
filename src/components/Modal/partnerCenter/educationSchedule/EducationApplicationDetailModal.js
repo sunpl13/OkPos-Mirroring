@@ -5,32 +5,7 @@ import {CRow} from '@coreui/react'
 import {educationApplicationListDetailColumns} from '../../../../utils/columns/partnerCenter/Columns'
 import ListTemplate from '../../../list/ListTemplate'
 
-type Value = {
-  no: number | undefined
-  distributorName: string
-  distributorContact: string
-  distributorAddress: string
-  trainingDate: string
-  trainingPersonnel: string
-  applicantInformationList: Array<any>
-  content: string
-  createdAt: string
-}
-type TrainingPersonnel = {
-  name: string
-  email: string
-  phoneNumber: string
-}
-interface DetailModalProps {
-  onChange?: () => void
-  value: Value
-  visible: boolean
-  setVisible: (state: boolean) => void
-  upDate: () => void
-  onDelete?: () => void
-}
-
-const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, upDate}: DetailModalProps) => {
+const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
   const {
     distributorName,
     distributorContact,

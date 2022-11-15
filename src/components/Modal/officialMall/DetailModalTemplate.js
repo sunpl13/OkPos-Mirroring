@@ -1,15 +1,7 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
 import {useEffect, useState} from 'react'
 
-interface IProps {
-  visible: boolean
-  title: string
-  children?: JSX.Element[] | JSX.Element | undefined
-  setVisible: (state: boolean) => void
-  upDate: () => void
-  btnText: string
-}
-const DetailModalTemplate = ({visible, title, children, setVisible, upDate, btnText}: IProps) => {
+const DetailModalTemplate = ({visible, title, children, setVisible, upDate, btnText}) => {
   const [toggle, setToggle] = useState(true)
   useEffect(() => {
     if (visible) {

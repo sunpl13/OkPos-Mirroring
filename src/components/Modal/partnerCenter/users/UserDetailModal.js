@@ -3,28 +3,9 @@ import ModalInput from '../../../forms/inputForm/ModalInput'
 import React, {useEffect, useState} from 'react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 
-type Value = {
-  id: number
-  userName: string
-  businessNumber: string
-  createdAt: string
-  status: boolean
-  phoneNumber: string
-  businessRegistration: string
-  businessName: string
-  businessAddress: string
-}
-interface AddProps {
-  value: Value
-  visible: boolean
-  setVisible: (state: boolean) => void
-  onChange?: () => void
-  upDate: (item: Value) => void
-}
-
-const UserDetailModal = ({value, visible, setVisible, upDate}: AddProps) => {
+const UserDetailModal = ({value, visible, setVisible, upDate}) => {
   const [editMode, setEditMode] = useState(false)
-  const [stateCompare, setStateCompare] = useState<Value>({
+  const [stateCompare, setStateCompare] = useState({
     id: 0,
     userName: '',
     createdAt: '',
@@ -61,9 +42,7 @@ const UserDetailModal = ({value, visible, setVisible, upDate}: AddProps) => {
       setEditMode(!editMode)
     }
   }
-  const handleUserDetailModalOnChange = ({
-    target: {id, value},
-  }: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  const handleUserDetailModalOnChange = ({target: {id, value}}) => {
     setStateCompare({
       ...stateCompare,
       [id]: value,
