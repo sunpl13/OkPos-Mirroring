@@ -98,8 +98,8 @@ const ListTemplate = ({
   }
   return (
     <>
-      <CRow>
-        <CCol>
+      <CRow className={'justify-content-end'}>
+        <CCol xs={4}>
           <CInputGroup>
             <CDropdown alignment='end' variant='input-group'>
               <CDropdownToggle color='secondary' variant='outline' split>
@@ -123,14 +123,15 @@ const ListTemplate = ({
             </CButton>
           </CInputGroup>
         </CCol>
-        <CCol>{datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}</CCol>
+        <CCol xs={4}>
+          {datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}
+        </CCol>
       </CRow>
       <br />
       <CSmartTable
         items={filterItems || listItems}
         columns={columns || null}
         activePage={1}
-        columnFilter
         columnSorter
         pagination
         clickableRows
