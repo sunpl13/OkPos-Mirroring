@@ -5,6 +5,8 @@ export const EndPoint = {
   GET_V1_TEST_AUTO_LOGIN: `${API}/test/v1/jwt/check/:isManual`,
   POST_LOGIN: `${API}/admin/login`,
   POST_TEST_V1_REGISTER: `${API}/test/v1/register`,
+  RECRUITMENT: `${API}/admin/recruitment`,
+  TALENTPOOL: `${API}/admin/talent-pool`,
 
   // ------ 가맹점 전용 공식몰 페이지
   GET_V1_MALL_USERS: `${API}/admin/mall/users`,
@@ -12,8 +14,6 @@ export const EndPoint = {
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
-
-  RECRUITMENT: `${API}/admin/recruitment`,
 }
 
 const ApiMapper = {
