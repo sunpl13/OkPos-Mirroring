@@ -37,7 +37,7 @@ const BasicFileDownloadForm = ({id, placeholder, value, label, isRequired}) => {
             </a>
           </div>
         ) : (
-          <div>등록된 파일이 없습니다.</div>
+          <div className='col-form-label'>등록된 파일이 없습니다.</div>
         )}
       </CCol>
     </>
