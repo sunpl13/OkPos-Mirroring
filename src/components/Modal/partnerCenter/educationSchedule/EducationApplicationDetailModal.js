@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DetailModalTemplate from '../DetailModalTemplate'
-import {CRow} from '@coreui/react'
+import {CButton, CCol, CRow} from '@coreui/react'
 import {educationApplicationListDetailColumns} from '../../../../utils/columns/partnerCenter/Columns'
 import ListTemplate from '../../../list/ListTemplate'
 
-const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
+const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, upDate, searchInputHidden = true}) => {
   const {
+    no,
     distributorName,
     distributorContact,
     distributorAddress,
@@ -20,7 +21,7 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
   // trainingDate: 신청 교육 일자,
   // trainingPersonnel: 교육 신청 인원,
   // applicantInformationList: 교육 신청 인원 상세 정보
-
+  console.log(value)
   useEffect(() => {
     if (visible) {
     }
@@ -28,22 +29,22 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
 
   return (
     <DetailModalTemplate
-      title={'교육 신청 상세'}
+      title={no === 0 ? '교육 신청 추가' : '교육 신청 상세'}
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={'수정'}
+      btnText={no === 0 ? '추가' : '수정'}
     >
       <CRow className={'p-2'}>
         <ModalInput
-          id={'title'}
+          id={'distributorName'}
           placeholder={'대리점 명'}
           label={'대리점 명'}
           value={distributorName}
           onChange={onChange}
         />
         <ModalInput
-          id={'title'}
+          id={'distributorContact'}
           placeholder={'대리점 연락처'}
           label={'대리점 연락처'}
           value={distributorContact}
@@ -52,14 +53,14 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
       </CRow>
       <CRow className={'p-2'}>
         <ModalInput
-          id={'title'}
+          id={'trainingDate'}
           placeholder={'신청 교육 일자'}
           label={'신청 교육 일자'}
           value={trainingDate}
           onChange={onChange}
         />
         <ModalInput
-          id={'title'}
+          id={'trainingPersonnel'}
           placeholder={'신청 인원'}
           label={'신청 인원'}
           value={trainingPersonnel}
@@ -68,7 +69,7 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
       </CRow>
       <CRow className={'p-2'}>
         <ModalInput
-          id={'title'}
+          id={'distributorAddress'}
           placeholder={'대리점 주소'}
           label={'대리점 주소'}
           value={distributorAddress}
@@ -76,6 +77,9 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
         />
       </CRow>
       <CRow className={'p-2'}>
+        <CCol>
+          <CButton>인원 추가</CButton>
+        </CCol>
         <ListTemplate
           items={applicantInformationList}
           onClick={() => console.log('asd')}
@@ -83,6 +87,7 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
           className={'userList'}
           onDelete={() => console.log('asd')}
           datePickerHidden={false}
+          searchInputHidden={searchInputHidden}
         />
       </CRow>
     </DetailModalTemplate>

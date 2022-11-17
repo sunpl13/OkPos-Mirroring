@@ -27,6 +27,7 @@ const ListTemplate = ({
   selectedOptions,
   datePickerHidden = true,
   itemPerPageHidden = true,
+  searchInputHidden = true,
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
@@ -99,30 +100,33 @@ const ListTemplate = ({
   return (
     <>
       <CRow className={'justify-content-end'}>
-        <CCol xs={4}>
-          <CInputGroup>
-            <CDropdown alignment='end' variant='input-group'>
-              <CDropdownToggle color='secondary' variant='outline' split>
-                {searchOption}
-              </CDropdownToggle>
-              <CFormInput aria-label='Text input with segmented dropdown button' />
-              <CDropdownMenu>
-                {columns.map(({key}) => {
-                  if (key !== 'createdAt') {
-                    return (
-                      <CDropdownItem key={key} onClick={() => handleSearchItemOnClick(key)}>
-                        {key}
-                      </CDropdownItem>
-                    )
-                  }
-                })}
-              </CDropdownMenu>
-            </CDropdown>
-            <CButton type='button' color='secondary' variant='outline' onClick={() => handleSearchOnClick()}>
-              검색
-            </CButton>
-          </CInputGroup>
-        </CCol>
+        {searchInputHidden && (
+          <CCol xs={4}>
+            <CInputGroup>
+              <CDropdown alignment='end' variant='input-group'>
+                <CDropdownToggle color='secondary' variant='outline' split>
+                  {searchOption}
+                </CDropdownToggle>
+                <CFormInput aria-label='Text input with segmented dropdown button' />
+                <CDropdownMenu>
+                  {columns.map(({key}) => {
+                    if (key !== 'createdAt') {
+                      return (
+                        <CDropdownItem key={key} onClick={() => handleSearchItemOnClick(key)}>
+                          {key}
+                        </CDropdownItem>
+                      )
+                    }
+                  })}
+                </CDropdownMenu>
+              </CDropdown>
+              <CButton type='button' color='secondary' variant='outline' onClick={() => handleSearchOnClick()}>
+                검색
+              </CButton>
+            </CInputGroup>
+          </CCol>
+        )}
+
         <CCol xs={4}>
           {datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}
         </CCol>

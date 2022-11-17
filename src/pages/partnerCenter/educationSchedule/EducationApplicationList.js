@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
+import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {educationApplicationListColumns} from '../../../utils/columns/partnerCenter/Columns'
@@ -18,21 +18,51 @@ const EducationApplicationList = () => {
 
   /** Open Modal*/
   const handleShowDetailModal = item => {
-    console.log(item)
-    setSelectedItem(item)
-    setEditCheck(item)
-    setShowModal(!showModal)
+    if (!item) {
+      setShowModal(!showModal)
+      setSelectedItem({
+        no: 0,
+        distributorName: '',
+        distributorContact: '',
+        distributorAddress: '',
+        trainingDate: '',
+        trainingPersonnel: '',
+        applicantInformationList: [],
+      })
+    } else {
+      setSelectedItem(item)
+      setEditCheck(item)
+      setShowModal(!showModal)
+    }
   }
 
   const handleDetailModalUpDate = () => {
-    const {no, title, content, files, images} = selectedItem
+    const {
+      no,
+      distributorName,
+      distributorContact,
+      distributorAddress,
+      trainingDate,
+      trainingPersonnel,
+      applicantInformationList,
+    } = selectedItem
+    console.log('asd')
     if (no !== 0) {
-      if (editCheck.title !== title || editCheck.content !== content) {
+      if (
+        (editCheck.distributorName !== distributorName,
+        editCheck.distributorContact !== distributorContact,
+        editCheck.distributorAddress !== distributorAddress,
+        editCheck.trainingDate !== trainingDate,
+        editCheck.trainingPersonnel !== trainingPersonnel,
+        editCheck.applicantInformationList !== applicantInformationList)
+      ) {
         if (window.confirm('Edit ?')) {
-          if (!title) return alert('Not Title')
-          //if (!files) return alert('Not File')
-          //if (!images) return alert('Not image')
-          if (!content) return alert('Not Content')
+          if (!distributorName) return alert('Not distributorName')
+          if (!distributorContact) return alert('Not distributorContact')
+          if (!distributorAddress) return alert('Not distributorAddress')
+          if (!trainingDate) return alert('Not trainingDate')
+          if (!trainingPersonnel) return alert('Not trainingPersonnel')
+          if (applicantInformationList.length === 0) return alert('Not applicantInformationList')
           setItems(items.map(value => (value.no === no ? selectedItem : value)))
           setShowModal(false)
         }
@@ -40,12 +70,21 @@ const EducationApplicationList = () => {
         setShowModal(false)
       }
     } else {
-      if (title || content || files) {
+      if (
+        distributorName ||
+        distributorContact ||
+        distributorAddress ||
+        trainingDate ||
+        trainingPersonnel ||
+        applicantInformationList
+      ) {
         if (window.confirm('Add ?')) {
-          if (!title) return alert('Not Title')
-          //if (!files) return alert('Not File')
-          //if (!images) return alert('Not Image')
-          if (!content) return alert('Not Content')
+          if (!distributorName) return alert('Not distributorName')
+          if (!distributorContact) return alert('Not distributorContact')
+          if (!distributorAddress) return alert('Not distributorAddress')
+          if (!trainingDate) return alert('Not trainingDate')
+          if (!trainingPersonnel) return alert('Not trainingPersonnel')
+          if (applicantInformationList.length === 0) return alert('Not applicantInformationList')
           setItems([
             ...items,
             {
@@ -89,6 +128,15 @@ const EducationApplicationList = () => {
       <PageHeader title='교육 신청 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
+          <CCardHeader>
+            <CForm className='row g-3'>
+              <CCol xs={1}>
+                <CButton color='primary' onClick={() => handleShowDetailModal()}>
+                  추가
+                </CButton>
+              </CCol>
+            </CForm>
+          </CCardHeader>
           <CCardBody>
             <ListTemplate
               items={items}
@@ -107,6 +155,7 @@ const EducationApplicationList = () => {
         onChange={handleOrderModalOnChange}
         upDate={handleDetailModalUpDate}
         onDelete={handleOrderOnDelete}
+        searchInputHidden={false}
       />
     </CRow>
   )
