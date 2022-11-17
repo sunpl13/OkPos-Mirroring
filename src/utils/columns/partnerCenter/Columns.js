@@ -106,6 +106,11 @@ export const userInquiryListColumns = [
 // 공지사항 리스트
 export const noticeList = [
   {
+    key: 'id',
+    label: 'No',
+    _props: {color: 'primary', className: 'no'},
+  },
+  {
     key: 'title',
     _props: {color: 'primary', className: 'title'},
   },

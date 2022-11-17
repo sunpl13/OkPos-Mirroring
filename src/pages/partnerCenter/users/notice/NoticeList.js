@@ -30,11 +30,10 @@ import {isEmpty} from '../../../../utils/utility'
 const NoticeList = () => {
   const [items, setItems] = useState()
   const [selectedItem, setSelectedItem] = useState({
-    id: 0,
-    title: '',
     content: '',
     createdAt: '',
     noticeFiles: [],
+    noticeImages: [],
   })
   const [editCheck, setEditCheck] = useState({})
 
@@ -43,7 +42,8 @@ const NoticeList = () => {
   const [showAddModal, setShowAddModal] = useState(false)
 
   /** Open Modal*/
-  const handleShowModal = item => {
+  const handleShowModal = async item => {
+    const {id} = item
     setSelectedItem({
       ...item,
     })
@@ -51,6 +51,39 @@ const NoticeList = () => {
       ...item,
     })
     setShowModal(!showModal)
+    if (id !== undefined) {
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.GET,
+          url: `${EndPoint.GET_PARTNER_NOTICES}/${id}`,
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+          setSelectedItem(data.result)
+          setEditCheck(data.result)
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setSelectedItem({
+        content: '',
+        createdAt: '',
+        noticeFiles: [],
+        noticeImages: [],
+      })
+      setEditCheck({
+        content: '',
+        createdAt: '',
+        noticeFiles: [],
+        noticeImages: [],
+      })
+    }
   }
   const handleShowAddModal = () => {
     setSelectedItem({
