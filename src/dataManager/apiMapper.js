@@ -15,6 +15,12 @@ export const EndPoint = {
   GET_MALL_INQUIRIES: `${API}/admin/mall/inquiries`,
   GET_MALL_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId`,
 
+  GET_MALL_FAQS: `${API}/admin/mall/faqs`,
+  GET_MALL_FAQ: `${API}/admin/mall/faqs/:faqId`,
+  POST_MALL_FAQ: `${API}/admin/mall/faqs`,
+  PATCH_MALL_UPDATE_FAQ: `${API}/admin/mall/faqs`,
+  PATCH_MALL_DELETE_FAQ: `${API}/admin/mall/faqs/:faqId`,
+
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
 
@@ -32,12 +38,21 @@ const ApiMapper = {
     [EndPoint.GET_MALL_RESIGNUSER]: {},
     [EndPoint.GET_MALL_INQUIRIES]: {},
     [EndPoint.GET_MALL_INQUIRY]: {},
+    [EndPoint.GET_MALL_FAQS]: {},
+    [EndPoint.GET_MALL_FAQ]: {},
   },
   post: {
     [EndPoint.POST_LOGIN]: {},
     [EndPoint.POST_REGISTER]: {},
+
+    // ------ 가맹점 전용 공식몰 페이지
+    [EndPoint.POST_MALL_FAQ]: {},
   },
-  patch: {},
+  patch: {
+    // ------ 가맹점 전용 공식몰 페이지
+    [EndPoint.PATCH_MALL_UPDATE_FAQ]: {},
+    [EndPoint.PATCH_MALL_DELETE_FAQ]: {},
+  },
   put: {},
   delete: {},
 }

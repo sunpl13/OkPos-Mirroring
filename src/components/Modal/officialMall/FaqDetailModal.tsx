@@ -10,80 +10,124 @@ import {
   CRow,
 } from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
+import ModalSelect from '../../forms/inputForm/ModalSelect'
 
 type Value = {
-  id: number
-  category: []
+  faqId: number | undefined
+  category: string
   title: string
   content: string
 }
 
 interface FaqDetailProps {
-  onClick: () => void
-  onChange: () => void
+  onChange?: () => void
+  onUpdate: () => void
+  onDelete: () => void
   item: Value
   value: string
   visible: boolean
+  isReadOnly: boolean
+  setIsReadOnly: (state: boolean) => void
   isUpdate: boolean
+  setIsUpdate: (state: boolean) => void
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  option: [
+    {
+      key: string
+      value: string
+    },
+  ]
   setVisible: (state: boolean) => void | undefined
 }
 
-const FaqDetailModal = ({onClick, onChange, item, visible, setVisible, isUpdate}: FaqDetailProps) => {
+const FaqDetailModal = ({
+  item,
+  onChange,
+  onUpdate,
+  onDelete,
+  option,
+  visible,
+  setVisible,
+  isReadOnly,
+  setIsReadOnly,
+  isUpdate,
+  setIsUpdate,
+}: FaqDetailProps) => {
+  const clickUpdateBtn = () => {
+    setIsReadOnly(false)
+    setIsUpdate(true)
+  }
+
+  // modal title 세팅
+  let modalTitle = 'FAQ 추가'
+  if (isUpdate) modalTitle = 'FAQ 수정'
+  if (isReadOnly) modalTitle = 'FAQ 상세 내용'
+
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
-        <CModalTitle>FAQ 상세 내용</CModalTitle>
+        <CModalTitle>{modalTitle}</CModalTitle>
       </CModalHeader>
       <CModalBody>
         <CForm>
           <CRow className={'p-2'}>
-            <ModalInput id={'id'} placeholder={''} label={'No'} value={item.id} onChange={onChange} readOnly disabled />
-            <ModalInput
+            {(isReadOnly || isUpdate) && (
+              <ModalInput id={'faqId'} placeholder={''} label={'No'} value={item.faqId || ''} readOnly disabled />
+            )}
+            <ModalSelect
               id={'category'}
-              placeholder={''}
+              size={'sm'}
+              placeholder={'선택'}
               label={'분류'}
-              value={item.category}
+              value={item.category || ''}
+              options={option}
+              isRequired={false}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
               onChange={onChange}
-              readOnly={isUpdate}
-              disabled={isUpdate}
-            />
+            ></ModalSelect>
           </CRow>
           <CRow className={'p-2'}>
             <ModalInput
               id={'title'}
               placeholder={''}
               label={'제목'}
-              value={item.title}
+              value={item.title || ''}
               onChange={onChange}
-              readOnly={isUpdate}
-              disabled={isUpdate}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
             />
           </CRow>
           <CRow className={'p-2'}>
             <CFormTextarea
               id='content'
-              label='문의 내용'
-              text='Must be 8-20 words long.'
+              label='답변 내용'
               rows={9}
-              value={item.content}
+              value={item.content || ''}
               onChange={onChange}
-              disabled={isUpdate}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
             ></CFormTextarea>
           </CRow>
         </CForm>
       </CModalBody>
       <CModalFooter>
-        {!isUpdate && (
-          <CButton onClick={onClick} color='primary'>
+        {!isReadOnly && !isUpdate && (
+          <CButton onClick={onUpdate} color='primary'>
             추가
           </CButton>
         )}
         {isUpdate && (
+          <CButton onClick={onUpdate} color='primary'>
+            저장
+          </CButton>
+        )}
+        {isReadOnly && (
           <>
-            <CButton onClick={onClick} color='success'>
+            <CButton color={isReadOnly ? 'primary' : 'success'} onClick={clickUpdateBtn}>
               수정
             </CButton>
-            <CButton onClick={onClick} color='danger'>
+            <CButton onClick={onDelete} color='danger'>
               삭제
             </CButton>
           </>
