@@ -21,7 +21,12 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
       setEditMode(false)
     }
   }, [visible])
-
+  const handleEditModeToggle = () => {
+    if (editMode) {
+      upDate()
+    }
+    setEditMode(!editMode)
+  }
   return (
     <CModal size='lg' visible={visible} onClose={() => upDate()}>
       <CModalHeader>
@@ -104,7 +109,7 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
         </CRow>
       </CModalBody>
       <CModalFooter>
-        <CButton color={editMode ? 'success' : 'primary'} onClick={() => setEditMode(!editMode)}>
+        <CButton color={editMode ? 'success' : 'primary'} onClick={() => handleEditModeToggle()}>
           Edit
         </CButton>
         <CButton color='primary' onClick={() => setVisible(false)}>

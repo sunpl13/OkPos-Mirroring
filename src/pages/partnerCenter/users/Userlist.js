@@ -111,7 +111,6 @@ const Userlist = () => {
         if (!status) return alert('Not status')
         if (!userName) return alert('Not userName')
         if (!certificateFile) return alert('Not certificateFile')
-        setItems(items.map(value => (value.certificateNum === certificateNum ? selectedItem : value)))
         setShowModal(false)
       } else {
         setSelectedItem({})
