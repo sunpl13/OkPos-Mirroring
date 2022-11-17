@@ -1,7 +1,8 @@
-import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import {CModalBody, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import React, {useEffect, useState} from 'react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
+import DetailModalTemplate from '../DetailModalTemplate'
 
 const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
   const {
@@ -21,17 +22,17 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
       setEditMode(false)
     }
   }, [visible])
-  const handleEditModeToggle = () => {
-    if (editMode) {
-      upDate()
-    }
-    setEditMode(!editMode)
-  }
+
   return (
-    <CModal size='lg' visible={visible} onClose={() => upDate()}>
-      <CModalHeader>
-        <CModalTitle>User Detail</CModalTitle>
-      </CModalHeader>
+    <DetailModalTemplate
+      title={certificateNum ? '회원 상세' : '회원 추가'}
+      visible={visible}
+      setVisible={setVisible}
+      upDate={upDate}
+      btnText={certificateNum ? '수정' : '추가'}
+      editMode={certificateNum && editMode}
+      setEditMode={certificateNum && setEditMode}
+    >
       <CModalBody>
         <CRow className={'p-2'}>
           <ModalInput
@@ -40,8 +41,8 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'회원 이름'}
             value={userName}
             onChange={onChange}
-            disabled={!editMode}
-            readOnly={!editMode}
+            disabled={certificateNum && !editMode}
+            readOnly={certificateNum && !editMode}
           />
           <ModalInput
             id={'certificateNum'}
@@ -49,30 +50,33 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'사업자 번호'}
             value={certificateNum}
             onChange={onChange}
-            disabled={!editMode}
-            readOnly={!editMode}
+            disabled={certificateNum && !editMode}
+            readOnly={certificateNum && !editMode}
           />
         </CRow>
-        <CRow className={'p-2'}>
-          <ModalInput
-            id={'createdAt'}
-            placeholder={'계정 등록일'}
-            label={'계정 등록일'}
-            value={createdAt}
-            onChange={onChange}
-            disabled
-            readOnly
-          />
-          <ModalInput
-            id={'status'}
-            placeholder={'계정 상태'}
-            label={'계정 상태'}
-            value={status}
-            onChange={onChange}
-            disabled={!editMode}
-            readOnly={!editMode}
-          />
-        </CRow>
+        {certificateNum && (
+          <CRow className={'p-2'}>
+            <ModalInput
+              id={'createdAt'}
+              placeholder={'계정 등록일'}
+              label={'계정 등록일'}
+              value={createdAt}
+              onChange={onChange}
+              disabled
+              readOnly
+            />
+            <ModalInput
+              id={'status'}
+              placeholder={'계정 상태'}
+              label={'계정 상태'}
+              value={status}
+              onChange={onChange}
+              disabled={certificateNum && !editMode}
+              readOnly={certificateNum && !editMode}
+            />
+          </CRow>
+        )}
+
         <CRow className={'p-2'}>
           <ModalInput
             id={'phoneNum'}
@@ -80,8 +84,8 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'휴대전화번호'}
             value={phoneNum}
             onChange={onChange}
-            disabled={!editMode}
-            readOnly={!editMode}
+            disabled={certificateNum && !editMode}
+            readOnly={certificateNum && !editMode}
           />
           <ModalInput
             id={'businessName'}
@@ -89,8 +93,8 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'상호명'}
             value={businessName}
             onChange={onChange}
-            disabled={!editMode}
-            readOnly={!editMode}
+            disabled={certificateNum && !editMode}
+            readOnly={certificateNum && !editMode}
           />
         </CRow>
         <CRow className={'p-2'}>
@@ -100,23 +104,15 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'사업장 주소'}
             value={address}
             onChange={onChange}
-            disabled={!editMode}
-            readOnly={!editMode}
+            disabled={certificateNum && !editMode}
+            readOnly={certificateNum && !editMode}
           />
         </CRow>
         <CRow>
           <ModalFilesInput id={'files'} label={'사업자 등록증'} value={certificateFile} />
         </CRow>
       </CModalBody>
-      <CModalFooter>
-        <CButton color={editMode ? 'success' : 'primary'} onClick={() => handleEditModeToggle()}>
-          Edit
-        </CButton>
-        <CButton color='primary' onClick={() => setVisible(false)}>
-          Cancel
-        </CButton>
-      </CModalFooter>
-    </CModal>
+    </DetailModalTemplate>
   )
 }
 

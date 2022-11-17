@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import UserAddModalTemplate from '../../../components/Modal/partnerCenter/users/UserAddModalTemplate'
+import UserAddModal from '../../../components/Modal/partnerCenter/users/UserAddModal'
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
@@ -50,29 +50,48 @@ const Userlist = () => {
   }, [])
 
   /** Open Modal*/
-  const handleShowUserItemAddModal = () => {
-    setShowAddModal(!showAddModal)
-  }
-  const handleShowUserDetailModal = async ({id}) => {
+  const handleShowUserDetailModal = async ({id = undefined}) => {
     setShowModal(!showModal)
-    try {
-      const {data} = await ApiConfig.request({
-        method: HttpMethod.GET,
-        // userId
-        url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}/${id}`,
+    if (id !== undefined) {
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.GET,
+          // userId
+          url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}/${id}`,
+        })
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+          setSelectedItem(data.result)
+          setEditCheck(data.result)
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setSelectedItem({
+        address: '',
+        businessName: '',
+        certificateNum: '',
+        createdAt: '',
+        phoneNum: '',
+        status: '',
+        userName: '',
+        certificateFile: '',
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
-        return
-      }
-      if (data?.code === 1000) {
-        setSelectedItem(data.result)
-        setEditCheck(data.result)
-      } else {
-        alert(data?.message)
-      }
-    } catch (error) {
-      console.log(error)
+      setEditCheck({
+        address: '',
+        businessName: '',
+        certificateNum: '',
+        createdAt: '',
+        phoneNum: '',
+        status: '',
+        userName: '',
+        certificateFile: '',
+      })
     }
   }
 
@@ -84,7 +103,7 @@ const Userlist = () => {
       [id]: value,
     })
   }
-  const handleUserDetailModalUpdateData = () => {
+  const handleDetailModalUpdate = editOnClick => {
     const {
       address, // 사업장 주소
       businessName, // 상호명
@@ -111,7 +130,8 @@ const Userlist = () => {
         if (!status) return alert('Not status')
         if (!userName) return alert('Not userName')
         if (!certificateFile) return alert('Not certificateFile')
-        setShowModal(false)
+        if (!editOnClick) return setShowModal(false)
+        setEditCheck(selectedItem)
       } else {
         setSelectedItem({})
         setEditCheck({})
@@ -153,7 +173,7 @@ const Userlist = () => {
           <CCardHeader>
             <CForm className='row g-3'>
               <CCol xs={1}>
-                <CButton color='primary' onClick={handleShowUserItemAddModal}>
+                <CButton color='primary' onClick={handleShowUserDetailModal}>
                   추가
                 </CButton>
               </CCol>
@@ -169,7 +189,7 @@ const Userlist = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <UserAddModalTemplate
+      <UserAddModal
         value={item}
         visible={showAddModal}
         setVisible={setShowAddModal}
@@ -181,7 +201,7 @@ const Userlist = () => {
         visible={showModal}
         setVisible={setShowModal}
         readOnly
-        upDate={handleUserDetailModalUpdateData}
+        upDate={handleDetailModalUpdate}
         onChange={handleDetailModalOnChange}
       />
     </CRow>

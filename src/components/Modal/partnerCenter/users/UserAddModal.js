@@ -1,7 +1,7 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 
-const UserAddModalTemplate = ({onClick, onChange, value, visible, setVisible}) => {
+const UserAddModal = ({onClick, onChange, value, visible, setVisible}) => {
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
@@ -67,4 +67,4 @@ const UserAddModalTemplate = ({onClick, onChange, value, visible, setVisible}) =
   )
 }
 
-export default UserAddModalTemplate
+export default UserAddModal
