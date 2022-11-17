@@ -15,6 +15,8 @@ import ModalInput from '../../forms/inputForm/ModalInput'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import MultiFileDownloadForm from '../../forms/downloadForm/MultiFileDownloadForm'
+import ModalTextarea from '../../forms/inputForm/ModalTextarea'
 
 const InquiryDetailModal = ({onClick, onChange, value, visible, setVisible}) => {
   // 모듈 선언
@@ -69,7 +71,6 @@ const InquiryDetailModal = ({onClick, onChange, value, visible, setVisible}) => 
 
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
-      {console.log(inquiry)}
       <CModalHeader>
         <CModalTitle>문의 상세 내용</CModalTitle>
       </CModalHeader>
@@ -91,11 +92,11 @@ const InquiryDetailModal = ({onClick, onChange, value, visible, setVisible}) => 
         </CRow>
         <CFormTextarea id='content' label='문의내용' value={inquiry.content} readOnly disabled rows={9} />
         <CRow className={'p-2'}>
-          <ModalInput
+          <MultiFileDownloadForm
             id={'files'}
             placeholder={'첨부파일'}
             label={'첨부파일'}
-            value={inquiry.files}
+            files={inquiry.files}
             readOnly
             disabled
           />
