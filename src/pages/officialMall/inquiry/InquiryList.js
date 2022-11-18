@@ -50,6 +50,83 @@ const InquiryList = () => {
     }
   }
 
+  // Create Inquiry Answer
+  const onCreateMallInquiryAnswer = async item => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.POST,
+        url: EndPoint.POST_MALL_FAQ,
+        data: {
+          faqId: item.faqId,
+          category: item.category,
+          title: item.title,
+          content: item.content,
+        },
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      setSelectedItem(item)
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // Update Inquiry Answer
+  const onUpdateInquiryAnswer = async item => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.PATCH,
+        url: EndPoint.PATCH_MALL_UPDATE_FAQ,
+        data: {
+          faqId: item.faqId,
+          category: item.category,
+          title: item.title,
+          content: item.content,
+        },
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      setSelectedItem(item)
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // Delete Inquiry
+  const onDeleteInquiry = async faqId => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.PATCH,
+        url: EndPoint.PATCH_MALL_DELETE_FAQ,
+        path: {faqId},
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+      }
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
   // Life Cycle 선언
   useEffect(() => {
     onLoadMallInquiryList()
@@ -87,6 +164,7 @@ const InquiryList = () => {
               onClick={handleShowModal}
               columns={inquiryListColumns}
               className={'userList'}
+              datePickerHidden={false}
             />
           </CCardBody>
         </CCard>
