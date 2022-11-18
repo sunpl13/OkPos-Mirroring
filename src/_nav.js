@@ -2,6 +2,7 @@ import CIcon from '@coreui/icons-react'
 import {
   cilSpeedometer,
   cilUser,
+  cilFont,
   cilHome,
   cilChatBubble,
   cilBasket,
@@ -265,6 +266,28 @@ const _nav = [
         component: CNavItem,
         name: '탈퇴 회원 리스트',
         to: '/users/withdrawalUsers',
+      },
+    ],
+  },
+
+  /*
+  영문 홈페이지
+  */
+  {
+    component: CNavTitle,
+    name: '영문 홈페이지',
+    accessauthority: 'HOME',
+  },
+  {
+    component: CNavGroup,
+    name: '영문 홈페이지',
+    icon: <CIcon icon={cilFont} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
+    items: [
+      {
+        component: CNavItem,
+        name: '1:1 Inquiry',
+        to: '/home/en/inquiry',
       },
     ],
   },
