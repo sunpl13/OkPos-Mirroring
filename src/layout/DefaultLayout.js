@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import {AppContent, AppFooter, AppHeader, AppSidebar} from '../components/index'
-import {useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import {isEmpty} from '../utils/utility'
 
 import {CToast, CToastBody} from '@coreui/react'
@@ -9,12 +9,21 @@ import {useSelector} from 'react-redux'
 
 const DefaultLayout = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const authority = window.sessionStorage.getItem('accessAuthority')
   const toast = useSelector(state => state.toast)
   useEffect(() => {
     if (isEmpty(window.sessionStorage.getItem('jwt'))) {
       window.sessionStorage.clear()
       navigate(`/login`)
       return
+    }
+    if (location.pathname !== '/' && location.pathname !== '/dashboard') {
+      if (authority[0].toLowerCase() !== location.pathname[1]) {
+        alert('접근 권한이 없습니다!')
+        navigate(-1)
+        return
+      }
     }
   }, [])
 

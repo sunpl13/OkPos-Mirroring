@@ -1,7 +1,5 @@
-import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
-  cilBank,
   cilSpeedometer,
   cilUser,
   cilHome,
@@ -38,11 +36,13 @@ const _nav = [
   {
     component: CNavTitle,
     name: '파트너센터',
+    accessauthority: 'PARTNER',
   },
   {
     component: CNavGroup,
     name: '회원 관리',
     icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    accessauthority: 'PARTNER',
     items: [
       {
         component: CNavItem,
@@ -70,6 +70,7 @@ const _nav = [
     component: CNavGroup,
     name: '영업 대리점',
     icon: <CIcon icon={cilHome} customClassName='nav-icon' />,
+    accessauthority: 'PARTNER',
     items: [
       {
         component: CNavItem,
@@ -82,6 +83,7 @@ const _nav = [
     component: CNavGroup,
     name: '자료실',
     icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
+    accessauthority: 'PARTNER',
     items: [
       {
         component: CNavItem,
@@ -94,6 +96,7 @@ const _nav = [
     component: CNavGroup,
     name: '발주, 유지보수 신청',
     icon: <CIcon icon={cilBasket} customClassName='nav-icon' />,
+    accessauthority: 'PARTNER',
     items: [
       {
         component: CNavItem,
@@ -111,6 +114,7 @@ const _nav = [
     component: CNavGroup,
     name: '교육 일정',
     icon: <CIcon icon={cilBook} customClassName='nav-icon' />,
+    accessauthority: 'PARTNER',
     items: [
       {
         component: CNavItem,
@@ -131,11 +135,13 @@ const _nav = [
   {
     component: CNavTitle,
     name: '오케이포스 홈페이지',
+    accessauthority: 'HOME',
   },
   {
     component: CNavGroup,
     name: '홈페이지 관리',
     icon: <CIcon icon={cilHome} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
     items: [
       {
         component: CNavItem,
@@ -165,11 +171,13 @@ const _nav = [
   {
     component: CNavTitle,
     name: '가맹점 전용 공식몰',
+    accessauthority: 'MALL',
   },
   {
     component: CNavGroup,
     name: '회원 관리',
     icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    accessauthority: 'MALL',
     items: [
       {
         component: CNavItem,
@@ -196,23 +204,27 @@ const _nav = [
     name: '1:1 문의 관리',
     to: '/mall/inquirys',
     icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
+    accessauthority: 'MALL',
   },
   {
     component: CNavItem,
     name: 'FAQ 관리',
     to: '/mall/faq',
+    accessauthority: 'MALL',
     icon: <CIcon icon={cilFindInPage} customClassName='nav-icon' />,
   },
   {
     component: CNavItem,
     name: '자료실 관리',
     to: '/mall/archieve',
+    accessauthority: 'MALL',
     icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
   },
   {
     component: CNavGroup,
     name: '주문 관리',
     icon: <CIcon icon={cilBasket} customClassName='nav-icon' />,
+    accessauthority: 'MALL',
     items: [
       {
         component: CNavItem,
