@@ -10,21 +10,11 @@ import {
   CButton,
   CFormTextarea,
 } from '@coreui/react'
-import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
-import PropTypes from 'prop-types'
 
-const inquiries = [
-  {key: 'a', value: '제품'},
-  {key: 'b', value: '부가 서비스'},
-  {key: 'c', value: '채용'},
-  {key: 'd', value: '제휴'},
-  {key: 'e', value: '기타'},
-]
-
-const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
+const NoticeDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const userDetailEditMode = () => {
@@ -54,7 +44,7 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
     <>
       <CModal alignment='center' size='lg' visible={visible}>
         <CModalHeader>
-          <CModalTitle>1:1 문의 상세</CModalTitle>
+          <CModalTitle>공지사항 상세</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
@@ -67,57 +57,23 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
               disabled={true}
               value={value.No === -1 ? '' : value.No}
             />
+          </CRow>
+          <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='name'
-              placeholder='이름을 입력해주세요'
-              label='이름'
-              value={value.name}
+              id='title'
+              placeholder='공고 제목을 입력해주세요'
+              label='공고 제목'
+              value={value.title}
               isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
           </CRow>
           <CRow className='mb-3'>
-            <ModalInput
-              onChange={onChange}
-              id='email'
-              placeholder='email'
-              label='이메일'
-              value={value.email}
-              isRequired={true}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-            />
-            <ModalInput
-              onChange={onChange}
-              id='pNum'
-              placeholder='phone number'
-              label='전화번호'
-              value={value.pNum}
-              isRequired={true}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-            />
-          </CRow>
-          <CRow className='mb-3'>
-            <ModalSelect
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-              onChange={onChange}
-              size='sm'
-              id='inquiryType'
-              options={inquiries}
-              value={value.inquiryType}
-              isRequired={true}
-              placeholder='선택해주세요'
-              label='문의 유형'
-            />
-          </CRow>
-          <CRow>
-            <CFormLabel>문의 내용</CFormLabel>
+            <CFormLabel>공고 본문</CFormLabel>
             <CFormTextarea
-              placeholder='문의 내용'
+              placeholder='공고 본문'
               readOnly={isReadOnly}
               disabled={isReadOnly}
               onChange={onChange}
@@ -154,13 +110,5 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
     </>
   )
 }
-QnADetail.propTypes = {
-  value: PropTypes.any,
-  visible: PropTypes.bool,
-  setVisible: PropTypes.func,
-  onChange: PropTypes.func,
-  isReadOnly: PropTypes.bool,
-  setIsReadOnly: PropTypes.func,
-}
 
-export default QnADetail
+export default NoticeDetail

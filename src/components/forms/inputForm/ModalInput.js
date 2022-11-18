@@ -1,29 +1,7 @@
 import {CCol, CFormInput, CFormLabel} from '@coreui/react'
 import React from 'react'
 
-interface ModalInputProps {
-  type?: string
-  onChange?: (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void
-  id: string
-  placeholder: string
-  value: string | number | string[] | undefined
-  label: string
-  readOnly?: boolean
-  disabled?: boolean
-  isRequired?: boolean
-}
-
-const ModalInput = ({
-  type,
-  onChange,
-  id,
-  placeholder,
-  value,
-  label,
-  readOnly,
-  disabled,
-  isRequired,
-}: ModalInputProps) => {
+const ModalInput = ({type, onChange, id, placeholder, value, label, readOnly, disabled, isRequired}) => {
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>

@@ -1,4 +1,5 @@
 import {CButton, CHeader, CModal, CModalBody, CModalFooter, CModalTitle} from '@coreui/react'
+import PropTypes from 'prop-types'
 
 const CloseCheckModal = ({onClick, visible, setVisible}) => {
   return (
@@ -19,4 +20,9 @@ const CloseCheckModal = ({onClick, visible, setVisible}) => {
   )
 }
 
+CloseCheckModal.propTypes = {
+  onClick: PropTypes.func,
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+}
 export default CloseCheckModal

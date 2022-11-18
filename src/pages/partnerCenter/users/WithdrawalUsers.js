@@ -7,6 +7,9 @@ import BarChartTemplate from '../../../components/chart/BarChartTemplate'
 import {ChartTestData} from '../../test/ChartTest'
 import PageHeader from '../../../components/common/PageHeader'
 import {withdrawalUsersColumns} from '../../../utils/columns/partnerCenter/Columns'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const WithdrawalUsers = () => {
   const [items, setItems] = useState([])
@@ -22,16 +25,53 @@ const WithdrawalUsers = () => {
       borderWidth: 2,
     },
   ])
-
+  const getUsers = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}?page=${1}`,
+      })
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
+      }
+      if (data?.code === 1000) {
+      } else {
+        alert(data?.message)
+      }
+      setItems(data.result.userInfoPartnerDTOS)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
-    setItems(testUserTableValues.filter(v => !v.status))
+    getUsers()
+
     setChartData(ChartTestData)
   }, [])
 
   /** Open Modal*/
-  const handleShowUserDetailModal = item => {
+  const handleShowUserDetailModal = async item => {
     setSelectedItem(item)
     setShowModal(!showModal)
+    if (false) {
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.GET,
+          // userId
+          url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}/${item.id}`,
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
   const handleUserDetailModalUpdateData = data => {
     setItems(items.map(value => (value.id === data.id ? data : value)))

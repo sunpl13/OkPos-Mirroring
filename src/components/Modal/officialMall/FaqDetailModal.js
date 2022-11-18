@@ -12,57 +12,7 @@ import {
 import ModalInput from '../../forms/inputForm/ModalInput'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 
-type Value = {
-  faqId: number | undefined
-  category: string
-  title: string
-  content: string
-}
-
-interface FaqDetailProps {
-  onChange?: () => void
-  onUpdate: () => void
-  onDelete: () => void
-  item: Value
-  value: string
-  visible: boolean
-  isReadOnly: boolean
-  setIsReadOnly: (state: boolean) => void
-  isUpdate: boolean
-  setIsUpdate: (state: boolean) => void
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  option: [
-    {
-      key: string
-      value: string
-    },
-  ]
-  setVisible: (state: boolean) => void | undefined
-}
-
-const FaqDetailModal = ({
-  item,
-  onChange,
-  onUpdate,
-  onDelete,
-  option,
-  visible,
-  setVisible,
-  isReadOnly,
-  setIsReadOnly,
-  isUpdate,
-  setIsUpdate,
-}: FaqDetailProps) => {
-  const clickUpdateBtn = () => {
-    setIsReadOnly(false)
-    setIsUpdate(true)
-  }
-
-  // modal title 세팅
-  let modalTitle = 'FAQ 추가'
-  if (isUpdate) modalTitle = 'FAQ 수정'
-  if (isReadOnly) modalTitle = 'FAQ 상세 내용'
-
+const FaqDetailModal = ({onClick, onChange, item, visible, setVisible, isUpdate}) => {
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>

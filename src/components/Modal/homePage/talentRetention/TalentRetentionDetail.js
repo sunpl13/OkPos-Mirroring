@@ -1,21 +1,11 @@
 import {useState} from 'react'
-import {
-  CCol,
-  CFormLabel,
-  CImage,
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CModalTitle,
-  CRow,
-  CModalFooter,
-  CButton,
-} from '@coreui/react'
+import {CModal, CModalBody, CModalHeader, CModalTitle, CRow, CModalFooter, CButton} from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import {category} from '../employment/EmploymemtDetailModal'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
+import PropTypes from 'prop-types'
 
 const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
@@ -135,6 +125,15 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
       <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
+}
+
+TalentRetentionDetail.propTypes = {
+  value: PropTypes.any,
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+  onChange: PropTypes.func,
+  isReadOnly: PropTypes.bool,
+  setIsReadOnly: PropTypes.func,
 }
 
 export default TalentRetentionDetail

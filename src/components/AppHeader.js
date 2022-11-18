@@ -20,7 +20,7 @@ import packageJson from '../../package.json'
 
 const AppHeader = () => {
   const dispatch = useDispatch()
-  const sidebarShow = useSelector(state => state.sidebarShow)
+  const sidebarShow = useSelector(state => state.sideBar.sidebarShow)
 
   const [visible, setVisible] = useState(false)
 

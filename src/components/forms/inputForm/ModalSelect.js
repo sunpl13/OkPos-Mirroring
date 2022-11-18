@@ -1,4 +1,5 @@
 import {CCol, CFormSelect, CFormLabel} from '@coreui/react'
+import * as PorpTypes from 'prop-types'
 
 const ModalSelect = ({
   onChange,
@@ -31,6 +32,19 @@ const ModalSelect = ({
       </CCol>
     </>
   )
+}
+
+ModalSelect.propTypes = {
+  onChange: PorpTypes.func,
+  size: PorpTypes.string,
+  placeholder: PorpTypes.string,
+  label: PorpTypes.string,
+  value: PorpTypes.any,
+  readOnly: PorpTypes.bool,
+  id: PorpTypes.string,
+  disabled: PorpTypes.bool,
+  isRequired: PorpTypes.bool,
+  options: PorpTypes.any,
 }
 
 export default ModalSelect

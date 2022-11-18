@@ -5,6 +5,12 @@ export const EndPoint = {
   GET_V1_TEST_AUTO_LOGIN: `${API}/test/v1/jwt/check/:isManual`,
   POST_LOGIN: `${API}/admin/login`,
   POST_TEST_V1_REGISTER: `${API}/test/v1/register`,
+  RECRUITMENT: `${API}/admin/recruitment`,
+  TALENTPOOL: `${API}/admin/talent-pool`,
+
+  // ------ 파트너 센터 페이지
+  GET_V1_MALL_PARTNER_USERS: `${API}/admin/partner/users`, // 유저 리스트 조회
+  GET_V1_MALL_PARTNER_INACTIVE_USERS: `${API}/admin/partner/users/inactive`, // 탈퇴 유저 리스트 조회
 
   // ------ 가맹점 전용 공식몰 페이지
   GET_MALL_USERS: `${API}/admin/mall/users`,
@@ -23,8 +29,6 @@ export const EndPoint = {
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
-
-  RECRUITMENT: `${API}/admin/recruitment`,
 }
 
 const ApiMapper = {
@@ -40,6 +44,10 @@ const ApiMapper = {
     [EndPoint.GET_MALL_INQUIRY]: {},
     [EndPoint.GET_MALL_FAQS]: {},
     [EndPoint.GET_MALL_FAQ]: {},
+
+    // ------ 파트너센터 페이지
+    [EndPoint.GET_V1_MALL_PARTNER_USERS]: {},
+    [EndPoint.GET_V1_MALL_PARTNER_INACTIVE_USERS]: {},
   },
   post: {
     [EndPoint.POST_LOGIN]: {},

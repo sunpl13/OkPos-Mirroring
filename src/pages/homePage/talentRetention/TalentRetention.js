@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState, useEffect} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
 import {testTalentValues} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
@@ -6,44 +6,89 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {talentRetentionColumns} from '../../../utils/columns/homePage/talentRetetion/Columns'
 import TalentRetentionDetail from '../../../components/Modal/homePage/talentRetention/TalentRetentionDetail'
 import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
-
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
 const TalentRetention = () => {
   const [items, setItems] = useState([])
-  const [selectedItem, setSelectedItem] = useState({
-    No: -1,
-
-    name: '',
-    email: '',
-    pNum: '',
-    position: '',
-  })
-
   const [showModal, setShowModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
+  const [selectedItem, setSelectedItem] = useState({
+    talentPoolId: -1,
+    number: '',
+    name: '',
+    email: '',
+    phoneNumber: '',
+    position: '',
+    registeredAt: new Date(),
+    portfolio: '',
+    otherDocument: '',
+    otherLink: '',
+  })
+
+  const onLoadTalentPoolList = async () => {
+    try {
+      const data = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {},
+        method: HttpMethod.GET,
+        url: EndPoint.TALENTPOOL,
+      })
+      setItems(data?.data.result)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  const onLoadDetail = async id => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {
+          id: id,
+        },
+        method: HttpMethod.GET,
+        url: `${EndPoint.RECRUITMENT}/:id`,
+      })
+
+      setSelectedItem(data.result)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  useEffect(() => {
+    onLoadTalentPoolList()
+  }, [])
 
   const handleRetrieveTestList = async () => {
     setItems(testTalentValues)
   }
 
-  const handleShowEmploymentDetailModal = item => {
-    setSelectedItem(item)
+  const handleShowTalentPoolDetailModal = async item => {
+    onLoadDetail(item.recruitmentId)
     setShowModal(!showModal)
   }
 
-  const handleEmploymentAddModal = () => {
+  const handleTalentPoolAddModal = () => {
     setIsReadOnly(false)
     setSelectedItem({
-      No: -1,
-
+      talentPoolId: -1,
+      number: '',
       name: '',
       email: '',
-      pNum: '',
+      phoneNumber: '',
       position: '',
+      registeredAt: new Date(),
+      portfolio: '',
+      otherDocument: '',
+      otherLink: '',
     })
     setShowModal(!showModal)
   }
 
-  const handleEmployDetailOnChange = ({target}) => {
+  const handleTalentPoolDetailOnChange = ({target}) => {
     const {id, value} = target
     setSelectedItem({
       ...selectedItem,
@@ -65,7 +110,7 @@ const TalentRetention = () => {
                   </CButton>
                 </CCol>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleEmploymentAddModal}>
+                  <CButton color='primary' onClick={handleTalentPoolAddModal}>
                     추가
                   </CButton>
                 </CCol>
@@ -74,7 +119,7 @@ const TalentRetention = () => {
             <CCardBody>
               <ListTemplate
                 items={items}
-                onClick={handleShowEmploymentDetailModal}
+                onClick={handleShowTalentPoolDetailModal}
                 columns={talentRetentionColumns}
                 selectedOptions={category}
                 className={'userList'}
@@ -84,7 +129,7 @@ const TalentRetention = () => {
         </CCol>
       </CRow>
       <TalentRetentionDetail
-        onChange={handleEmployDetailOnChange}
+        onChange={handleTalentPoolDetailOnChange}
         visible={showModal}
         value={selectedItem}
         setVisible={setShowModal}

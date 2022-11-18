@@ -10,7 +10,7 @@ const CreateTest = React.lazy(() => import('./pages/test/CreateTest'))
 const Employment = React.lazy(() => import('./pages/homePage/employment/Employment'))
 const TalentRetention = React.lazy(() => import('./pages/homePage/talentRetention/TalentRetention'))
 const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
-
+const HopageNotice = React.lazy(() => import('./pages/homePage/notice/Notice'))
 // ------ 가맹점 전용 공식몰 페이지
 
 // 회원관리
@@ -62,6 +62,7 @@ const routes = [
   {path: `/home/employment`, name: '채용관리', element: Employment},
   {path: '/home/talentRetention', name: '인재풀 관리', element: TalentRetention},
   {path: '/home/QnA', name: '1:1문의', element: HomePageQnA},
+  {path: '/home/notice', name: '공지사항', element: HopageNotice},
 
   // ------ 가맹점 전용 공식몰 페이지
 
@@ -78,28 +79,40 @@ const routes = [
   // ------ 대리점 전용 파트너 센터
 
   // user
-  {path: `/users/userList`, name: 'UserList', element: UserList},
-  {path: `/users/withdrawalUsers`, name: 'WithdrawalUsers', element: WithdrawalUsers},
+  {path: `/partnerCenter/users/userList`, name: 'UserList', element: UserList},
+  {path: `/partnerCenter/users/withdrawalUsers`, name: 'WithdrawalUsers', element: WithdrawalUsers},
 
   // materialList
-  {path: `/material/materialList`, name: 'MaterialList', element: MaterialList},
+  {path: `/partnerCenter/material/materialList`, name: 'MaterialList', element: MaterialList},
 
   //Notice
-  {path: `/users/notice/noticeList`, name: 'NoticeList', element: NoticeList},
+  {path: `/partnerCenter/notice/noticeList`, name: 'NoticeList', element: NoticeList},
 
   // Dealer Support
-  {path: '/users/dealerSupport', name: 'DealerSupport', element: DealerSupportList},
+  {path: '/partnerCenter/dealerSupport', name: 'DealerSupport', element: DealerSupportList},
 
   //UserInquiry
-  {path: `/users/inquiry/userInquiryList`, name: 'UserInquiryList', element: UserInquiryList},
+  {path: `/partnerCenter/inquiry/userInquiryList`, name: 'UserInquiryList', element: UserInquiryList},
 
   // orderList
-  {path: `/order/orderList`, name: 'OrderList', element: OrderList},
-  {path: `/order/appliedForMaintenanceList`, name: 'AppliedForMaintenanceList', element: AppliedForMaintenanceList},
+  {path: `/partnerCenter/order/orderList`, name: 'OrderList', element: OrderList},
+  {
+    path: `/partnerCenter/order/appliedForMaintenanceList`,
+    name: 'AppliedForMaintenanceList',
+    element: AppliedForMaintenanceList,
+  },
 
   // EducationScheduleList
-  {path: `/education/educationScheduleList`, name: 'educationScheduleList', element: EducationScheduleList},
-  {path: `/education/educationApplicationList`, name: 'educationApplicationList', element: EducationApplicationList},
+  {
+    path: `/partnerCenter/education/educationScheduleList`,
+    name: 'educationScheduleList',
+    element: EducationScheduleList,
+  },
+  {
+    path: `/partnerCenter/education/educationApplicationList`,
+    name: 'educationApplicationList',
+    element: EducationApplicationList,
+  },
 ]
 
 export default routes

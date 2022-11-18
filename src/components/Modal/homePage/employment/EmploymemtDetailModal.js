@@ -9,6 +9,7 @@ import CloseCheckModal from '../../CloseCheckModal'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
+import PropTypes from 'prop-types'
 
 //const imgs = [
 //   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg', altName: '이미지01'},
@@ -342,6 +343,15 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
       <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
+}
+
+EmploymemtDetailModal.propTypes = {
+  value: PropTypes.any,
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+  onChange: PropTypes.func,
+  isReadOnly: PropTypes.bool,
+  setIsReadOnly: PropTypes.func,
 }
 
 export default EmploymemtDetailModal

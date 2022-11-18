@@ -6,15 +6,10 @@ import 'moment/locale/ko'
 import {CCol} from '@coreui/react'
 import styled from 'styled-components'
 
-interface RangePickerProps {
-  setStartDate: (date: string) => void
-  setEndDate: (date: string) => void
-}
-
-const RangeDatePicker = ({setStartDate, setEndDate}: RangePickerProps) => {
+const RangeDatePicker = ({setStartDate, setEndDate}) => {
   const {RangePicker} = DatePicker
   moment.locale('ko')
-  const datePickerOnChange = (date: object | any) => {
+  const datePickerOnChange = date => {
     if (date) {
       setStartDate(moment(date[0]._d).format('YYYY-MM-DD'))
       setEndDate(moment(date[1]._d).format('YYYY-MM-DD'))
@@ -42,4 +37,25 @@ const PickerCCol = styled(CCol)`
   flex-direction: row;
   align-content: end;
   justify-content: end;
+  height: 100%;
+  width: 100%;
+  & div {
+    height: 100%;
+  }
+  & .ant-space-item {
+    width: 100%;
+  }
+  & .ant-picker {
+    border-radius: 0.375rem;
+    border: solid 1px #9da5b1;
+  }
+  & .ant-space-item {
+    width: 100%;
+    & > div {
+      width: 100%;
+    }
+  }
+  & .ant-space.ant-space-vertical {
+    width: 100%;
+  }
 `

@@ -8,32 +8,12 @@ import {EndPoint} from '../../../dataManager/apiMapper'
 import BasicFileDownloadForm from '../../forms/downloadForm/BasicFileDownloadForm'
 import {isEmpty} from '../../../utils/utility'
 
-type Value = {
-  userId: number
-  name: string
-  email: string
-  createdAt: string
-  status: string
-  phoneNumber: string
-  businessName: string
-  businessRegistration: string
-  businessNumber: string
-  businessAddress: string
-}
-
-interface Props {
-  value: Value
-  visible: boolean
-  setVisible: (state: boolean) => void
-  onChange: () => void
-}
-
-const UserDetailModal = ({value, visible, setVisible, onChange}: Props) => {
+const UserDetailModal = ({value, visible, setVisible, onChange}) => {
   // 모듈 선언
   const navigate = useNavigate()
 
   // Local state 선언
-  const [user, setUser] = useState<Value>({
+  const [user, setUser] = useState({
     userId: 0,
     name: '',
     email: '',
@@ -47,7 +27,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}: Props) => {
   })
 
   // API 통신 함수
-  const onloadMallUser = async (value: Value) => {
+  const onloadMallUser = async value => {
     const {userId} = value
     try {
       const data = await ApiConfig.request({

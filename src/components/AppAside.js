@@ -4,7 +4,7 @@ import {CCloseButton, CSidebar, CSidebarHeader} from '@coreui/react'
 
 const AppAside = () => {
   const dispatch = useDispatch()
-  const asideShow = useSelector(state => state.asideShow)
+  const asideShow = useSelector(state => state.sideBar.asideShow)
 
   return (
     <CSidebar
