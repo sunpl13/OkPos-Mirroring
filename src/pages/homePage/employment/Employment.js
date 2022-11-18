@@ -7,8 +7,6 @@ import {employmentColumns} from '../../../utils/columns/homePage/employment/Colu
 import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import styled from 'styled-components'
-
 const Employment = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -113,7 +111,7 @@ const Employment = () => {
   }
 
   return (
-    <Container>
+    <>
       <PageHeader title='채용관리' />
       <CRow>
         <CCol xs={12}>
@@ -152,19 +150,8 @@ const Employment = () => {
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
       />
-      <CToast visible={true} color='success' className='text-white'>
-        <CToastBody>삭제가 완료되었습니다.</CToastBody>
-      </CToast>
-    </Container>
+    </>
   )
 }
 
 export default Employment
-
-const Container = styled.main`
-  & .toast {
-    position: absolute;
-    top: 170px;
-    right: 150px;
-  }
-`
