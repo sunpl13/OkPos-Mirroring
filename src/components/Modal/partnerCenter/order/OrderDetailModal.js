@@ -14,32 +14,7 @@ import {
 import FlagshipSolutionList from '../../../list/maintenance/FlagshipSolutionList'
 import ManagementTarget from '../../../list/maintenance/ManagementTarget'
 
-type Value = {
-  no: number | undefined
-  orderNo: string
-  businessName: string
-  representativeName: string
-  orderDate: string
-  businessNumber: string
-  email: string
-  phoneNumber: string
-  homePhoneNumber: string
-  businessAddress: string
-  receive: string
-  orderList: Array<object>
-  taxInvoiceEmail: string
-}
-
-interface OrderListDetailProps {
-  onChange?: () => void
-  value: Value
-  visible: boolean
-  setVisible: (state: boolean) => void
-  upDate: () => void
-  onDelete?: () => void
-}
-
-const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelete}: OrderListDetailProps) => {
+const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelete}) => {
   const {
     no,
     orderNo /** 발주 번호 */,

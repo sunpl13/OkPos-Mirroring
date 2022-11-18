@@ -5,6 +5,7 @@ import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 import DetailModalTemplate from './DetailModalTemplate'
 import {CForm, CRow} from '@coreui/react'
+import PropTypes from 'prop-types'
 
 const archieveCategory = [
   {key: 'DRIVE', value: '드라이브'},
@@ -61,6 +62,13 @@ const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => 
       </CForm>
     </DetailModalTemplate>
   )
+}
+MeterialDetailModal.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.any,
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+  upDate: PropTypes.func,
 }
 
 export default MeterialDetailModal

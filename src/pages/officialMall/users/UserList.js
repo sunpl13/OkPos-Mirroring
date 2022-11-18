@@ -19,11 +19,11 @@ const UserList = () => {
   const [showModal, setShowModal] = useState(false)
 
   // API 통신 함수
-  const loadMallUserList = async () => {
+  const onLoadMallUserList = async () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_V1_MALL_USERS,
+        url: EndPoint.GET_MALL_USERS,
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
@@ -44,10 +44,12 @@ const UserList = () => {
 
   // Life Cycle 선언
   useEffect(() => {
-    loadMallUserList()
+    onLoadMallUserList()
   }, [])
 
   // 함수 선언
+
+  // Open Modal
   const handleShowUserDetailModal = item => {
     setSelectedItem(item)
     setShowModal(!showModal)

@@ -6,25 +6,7 @@ import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 
-type Value = {
-  no: number | undefined
-  title: string
-  files: Array<object>
-  images: Array<string>
-  content: string
-  createdAt: string
-}
-
-interface DetailModalProps {
-  onChange?: () => void
-  value: Value
-  visible: boolean
-  setVisible: (state: boolean) => void
-  upDate: () => void
-  onDelete?: () => void
-}
-
-const EducationScheduleDetailModal = ({onChange, value, visible, setVisible, upDate}: DetailModalProps) => {
+const EducationScheduleDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
   const {no, title, createdAt, files, content} = value
 
   useEffect(() => {

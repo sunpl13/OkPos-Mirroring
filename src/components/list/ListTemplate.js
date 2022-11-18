@@ -1,7 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
-import {CBadge, CImage} from '@coreui/react'
+import {
+  CBadge,
+  CButton,
+  CCol,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  CFormInput,
+  CImage,
+  CInputGroup,
+  CRow,
+} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
@@ -15,13 +27,16 @@ const ListTemplate = ({
   selectedOptions,
   datePickerHidden = true,
   itemPerPageHidden = true,
+  searchInputHidden = true,
 }) => {
+  // Local state 선언
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
   const [imgClick, setImgClick] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
+  const [searchOption, setSearchOption] = useState('')
 
   // 함수 선언
 
@@ -61,9 +76,14 @@ const ListTemplate = ({
     event.stopPropagation()
     onDelete(item)
   }
+
   useEffect(() => {
     setListItems(items)
+    if (columns) {
+      setSearchOption(columns[0].key)
+    }
   }, [items])
+
   useEffect(() => {
     if (endDate) {
       setFilterItems(listItems.filter(value => value.createdAt >= startDate && value.createdAt <= endDate))
@@ -71,15 +91,51 @@ const ListTemplate = ({
       setFilterItems('')
     }
   }, [endDate])
-
+  const handleSearchOnClick = () => {
+    console.log('test')
+  }
+  const handleSearchItemOnClick = key => {
+    setSearchOption(key)
+  }
   return (
     <>
-      {datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}
+      <CRow className={'justify-content-end'}>
+        {searchInputHidden && (
+          <CCol xs={4}>
+            <CInputGroup>
+              <CDropdown alignment='end' variant='input-group'>
+                <CDropdownToggle color='secondary' variant='outline' split>
+                  {searchOption}
+                </CDropdownToggle>
+                <CFormInput aria-label='Text input with segmented dropdown button' />
+                <CDropdownMenu>
+                  {columns.map(({key}) => {
+                    if (key !== 'createdAt') {
+                      return (
+                        <CDropdownItem key={key} onClick={() => handleSearchItemOnClick(key)}>
+                          {key}
+                        </CDropdownItem>
+                      )
+                    }
+                  })}
+                </CDropdownMenu>
+              </CDropdown>
+              <CButton type='button' color='secondary' variant='outline' onClick={() => handleSearchOnClick()}>
+                검색
+              </CButton>
+            </CInputGroup>
+          </CCol>
+        )}
+
+        <CCol xs={4}>
+          {datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}
+        </CCol>
+      </CRow>
+      <br />
       <CSmartTable
         items={filterItems || listItems}
         columns={columns || null}
         activePage={1}
-        columnFilter
         columnSorter
         pagination
         clickableRows
@@ -92,11 +148,13 @@ const ListTemplate = ({
           className: className,
         }}
         scopedColumns={{
+          // 상태
           status: ({status}) => (
             <td>
               <CBadge color={getBadgeColor(status)}>{getBadgeText(status)}</CBadge>
             </td>
           ),
+          // 이미지
           images: ({images}) => (
             <td onClick={event => (images.length !== 0 ? testOnClick(event, images) : onClick)}>
               <CImage rounded src={images.length === 0 ? '' : images[0]} alt='' width={100} height={60} />
@@ -107,7 +165,8 @@ const ListTemplate = ({
               <CBadge color={'danger'}>Delete</CBadge>
             </td>
           ),
-          category: ({category}) => <td>{selectedOptions ? selectedOptions[category] : ''}</td>,
+          //
+          //category: ({category}) => <td>{selectedOptions ? selectedOptions[category] : ''}</td>,
           jobType: ({jobType}) => <td>{selectedOptions ? selectedOptions[jobType] : ''}</td>,
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           inquiryType: ({inquiryType}) => <td>{selectedOptions ? selectedOptions[inquiryType] : ''}</td>,
@@ -125,10 +184,12 @@ const ListTemplate = ({
           ),
           startedAt: ({startedAt}) => <td>{moment(startedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           closedAt: ({closedAt}) => <td>{moment(closedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          createdAt: ({createdAt}) => <td>{moment(createdAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          updatedAt: ({updatedAt}) => <td>{moment(updatedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
         }}
         noItemsLabel={'Not Date'}
-        itemsPerPageSelect={itemPerPageHidden}
-        itemsPerPage={10}
+        //itemsPerPageSelect={itemPerPageHidden}
+        itemsPerPage={20}
       />
       {showModal ? (
         <ThumbnailModal visible={showModal} setVisible={setShowModal} onClick={modalOnClick} url={imgClick} />

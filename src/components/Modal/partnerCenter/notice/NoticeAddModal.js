@@ -1,21 +1,8 @@
 import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import {useEffect, useState} from 'react'
-type Value = {
-  id: number
-  title: string
-  content: string
-  createdAt: string
-  files: string
-}
-interface AddProps {
-  value: Value
-  visible: boolean
-  onChange: () => void
-  setVisible: (state: boolean) => void
-  upDate: () => void
-}
-const NoticeAddModal = ({value, visible, setVisible, upDate, onChange}: AddProps) => {
+
+const NoticeAddModal = ({value, visible, setVisible, upDate, onChange}) => {
   const {title, content, files} = value
   const [toggle, setToggle] = useState(true)
   useEffect(() => {

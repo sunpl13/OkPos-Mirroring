@@ -16,7 +16,7 @@ interface ModalInputProps {
 const ModalStatus = ({id, value, label}: ModalInputProps) => {
   const getBadgeColor = (status: string) => {
     switch (status) {
-      case 'ACTTIVE':
+      case 'ACTIVE':
         return 'success'
       case 'INACTIVE':
         return 'danger'
@@ -40,10 +40,9 @@ const ModalStatus = ({id, value, label}: ModalInputProps) => {
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
-        <strong>{label || ' * '}</strong>
+        {label || ' * '}
       </CFormLabel>
       <CCol className='align-items-center' style={{display: 'flex'}}>
-        {/* <CBadge color={'success'}>{value ? '활성화' : '비활성화'}</CBadge> */}
         <CBadge color={getBadgeColor(value)}>{getBadgeText(value)}</CBadge>
       </CCol>
     </>

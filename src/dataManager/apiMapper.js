@@ -8,9 +8,18 @@ export const EndPoint = {
   RECRUITMENT: `${API}/admin/recruitment`,
   TALENTPOOL: `${API}/admin/talent-pool`,
 
+  // ------ 파트너 센터 페이지
+  GET_V1_MALL_PARTNER_USERS: `${API}/admin/partner/users`, // 유저 리스트 조회
+  GET_V1_MALL_PARTNER_INACTIVE_USERS: `${API}/admin/partner/users/inactive`, // 탈퇴 유저 리스트 조회
+
   // ------ 가맹점 전용 공식몰 페이지
-  GET_V1_MALL_USERS: `${API}/admin/mall/users`,
-  GET_V1_MALL_USER: `${API}/admin/mall/users/:userId`,
+  GET_MALL_USERS: `${API}/admin/mall/users`,
+  GET_MALL_USER: `${API}/admin/mall/users/:userId`,
+  GET_MALL_RESIGNUSERS: `${API}/admin/mall/users/resign`,
+  GET_MALL_RESIGNUSER: `${API}/admin/mall/users/resign/:userId`,
+
+  GET_MALL_INQUIRIES: `${API}/admin/mall/inquiries`,
+  GET_MALL_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId`,
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
@@ -21,8 +30,16 @@ const ApiMapper = {
     [EndPoint.GET_V1_TEST_AUTO_LOGIN]: {},
 
     // ------ 가맹점 전용 공식몰 페이지
-    [EndPoint.GET_V1_MALL_USERS]: {},
-    [EndPoint.GET_V1_MALL_USER]: {},
+    [EndPoint.GET_MALL_USERS]: {},
+    [EndPoint.GET_MALL_USER]: {},
+    [EndPoint.GET_MALL_RESIGNUSERS]: {},
+    [EndPoint.GET_MALL_RESIGNUSER]: {},
+    [EndPoint.GET_MALL_INQUIRIES]: {},
+    [EndPoint.GET_MALL_INQUIRY]: {},
+
+    // ------ 파트너센터 페이지
+    [EndPoint.GET_V1_MALL_PARTNER_USERS]: {},
+    [EndPoint.GET_V1_MALL_PARTNER_INACTIVE_USERS]: {},
   },
   post: {
     [EndPoint.POST_LOGIN]: {},

@@ -15,7 +15,7 @@ const HopageNotice = React.lazy(() => import('./pages/homePage/notice/Notice'))
 
 // 회원관리
 const OfficailMallUserList = React.lazy(() => import('./pages/officialMall/users/UserList'))
-const OfficailMallWithdrawalUserList = React.lazy(() => import('./pages/officialMall/users/WithdrawalUsers'))
+const OfficailMallResignUserList = React.lazy(() => import('./pages/officialMall/users/ResignUserList'))
 // 1:1 문의 관리
 const OfficailMallInquiryList = React.lazy(() => import('./pages/officialMall/inquiry/InquiryList'))
 // FAQ 관리
@@ -67,40 +67,52 @@ const routes = [
   // ------ 가맹점 전용 공식몰 페이지
 
   // 회원관리
-  {path: `/official/users`, name: '회원관리', element: OfficailMallUserList},
-  {path: `/official/withdrawalUsers`, name: '탈퇴회원관리', element: OfficailMallWithdrawalUserList},
+  {path: `/mall/users`, name: '회원관리', element: OfficailMallUserList},
+  {path: `/mall/resign/users`, name: '탈퇴회원관리', element: OfficailMallResignUserList},
   // 1:1 문의 관리
-  {path: `/official/inquirys`, name: '문의관리', element: OfficailMallInquiryList},
+  {path: `/mall/inquirys`, name: '문의관리', element: OfficailMallInquiryList},
   // FAQ 관리
-  {path: `/official/faq`, name: 'FAQ관리', element: OfficialMallFaqList},
+  {path: `/mall/faq`, name: 'FAQ관리', element: OfficialMallFaqList},
   // 자료실 관리
-  {path: `/official/archieve`, name: '자료실 관리', element: OfficialMallArchieve},
+  {path: `/mall/archieve`, name: '자료실 관리', element: OfficialMallArchieve},
 
   // ------ 대리점 전용 파트너 센터
 
   // user
-  {path: `/users/userList`, name: 'UserList', element: UserList},
-  {path: `/users/withdrawalUsers`, name: 'WithdrawalUsers', element: WithdrawalUsers},
+  {path: `/partnerCenter/users/userList`, name: 'UserList', element: UserList},
+  {path: `/partnerCenter/users/withdrawalUsers`, name: 'WithdrawalUsers', element: WithdrawalUsers},
 
   // materialList
-  {path: `/material/materialList`, name: 'MaterialList', element: MaterialList},
+  {path: `/partnerCenter/material/materialList`, name: 'MaterialList', element: MaterialList},
 
   //Notice
-  {path: `/users/notice/noticeList`, name: 'NoticeList', element: NoticeList},
+  {path: `/partnerCenter/notice/noticeList`, name: 'NoticeList', element: NoticeList},
 
   // Dealer Support
-  {path: '/users/dealerSupport', name: 'DealerSupport', element: DealerSupportList},
+  {path: '/partnerCenter/dealerSupport', name: 'DealerSupport', element: DealerSupportList},
 
   //UserInquiry
-  {path: `/users/inquiry/userInquiryList`, name: 'UserInquiryList', element: UserInquiryList},
+  {path: `/partnerCenter/inquiry/userInquiryList`, name: 'UserInquiryList', element: UserInquiryList},
 
   // orderList
-  {path: `/order/orderList`, name: 'OrderList', element: OrderList},
-  {path: `/order/appliedForMaintenanceList`, name: 'AppliedForMaintenanceList', element: AppliedForMaintenanceList},
+  {path: `/partnerCenter/order/orderList`, name: 'OrderList', element: OrderList},
+  {
+    path: `/partnerCenter/order/appliedForMaintenanceList`,
+    name: 'AppliedForMaintenanceList',
+    element: AppliedForMaintenanceList,
+  },
 
   // EducationScheduleList
-  {path: `/education/educationScheduleList`, name: 'educationScheduleList', element: EducationScheduleList},
-  {path: `/education/educationApplicationList`, name: 'educationApplicationList', element: EducationApplicationList},
+  {
+    path: `/partnerCenter/education/educationScheduleList`,
+    name: 'educationScheduleList',
+    element: EducationScheduleList,
+  },
+  {
+    path: `/partnerCenter/education/educationApplicationList`,
+    name: 'educationApplicationList',
+    element: EducationApplicationList,
+  },
 ]
 
 export default routes

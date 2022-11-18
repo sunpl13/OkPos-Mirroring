@@ -47,22 +47,22 @@ const _nav = [
       {
         component: CNavItem,
         name: '회원 리스트',
-        to: '/users/userList',
+        to: '/partnerCenter/users/userList',
       },
       {
         component: CNavItem,
         name: '탈퇴 회원 리스트',
-        to: '/users/withdrawalUsers',
+        to: '/partnerCenter/users/withdrawalUsers',
       },
       {
         component: CNavItem,
         name: '1 : 1 문의 리스트',
-        to: '/users/inquiry/userInquiryList',
+        to: '/partnerCenter/inquiry/userInquiryList',
       },
       {
         component: CNavItem,
         name: '공지사항 리스트',
-        to: '/users/notice/noticeList',
+        to: '/partnerCenter/notice/noticeList',
       },
     ],
   },
@@ -74,7 +74,7 @@ const _nav = [
       {
         component: CNavItem,
         name: '딜러 지원 리스트',
-        to: '/users/dealerSupport',
+        to: '/partnerCenter/dealerSupport',
       },
     ],
   },
@@ -86,7 +86,7 @@ const _nav = [
       {
         component: CNavItem,
         name: '자료 리스트',
-        to: '/material/materialList',
+        to: '/partnerCenter/material/materialList',
       },
     ],
   },
@@ -98,12 +98,12 @@ const _nav = [
       {
         component: CNavItem,
         name: '발주 신청 리스트',
-        to: '/order/orderList',
+        to: '/partnerCenter/order/orderList',
       },
       {
         component: CNavItem,
         name: '유지보수 신청 리스트',
-        to: '/order/appliedForMaintenanceList',
+        to: '/partnerCenter/order/appliedForMaintenanceList',
       },
     ],
   },
@@ -115,12 +115,12 @@ const _nav = [
       {
         component: CNavItem,
         name: '교육 일정 리스트',
-        to: '/education/educationScheduleList',
+        to: '/partnerCenter/education/educationScheduleList',
       },
       {
         component: CNavItem,
         name: '교육 신청 리스트',
-        to: '/education/educationApplicationList',
+        to: '/partnerCenter/education/educationApplicationList',
       },
     ],
   },
@@ -174,12 +174,12 @@ const _nav = [
       {
         component: CNavItem,
         name: '회원 관리',
-        to: '/official/users',
+        to: '/mall/users',
       },
       {
         component: CNavItem,
         name: '탈퇴 회원 관리',
-        to: '/official/withdrawalUsers',
+        to: '/mall/resign/users',
       },
     ],
   },
@@ -194,19 +194,19 @@ const _nav = [
   {
     component: CNavItem,
     name: '1:1 문의 관리',
-    to: '/official/inquirys',
+    to: '/mall/inquirys',
     icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
   },
   {
     component: CNavItem,
     name: 'FAQ 관리',
-    to: '/official/faq',
+    to: '/mall/faq',
     icon: <CIcon icon={cilFindInPage} customClassName='nav-icon' />,
   },
   {
     component: CNavItem,
     name: '자료실 관리',
-    to: '/official/archieve',
+    to: '/mall/archieve',
     icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
   },
   {

@@ -1,18 +1,10 @@
 import {InboxOutlined} from '@ant-design/icons'
-import type {UploadProps} from 'antd'
 import {Upload} from 'antd'
 import styled from 'styled-components'
 import {CFormLabel} from '@coreui/react'
 
-interface FilesInputProps {
-  value?: string | object | Array<object>
-  label: string
-  id: string
-  disabled?: boolean
-}
-
-const ModalFilesInput = ({value, label, id, disabled}: FilesInputProps) => {
-  const files: any = [
+const ModalFilesInput = ({value, label, id, disabled}) => {
+  const files = [
     {
       uid: 'rc-upload-1667393971608-62',
       lastModified: 1666338642315,
@@ -50,7 +42,7 @@ const ModalFilesInput = ({value, label, id, disabled}: FilesInputProps) => {
       status: 'error',
     },
   ]
-  const props: UploadProps = {
+  const props = {
     name: 'file',
     multiple: true,
     disabled: disabled,
@@ -88,6 +80,9 @@ const ModalFilesInput = ({value, label, id, disabled}: FilesInputProps) => {
     </>
   )
 }
+
+export default ModalFilesInput
+
 const DivBox = styled.div`
   border-radius: 0.375rem;
   &.disabled {
@@ -103,4 +98,3 @@ const DivBox = styled.div`
     flex-direction: column;
   }
 `
-export default ModalFilesInput
