@@ -12,7 +12,29 @@ import {
 import ModalInput from '../../forms/inputForm/ModalInput'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 
-const FaqDetailModal = ({onClick, onChange, item, visible, setVisible, isUpdate}) => {
+const FaqDetailModal = ({
+  item,
+  onChange,
+  onUpdate,
+  onDelete,
+  option,
+  visible,
+  setVisible,
+  isReadOnly,
+  setIsReadOnly,
+  isUpdate,
+  setIsUpdate,
+}) => {
+  const clickUpdateBtn = () => {
+    setIsReadOnly(false)
+    setIsUpdate(true)
+  }
+
+  // modal title 세팅
+  let modalTitle = 'FAQ 추가'
+  if (isUpdate) modalTitle = 'FAQ 수정'
+  if (isReadOnly) modalTitle = 'FAQ 상세 내용'
+
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
@@ -55,7 +77,6 @@ const FaqDetailModal = ({onClick, onChange, item, visible, setVisible, isUpdate}
               rows={9}
               value={item.content || ''}
               onChange={onChange}
-              readOnly={isReadOnly}
               disabled={isReadOnly}
             ></CFormTextarea>
           </CRow>
