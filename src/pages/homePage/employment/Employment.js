@@ -40,7 +40,7 @@ const Employment = () => {
         method: HttpMethod.GET,
         url: EndPoint.RECRUITMENT,
       })
-      setItems(data?.data.result)
+      setItems(data?.data.result.responses)
     } catch (error) {
       alert(error)
     }
