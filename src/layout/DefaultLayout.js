@@ -2,40 +2,24 @@ import {useEffect} from 'react'
 import {AppContent, AppFooter, AppHeader, AppSidebar} from '../components/index'
 import {useNavigate} from 'react-router-dom'
 import {isEmpty} from '../utils/utility'
-import ApiConfig, {HttpMethod} from '../dataManager/apiConfig'
-import {EndPoint} from '../dataManager/apiMapper'
+
+import {CToast, CToastBody} from '@coreui/react'
+import styled from 'styled-components'
+import {useSelector} from 'react-redux'
 
 const DefaultLayout = () => {
   const navigate = useNavigate()
-
+  const toast = useSelector(state => state.toast)
   useEffect(() => {
     if (isEmpty(window.sessionStorage.getItem('jwt'))) {
       window.sessionStorage.clear()
       navigate(`/login`)
       return
     }
-    // const fetchData = async () => {
-    //   try {
-    //     const {data: response} = await ApiConfig.request({
-    //       method: HttpMethod.GET,
-    //       url: EndPoint.POST_LOGIN,
-    //       path: {isManual: false},
-    //     })
-    //     if (!response.isSuccess) {
-    //       alert(response.message)
-    //       window.localStorage.clear()
-    //       navigate(`/login`)
-    //     }
-    //   } catch (error) {
-    //     alert(`네트워크 통신 실패. 잠시후 다시 시도해주세요.\n${error.message}`)
-    //     return false
-    //   }
-    // }
-    // fetchData().then()
   }, [])
 
   return (
-    <>
+    <Container>
       <AppSidebar />
       <div className='wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent'>
         <AppHeader />
@@ -44,8 +28,19 @@ const DefaultLayout = () => {
         </div>
         <AppFooter />
       </div>
-    </>
+      <CToast visible={toast.visibleState} color={toast.toastColor} className={`text-${toast.textColor}`}>
+        <CToastBody>{toast.text}</CToastBody>
+      </CToast>
+    </Container>
   )
 }
 
 export default DefaultLayout
+
+const Container = styled.main`
+  & .toast {
+    position: absolute;
+    top: 170px;
+    right: 150px;
+  }
+`
