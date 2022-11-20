@@ -11,7 +11,8 @@ table {
     }
     th {
       &.deleteBtn,
-      &.files {
+      &.files,
+      &.checkBox{
         width: 10%;
         max-width: 30px;
         min-width: 20px;
@@ -19,7 +20,8 @@ table {
       &.userId,
       &.status,
       &.no,
-      &.trainingPersonnel {
+      &.trainingPersonnel,
+      &.noticeFiles{
         width: 10%;
         max-width: 90px;
         min-width: 80px;

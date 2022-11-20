@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
-import {testUserTableValues} from '../../test/testConstant'
 import BarChartTemplate from '../../../components/chart/BarChartTemplate'
 import {ChartTestData} from '../../test/ChartTest'
 import PageHeader from '../../../components/common/PageHeader'
@@ -25,12 +24,15 @@ const WithdrawalUsers = () => {
       borderWidth: 2,
     },
   ])
+
+  // 탈퇴회원 API
   const getUsers = async () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}?page=${1}`,
+        url: `${EndPoint.GET_PARTNER_INACTIVE_USERS}?page=${1}`,
       })
+      console.log(data)
       if (!data.isSuccess || isEmpty(data?.result)) {
         return
       }
@@ -45,7 +47,6 @@ const WithdrawalUsers = () => {
   }
   useEffect(() => {
     getUsers()
-
     setChartData(ChartTestData)
   }, [])
 
@@ -58,7 +59,7 @@ const WithdrawalUsers = () => {
         const {data} = await ApiConfig.request({
           method: HttpMethod.GET,
           // userId
-          url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}/${item.id}`,
+          url: `${EndPoint.GET_V1_MALL_PARTNER_INACTIVE_USERS}/${item.id}`,
         })
         console.log(data)
         if (!data.isSuccess || isEmpty(data?.result)) {
