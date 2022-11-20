@@ -20,6 +20,9 @@ export const EndPoint = {
 
   GET_MALL_INQUIRIES: `${API}/admin/mall/inquiries`,
   GET_MALL_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId`,
+  POST_MALL_INQUIRY_REPLY: `${API}/admin/mall/inquiryReplies`,
+  PATCH_MALL_UPDATE_INQUIRY_REPLY: `${API}/admin/mall/inquiryReplies`,
+  PATCH_MALL_DELETE_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId`,
 
   GET_MALL_FAQS: `${API}/admin/mall/faqs`,
   GET_MALL_FAQ: `${API}/admin/mall/faqs/:faqId`,
@@ -54,10 +57,13 @@ const ApiMapper = {
     [EndPoint.POST_REGISTER]: {},
 
     // ------ 가맹점 전용 공식몰 페이지
+    [EndPoint.POST_MALL_INQUIRY_REPLY]: {},
     [EndPoint.POST_MALL_FAQ]: {},
   },
   patch: {
     // ------ 가맹점 전용 공식몰 페이지
+    [EndPoint.PATCH_MALL_UPDATE_INQUIRY_REPLY]: {},
+    [EndPoint.PATCH_MALL_DELETE_INQUIRY]: {},
     [EndPoint.PATCH_MALL_UPDATE_FAQ]: {},
     [EndPoint.PATCH_MALL_DELETE_FAQ]: {},
   },

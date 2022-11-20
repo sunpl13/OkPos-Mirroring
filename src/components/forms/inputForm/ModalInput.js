@@ -12,7 +12,7 @@ const ModalInput = ({type, onChange, id, placeholder, value, label, readOnly, di
           type={type || 'text'}
           id={id}
           placeholder={placeholder || ''}
-          value={type === 'file' ? undefined : value}
+          value={type === 'file' ? undefined : value || ''}
           onChange={onChange}
           readOnly={readOnly}
           disabled={disabled}
