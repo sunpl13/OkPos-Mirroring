@@ -133,12 +133,21 @@ const ListTemplate = ({
   }, [items])
 
   useEffect(() => {
+    // data picker 에 선택된 값
     if (endDate) {
-      setFilterItems(listItems.filter(value => value.createdAt >= startDate && value.createdAt <= endDate))
+      setFilterItems(
+        listItems.filter(
+          value =>
+            moment(value.createdAt, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') >= startDate &&
+            moment(value.createdAt, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
+        ),
+      )
+      // 생성일로 필터
     } else {
       setFilterItems('')
     }
   }, [endDate])
+
   const handleSearchOnClick = () => {
     console.log('test')
   }
@@ -244,7 +253,7 @@ const ListTemplate = ({
           updatedAt: ({updatedAt}) => <td>{moment(updatedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           noticeFiles: ({noticeFiles}) => <td>{noticeFiles?.length} 개</td>,
         }}
-        noItemsLabel={'Not Date'}
+        noItemsLabel={'데이터가 없습니다.'}
         //itemsPerPageSelect={itemPerPageHidden}
         itemsPerPage={20}
       />

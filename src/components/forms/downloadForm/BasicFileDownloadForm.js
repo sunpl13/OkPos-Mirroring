@@ -13,7 +13,7 @@ const BasicFileDownloadForm = ({id, placeholder, value, label, isRequired}) => {
       const arFileName = arSplitUrl[nArLength - 1] // 나누어진 배열의 맨 끝이 파일명이다
       setFileName(arFileName)
     }
-  }, [])
+  }, [value])
 
   const downloadFile = ({value}) => {
     const element = document.createElement('a')
