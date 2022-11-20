@@ -48,7 +48,7 @@ const ResignUserList = () => {
         }
         return
       }
-      setResignUserList(res.result)
+      setResignUserList(res.result.resignUserInfos)
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
