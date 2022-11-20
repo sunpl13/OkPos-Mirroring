@@ -30,7 +30,7 @@ const Userlist = () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}?page=${1}`,
+        url: `${EndPoint.GET_PARTNER_USERS}?page=${1}`,
       })
       if (!data.isSuccess || isEmpty(data?.result)) {
         return

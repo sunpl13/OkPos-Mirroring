@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../../components/list/ListTemplate'
-import {testUserTableValues} from '../../../test/testConstant'
 import InquiryDetailModal from '../../../../components/Modal/partnerCenter/inquiry/InquiryDetailModal'
 import PageHeader from '../../../../components/common/PageHeader'
-import {userInquiryListColumns, userListColumns} from '../../../../utils/columns/partnerCenter/Columns'
+import {userInquiryListColumns} from '../../../../utils/columns/partnerCenter/Columns'
+import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
+import {EndPoint} from '../../../../dataManager/apiMapper'
+import {isEmpty} from '../../../../utils/utility'
 
 const UserInquiryList = () => {
   const [items, setItems] = useState([])
@@ -19,10 +21,30 @@ const UserInquiryList = () => {
   })
   const [showModal, setShowModal] = useState(false)
   const [inquiryMsg, setInquiryMsg] = useState('')
-  /** User list Columns */
+
+  // 1:1 문의 리스트 API
+  const getUsers = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.GET_PARTNER_INQUIRIES}?page=${1}`,
+      })
+      console.log(data)
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
+      }
+      if (data?.code === 1000) {
+        setItems(data.result.userInfoPartnerDTOS)
+      } else {
+        alert(data?.message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
-    setItems(testUserTableValues)
+    getUsers()
   }, [])
 
   /** Open Modal*/

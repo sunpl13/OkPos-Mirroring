@@ -9,6 +9,7 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
+  CFormCheck,
   CFormInput,
   CImage,
   CInputGroup,
@@ -19,15 +20,16 @@ import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
 
 const ListTemplate = ({
-  items,
-  onClick,
-  columns,
-  className,
-  onDelete,
-  selectedOptions,
-  datePickerHidden = true,
-  itemPerPageHidden = true,
-  searchInputHidden = true,
+  items, // 리스트 아이템
+  onClick, // 리스트 클릭 이벤트 ex) Modal
+  columns, // 리스트의 헤더
+  className, // 리스트의 클레스 네임
+  onDelete, // 리스트 아이템 삭제
+  selectedOptions, // 리스트의 selectBox 옵션
+  datePickerHidden = true, // 기간선택 데이터 피커 출력 유무
+  itemPerPageHidden = true, // 리스트의 페이지마다 출력될 아이템 개수 선택 박스 출력 유무
+  searchInputHidden = true, // 검색창 출력 유무
+  checkBoxInputHidden = false, // 체크박스 출력 유무
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
@@ -37,6 +39,52 @@ const ListTemplate = ({
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [searchOption, setSearchOption] = useState('')
+  const [allSelected, setAllSelected] = useState(false)
+
+  // 리스트 헤더 전체 체크박스
+  const handleAllSelectedOnChange = () => {
+    setAllSelected(!allSelected)
+    setListItems(
+      listItems.map(value => ({
+        ...value,
+        checked: allSelected ? false : true,
+      })),
+    )
+  }
+  // 리스트 아이템 체크박스
+  const handleItemOnSelected = item => {
+    setListItems(
+      listItems.map(value =>
+        value._id === item._id
+          ? {
+              ...value,
+              checked: !item.checked,
+            }
+          : value,
+      ),
+    )
+    if (!item.checked) {
+      item.checked = true
+    } else {
+      item.checked = false
+    }
+    console.log(item)
+  }
+  // 테이블 헤더의 전체 체크박스
+  const allCheckBox = {
+    key: 'checkBox',
+    label: (
+      <CFormCheck
+        id={'allSelected'}
+        type={'checkbox'}
+        onChange={event => handleAllSelectedOnChange(event)}
+        checked={allSelected}
+      />
+    ),
+    _props: {className: 'checkBox'},
+    sorter: false,
+    filter: false,
+  }
 
   // 함수 선언
 
@@ -143,11 +191,14 @@ const ListTemplate = ({
       <br />
       <CSmartTable
         items={filterItems || listItems}
-        columns={columns || null}
+        columns={checkBoxInputHidden ? [allCheckBox, ...columns] : columns || null}
         activePage={1}
         columnSorter
         pagination
         clickableRows
+        tableHeadProps={{
+          color: 'primary',
+        }}
         onRowClick={onClick}
         tableProps={{
           hover: true,
@@ -157,6 +208,11 @@ const ListTemplate = ({
           className: className,
         }}
         scopedColumns={{
+          checkBox: item => (
+            <td onClick={event => event.stopPropagation()}>
+              <CFormCheck onChange={() => handleItemOnSelected(item)} checked={item.checked || false} />
+            </td>
+          ),
           // 상태
           status: ({status}) => (
             <td>
@@ -171,7 +227,7 @@ const ListTemplate = ({
           ),
           deleteBtn: item => (
             <td onClick={event => handleDeleteOnClick(event, item)}>
-              <CBadge color={'danger'}>Delete</CBadge>
+              <CBadge color={'danger'}>삭제</CBadge>
             </td>
           ),
           //
@@ -195,6 +251,7 @@ const ListTemplate = ({
           closedAt: ({closedAt}) => <td>{moment(closedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           createdAt: ({createdAt}) => <td>{moment(createdAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           updatedAt: ({updatedAt}) => <td>{moment(updatedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          noticeFiles: ({noticeFiles}) => <td>{noticeFiles?.length} 개</td>,
         }}
         noItemsLabel={'데이터가 없습니다.'}
         //itemsPerPageSelect={itemPerPageHidden}
