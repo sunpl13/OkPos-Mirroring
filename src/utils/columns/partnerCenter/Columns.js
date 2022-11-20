@@ -112,22 +112,25 @@ export const noticeList = [
   },
   {
     key: 'title',
+    label: '공지사항 제목',
     _props: {color: 'primary', className: 'title'},
   },
   {
     key: 'createdAt',
+    label: '공지사항 등록일',
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },
   {
-    key: 'files',
-    _props: {color: 'primary', className: 'files'},
+    key: 'noticeFiles',
+    label: '파일',
+    _props: {color: 'primary', className: 'noticeFiles'},
     filter: false,
     sorter: false,
   },
   {
     key: 'deleteBtn',
-    label: '',
+    label: '삭제',
     _props: {color: 'primary', className: 'deleteBtn'},
     filter: false,
     sorter: false,
@@ -137,34 +140,35 @@ export const noticeList = [
 // 영업 대리점/ 딜러 지원 리스트
 export const dealerSupportList = [
   {
-    key: 'no',
-    _props: {color: 'primary', className: 'no'},
+    key: 'id',
+    label: 'No',
+    _props: {className: 'no'},
   },
   {
-    key: 'category',
-    _props: {color: 'primary', className: 'Category'},
+    key: 'supportArea',
+    label: '지원 분야',
+    _props: {className: 'supportArea'},
   },
   {
-    key: 'announcementTitle',
-    _props: {color: 'primary', className: 'announcementTitle'},
+    key: 'noticeTitle',
+    label: '지원 공지 제목',
+    _props: {className: 'noticeTitle'},
   },
 
   {
     key: 'userName',
-    _props: {color: 'primary', className: 'userName'},
+    label: '이름',
+    _props: {className: 'userName'},
+  },
+  {
+    key: 'phoneNum',
+    label: '전화번호',
+    _props: {className: 'phoneNum'},
   },
   {
     key: 'email',
-    _props: {color: 'primary', className: 'email'},
-  },
-  {
-    key: 'phoneNumber',
-    _props: {color: 'primary', className: 'phoneNumber'},
-  },
-  {
-    key: 'createdAt',
-    _props: {color: 'primary', className: 'createdAt'},
-    filter: false,
+    label: '이메일',
+    _props: {className: 'email'},
   },
 ]
 
@@ -172,26 +176,26 @@ export const dealerSupportList = [
 export const materiaList = [
   {
     key: 'no',
-    _props: {color: 'primary', className: 'no'},
+    _props: {className: 'no'},
   },
   {
     key: 'title',
-    _props: {color: 'primary', className: 'title'},
+    _props: {className: 'title'},
   },
   {
     key: 'category',
-    _props: {color: 'primary', className: 'Category'},
+    _props: {className: 'Category'},
   },
 
   {
     key: 'createdAt',
-    _props: {color: 'primary', className: 'createdAt'},
+    _props: {className: 'createdAt'},
     filter: false,
   },
   {
     key: 'deleteBtn',
     label: ' ',
-    _props: {color: 'primary', className: 'deleteBtn'},
+    _props: {className: 'deleteBtn'},
     filter: false,
     sorter: false,
   },
@@ -201,25 +205,25 @@ export const materiaList = [
 export const orderList = [
   {
     key: 'no',
-    _props: {color: 'primary', className: 'no'},
+    _props: {className: 'no'},
   },
   {
     key: 'orderNo',
-    _props: {color: 'primary', className: 'orderNo'},
+    _props: {className: 'orderNo'},
   },
   {
     key: 'businessName',
-    _props: {color: 'primary', className: 'BusinessName'},
+    _props: {className: 'BusinessName'},
   },
   {
     key: 'representativeName',
-    _props: {color: 'primary', className: 'RepresentativeName'},
+    _props: {className: 'RepresentativeName'},
   },
 
   {
     key: 'createdAt',
     label: 'Order Date',
-    _props: {color: 'primary', className: 'createdAt'},
+    _props: {className: 'createdAt'},
     filter: false,
   },
   {

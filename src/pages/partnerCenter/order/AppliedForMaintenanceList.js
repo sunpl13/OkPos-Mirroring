@@ -22,7 +22,6 @@ const AppliedForMaintenanceList = () => {
     setEditCheck(item)
     setShowModal(!showModal)
   }
-
   const handleDetailModalUpDate = () => {
     const {
       no,

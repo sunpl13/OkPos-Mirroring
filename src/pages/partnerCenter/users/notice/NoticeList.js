@@ -42,14 +42,7 @@ const NoticeList = () => {
   const [showAddModal, setShowAddModal] = useState(false)
 
   /** Open Modal*/
-  const handleShowModal = async item => {
-    const {id} = item
-    setSelectedItem({
-      ...item,
-    })
-    setEditCheck({
-      ...item,
-    })
+  const handleShowModal = async ({id}) => {
     setShowModal(!showModal)
     if (id !== undefined) {
       try {

@@ -9,6 +9,7 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
+  CFormCheck,
   CFormInput,
   CImage,
   CInputGroup,
@@ -28,6 +29,7 @@ const ListTemplate = ({
   datePickerHidden = true,
   itemPerPageHidden = true,
   searchInputHidden = true,
+  checkBoxInputHidden = false,
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
@@ -37,6 +39,56 @@ const ListTemplate = ({
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [searchOption, setSearchOption] = useState('')
+  const [allSelected, setAllSelected] = useState(false)
+
+  // 리스트 헤더 전체 체크박스
+  const handleAllSelectedOnChange = () => {
+    setAllSelected(!allSelected)
+    setListItems(
+      listItems.map(value => ({
+        ...value,
+        checked: allSelected ? false : true,
+      })),
+    )
+  }
+  // 리스트 아이템 체크박스
+  const handleItemOnSelected = (item, event) => {
+    event.stopPropagation()
+    setListItems(
+      listItems.map(value =>
+        value._id === item._id
+          ? {
+              ...value,
+              checked: !item.checked,
+            }
+          : value,
+      ),
+    )
+    if (!item.checked) {
+      item.checked = true
+    } else {
+      item.checked = false
+    }
+    console.log(item)
+    console.log()
+
+    console.log(item)
+  }
+  // 테이블 헤더의 전체 체크박스
+  const allCheckBox = {
+    key: 'checkBox',
+    label: (
+      <CFormCheck
+        id={'allSelected'}
+        type={'checkbox'}
+        onChange={event => handleAllSelectedOnChange(event)}
+        checked={allSelected}
+      />
+    ),
+    _props: {className: 'checkBox'},
+    sorter: false,
+    filter: false,
+  }
 
   // 함수 선언
 
@@ -134,11 +186,17 @@ const ListTemplate = ({
       <br />
       <CSmartTable
         items={filterItems || listItems}
-        columns={columns || null}
+        columns={checkBoxInputHidden ? [allCheckBox, ...columns] : columns || null}
+        //selectable
+        //columns={columns || null}
+        //onSelectedItemsChange={item => handleItemOnSelected(item)}
         activePage={1}
         columnSorter
         pagination
         clickableRows
+        tableHeadProps={{
+          color: 'primary',
+        }}
         onRowClick={onClick}
         tableProps={{
           hover: true,
@@ -148,6 +206,11 @@ const ListTemplate = ({
           className: className,
         }}
         scopedColumns={{
+          checkBox: item => (
+            <td onClick={event => handleItemOnSelected(item, event)}>
+              <CFormCheck onClick={event => handleItemOnSelected(item, event)} checked={item.checked} />
+            </td>
+          ),
           // 상태
           status: ({status}) => (
             <td>
@@ -162,7 +225,7 @@ const ListTemplate = ({
           ),
           deleteBtn: item => (
             <td onClick={event => handleDeleteOnClick(event, item)}>
-              <CBadge color={'danger'}>Delete</CBadge>
+              <CBadge color={'danger'}>삭제</CBadge>
             </td>
           ),
           //
@@ -186,6 +249,7 @@ const ListTemplate = ({
           closedAt: ({closedAt}) => <td>{moment(closedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           createdAt: ({createdAt}) => <td>{moment(createdAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           updatedAt: ({updatedAt}) => <td>{moment(updatedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          noticeFiles: ({noticeFiles}) => <td>{noticeFiles?.length} 개</td>,
         }}
         noItemsLabel={'Not Date'}
         //itemsPerPageSelect={itemPerPageHidden}
