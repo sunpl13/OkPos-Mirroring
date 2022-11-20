@@ -70,7 +70,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}) => {
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
-          {/* <ModalInput
+          <ModalInput
             id={'id'}
             placeholder={'User Id'}
             label={'No'}
@@ -78,7 +78,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}) => {
             onChange={onChange}
             readOnly
             disabled
-          /> */}
+          />
           <ModalInput
             id={'userName'}
             placeholder={''}
@@ -155,8 +155,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}) => {
             id={'businessRegistration'}
             placeholder={'사업자등록증'}
             label={'사업자등록증'}
-            value={user.businessRegistration}
-            isRequired={undefined}
+            value={user.businessRegistration || ''}
           />
         </CRow>
         <CRow className={'p-2'}>
