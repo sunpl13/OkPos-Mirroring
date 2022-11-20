@@ -20,16 +20,16 @@ import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
 
 const ListTemplate = ({
-  items,
-  onClick,
-  columns,
-  className,
-  onDelete,
-  selectedOptions,
-  datePickerHidden = true,
-  itemPerPageHidden = true,
-  searchInputHidden = true,
-  checkBoxInputHidden = false,
+  items, // 리스트 아이템
+  onClick, // 리스트 클릭 이벤트 ex) Modal
+  columns, // 리스트의 헤더
+  className, // 리스트의 클레스 네임
+  onDelete, // 리스트 아이템 삭제
+  selectedOptions, // 리스트의 selectBox 옵션
+  datePickerHidden = true, // 기간선택 데이터 피커 출력 유무
+  itemPerPageHidden = true, // 리스트의 페이지마다 출력될 아이템 개수 선택 박스 출력 유무
+  searchInputHidden = true, // 검색창 출력 유무
+  checkBoxInputHidden = false, // 체크박스 출력 유무
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
@@ -52,8 +52,7 @@ const ListTemplate = ({
     )
   }
   // 리스트 아이템 체크박스
-  const handleItemOnSelected = (item, event) => {
-    event.stopPropagation()
+  const handleItemOnSelected = item => {
     setListItems(
       listItems.map(value =>
         value._id === item._id
@@ -69,9 +68,6 @@ const ListTemplate = ({
     } else {
       item.checked = false
     }
-    console.log(item)
-    console.log()
-
     console.log(item)
   }
   // 테이블 헤더의 전체 체크박스
@@ -187,9 +183,6 @@ const ListTemplate = ({
       <CSmartTable
         items={filterItems || listItems}
         columns={checkBoxInputHidden ? [allCheckBox, ...columns] : columns || null}
-        //selectable
-        //columns={columns || null}
-        //onSelectedItemsChange={item => handleItemOnSelected(item)}
         activePage={1}
         columnSorter
         pagination
@@ -207,8 +200,8 @@ const ListTemplate = ({
         }}
         scopedColumns={{
           checkBox: item => (
-            <td onClick={event => handleItemOnSelected(item, event)}>
-              <CFormCheck onClick={event => handleItemOnSelected(item, event)} checked={item.checked} />
+            <td onClick={event => event.stopPropagation()}>
+              <CFormCheck onChange={() => handleItemOnSelected(item)} checked={item.checked || false} />
             </td>
           ),
           // 상태
