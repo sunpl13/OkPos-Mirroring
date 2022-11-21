@@ -48,26 +48,26 @@ const NoticeList = () => {
       }
     } else {
       setSelectedItem({
+        title: '',
         content: '',
-        createdAt: '',
-        noticeFiles: [],
-        noticeImages: [],
+        files: [],
+        images: [],
       })
       setEditCheck({
+        title: '',
         content: '',
-        createdAt: '',
-        noticeFiles: [],
-        noticeImages: [],
+        files: [],
+        images: [],
       })
     }
   }
   const handleShowAddModal = () => {
     setSelectedItem({
-      id: 0,
       title: '',
       content: '',
-      createdAt: '',
-      files: '',
+      category: '',
+      files: [],
+      images: [],
     })
     setShowAddModal(!showAddModal)
   }
@@ -118,20 +118,33 @@ const NoticeList = () => {
   }
 
   /** Add Modal */
-  const handleNoticeAddModalUpdate = () => {
-    const {title, content, files} = selectedItem
-    if (title || content || files) {
-      if (window.confirm('Add ?')) {
-        if (!title) return alert('Not Title')
-        if (!files) return alert('Not File')
-        if (!content) return alert('Not Content')
-        setItems([
-          ...items,
-          {
-            ...selectedItem,
-            createdAt: moment().format('YYYY-MM-DD'),
-          },
-        ])
+  const handleNoticeAddModalUpdate = async () => {
+    const {title, content, category} = selectedItem
+    if (title || content || category) {
+      if (window.confirm('공지사항을 추가하시겠습니까?')) {
+        if (!title) return alert('공지사항 제목을 입력해 주세요.')
+        if (!category) return alert('카테고리를 선택해 주세요.')
+        if (!content) return alert('공지사항 본문을 입력해 주세요.')
+        try {
+          const {data} = await ApiConfig.request({
+            method: HttpMethod.POST,
+            url: EndPoint.GET_PARTNER_NOTICES,
+            data: {selectedItem},
+          })
+          console.log(data)
+          if (!data.isSuccess || isEmpty(data?.result)) {
+            return
+          }
+          if (data?.code === 1000) {
+            setItems(data.result.adminNoticePartnerDTOs)
+            alert(data.message)
+            window.reload()
+          } else {
+            alert(data?.message)
+          }
+        } catch (error) {
+          console.log(error)
+        }
         setShowAddModal(false)
       }
     } else {
