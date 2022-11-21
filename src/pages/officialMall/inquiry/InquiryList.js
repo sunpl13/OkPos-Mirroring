@@ -142,7 +142,6 @@ const InquiryList = () => {
     } else {
       setIsReadOnly(false)
     }
-    setIsUpdate(false)
     setShowModal(!showModal)
   }
 

@@ -151,14 +151,13 @@ const InquiryDetailModal = ({
         </CForm>
       </CModalBody>
       <CModalFooter>
-        {isUpdate && (
-          <CButton onClick={() => onCreate(inquiry)} color='primary'>
-            저장
-          </CButton>
-        )}
-        {isReadOnly && (
+        {isReadOnly ? (
           <CButton color={isReadOnly ? 'success' : 'primary'} onClick={clickUpdateBtn}>
             수정
+          </CButton>
+        ) : (
+          <CButton onClick={() => onCreate(inquiry)} color='primary'>
+            저장
           </CButton>
         )}
         <CButton color='danger' onClick={() => onDelete(inquiry)}>
