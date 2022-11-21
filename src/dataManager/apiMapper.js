@@ -33,6 +33,9 @@ export const EndPoint = {
   PATCH_MALL_UPDATE_FAQ: `${API}/admin/mall/faqs`,
   PATCH_MALL_DELETE_FAQ: `${API}/admin/mall/faqs/:faqId`,
 
+  GET_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
+  GET_MALL_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
+
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
 }
@@ -50,6 +53,8 @@ const ApiMapper = {
     [EndPoint.GET_MALL_INQUIRY]: {},
     [EndPoint.GET_MALL_FAQS]: {},
     [EndPoint.GET_MALL_FAQ]: {},
+    [EndPoint.GET_MALL_DATAROOMS]: {},
+    [EndPoint.GET_MALL_DATAROOM]: {},
 
     // ------ 파트너센터 페이지
     [EndPoint.GET_PARTNER_USERS]: {},

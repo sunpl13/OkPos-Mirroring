@@ -37,9 +37,9 @@ export const faqListColumns = [
 ]
 
 // 자료실 리스트
-export const archieveColumns = [
-  {key: 'id', label: 'No', sorter: false, filter: false},
-  {key: 'category', label: '분류'},
-  {key: 'title', label: '제목'},
-  {key: 'createAt', label: '작성일'},
+export const dataRoomListColumns = [
+  {key: 'dataRoomId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'category', label: '분류', _props: {className: 'category'}},
+  {key: 'title', label: '제목', _props: {className: 'title'}},
+  {key: 'createdAt', label: '최초등록일', sorter: false, filter: false, _props: {className: 'createdAt'}},
 ]

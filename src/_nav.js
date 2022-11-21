@@ -218,7 +218,7 @@ const _nav = [
   {
     component: CNavItem,
     name: '자료실 관리',
-    to: '/mall/archieve',
+    to: '/mall/dataroom',
     accessauthority: 'MALL',
     icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
   },

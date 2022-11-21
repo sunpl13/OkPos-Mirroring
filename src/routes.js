@@ -21,7 +21,7 @@ const OfficailMallInquiryList = React.lazy(() => import('./pages/officialMall/in
 // FAQ 관리
 const OfficialMallFaqList = React.lazy(() => import('./pages/officialMall/faq/FaqList'))
 // 자료실 관리
-const OfficialMallArchieve = React.lazy(() => import('./pages/officialMall/archieve/Archieve'))
+const OfficialMallDataRoom = React.lazy(() => import('./pages/officialMall/dataRoom/DataRoom'))
 
 // ------ 대리점 전용 파트너 센터
 
@@ -74,7 +74,7 @@ const routes = [
   // FAQ 관리
   {path: `/mall/faq`, name: 'FAQ관리', element: OfficialMallFaqList},
   // 자료실 관리
-  {path: `/mall/archieve`, name: '자료실 관리', element: OfficialMallArchieve},
+  {path: `/mall/dataroom`, name: '자료실 관리', element: OfficialMallDataRoom},
 
   // ------ 대리점 전용 파트너 센터
 
