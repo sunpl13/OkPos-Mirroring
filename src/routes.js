@@ -4,6 +4,7 @@ const Dashboard = React.lazy(() => import('./pages/dashboard/Dashboard'))
 
 const TestList = React.lazy(() => import('./pages/test/TestList'))
 const CreateTest = React.lazy(() => import('./pages/test/CreateTest'))
+const Member = React.lazy(() => import('./pages/member/MemberMagement'))
 
 // ------ 오케이포스 홈페이지
 
@@ -57,7 +58,7 @@ const routes = [
   {path: '/dashboard', name: 'Dashboard', element: Dashboard},
   {path: `/test/test-list`, name: '조회', element: TestList},
   {path: `/test/create-test`, name: '생성', element: CreateTest},
-
+  {path: `/member`, name: '생성', element: Member},
   // ------ 오케이포스 홈페이지
 
   //홈페이지 관리
