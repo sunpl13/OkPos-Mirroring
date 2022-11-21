@@ -15,10 +15,11 @@ import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import PropTypes from 'prop-types'
+import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 
 const category = [
-  {key: 1, value: '딜러'},
-  {key: 2, value: '대리점'},
+  {key: '"DEALER"', value: '딜러'},
+  {key: '"AGENCY"', value: '대리점'},
 ]
 
 const career = [
@@ -31,6 +32,16 @@ const career = [
   {key: 7, value: '6년 이상'},
 ]
 const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
+  // - VAN 영업 경력 (유/무)"
+  const {
+    noticeTitle, // 지원한 공지 제목
+    noticeContent, //지원한 공지 본문
+    noticeImages, //지원한 공지 이미지
+    supportArea, //지원 분야 (대리점 / 딜러)
+    name, // 이름
+    email, // 이메일
+    phoneNum, // 전화번호
+  } = value
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
 
@@ -58,57 +69,46 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
         </CModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
-            <ModalInput
-              onChange={onChange}
-              id='No'
-              placeholder='No.'
-              label='No'
-              readOnly={true}
-              disabled={true}
-              value={value.no || '0'}
-            />
             <ModalSelect
               readOnly={editMode}
               disabled={editMode}
               onChange={onChange}
               size='sm'
-              value={value.category}
+              value={supportArea}
               options={category}
               placeholder='선택해주세요'
               label='지원 분야'
+            />
+            <ModalSelect
+              options={career}
+              onChange={onChange}
+              size='sm'
+              value={value.career}
+              placeholder='선택해주세요'
+              label='경력'
             />
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='announcementTitle'
-              placeholder='AnnouncementTitle.'
+              id='noticeTitle'
+              placeholder='지원 공고'
               label='지원 공고'
               readOnly={true}
               disabled={true}
-              value={value.announcementTitle || ''}
+              value={noticeTitle || ''}
             />
           </CRow>
           <CRow className='mb-3'>
-            <CRow className='mb-3'>
-              <ModalInput
-                onChange={onChange}
-                id='startDate'
-                placeholder='AnnouncementTitle.'
-                label='지원 일자'
-                readOnly={true}
-                disabled={true}
-                value={value.employStartDate || ''}
-              />
-              <ModalSelect
-                options={career}
-                onChange={onChange}
-                size='sm'
-                value={value.career}
-                placeholder='선택해주세요'
-                label='경력'
-              />
-            </CRow>
+            <ModalTextArrayInput
+              id='noticeContent'
+              value={noticeContent}
+              rows={6}
+              label='지원 공고 본문'
+              onChange={onChange}
+              readOnly={editMode}
+              disabled={editMode}
+            />
           </CRow>
           <CRow className='mb-3'>
             <CFormLabel>이미지</CFormLabel>
@@ -124,10 +124,10 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='userName'
-              placeholder='userName'
+              id='name'
+              placeholder='지원자 이름'
               label='이름'
-              value={value.userName}
+              value={name}
               readOnly={editMode}
               disabled={editMode}
             />
@@ -136,9 +136,9 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
             <ModalInput
               onChange={onChange}
               id='email'
-              placeholder='email'
-              label='Email'
-              value={value.email}
+              placeholder='이메일'
+              label='이메일'
+              value={email}
               readOnly={editMode}
               disabled={editMode}
             />
@@ -146,10 +146,10 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, isReadO
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='phoneNumber'
-              placeholder='Phone Number'
+              id='phoneNum'
+              placeholder='전화번호'
               label='전화번호'
-              value={value.phoneNumber}
+              value={phoneNum}
               readOnly={editMode}
               disabled={editMode}
             />

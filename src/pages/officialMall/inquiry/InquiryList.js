@@ -22,9 +22,11 @@ const InquiryList = () => {
     email: '',
     category: '',
     phoneNumber: '',
+    inquiryReplyContent: '',
   })
   const [showModal, setShowModal] = useState(false)
-  const [inquiryMsg, setInquiryMsg] = useState('')
+  const [isReadOnly, setIsReadOnly] = useState(false)
+  const [isUpdate, setIsUpdate] = useState(false)
 
   // API 통신 함수
   const onLoadMallInquiryList = async () => {
@@ -43,9 +45,85 @@ const InquiryList = () => {
         }
         return
       }
-      setInquiryList(res.result)
+      setInquiryList(res.result.inquiryInfos)
     } catch (error) {
       console.log(error)
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // Create Inquiry Answer
+  const onCreateMallInquiryAnswer = async () => {
+    if (!selectedItem.inquiryMallId) return alert('번호를 찾을 수 없습니다.')
+    if (!selectedItem.inquiryReplyContent) return alert('답변을 입력해주세요')
+    if (window.confirm('저장 하시겠습니까?')) {
+      try {
+        const {data: res} = await ApiConfig.request({
+          method: HttpMethod.POST,
+          url: EndPoint.POST_MALL_INQUIRY_REPLY,
+          data: {
+            inquiryId: selectedItem.inquiryMallId,
+            content: selectedItem.inquiryReplyContent,
+          },
+        })
+
+        if (!res?.isSuccess) {
+          if (res?.code === 2014) {
+            navigate('/login')
+          }
+        }
+        alert(res?.message)
+      } catch (error) {
+        alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+      }
+    }
+  }
+
+  // Update Inquiry Answer
+  const onUpdateInquiryAnswer = async () => {
+    if (!selectedItem.inquiryMallId) return alert('번호를 찾을 수 없습니다.')
+    if (!selectedItem.inquiryReplyContent) return alert('답변을 입력해주세요')
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.PATCH,
+        url: EndPoint.PATCH_MALL_UPDATE_INQUIRY_REPLY,
+        data: {
+          inquiryId: selectedItem.inquiryMallId,
+          content: selectedItem.inquiryReplyContent,
+        },
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      alert(res?.message)
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // Delete Inquiry
+  const onDeleteInquiry = async faqId => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.PATCH,
+        url: EndPoint.PATCH_MALL_DELETE_FAQ,
+        path: {faqId},
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+      }
+    } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
   }
@@ -66,15 +144,12 @@ const InquiryList = () => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
-  const handleInquiryModalOnChange = ({target: {value}}) => {
-    setInquiryMsg(value)
-  }
-  const handleInquiryModalOnClick = () => {
-    setInquiryList(
-      inquiryList.map(value => (value.id === selectedItem.id ? {...selectedItem, answer: inquiryMsg} : value)),
-    )
-    setInquiryMsg('')
-    setShowModal(!showModal)
+  const handleInquiryModalOnChange = e => {
+    const {id, value} = e.target
+    setSelectedItem({
+      ...selectedItem,
+      [id]: value,
+    })
   }
   return (
     <CRow>
@@ -87,6 +162,7 @@ const InquiryList = () => {
               onClick={handleShowModal}
               columns={inquiryListColumns}
               className={'userList'}
+              datePickerHidden={false}
             />
           </CCardBody>
         </CCard>
@@ -95,9 +171,13 @@ const InquiryList = () => {
         visible={showModal}
         setVisible={setShowModal}
         value={selectedItem}
-        // value={inquiryMsg}
+        onCreate={onCreateMallInquiryAnswer}
+        onUpdate={onUpdateInquiryAnswer}
         onChange={handleInquiryModalOnChange}
-        onClick={handleInquiryModalOnClick}
+        isReadOnly={isReadOnly}
+        setIsReadOnly={setIsReadOnly}
+        isUpdate={isUpdate}
+        setIsUpdate={setIsUpdate}
       />
     </CRow>
   )

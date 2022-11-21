@@ -72,8 +72,8 @@ const UserDetailModal = ({value, visible, setVisible}) => {
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
-          <ModalInput id={'userId'} placeholder={'User Id'} label={'No'} value={resignUser.userId} readOnly disabled />
-          <ModalInput id={'userName'} placeholder={''} label={'이름'} value={resignUser.name} readOnly disabled />
+          <ModalInput id={'id'} placeholder={'User Id'} label={'No'} value={value.userId} readOnly disabled />
+          <ModalInput id={'userName'} placeholder={'이름'} label={'이름'} value={resignUser.name} readOnly disabled />
         </CRow>
         <CRow className={'p-2'}>
           <ModalInput id={'email'} placeholder={'이메일'} label={'이메일'} value={resignUser.email} readOnly disabled />
@@ -124,10 +124,10 @@ const UserDetailModal = ({value, visible, setVisible}) => {
         </CRow>
         <CRow className={'p-2'}>
           <ModalInput
-            id={'businessRegistration'}
+            id={'businessNumber'}
             placeholder={'사업자등록번호'}
             label={'사업자등록번호'}
-            value={resignUser.businessRegistration}
+            value={resignUser.businessNumber}
             readOnly
             disabled
           />

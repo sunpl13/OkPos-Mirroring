@@ -4,40 +4,172 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import FaqDetailModal from '../../../components/Modal/officialMall/FaqDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {faqListColumns} from '../../../utils/columns/officialMall/Columns'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
+import {useNavigate} from 'react-router-dom'
+import * as _ from 'lodash'
 
-const Faqlist = () => {
+const FaqList = () => {
+  const navigate = useNavigate()
+  const [isReadOnly, setIsReadOnly] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
-  const [item, setItem] = useState({
-    id: 0,
-    category: '',
-    title: '',
-    content: '',
-  })
-
   const [showModal, setShowModal] = useState(false)
-  const [showAddModal, setShowAddModal] = useState(false)
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const testValues = [
+  const categoryOptions = [
     {
-      id: 1,
-      category: '유형1',
-      title: '문의젬목',
-      content: '문의내용',
+      key: '하드웨어',
+      value: '하드웨어',
+    },
+    {
+      key: '소프트웨어',
+      value: '소프트웨어',
+    },
+    {
+      key: '렌탈',
+      value: '렌탈',
+    },
+    {
+      key: '부가서비스',
+      value: '부가서비스',
+    },
+    {
+      key: '유지보수',
+      value: '유지보수',
     },
   ]
 
-  // 첫실행 시 렌더링
+  // Load FAQ List
+  const onLoadFaqList = async () => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: EndPoint.GET_MALL_FAQS,
+      })
+
+      if (!res?.isSuccess || isEmpty(res?.result)) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+      } else {
+        setItems(res.result.faqInfos)
+      }
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // Load FAQ Detail
+  const onLoadFaq = async faqId => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: EndPoint.GET_MALL_FAQ,
+        path: {faqId},
+      })
+
+      if (!res?.isSuccess || isEmpty(res?.result)) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      res.result.faqId = faqId
+      setSelectedItem(res.result)
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // Create FAQ
+  const onCreateFaq = async item => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.POST,
+        url: EndPoint.POST_MALL_FAQ,
+        data: {
+          faqId: item.faqId,
+          category: item.category,
+          title: item.title,
+          content: item.content,
+        },
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      setSelectedItem(item)
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // Update FAQ
+  const onUpdateFaq = async item => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.PATCH,
+        url: EndPoint.PATCH_MALL_UPDATE_FAQ,
+        data: {
+          faqId: item.faqId,
+          category: item.category,
+          title: item.title,
+          content: item.content,
+        },
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      setSelectedItem(item)
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // Delete FAQ
+  const onDeleteFaq = async faqId => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.PATCH,
+        url: EndPoint.PATCH_MALL_DELETE_FAQ,
+        path: {faqId},
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+      }
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
   useEffect(() => {
-    setItems(testValues)
+    onLoadFaqList()
   }, [])
 
   function setInitItem() {
     return {
-      id: 0,
-      category: '',
       title: '',
       content: '',
     }
@@ -46,55 +178,54 @@ const Faqlist = () => {
   /** Open Modal*/
   const handleShowFaqItemAddModal = () => {
     setSelectedItem(setInitItem())
+    setIsReadOnly(false)
     setIsUpdate(false)
     setShowModal(!showModal)
   }
   const handleShowFaqDetailModal = item => {
-    setSelectedItem(item)
-    setIsUpdate(true)
+    onLoadFaq(item.faqId)
+    setIsReadOnly(true)
+    setIsUpdate(false)
     setShowModal(!showModal)
   }
 
   /** Add Faq Modal*/
-  const handleFaqItemAddModalOnChange = ({target}) => {
-    const {id, value} = target
-    setItem({
-      ...item,
+  const handleFaqItemModalOnChange = e => {
+    const {id, value} = e.target
+    setSelectedItem({
+      ...selectedItem,
       [id]: value,
     })
   }
-  const handleFaqDetailModalUpdateData = data => {
-    setItems(items.map(value => (value.id === data.id ? data : value)))
-    console.log(data.target)
-  }
-  const handleFaqItemAddModalOnClick = () => {
-    // if (!item.userName) return alert('Is Not User Name')
-    // if (!item.businessNumber) return alert('Is Not Business Number')
-    // if (!item.phoneNumber) return alert('Is Not Phone Number')
-    // if (!item.businessRegistration) return alert('Is Not Business Registration File')
-    // if (!item.businessName) return alert('Is Not Business Name')
-    // if (!item.businessAddress) return alert('Is Not Business Address')
-    setItems([
-      ...items,
-      {
-        ...item,
-      },
-    ])
-    setItem({
-      id: 0,
-      category: '',
-      title: '',
-      content: '',
-    })
-    setShowAddModal(!showAddModal)
+
+  const handleDetailModalUpdate = async () => {
+    const {faqId, title, content, category} = selectedItem
+    // validation
+    const categoryVals = categoryOptions.map(row => row.value)
+    if (!category || !_.includes(categoryVals, category)) return alert('카테고리를 선택해주세요')
+    if (!title) return alert('제목을 입력해주세요')
+    if (!content) return alert('답변을 입력해주세요')
+
+    if (window.confirm('저장 하시겠습니까?')) {
+      if (faqId) {
+        // update
+        onUpdateFaq(selectedItem)
+        setShowModal(true)
+        setIsReadOnly(true)
+        setIsUpdate(false)
+      } else {
+        // create
+        onCreateFaq(selectedItem)
+        setShowModal(false)
+      }
+      await onLoadFaqList()
+    }
   }
 
-  const onChange = e => {
-    const {value, id} = e.target // 우선 e.target 에서 name 과 value 를 추출
-    setItems({
-      ...items, // 기존의 input 객체를 복사한 뒤
-      [id]: value, // name 키를 가진 값을 value 로 설정
-    })
+  const handleDetailModalDelete = () => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      onDeleteFaq(selectedItem.faqId).then(onLoadFaqList, setShowModal(false))
+    }
   }
 
   return (
@@ -117,20 +248,26 @@ const Faqlist = () => {
               onClick={handleShowFaqDetailModal}
               columns={faqListColumns}
               className={'faqList'}
+              datePickerHidden={false}
             />
           </CCardBody>
         </CCard>
       </CCol>
       <FaqDetailModal
         item={selectedItem}
+        onUpdate={handleDetailModalUpdate}
+        onDelete={handleDetailModalDelete}
+        onChange={handleFaqItemModalOnChange}
+        option={categoryOptions}
         visible={showModal}
         setVisible={setShowModal}
-        upDate={handleFaqDetailModalUpdateData}
-        onChange={onChange}
+        isReadOnly={isReadOnly}
+        setIsReadOnly={setIsReadOnly}
         isUpdate={isUpdate}
+        setIsUpdate={setIsUpdate}
       />
     </CRow>
   )
 }
 
-export default Faqlist
+export default FaqList

@@ -33,7 +33,9 @@ const _nav = [
     name: '생성',
     to: '/test/create-test',
   },
-
+  /*
+  대리점 전용 파트너센터 코드 작성
+  */
   {
     component: CNavTitle,
     name: '파트너센터',
