@@ -230,7 +230,7 @@ const FaqList = () => {
 
   return (
     <CRow>
-      <PageHeader title='FAQ 리스트' />
+      <PageHeader title='FAQ 관리' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardHeader>

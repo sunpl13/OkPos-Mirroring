@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import {CCard, CCardBody, CCardHeader, CCol, CRow} from '@coreui/react'
+import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import InquiryDetailModal from '../../../components/Modal/officialMall/InquiryDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
-import {inquiryListColumns} from '../../../utils/columns/officialMall/Columns'
+import {dataRoomListColumns} from '../../../utils/columns/officialMall/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 
-const InquiryList = () => {
+const DataRoom = () => {
   // 모듈 선언
   const navigate = useNavigate()
 
   // Local state 선언
-  const [inquiryList, setInquiryList] = useState([])
+  const [dataRoomList, setDataRoomList] = useState([])
   const [selectedItem, setSelectedItem] = useState({
     inquiryMallId: 0,
     name: '',
@@ -28,15 +28,15 @@ const InquiryList = () => {
   const [isUpdate, setIsUpdate] = useState(false)
 
   // API 통신 함수
-  const onLoadMallInquiryList = async () => {
+  const onLoadMallDataRoomList = async () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_MALL_INQUIRIES,
+        url: EndPoint.GET_MALL_DATAROOMS,
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
-        console.log('onLoadMallInquiryList error')
+        console.log('onLoadMallDataRoomList error')
         if (res?.code === 2014) {
           navigate('/login')
         } else {
@@ -44,7 +44,7 @@ const InquiryList = () => {
         }
         return
       }
-      setInquiryList(res.result.inquiryInfos)
+      setDataRoomList(res.result.dataRoomInfos)
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -119,7 +119,7 @@ const InquiryList = () => {
       }
       alert(res?.message)
       setShowModal(!showModal)
-      await onLoadMallInquiryList()
+      await onLoadMallDataRoomList()
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -127,7 +127,7 @@ const InquiryList = () => {
 
   // Life Cycle 선언
   useEffect(() => {
-    onLoadMallInquiryList()
+    onLoadMallDataRoomList()
   }, [])
 
   // 함수 선언
@@ -177,14 +177,21 @@ const InquiryList = () => {
   }
   return (
     <CRow>
-      <PageHeader title='1 : 1 문의 관리' />
+      <PageHeader title='자료실 관리' />
       <CCol xs={12}>
         <CCard className='mb-4'>
+          <CCardHeader>
+            <CForm className='row g-3'>
+              <CCol xs={1}>
+                <CButton color='primary'>추가</CButton>
+              </CCol>
+            </CForm>
+          </CCardHeader>
           <CCardBody>
             <ListTemplate
-              items={inquiryList}
+              items={dataRoomList}
               onClick={handleShowInquiryDetailModal}
-              columns={inquiryListColumns}
+              columns={dataRoomListColumns}
               className={'userList'}
               datePickerHidden={false}
             />
@@ -207,4 +214,4 @@ const InquiryList = () => {
   )
 }
 
-export default InquiryList
+export default DataRoom
