@@ -175,16 +175,16 @@ export const dealerSupportList = [
 // 자료 리스트
 export const materiaList = [
   {
-    key: 'no',
-    _props: {className: 'no'},
+    key: 'id',
+    _props: {className: 'id'},
   },
   {
     key: 'title',
     _props: {className: 'title'},
   },
   {
-    key: 'category',
-    _props: {className: 'Category'},
+    key: 'dataRoomCategory',
+    _props: {className: 'dataRoomCategory'},
   },
 
   {

@@ -42,6 +42,7 @@ const ModalFilesInput = ({value, label, id, disabled}) => {
       status: 'error',
     },
   ]
+
   const props = {
     name: 'file',
     multiple: true,

@@ -12,36 +12,14 @@ const getBase64 = file =>
     reader.onerror = error => reject(error)
   })
 
-const ModalImageInput = ({id, label}) => {
+const ModalImageInput = ({id, label, value}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
   const handleCloseImage = () => {
     setPreviewImage('')
   }
-  // TestData
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-xxx',
-      percent: 50,
-      name: 'image.png',
-      status: 'uploading',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-5',
-      name: 'image.png',
-      status: 'error',
-    },
-  ])
-
-  const handleCancel = () => setPreviewOpen(false)
+  const [fileList, setFileList] = useState(value)
 
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
@@ -81,6 +59,9 @@ const ModalImageInput = ({id, label}) => {
       </Upload>
       {previewImage && (
         <CCol>
+          <CFormLabel className='col-form-label'>
+            <span>{previewTitle || ''}</span>
+          </CFormLabel>
           <PreviewImageBox className={'text-center p-2'}>
             <CImage
               rounded

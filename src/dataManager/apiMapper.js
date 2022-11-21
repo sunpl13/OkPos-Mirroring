@@ -14,6 +14,7 @@ export const EndPoint = {
   GET_PARTNER_INQUIRIES: `${API}/admin/partner/inquiries`, // 1:1 문의 리스트
   GET_PARTNER_NOTICES: `${API}/admin/partner/notices`, // 공지사항 리스트
   GET_PARTNER_AGENCYAPPLICANT: `${API}/admin/partner/notices/agencyApplicant`, // 영업점 딜러 지원 리스트
+  GET_PARTNER_DATAROOMS: `${API}/admin/partner/dataRooms`, // 자료실 리스트
 
   // ------ 가맹점 전용 공식몰 페이지
   GET_MALL_USERS: `${API}/admin/mall/users`,

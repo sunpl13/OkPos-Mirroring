@@ -9,23 +9,6 @@ import moment from 'moment'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import {isEmpty} from '../../../../utils/utility'
-//{
-//     "id": 4,
-//     "title": "공지사항 작성 테스트",
-//     "createdAt": "2022.11.16 17:11:472",
-//     "noticeFiles": [
-//         {
-//             "id": 2,
-//             "title": "test.pdf",
-//             "capacity": 8175,
-//             "url": "https://homepage-test-resource.s3.ap-northeast-2.amazonaws.com/images/b4479668-8554-42e3-9039-2fc2434fe31etest.pdf",
-//             "createdAt": "2022.11.16 17:11:481",
-//             "updatedAt": "2022.11.16 17:11:481",
-//             "status": "ACTIVE"
-//         }
-//     ],
-//     "isApplicationNotice": true
-// }
 
 const NoticeList = () => {
   const [items, setItems] = useState()
@@ -89,7 +72,7 @@ const NoticeList = () => {
     setShowAddModal(!showAddModal)
   }
   // 공지사항 API
-  const getUsers = async () => {
+  const getNoticeList = async () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
@@ -109,7 +92,7 @@ const NoticeList = () => {
     }
   }
   useEffect(() => {
-    getUsers()
+    getNoticeList()
   }, [])
 
   /** Detail Modal */
