@@ -22,6 +22,7 @@ const InquiryDetailModal = ({
   onClick,
   onCreate,
   onChange,
+  onDelete,
   value,
   isReadOnly,
   setIsReadOnly,
@@ -40,7 +41,7 @@ const InquiryDetailModal = ({
 
   // Local state 선언
   const [inquiry, setInquiry] = useState({
-    inquiryMallId: 0,
+    inquiryId: 0,
     name: '',
     phoneNumber: '',
     email: '',
@@ -52,8 +53,7 @@ const InquiryDetailModal = ({
 
   // API 통신 함수
   const onloadMallInquiry = async value => {
-    const {inquiryMallId} = value
-    const inquiryId = inquiryMallId
+    const {inquiryId} = value
     try {
       const {data: res} = await ApiConfig.request({
         data: {},
@@ -100,14 +100,7 @@ const InquiryDetailModal = ({
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
-          <ModalInput
-            id={'id'}
-            placeholder={'inquiryMallId'}
-            label={'No'}
-            value={value.inquiryMallId}
-            readOnly
-            disabled
-          />
+          <ModalInput id={'id'} placeholder={'inquiryId'} label={'No'} value={inquiry.inquiryId} readOnly disabled />
           <ModalInput id={'name'} placeholder={'이름'} label={'이름'} value={inquiry.name} readOnly disabled />
         </CRow>
         <CRow className={'p-2'}>
@@ -159,18 +152,16 @@ const InquiryDetailModal = ({
       </CModalBody>
       <CModalFooter>
         {isUpdate && (
-          <CButton onClick={onCreate} color='primary'>
+          <CButton onClick={() => onCreate(inquiry)} color='primary'>
             저장
           </CButton>
         )}
         {isReadOnly && (
-          <>
-            <CButton color={isReadOnly ? 'primary' : 'success'} onClick={clickUpdateBtn}>
-              수정
-            </CButton>
-          </>
+          <CButton color={isReadOnly ? 'success' : 'primary'} onClick={clickUpdateBtn}>
+            수정
+          </CButton>
         )}
-        <CButton color='danger' onClick={() => setVisible(false)}>
+        <CButton color='danger' onClick={() => onDelete(inquiry)}>
           삭제
         </CButton>
         <CButton color='secondary' onClick={() => setVisible(false)}>

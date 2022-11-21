@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {CCard, CCardBody, CCardHeader, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import {testUserTableValues} from '../../test/testConstant'
 import InquiryDetailModal from '../../../components/Modal/officialMall/InquiryDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {inquiryListColumns} from '../../../utils/columns/officialMall/Columns'
@@ -53,43 +52,37 @@ const InquiryList = () => {
   }
 
   // Create Inquiry Answer
-  const onCreateMallInquiryAnswer = async () => {
-    if (!selectedItem.inquiryMallId) return alert('번호를 찾을 수 없습니다.')
-    if (!selectedItem.inquiryReplyContent) return alert('답변을 입력해주세요')
-    if (window.confirm('저장 하시겠습니까?')) {
-      try {
-        const {data: res} = await ApiConfig.request({
-          method: HttpMethod.POST,
-          url: EndPoint.POST_MALL_INQUIRY_REPLY,
-          data: {
-            inquiryId: selectedItem.inquiryMallId,
-            content: selectedItem.inquiryReplyContent,
-          },
-        })
-
-        if (!res?.isSuccess) {
-          if (res?.code === 2014) {
-            navigate('/login')
-          }
+  const onCreateMallInquiryAnswer = async (inquiryId, inquiryReplyContent) => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.POST,
+        url: EndPoint.POST_MALL_INQUIRY_REPLY,
+        data: {
+          inquiryId: inquiryId,
+          inquiryReplyContent: inquiryReplyContent,
+        },
+      })
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
         }
-        alert(res?.message)
-      } catch (error) {
-        alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
       }
+      alert(res?.message)
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
   }
 
   // Update Inquiry Answer
-  const onUpdateInquiryAnswer = async () => {
-    if (!selectedItem.inquiryMallId) return alert('번호를 찾을 수 없습니다.')
-    if (!selectedItem.inquiryReplyContent) return alert('답변을 입력해주세요')
+  const onUpdateInquiryAnswer = async (inquiryId, inquiryReplyId, inquiryReplyContent) => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
         url: EndPoint.PATCH_MALL_UPDATE_INQUIRY_REPLY,
         data: {
-          inquiryId: selectedItem.inquiryMallId,
-          content: selectedItem.inquiryReplyContent,
+          inquiryId: inquiryId,
+          inquiryReplyId: inquiryReplyId,
+          inquiryReplyContent: inquiryReplyContent,
         },
       })
 
@@ -108,12 +101,13 @@ const InquiryList = () => {
   }
 
   // Delete Inquiry
-  const onDeleteInquiry = async faqId => {
+  const onDeleteInquiry = async inquiry => {
+    const {inquiryId} = inquiry
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
-        url: EndPoint.PATCH_MALL_DELETE_FAQ,
-        path: {faqId},
+        url: EndPoint.PATCH_MALL_DELETE_INQUIRY,
+        path: {inquiryId},
       })
 
       if (!res?.isSuccess) {
@@ -123,6 +117,9 @@ const InquiryList = () => {
           alert(res?.message)
         }
       }
+      alert(res?.message)
+      setShowModal(!showModal)
+      await onLoadMallInquiryList()
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -135,21 +132,48 @@ const InquiryList = () => {
 
   // 함수 선언
 
-  useEffect(() => {
-    setInquiryList(testUserTableValues)
-  }, [])
-
   /** Open Modal*/
-  const handleShowModal = item => {
+  const handleShowInquiryDetailModal = item => {
+    // 선택 아이템을 selectedItem 에 저장
     setSelectedItem(item)
+
+    if (item.inquiryReplyId) {
+      setIsReadOnly(true)
+    } else {
+      setIsReadOnly(false)
+    }
+    setIsUpdate(false)
     setShowModal(!showModal)
   }
+
+  // data onChange
   const handleInquiryModalOnChange = e => {
     const {id, value} = e.target
     setSelectedItem({
       ...selectedItem,
       [id]: value,
     })
+  }
+
+  // 답변 저장
+  const handleInquiryModalCreate = async inquiry => {
+    const {inquiryId, inquiryReplyId, inquiryReplyContent} = inquiry
+
+    // validation
+    if (!inquiryId) return alert('번호를 찾을 수 없습니다.')
+    if (!inquiryReplyContent) return alert('답변을 입력해주세요')
+
+    if (window.confirm('저장 하시겠습니까?')) {
+      if (inquiryReplyId) {
+        // update
+        onUpdateInquiryAnswer(inquiryId, inquiryReplyId, inquiryReplyContent)
+      } else {
+        // create
+        onCreateMallInquiryAnswer(inquiryId, inquiryReplyContent)
+      }
+      setIsReadOnly(true)
+      setIsUpdate(false)
+    }
   }
   return (
     <CRow>
@@ -159,7 +183,7 @@ const InquiryList = () => {
           <CCardBody>
             <ListTemplate
               items={inquiryList}
-              onClick={handleShowModal}
+              onClick={handleShowInquiryDetailModal}
               columns={inquiryListColumns}
               className={'userList'}
               datePickerHidden={false}
@@ -171,9 +195,9 @@ const InquiryList = () => {
         visible={showModal}
         setVisible={setShowModal}
         value={selectedItem}
-        onCreate={onCreateMallInquiryAnswer}
-        onUpdate={onUpdateInquiryAnswer}
+        onCreate={handleInquiryModalCreate}
         onChange={handleInquiryModalOnChange}
+        onDelete={onDeleteInquiry}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
         isUpdate={isUpdate}

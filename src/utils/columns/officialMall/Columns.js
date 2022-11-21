@@ -1,20 +1,3 @@
-const popUpColumns = [
-  {
-    key: 'No',
-    _props: {color: 'primary', className: 'employId'},
-  },
-  {
-    key: 'popUpName',
-    label: '팝업 이름',
-    _props: {color: 'primary', className: 'category'},
-  },
-  {
-    key: 'popUpImg',
-    label: '팝업 이미지',
-    _props: {color: 'primary', className: 'employName'},
-  },
-]
-
 // 회원 리스트
 export const userListColumns = [
   {key: 'userId', label: 'No', sorter: false, filter: false},
@@ -39,7 +22,7 @@ export const resignUserListColumns = [
 
 // 1:1 문의 리스트
 export const inquiryListColumns = [
-  {key: 'inquiryMallId', label: 'No', sorter: false, filter: false},
+  {key: 'inquiryId', label: 'No', sorter: false, filter: false},
   {key: 'category', label: '문의 유형'},
   {key: 'name', label: '이름'},
   {key: 'email', label: '이메일'},
