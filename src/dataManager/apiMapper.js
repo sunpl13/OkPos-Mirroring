@@ -7,6 +7,7 @@ export const EndPoint = {
   POST_TEST_V1_REGISTER: `${API}/test/v1/register`,
   RECRUITMENT: `${API}/admin/recruitment`,
   TALENTPOOL: `${API}/admin/talent-pool`,
+  EDITOR: `${API}/admin/editor`,
 
   // ------ 파트너 센터 페이지
   GET_PARTNER_USERS: `${API}/admin/partner/users`, // 유저 리스트

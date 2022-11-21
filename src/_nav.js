@@ -25,6 +25,13 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: '회원관리',
+    to: '/member',
+    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
+  },
+  {
+    component: CNavItem,
     name: '조회',
     to: '/test/test-list',
   },
