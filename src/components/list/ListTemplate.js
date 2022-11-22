@@ -18,6 +18,8 @@ import {
 import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
+import ApiConfig, {HttpMethod} from '../../dataManager/apiConfig'
+import {EndPoint} from '../../dataManager/apiMapper'
 
 const ListTemplate = ({
   items, // 리스트 아이템
@@ -125,6 +127,23 @@ const ListTemplate = ({
     onDelete(item)
   }
 
+  const handleOnCheckedApi = async item => {
+    try {
+      const data = await ApiConfig.request({
+        data: {
+          editorIds: [item.editorId],
+        },
+        query: {},
+        path: {},
+        method: HttpMethod.PATCH,
+        url: `${EndPoint.EDITOR}/auth`,
+      })
+      console.log(data)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
   useEffect(() => {
     setListItems(items)
     if (columns) {
@@ -211,6 +230,11 @@ const ListTemplate = ({
           checkBox: item => (
             <td onClick={event => event.stopPropagation()}>
               <CFormCheck onChange={() => handleItemOnSelected(item)} checked={item.checked || false} />
+            </td>
+          ),
+          isAuthorized: item => (
+            <td onClick={event => event.stopPropagation()}>
+              <CFormCheck onChange={() => handleOnCheckedApi(item)} checked={item.isAuthorized || false} />
             </td>
           ),
           // 상태

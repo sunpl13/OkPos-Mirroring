@@ -18,7 +18,8 @@ const DefaultLayout = () => {
       navigate(`/login`)
       return
     }
-    if (location.pathname !== '/' && location.pathname !== '/dashboard') {
+    if (location.pathname === '/memeber') {
+    } else if (location.pathname !== '/' && location.pathname !== '/dashboard') {
       if (authority[0].toLowerCase() !== location.pathname[1]) {
         alert('접근 권한이 없습니다!')
         navigate(-1)
