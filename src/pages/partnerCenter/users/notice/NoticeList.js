@@ -5,7 +5,6 @@ import ListTemplate from '../../../../components/list/ListTemplate'
 import NoticeDetailModal from '../../../../components/Modal/partnerCenter/notice/NoticeDetailModal'
 import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
 import NoticeAddModal from '../../../../components/Modal/partnerCenter/notice/NoticeAddModal'
-import moment from 'moment'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import {isEmpty} from '../../../../utils/utility'
@@ -136,7 +135,6 @@ const NoticeList = () => {
             return
           }
           if (data?.code === 1000) {
-            setItems(data.result.adminNoticePartnerDTOs)
             alert(data.message)
             window.reload()
           } else {
@@ -153,9 +151,28 @@ const NoticeList = () => {
   }
 
   /** List Row onDelete */
-  const handleNoticeDeleteBtnOnClick = ({id}) => {
+  const handleNoticeDeleteBtnOnClick = async ({id}) => {
+    console.log(id)
     if (window.confirm('해당 공지사항을 삭제하시겠습니까?')) {
-      setItems(items.filter(value => value.id !== id))
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.DELETE,
+          //url: `${EndPoint.GET_PARTNER_NOTICES}/${id}`,
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+          alert(data.message)
+          window.reload()
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      setShowAddModal(false)
     }
   }
 

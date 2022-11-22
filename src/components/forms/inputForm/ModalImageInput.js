@@ -1,13 +1,14 @@
 import {PlusOutlined} from '@ant-design/icons'
 import {Upload} from 'antd'
 import React, {useState} from 'react'
-import {CCol, CFormLabel, CImage, CRow} from '@coreui/react'
+import {CCol, CFormLabel, CImage} from '@coreui/react'
 import styled from 'styled-components'
 
 const ModalImageInput = ({id, label, value}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
+  const [fileList, setFileList] = useState(value)
 
   const getBase64 = file =>
     new Promise((resolve, reject) => {
@@ -20,8 +21,8 @@ const ModalImageInput = ({id, label, value}) => {
   const handleCloseImage = () => {
     setPreviewImage('')
   }
-  const [fileList, setFileList] = useState(value)
 
+  console.log(value)
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj)
