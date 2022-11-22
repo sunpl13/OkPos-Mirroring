@@ -15,6 +15,7 @@ import ModalInput from '../../../forms/inputForm/ModalInput'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import PropTypes from 'prop-types'
+import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 
 const inquiries = [
   {key: 'a', value: '제품'},
@@ -125,6 +126,9 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
               rows={15}
               id='content'
             />
+          </CRow>
+          <CRow>
+            <ModalImageInput id={'imageInput'} label={'이미지 리스트'} />
           </CRow>
         </CModalBody>
         <CModalFooter>
