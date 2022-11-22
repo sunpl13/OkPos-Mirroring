@@ -22,7 +22,6 @@ const ModalImageInput = ({id, label, value}) => {
     setPreviewImage('')
   }
 
-  console.log(value)
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj)

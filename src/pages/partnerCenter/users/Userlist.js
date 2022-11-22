@@ -13,6 +13,8 @@ const Userlist = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
+  {
+    /*
   const [item, setItem] = useState({
     userName: '',
     businessNumber: '',
@@ -23,8 +25,10 @@ const Userlist = () => {
     businessName: '',
     businessAddress: '',
   })
-  const [showModal, setShowModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
+  */
+  }
+  const [showModal, setShowModal] = useState(false)
 
   const getUsers = async () => {
     try {
@@ -36,7 +40,7 @@ const Userlist = () => {
         return
       }
       if (data?.code === 1000) {
-        setItems(data.result.userInfoPartnerDTOS)
+        setItems(data.result.inActiveUserInfoPartnerDTOs)
       } else {
         alert(data?.message)
       }
@@ -141,6 +145,8 @@ const Userlist = () => {
       setShowModal(false)
     }
   }
+  {
+    /*
   const handleUserItemAddModalOnClick = () => {
     if (!item.userName) return alert('Is Not User Name')
     if (!item.businessNumber) return alert('Is Not Business Number')
@@ -164,21 +170,14 @@ const Userlist = () => {
     })
     setShowAddModal(!showAddModal)
   }
+  */
+  }
 
   return (
     <CRow>
       <PageHeader title='회원 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
-          <CCardHeader>
-            <CForm className='row g-3'>
-              <CCol xs={1}>
-                <CButton color='primary' onClick={handleShowUserDetailModal}>
-                  추가
-                </CButton>
-              </CCol>
-            </CForm>
-          </CCardHeader>
           <CCardBody>
             <ListTemplate
               items={items}
@@ -189,6 +188,7 @@ const Userlist = () => {
           </CCardBody>
         </CCard>
       </CCol>
+      {/*
       <UserAddModal
         value={item}
         visible={showAddModal}
@@ -196,6 +196,7 @@ const Userlist = () => {
         onChange={handleDetailModalOnChange}
         onClick={handleUserItemAddModalOnClick}
       />
+      */}
       <UserDetailModal
         value={selectedItem}
         visible={showModal}

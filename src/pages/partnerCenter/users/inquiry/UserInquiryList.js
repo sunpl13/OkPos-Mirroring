@@ -34,7 +34,7 @@ const UserInquiryList = () => {
         return
       }
       if (data?.code === 1000) {
-        setItems(data.result.userInfoPartnerDTOS)
+        setItems(data.result.inquiryPartnerDTOs)
       } else {
         alert(data?.message)
       }

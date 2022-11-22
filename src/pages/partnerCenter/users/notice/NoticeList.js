@@ -104,7 +104,7 @@ const NoticeList = () => {
   const handleNoticeDetailModalUpdate = () => {
     const {id, title, content, files} = selectedItem
     if (editCheck.title !== title || editCheck.content !== content || editCheck.files !== files) {
-      if (window.confirm('Edit ?')) {
+      if (window.confirm('공지사항을 수정하시겠습니까?')) {
         if (!title) return alert('Not Title')
         if (!files) return alert('Not File')
         if (!content) return alert('Not Content')
@@ -124,11 +124,12 @@ const NoticeList = () => {
         if (!title) return alert('공지사항 제목을 입력해 주세요.')
         if (!category) return alert('카테고리를 선택해 주세요.')
         if (!content) return alert('공지사항 본문을 입력해 주세요.')
+        console.log(selectedItem)
         try {
           const {data} = await ApiConfig.request({
             method: HttpMethod.POST,
             url: EndPoint.GET_PARTNER_NOTICES,
-            data: {selectedItem},
+            data: JSON.stringify({selectedItem}),
           })
           console.log(data)
           if (!data.isSuccess || isEmpty(data?.result)) {

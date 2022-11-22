@@ -31,6 +31,8 @@ const ListTemplate = ({
   searchInputHidden = true, // 검색창 출력 유무
   checkBoxInputHidden = false, // 체크박스 출력 유무
 }) => {
+  console.log(items)
+
   // Local state 선언
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()

@@ -37,11 +37,11 @@ const MaterialList = () => {
           return
         }
         if (data?.code === 1000) {
+          setSelectedItem(data.result)
+          setEditCheck(data.result)
         } else {
           alert(data?.message)
         }
-        setSelectedItem(data.result)
-        setEditCheck(data.result)
       } catch (error) {
         console.log(error)
       }
@@ -60,10 +60,10 @@ const MaterialList = () => {
         return
       }
       if (data?.code === 1000) {
+        setItems(data.result?.adminDataRoomPartnerDTOs)
       } else {
         alert(data?.message)
       }
-      setItems(data.result.adminDataRoomPartnerDTOS)
     } catch (error) {
       console.log(error)
     }
@@ -115,7 +115,7 @@ const MaterialList = () => {
     }
   }
 
-  const handleMaterialModalOnChange = ({target: {id, value}, target}) => {
+  const handleMaterialModalOnChange = ({target: {id, value}}) => {
     setSelectedItem({
       ...selectedItem,
       [id]: value,

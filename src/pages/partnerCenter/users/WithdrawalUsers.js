@@ -40,7 +40,7 @@ const WithdrawalUsers = () => {
       } else {
         alert(data?.message)
       }
-      setItems(data.result.userInfoPartnerDTOS)
+      setItems(data.result.inActiveUserInfoPartnerDTOs)
     } catch (error) {
       console.log(error)
     }
