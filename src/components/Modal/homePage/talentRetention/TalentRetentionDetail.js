@@ -44,12 +44,12 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='No'
-              placeholder='No.'
-              label='No'
+              id='talentPoolId'
+              placeholder='talentPoolId'
+              label='talentPoolId'
               readOnly={true}
               disabled={true}
-              value={value.No === -1 ? '' : value.No}
+              value={value.talentPoolId === -1 ? '' : value.talentPoolId}
             />
             <ModalInput
               onChange={onChange}
@@ -75,16 +75,50 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
             />
             <ModalInput
               onChange={onChange}
-              id='pNum'
+              id='phoneNumber'
               placeholder='phone number'
-              label='전화번호'
-              value={value.pNum}
+              label='휴대 전화번호'
+              value={value.phoneNumber}
               isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
           </CRow>
           <CRow className='mb-3'>
+            <ModalInput
+              onChange={onChange}
+              id='number'
+              placeholder='phone number'
+              label='전화번호'
+              value={value.number}
+              isRequired={true}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+            />
+            <ModalSelect
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              onChange={onChange}
+              size='sm'
+              id='position'
+              options={category}
+              value={value.position}
+              isRequired={true}
+              placeholder='선택해주세요'
+              label='지원 포지션'
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalInput
+              onChange={onChange}
+              id='number'
+              placeholder='phone number'
+              label='전화번호'
+              value={value.number}
+              isRequired={true}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+            />
             <ModalSelect
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -100,7 +134,7 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
           </CRow>
         </CModalBody>
         <CModalFooter>
-          {value.No === -1 ? (
+          {value.talentPoolId === -1 ? (
             <CButton color='primary'>Add</CButton>
           ) : (
             <>

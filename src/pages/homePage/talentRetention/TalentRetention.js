@@ -8,10 +8,12 @@ import TalentRetentionDetail from '../../../components/Modal/homePage/talentRete
 import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
+import TalentPoolList from '../../../components/list/homepage/talentTetention/TalentPoolList'
 const TalentRetention = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
+  const [select, setSelect] = useState('')
   const [selectedItem, setSelectedItem] = useState({
     talentPoolId: -1,
     number: '',
@@ -117,7 +119,7 @@ const TalentRetention = () => {
               </CForm>
             </CCardHeader>
             <CCardBody>
-              <ListTemplate
+              <TalentPoolList
                 items={items}
                 onClick={handleShowTalentPoolDetailModal}
                 columns={talentRetentionColumns}
@@ -135,6 +137,8 @@ const TalentRetention = () => {
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
+        select={select}
+        setSelect={setSelect}
       />
     </main>
   )
