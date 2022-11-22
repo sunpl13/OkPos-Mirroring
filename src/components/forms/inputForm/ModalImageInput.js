@@ -1,9 +1,9 @@
 import {PlusOutlined} from '@ant-design/icons'
 import {Upload} from 'antd'
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {CCol, CFormLabel, CImage, CRow} from '@coreui/react'
 import styled from 'styled-components'
-
+import S3 from 'react-aws-s3'
 const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -13,35 +13,22 @@ const getBase64 = file =>
   })
 
 const ModalImageInput = ({id, label}) => {
+  window.Buffer = window.Buffer || require('buffer').Buffer
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
+  const config = {
+    bucketName: process.env.REACT_APP_AWS_BUCKET_NAME,
+    region: process.env.REACT_APP_AWS_REGION,
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  }
   const handleCloseImage = () => {
     setPreviewImage('')
   }
-  // TestData
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-xxx',
-      percent: 50,
-      name: 'image.png',
-      status: 'uploading',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-5',
-      name: 'image.png',
-      status: 'error',
-    },
-  ])
 
-  const handleCancel = () => setPreviewOpen(false)
+  // TestData
+  const [fileList, setFileList] = useState([])
 
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
@@ -53,7 +40,17 @@ const ModalImageInput = ({id, label}) => {
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
   }
 
-  const handleChange = ({fileList: newFileList}) => setFileList(newFileList)
+  const uploadFile = async file => {
+    const ReactS3Client = new S3(config)
+    console.log(ReactS3Client)
+    console.log(file)
+    // the name of the file uploaded is used to upload it to S3
+    ReactS3Client.uploadFile(file[0], file[0].name)
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => console.error(err))
+  }
 
   const uploadButton = (
     <div>
@@ -75,10 +72,17 @@ const ModalImageInput = ({id, label}) => {
         listType='picture-card'
         fileList={fileList}
         onPreview={handlePreview}
-        onChange={handleChange}
+        onChange={({fileList}) => {
+          const newFileList = fileList.slice(-1)
+          setFileList(newFileList)
+        }}
       >
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>
+      <button color='primary' onClick={() => uploadFile(fileList)}>
+        {' '}
+        Upload to S3
+      </button>
       {previewImage && (
         <CCol>
           <PreviewImageBox className={'text-center p-2'}>
