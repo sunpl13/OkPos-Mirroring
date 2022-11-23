@@ -38,7 +38,6 @@ const ModalImageInput = ({id, label}) => {
   const onSuccess = successData => {
     const file = successData.request.httpRequest.body
     const endPoint = successData.request.httpRequest.endpoint
-
     const fileData = {
       uid: successData.request.params.Key,
       name: file.name,
@@ -78,6 +77,35 @@ const ModalImageInput = ({id, label}) => {
     )
   }
 
+  const onDelete = item => {
+    AWS.config.update({
+      region: process.env.REACT_APP_AWS_REGION,
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    })
+
+    const S3 = new AWS.S3()
+
+    const objParams = {
+      Bucket: `${process.env.REACT_APP_AWS_BUCKET_NAME}`,
+      Key: item.uid,
+    }
+
+    S3.deleteObject(objParams, (err, data) => {
+      if (err) {
+        setFileList(
+          fileList.map(file => {
+            if (file.uid === item.uid) {
+              return {...file, status: 'error'}
+            } else {
+              return file
+            }
+          }),
+        )
+      }
+      setFileList(fileList.filter(file => file.uid !== item.uid))
+    })
+  }
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -94,6 +122,7 @@ const ModalImageInput = ({id, label}) => {
         fileList={fileList}
         onPreview={handlePreview}
         onSuccess={data => onSuccess(data)}
+        onRemove={data => onDelete(data)}
         customRequest={reqData => customReq(reqData)}
       >
         {fileList.length >= 8 ? null : uploadButton}
