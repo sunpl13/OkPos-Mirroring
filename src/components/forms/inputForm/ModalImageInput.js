@@ -13,7 +13,7 @@ const getBase64 = file =>
     reader.onerror = error => reject(error)
   })
 
-const ModalImageInput = ({id, label}) => {
+const ModalImageInput = ({images, id, label, fileList, setFileList}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -21,9 +21,6 @@ const ModalImageInput = ({id, label}) => {
   const handleCloseImage = () => {
     setPreviewImage('')
   }
-
-  // TestData
-  const [fileList, setFileList] = useState([])
 
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
