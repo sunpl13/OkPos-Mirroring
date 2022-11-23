@@ -4,7 +4,7 @@ import React, {useState} from 'react'
 import {CCol, CFormLabel, CImage} from '@coreui/react'
 import styled from 'styled-components'
 
-const ModalImageInput = ({id, label, value}) => {
+const ModalImageInput = ({id, label, value, disabled}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -55,6 +55,7 @@ const ModalImageInput = ({id, label, value}) => {
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        disabled={disabled}
       >
         {fileList?.length >= 8 ? null : uploadButton}
       </Upload>
