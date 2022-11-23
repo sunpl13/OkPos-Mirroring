@@ -3,7 +3,8 @@ import {Upload} from 'antd'
 import {useState} from 'react'
 import {CCol, CFormLabel, CImage, CRow} from '@coreui/react'
 import styled from 'styled-components'
-import S3 from 'react-aws-s3'
+import {v1} from 'uuid'
+import AWS from 'aws-sdk'
 const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -13,16 +14,10 @@ const getBase64 = file =>
   })
 
 const ModalImageInput = ({id, label}) => {
-  window.Buffer = window.Buffer || require('buffer').Buffer
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
-  const config = {
-    bucketName: process.env.REACT_APP_AWS_BUCKET_NAME,
-    region: process.env.REACT_APP_AWS_REGION,
-    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-  }
+
   const handleCloseImage = () => {
     setPreviewImage('')
   }
@@ -40,16 +35,47 @@ const ModalImageInput = ({id, label}) => {
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
   }
 
-  const uploadFile = async file => {
-    const ReactS3Client = new S3(config)
-    console.log(ReactS3Client)
-    console.log(file)
-    // the name of the file uploaded is used to upload it to S3
-    ReactS3Client.uploadFile(file[0], file[0].name)
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => console.error(err))
+  const onSuccess = successData => {
+    const file = successData.request.httpRequest.body
+    const endPoint = successData.request.httpRequest.endpoint
+
+    const fileData = {
+      uid: successData.request.params.Key,
+      name: file.name,
+      status: 'done',
+      url: `${endPoint.protocol}${endPoint.host}${successData.request.httpRequest.path}`,
+    }
+    setFileList([...fileList, fileData])
+  }
+
+  const customReq = ({file, onError, onProgress, onSuccess}) => {
+    AWS.config.update({
+      region: process.env.REACT_APP_AWS_REGION,
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    })
+
+    const S3 = new AWS.S3()
+    const objParams = {
+      Bucket: `${process.env.REACT_APP_AWS_BUCKET_NAME}/images`,
+      Key: `${v1().toString().replace('-', '')}.${file.type.split('/')[1]}`,
+      Body: file,
+      ContentType: file.type, // TODO: You should set content-type because AWS SDK will not automatically set file MIME
+    }
+
+    const upload = S3.putObject(objParams)
+      .on('httpUploadProgress', ({loaded, total}) => onProgress({percent: (loaded / total) * 100}))
+      .promise()
+    upload.then(
+      function (data) {
+        onSuccess(data.$response)
+      },
+      function (error) {
+        onError()
+        console.log(error.code)
+        console.log(error.message)
+      },
+    )
   }
 
   const uploadButton = (
@@ -64,25 +90,15 @@ const ModalImageInput = ({id, label}) => {
         <span>{label || ' * '}</span>
       </CFormLabel>
       <Upload
-        //action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-        beforeUpload={file => {
-          setFileList(fileList.concat(file))
-          return false
-        }}
         listType='picture-card'
         fileList={fileList}
         onPreview={handlePreview}
-        onChange={({fileList}) => {
-          const newFileList = fileList.slice(-1)
-          setFileList(newFileList)
-        }}
+        onSuccess={data => onSuccess(data)}
+        customRequest={reqData => customReq(reqData)}
       >
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>
-      <button color='primary' onClick={() => uploadFile(fileList)}>
-        {' '}
-        Upload to S3
-      </button>
+
       {previewImage && (
         <CCol>
           <PreviewImageBox className={'text-center p-2'}>
