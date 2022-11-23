@@ -16,6 +16,7 @@ import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import PropTypes from 'prop-types'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
+import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 
 const inquiries = [
   {key: 'a', value: '제품'},
@@ -129,6 +130,9 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
           </CRow>
           <CRow>
             <ModalImageInput id={'imageInput'} label={'이미지 리스트'} />
+          </CRow>
+          <CRow>
+            <ModalFilesInput id={'file'} label={'이미지 리스트'} />
           </CRow>
         </CModalBody>
         <CModalFooter>
