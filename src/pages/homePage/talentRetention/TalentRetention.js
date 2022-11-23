@@ -36,7 +36,7 @@ const TalentRetention = () => {
         method: HttpMethod.GET,
         url: EndPoint.TALENTPOOL,
       })
-      setItems(data?.data.result)
+      setItems(data?.data.result.responses)
     } catch (error) {
       alert(error)
     }
@@ -51,7 +51,7 @@ const TalentRetention = () => {
           id: id,
         },
         method: HttpMethod.GET,
-        url: `${EndPoint.RECRUITMENT}/:id`,
+        url: `${EndPoint.TALENTPOOL}/:id`,
       })
 
       setSelectedItem(data.result)
@@ -69,7 +69,7 @@ const TalentRetention = () => {
   }
 
   const handleShowTalentPoolDetailModal = async item => {
-    onLoadDetail(item.recruitmentId)
+    onLoadDetail(item.talentPoolId)
     setShowModal(!showModal)
   }
 

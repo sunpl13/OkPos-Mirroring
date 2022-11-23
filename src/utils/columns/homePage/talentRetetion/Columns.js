@@ -1,6 +1,7 @@
 export const talentRetentionColumns = [
   {
     key: 'talentPoolId',
+    label: 'No',
     _props: {color: 'primary', className: 'employId'},
   },
   {
