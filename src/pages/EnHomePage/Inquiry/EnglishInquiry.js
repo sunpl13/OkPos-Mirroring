@@ -3,9 +3,8 @@ import PageHeader from '../../../components/common/PageHeader'
 import {testEnInquiryValues} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import PopupDeatil from '../../../components/Modal/homePage/popup/PopupDeatil'
-import {InquiryColumns} from '../../../utils/columns/homePage/EnglishInquiry/Columns'
-import EnglishInquiryDetail from '../../../components/Modal/homePage/EnglishInquiry/EnglishInquiryDetail'
+import {InquiryColumns} from '../../../utils/columns/EnHomePage/Inquiry/Columns'
+import EnglishInquiryDetail from '../../../components/Modal/EnHomePage/Inquiry/EnglishInquiryDetail'
 
 const EnglishInquiry = () => {
   const [items, setItems] = useState([])
