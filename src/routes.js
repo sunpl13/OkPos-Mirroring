@@ -14,7 +14,7 @@ const TalentRetention = React.lazy(() => import('./pages/homePage/talentRetentio
 const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
 const HopageNotice = React.lazy(() => import('./pages/homePage/notice/Notice'))
 
-const EnglishInquiry = React.lazy(() => import('./pages/homePage/EnglishInquiry/EnglishInquiry'))
+const EnglishInquiry = React.lazy(() => import('./pages/EnHomePage/Inquiry/EnglishInquiry'))
 // ------ 가맹점 전용 공식몰 페이지
 
 // 회원관리
