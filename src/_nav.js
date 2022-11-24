@@ -303,6 +303,11 @@ const _nav = [
         name: '1:1 Inquiry',
         to: '/home/en/inquiry',
       },
+      {
+        component: CNavItem,
+        name: '롤링배너 관리',
+        to: '/home/en/rolling-banner',
+      },
     ],
   },
 ]

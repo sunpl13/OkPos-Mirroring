@@ -15,6 +15,7 @@ const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
 const HopageNotice = React.lazy(() => import('./pages/homePage/notice/Notice'))
 
 const EnglishInquiry = React.lazy(() => import('./pages/EnHomePage/Inquiry/EnglishInquiry'))
+const EnglishRollingBanner = React.lazy(() => import('./pages/EnHomePage/rollingBanner/RollingBanner'))
 // ------ 가맹점 전용 공식몰 페이지
 
 // 회원관리
@@ -71,6 +72,7 @@ const routes = [
 
   // ------ 영문 홈페이지
   {path: `/home/en/inquiry`, name: '1:1 Inquiry', element: EnglishInquiry},
+  {path: '/home/en/rolling-banner', name: '롤링배너 관리', element: EnglishRollingBanner},
 
   // ------ 가맹점 전용 공식몰 페이지
 
