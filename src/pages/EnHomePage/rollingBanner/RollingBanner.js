@@ -6,7 +6,7 @@ import {rollingBannerColumns} from '../../../utils/columns/homePage/rollingBanne
 import {testHomePageRollingBannerValues} from '../../test/testConstant'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import RollingBannerDetail from '../../../components/Modal/homePage/rollingBanner/RollingBannerDetail'
+import RollingBannerDetail from '../../../components/Modal/EnHomePage/rollingBanner/RollingBannerDetail'
 
 const RollingBanner = () => {
   const [items, setItems] = useState([])
