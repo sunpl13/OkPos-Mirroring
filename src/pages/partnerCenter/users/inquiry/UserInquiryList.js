@@ -23,7 +23,7 @@ const UserInquiryList = () => {
   const [inquiryMsg, setInquiryMsg] = useState('')
 
   // 1:1 문의 리스트 API
-  const getUsers = async () => {
+  const getInquirys = async () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
@@ -44,13 +44,30 @@ const UserInquiryList = () => {
   }
 
   useEffect(() => {
-    getUsers()
+    getInquirys()
   }, [])
 
   /** Open Modal*/
-  const handleShowModal = item => {
-    setSelectedItem(item)
+  const handleShowModal = async ({id}) => {
+    //setSelectedItem(item)
     setShowModal(!showModal)
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}`,
+      })
+      console.log(data)
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
+      }
+      if (data?.code === 1000) {
+        setSelectedItem(data.result)
+      } else {
+        alert(data?.message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
   const handleInquiryModalOnChange = ({target: {value}}) => {
     setInquiryMsg(value)

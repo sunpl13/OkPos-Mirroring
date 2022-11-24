@@ -77,4 +77,4 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
   )
 }
 
-export default React.memo(NoticeDetailModal)
+export default NoticeDetailModal

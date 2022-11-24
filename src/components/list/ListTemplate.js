@@ -31,8 +31,6 @@ const ListTemplate = ({
   searchInputHidden = true, // 검색창 출력 유무
   checkBoxInputHidden = false, // 체크박스 출력 유무
 }) => {
-  console.log(items)
-
   // Local state 선언
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()
@@ -243,6 +241,7 @@ const ListTemplate = ({
           startedAt: ({startedAt}) => <td>{moment(startedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           closedAt: ({closedAt}) => <td>{moment(closedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           createdAt: ({createdAt}) => <td>{moment(createdAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          deletedAt: ({deletedAt}) => <td>{moment(deletedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           updatedAt: ({updatedAt}) => <td>{moment(updatedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           noticeFiles: ({noticeFiles}) => <td>{noticeFiles?.length} 개</td>,
         }}

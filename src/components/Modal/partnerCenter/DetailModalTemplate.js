@@ -1,15 +1,16 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
+import {useEffect} from 'react'
 
 const DetailModalTemplate = ({visible, title, children, setVisible, upDate, btnText, editMode, setEditMode}) => {
   const handleEditModeToggle = () => {
-    console.log(editMode)
-    if (editMode) {
+    if (!editMode) {
       upDate(true)
     }
     setEditMode(!editMode)
   }
+
   return (
-    <CModal size='lg' visible={visible} onClose={() => upDate()}>
+    <CModal size='lg' visible={visible} onClose={() => (!editMode ? setVisible(false) : upDate(false))}>
       <CModalHeader>
         <CModalTitle>{title || 'Not Title'}</CModalTitle>
       </CModalHeader>

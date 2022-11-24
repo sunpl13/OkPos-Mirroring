@@ -11,12 +11,7 @@ import {isEmpty} from '../../../../utils/utility'
 
 const NoticeList = () => {
   const [items, setItems] = useState()
-  const [selectedItem, setSelectedItem] = useState({
-    content: '',
-    createdAt: '',
-    noticeFiles: [],
-    noticeImages: [],
-  })
+  const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
 
   /** Show Modal */
@@ -37,11 +32,12 @@ const NoticeList = () => {
           return
         }
         if (data?.code === 1000) {
-          setSelectedItem(data.result)
-          setEditCheck(data.result)
         } else {
           alert(data?.message)
         }
+        setSelectedItem(data.result)
+        setEditCheck(data.result)
+        console.log(data.result)
       } catch (error) {
         console.log(error)
       }
@@ -101,8 +97,12 @@ const NoticeList = () => {
       [id]: value,
     })
   }
-  const handleNoticeDetailModalUpdate = () => {
+
+  const handleNoticeDetailModalUpdate = editBtnClick => {
+    console.log(selectedItem)
+    console.log(editCheck)
     const {id, title, content, files} = selectedItem
+
     if (editCheck.title !== title || editCheck.content !== content || editCheck.files !== files) {
       if (window.confirm('공지사항을 수정하시겠습니까?')) {
         if (!title) return alert('Not Title')
@@ -110,8 +110,10 @@ const NoticeList = () => {
         if (!content) return alert('Not Content')
         setItems(items.map(value => (value.id === id ? selectedItem : value)))
         setShowModal(false)
+      } else {
+        setShowModal(false)
       }
-    } else {
+    } else if (!editBtnClick) {
       setShowModal(false)
     }
   }

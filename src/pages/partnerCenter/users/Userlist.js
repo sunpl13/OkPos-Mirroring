@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import UserAddModal from '../../../components/Modal/partnerCenter/users/UserAddModal'
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
@@ -13,21 +12,6 @@ const Userlist = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
-  {
-    /*
-  const [item, setItem] = useState({
-    userName: '',
-    businessNumber: '',
-    createdAt: '',
-    status: true,
-    phoneNumber: '',
-    businessRegistration: '',
-    businessName: '',
-    businessAddress: '',
-  })
-  const [showAddModal, setShowAddModal] = useState(false)
-  */
-  }
   const [showModal, setShowModal] = useState(false)
 
   const getUsers = async () => {
@@ -40,7 +24,7 @@ const Userlist = () => {
         return
       }
       if (data?.code === 1000) {
-        setItems(data.result.inActiveUserInfoPartnerDTOs)
+        setItems(data.result.adminUserInfoPartnerDTOs)
       } else {
         alert(data?.message)
       }
@@ -54,48 +38,26 @@ const Userlist = () => {
   }, [])
 
   /** Open Modal*/
-  const handleShowUserDetailModal = async ({id = undefined}) => {
+  const handleShowUserDetailModal = async ({id}) => {
+    console.log(id)
     setShowModal(!showModal)
-    if (id !== undefined) {
-      try {
-        const {data} = await ApiConfig.request({
-          method: HttpMethod.GET,
-          // userId
-          url: `${EndPoint.GET_V1_MALL_PARTNER_USERS}/${id}`,
-        })
-        if (!data.isSuccess || isEmpty(data?.result)) {
-          return
-        }
-        if (data?.code === 1000) {
-          setSelectedItem(data.result)
-          setEditCheck(data.result)
-        } else {
-          alert(data?.message)
-        }
-      } catch (error) {
-        console.log(error)
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        // userId
+        url: `${EndPoint.GET_PARTNER_USERS}/${id}`,
+      })
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
       }
-    } else {
-      setSelectedItem({
-        address: '',
-        businessName: '',
-        certificateNum: '',
-        createdAt: '',
-        phoneNum: '',
-        status: '',
-        userName: '',
-        certificateFile: '',
-      })
-      setEditCheck({
-        address: '',
-        businessName: '',
-        certificateNum: '',
-        createdAt: '',
-        phoneNum: '',
-        status: '',
-        userName: '',
-        certificateFile: '',
-      })
+      if (data?.code === 1000) {
+        setSelectedItem(data.result)
+        setEditCheck(data.result)
+      } else {
+        alert(data?.message)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -126,14 +88,13 @@ const Userlist = () => {
       status !== editCheck.status ||
       userName !== editCheck.userName
     ) {
-      if (window.confirm('Edit ?')) {
-        if (!address) return alert('Not address')
-        if (!businessName) return alert('Not businessName')
-        if (!certificateNum) return alert('Not certificateNum')
-        if (!phoneNum) return alert('Not phoneNum')
-        if (!status) return alert('Not status')
-        if (!userName) return alert('Not userName')
-        if (!certificateFile) return alert('Not certificateFile')
+      if (window.confirm('회원 정보를 수정하시겠습니까?')) {
+        if (!address) return alert('사업장 주소를 입력해 주세요.')
+        if (!businessName) return alert('상호명을 입력해 주세요.')
+        if (!certificateNum) return alert('사업자 번호를 입력해 주세요.')
+        if (!phoneNum) return alert('휴대폰 번호를 입력해 주세요')
+        if (!userName) return alert('회원 이름을 입력해 주세요.')
+        if (!certificateFile) return alert('사업자 등록증을 등록해 주세요.')
         if (!editOnClick) return setShowModal(false)
         setEditCheck(selectedItem)
       } else {
