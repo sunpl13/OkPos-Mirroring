@@ -1,5 +1,5 @@
-import {useState} from 'react'
-import {CCol, CFormLabel, CImage, CModal, CModalBody, CRow, CModalFooter, CButton, CFormCheck} from '@coreui/react'
+import {useEffect, useState} from 'react'
+import {CModal, CModalBody, CRow, CModalFooter, CButton, CFormCheck} from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DatePickerForm from '../../../common/DatePickerForm'
@@ -69,6 +69,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
   const [endDate, setendDate] = useState(new Date())
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
+  const [fileList, setFileList] = useState([])
   const dispatch = useDispatch()
   const userDetailEditMode = () => {
     if (!isReadOnly) {
@@ -78,6 +79,19 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
       setIsReadOnly(false)
     }
   }
+
+  useEffect(() => {
+    if (value.imageUrl && value.imageUrl.length > 0) {
+      setFileList(
+        value.imageUrl.map(path => ({
+          uid: path,
+          name: path,
+          status: 'done',
+          url: `${path}`,
+        })),
+      )
+    }
+  }, [value])
 
   const validateCheck = () => {
     if (isEmpty(value.category)) {
@@ -324,21 +338,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            {value.recruitmentId === -1 ? (
-              <ModalImageInput id='image' label='이미지 첨부' />
-            ) : (
-              <>
-                <CFormLabel>이미지</CFormLabel>
-                <CCol>
-                  <CImage
-                    rounded
-                    src='https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fevents%2F2404%2F54ecb586.jpg&w=1200&q=100'
-                    width={200}
-                    height={200}
-                  />
-                </CCol>
-              </>
-            )}
+            <ModalImageInput id='image' label='이미지 첨부' fileList={fileList} setFileList={setFileList} />
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
