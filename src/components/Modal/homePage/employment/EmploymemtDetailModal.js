@@ -64,7 +64,7 @@ const career = [
   {key: 'EXPERIENCED', value: '경력'},
   {key: 'ANY', value: '무관'},
 ]
-const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
+const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [startDate, setstartDate] = useState(new Date())
   const [endDate, setendDate] = useState(new Date())
   const [showDeleteModal, setshowDeleteModal] = useState(false)
@@ -79,19 +79,6 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
       setIsReadOnly(false)
     }
   }
-
-  useEffect(() => {
-    if (value.imageUrl && value.imageUrl.length > 0) {
-      setFileList(
-        value.imageUrl.map(path => ({
-          uid: path,
-          name: path,
-          status: 'done',
-          url: `${path}`,
-        })),
-      )
-    }
-  }, [value])
 
   const validateCheck = () => {
     if (isEmpty(value.category)) {
@@ -160,9 +147,11 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
         method: HttpMethod.PATCH,
         url: `${EndPoint.RECRUITMENT}/:recruitmentId/d`,
       })
-      console.log('data', data)
-      if (data.isSucess) {
+      if (data.isSuccess) {
+        getList()
+        setFileList([])
         setshowDeleteModal(false)
+        setCloseCheckModalState(false)
         setVisible(false)
         dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
       }
@@ -182,13 +171,13 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
         method: HttpMethod.PATCH,
         url: `${EndPoint.RECRUITMENT}/:recruitmentId`,
       })
-      console.log(data)
     } catch (error) {
       alert(error)
     }
   }
 
   const onCloseCheck = () => {
+    console.log('여기 들어오나?')
     if (!isReadOnly && value.recruitmentId !== -1) {
       setCloseCheckModalState(true)
     } else {
@@ -338,7 +327,13 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            <ModalImageInput id='image' label='이미지 첨부' fileList={fileList} setFileList={setFileList} />
+            <ModalImageInput
+              id='image'
+              label='이미지 첨부'
+              fileList={fileList}
+              setFileList={setFileList}
+              images={value.imageUrl}
+            />
           </CRow>
           <CRow className='mb-3'>
             <ModalInput

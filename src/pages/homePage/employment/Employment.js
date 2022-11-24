@@ -149,6 +149,7 @@ const Employment = () => {
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
+        getList={onLoadEmploymentList}
       />
     </>
   )
