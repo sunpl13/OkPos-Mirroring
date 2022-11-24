@@ -1,6 +1,6 @@
 import {PlusOutlined} from '@ant-design/icons'
 import {Upload} from 'antd'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {CCol, CFormLabel, CImage, CRow} from '@coreui/react'
 import styled from 'styled-components'
 import {v1} from 'uuid'
@@ -17,6 +17,19 @@ const ModalImageInput = ({images, id, label, fileList, setFileList}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
+
+  useEffect(() => {
+    if (images && images.length > 0) {
+      setFileList(
+        images.map(path => ({
+          uid: path,
+          name: path,
+          status: 'done',
+          url: `https://${process.env.REACT_APP_AWS_BUCKET_NAME}.s3.${process.env.REACT_APP_AWS_REGION}.amazonaws.com/${path}`,
+        })),
+      )
+    }
+  }, [images])
 
   const handleCloseImage = () => {
     setPreviewImage('')
