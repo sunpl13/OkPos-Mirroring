@@ -4,56 +4,32 @@ import styled from 'styled-components'
 import {CFormLabel} from '@coreui/react'
 import {v1} from 'uuid'
 import AWS from 'aws-sdk'
-const ModalFilesInput = ({label, id, disabled}) => {
-  const files = [
-    {
-      uid: 'rc-upload-1667393971608-62',
-      lastModified: 1666338642315,
-      lastModifiedDate: '2022-10-21T07:50:42.315Z',
-      name: 'TestData1.jpeg',
-      size: 115763,
-      type: 'image/jpeg',
-      percent: 0,
-      originFileObj: {
-        uid: 'rc-upload-16673939721608-6',
-      },
-      error: {
-        status: 404,
-        method: 'post',
-        url: '업로드 URL',
-      },
-      status: 'success',
-    },
-    {
-      uid: 'rc-upload-1667393971608-61',
-      lastModified: 1666338642315,
-      lastModifiedDate: '2022-10-21T07:50:42.315Z',
-      name: 'TestData2.jpeg',
-      size: 115763,
-      type: 'image/jpeg',
-      percent: 0,
-      originFileObj: {
-        uid: 'rc-upload-16673933971608-6',
-      },
-      error: {
-        status: 404,
-        method: 'post',
-        url: '업로드 URL',
-      },
-      status: 'error',
-    },
-  ]
+import {useEffect} from 'react'
+const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList}) => {
+  useEffect(() => {
+    if (files && files.length > 0) {
+      setFileList(
+        files.map(path => ({
+          uid: path,
+          name: path,
+          status: 'done',
+          url: `https://${process.env.REACT_APP_AWS_BUCKET_NAME}.s3.${process.env.REACT_APP_AWS_REGION}.amazonaws.com/${path}`,
+        })),
+      )
+    }
+  }, [files])
+
   const onSuccess = successData => {
-    console.log('successData', successData)
     const file = successData.request.httpRequest.body
     const endPoint = successData.request.httpRequest.endpoint
 
-    // const fileData = {
-    //   uid: successData.request.params.Key,
-    //   name: file.name,
-    //   status: 'done',
-    //   url: `${endPoint.protocol}${endPoint.host}${successData.request.httpRequest.path}`,
-    // }
+    const fileData = {
+      uid: successData.request.params.Key,
+      name: file.name,
+      status: 'done',
+      url: `${endPoint.protocol}${endPoint.host}${successData.request.httpRequest.path}`,
+    }
+    setFileList([...fileList, fileData])
   }
 
   const customReq = ({file, onError, onProgress, onSuccess}) => {
@@ -85,19 +61,50 @@ const ModalFilesInput = ({label, id, disabled}) => {
       },
     )
   }
+
+  const onDelete = item => {
+    AWS.config.update({
+      region: process.env.REACT_APP_AWS_REGION,
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    })
+
+    const S3 = new AWS.S3()
+
+    const objParams = {
+      Bucket: `${process.env.REACT_APP_AWS_BUCKET_NAME}`,
+      Key: item.uid,
+    }
+
+    S3.deleteObject(objParams, (err, data) => {
+      if (err) {
+        setFileList(
+          fileList.map(file => {
+            if (file.uid === item.uid) {
+              return {...file, status: 'error'}
+            } else {
+              return file
+            }
+          }),
+        )
+      }
+      setFileList(fileList.filter(file => file.uid !== item.uid))
+    })
+  }
+
   const props = {
     name: 'file',
     multiple: true,
     disabled: disabled,
-    fileList: files,
+    fileList: fileList,
     customRequest(data) {
       customReq(data)
     },
     onSuccess(data) {
       onSuccess(data)
     },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files)
+    onRemove(data) {
+      onDelete(data)
     },
   }
 
