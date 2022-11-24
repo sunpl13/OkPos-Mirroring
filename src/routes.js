@@ -8,6 +8,7 @@ const Member = React.lazy(() => import('./pages/member/MemberMagement'))
 
 // ------ 오케이포스 홈페이지
 
+const RoillingBanner = React.lazy(() => import('./pages/homePage/rollingBanner/RollingBanner'))
 const Employment = React.lazy(() => import('./pages/homePage/employment/Employment'))
 const TalentRetention = React.lazy(() => import('./pages/homePage/talentRetention/TalentRetention'))
 const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
@@ -62,6 +63,7 @@ const routes = [
   // ------ 오케이포스 홈페이지
 
   //홈페이지 관리
+  {path: '/home/rolling-banner', name: '롤링배너 관리', element: RoillingBanner},
   {path: `/home/employment`, name: '채용관리', element: Employment},
   {path: '/home/talentRetention', name: '인재풀 관리', element: TalentRetention},
   {path: '/home/QnA', name: '1:1문의', element: HomePageQnA},

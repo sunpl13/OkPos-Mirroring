@@ -155,6 +155,11 @@ const _nav = [
     items: [
       {
         component: CNavItem,
+        name: '롤링배너 관리',
+        to: '/home/rolling-banner',
+      },
+      {
+        component: CNavItem,
         name: '채용 관리',
         to: '/home/employment',
       },
