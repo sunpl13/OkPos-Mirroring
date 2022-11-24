@@ -975,3 +975,66 @@ exports.testEnInquiryValues = [
     content: '.',
   },
 ]
+
+exports.testHomePageRollingBannerValues = [
+  {
+    bannerId: 0,
+    title: '공고제목1',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 1,
+    title: '공고제목2',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 2,
+    title: '공고제목3',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 3,
+    title: '공고제목4',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 4,
+    title: '공고제목5',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 5,
+    title: '공고제목6',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 6,
+    title: '공고제목7',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 7,
+    title: '공고제목8',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 8,
+    title: '공고제목9',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 9,
+    title: '공고제목10',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 10,
+    title: '공고제목11',
+    imgUrl: '.',
+  },
+  {
+    bannerId: 11,
+    title: '공고제목12',
+    imgUrl: '.',
+  },
+]
