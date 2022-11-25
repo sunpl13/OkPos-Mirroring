@@ -29,10 +29,13 @@ const DefaultLayout = () => {
         navigate(-1)
         return
       }
+      //경로 명이랑 담당 도메인이 다르면 접근권한 막기(회원관리 제외)
       if (authority[0].toLowerCase() !== location.pathname[1]) {
-        alert('접근 권한이 없습니다!')
-        navigate(-1)
-        return
+        if (auth !== 'ADMIN') {
+          alert('접근 권한이 없습니다!')
+          navigate(-1)
+          return
+        }
       }
     }
   }, [])
