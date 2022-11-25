@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import DetailModalTemplate from '../DetailModalTemplate'
+import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import {CButton, CCol, CRow} from '@coreui/react'
 import {educationApplicationListDetailColumns} from '../../../../utils/columns/partnerCenter/Columns'
 import ListTemplate from '../../../list/ListTemplate'
@@ -28,7 +28,7 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
   }, [visible])
 
   return (
-    <DetailModalTemplate
+    <DetailModalEditModeTemplate
       title={no === 0 ? '교육 신청 추가' : '교육 신청 상세'}
       visible={visible}
       setVisible={setVisible}
@@ -90,7 +90,7 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
           searchInputHidden={searchInputHidden}
         />
       </CRow>
-    </DetailModalTemplate>
+    </DetailModalEditModeTemplate>
   )
 }
 

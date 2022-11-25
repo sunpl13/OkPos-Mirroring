@@ -2,7 +2,7 @@ import {CModalBody, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import React, {useEffect, useState} from 'react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
-import DetailModalTemplate from '../DetailModalTemplate'
+import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 
 const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
   const {
@@ -24,7 +24,7 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
   }, [visible])
 
   return (
-    <DetailModalTemplate
+    <DetailModalEditModeTemplate
       title={'회원 상세'}
       visible={visible}
       setVisible={setVisible}
@@ -112,7 +112,7 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
           <ModalFilesInput id={'files'} label={'사업자 등록증'} value={certificateFile} />
         </CRow>
       </CModalBody>
-    </DetailModalTemplate>
+    </DetailModalEditModeTemplate>
   )
 }
 

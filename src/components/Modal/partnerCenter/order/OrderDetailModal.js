@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import DetailModalTemplate from '../DetailModalTemplate'
+import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import {CRow} from '@coreui/react'
 import ListTemplate from '../../../list/ListTemplate'
 import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
@@ -65,7 +65,13 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
     }
   }, [visible])
   return (
-    <DetailModalTemplate title={'발주 상세'} visible={visible} setVisible={setVisible} upDate={upDate} btnText={'수정'}>
+    <DetailModalEditModeTemplate
+      title={'발주 상세'}
+      visible={visible}
+      setVisible={setVisible}
+      upDate={upDate}
+      btnText={'수정'}
+    >
       <CRow className={'p-2'}>
         <ModalInput id={'no'} placeholder={'No'} label={'No'} value={no} onChange={onChange} readOnly disabled />
         <ModalInput
@@ -169,7 +175,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
       <CRow className={'p-2'}>
         <ManagementTarget className={'userList'} columns={managementTargetColumns} items={SolutionList} />
       </CRow>
-    </DetailModalTemplate>
+    </DetailModalEditModeTemplate>
   )
 }
 

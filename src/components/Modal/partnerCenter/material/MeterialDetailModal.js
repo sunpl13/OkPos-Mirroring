@@ -3,7 +3,7 @@ import ModalInput from '../../../forms/inputForm/ModalInput'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
-import DetailModalTemplate from '../DetailModalTemplate'
+import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import {CForm, CRow} from '@coreui/react'
 import PropTypes from 'prop-types'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
@@ -23,7 +23,7 @@ const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => 
   }, [visible])
 
   return (
-    <DetailModalTemplate
+    <DetailModalEditModeTemplate
       title={id !== 0 ? '자료 상세' : '자료 추가'}
       visible={visible}
       setVisible={setVisible}
@@ -62,7 +62,7 @@ const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => 
       <CRow className={'p-2'}>
         <ModalFilesInput id={'files'} value={dataRoomFiles} label={'첨부파일'} />
       </CRow>
-    </DetailModalTemplate>
+    </DetailModalEditModeTemplate>
   )
 }
 MeterialDetailModal.propTypes = {

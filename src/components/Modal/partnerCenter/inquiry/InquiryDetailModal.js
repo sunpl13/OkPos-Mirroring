@@ -1,50 +1,22 @@
-import {CButton, CForm, CFormTextarea, CRow} from '@coreui/react'
+import {CForm, CFormTextarea, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import DetailModalTemplate from '../DetailModalTemplate'
-import {useState} from 'react'
 
-const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible}) => {
+const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, replies, onDelete}) => {
   const {id, userName, userPhoneNum, content, inquiryCategory, inquiryFiles, inquiryReplies} = value
-  const [editMode, setEditMode] = useState(false)
-  //"- No
-  // - 문의 유형
-  // - 이름
-  // - 전화번호
-  // - 문의 내용
-  // - 첨부 파일
-  // - 답변하기 버튼 / 수정 버튼
-  // - 답변
-  // - 삭제 버튼"
   return (
     <DetailModalTemplate
       visible={visible}
       title={'문의 상세 보기'}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={inquiryReplies ? '수정' : '답변하기'}
-      editMode={editMode}
-      setEditMode={setEditMode}
+      btnText={inquiryReplies?.content ? '수정' : '답변등록'}
+      onDelete={onDelete}
     >
       <CRow className={'p-2'}>
-        <ModalInput
-          id={'id'}
-          placeholder={'문의 번호'}
-          label={'문의 번호'}
-          value={id}
-          onChange={onChange}
-          readOnly
-          disabled
-        />
-        <ModalInput
-          id={'userName'}
-          placeholder={''}
-          label={'회원 이름'}
-          value={userName}
-          onChange={onChange}
-          readOnly
-          disabled
-        />
+        <ModalInput id={'id'} placeholder={'문의 번호'} label={'문의 번호'} value={id} readOnly disabled />
+        <ModalInput id={'userName'} placeholder={'회원 이름'} label={'회원 이름'} value={userName} readOnly disabled />
       </CRow>
       <CRow className={'p-2'}>
         <ModalInput
@@ -52,7 +24,6 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible}) => {
           placeholder={'문의 유형'}
           label={'문의 유형'}
           value={inquiryCategory}
-          onChange={onChange}
           readOnly
           disabled
         />
@@ -61,7 +32,6 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible}) => {
           placeholder={'휴대전화번호'}
           label={'휴대전화번호'}
           value={userPhoneNum}
-          onChange={onChange}
           readOnly
           disabled
         />
@@ -81,22 +51,14 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible}) => {
       <br />
       <CForm>
         <CFormTextarea
-          id='inquiryReplies'
+          id='replies'
           placeholder={'답변 작성'}
+          label={'답변 작성'}
           rows={9}
-          value={inquiryReplies}
+          value={replies}
           onChange={onChange}
         />
       </CForm>
-      <CButton onClick={upDate} color='primary'>
-        저장
-      </CButton>
-      <CButton color='danger' onClick={() => setVisible(false)}>
-        삭제
-      </CButton>
-      <CButton color='danger' onClick={() => setVisible(false)}>
-        취소
-      </CButton>
     </DetailModalTemplate>
   )
 }

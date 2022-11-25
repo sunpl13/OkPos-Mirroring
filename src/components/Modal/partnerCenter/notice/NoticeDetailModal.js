@@ -5,7 +5,7 @@ import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
-import DetailModalTemplate from '../DetailModalTemplate'
+import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 
 const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
   const {title, content, noticeFiles, noticeImages, category} = value
@@ -17,7 +17,7 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
   ]
 
   return (
-    <DetailModalTemplate
+    <DetailModalEditModeTemplate
       visible={visible}
       title={'공지사항'}
       setVisible={setVisible}
@@ -74,7 +74,7 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
           disabled={editMode}
         />
       </CRow>
-    </DetailModalTemplate>
+    </DetailModalEditModeTemplate>
   )
 }
 

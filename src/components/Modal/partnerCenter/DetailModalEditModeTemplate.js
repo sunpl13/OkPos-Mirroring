@@ -1,7 +1,23 @@
-import React from 'react'
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
 
-const DetailModalTemplate = ({visible, title, children, setVisible, upDate, onDelete, btnText}) => {
+const DetailModalEditModeTemplate = ({
+  visible,
+  title,
+  children,
+  setVisible,
+  upDate,
+  onDelete,
+  btnText,
+  editMode,
+  setEditMode,
+}) => {
+  const handleEditModeToggle = () => {
+    if (!editMode) {
+      upDate()
+    }
+    setEditMode(!editMode)
+  }
+
   return (
     <CModal
       size='lg'
@@ -16,7 +32,7 @@ const DetailModalTemplate = ({visible, title, children, setVisible, upDate, onDe
       </CModalHeader>
       <CModalBody>{children || <h1>Not Children</h1>}</CModalBody>
       <CModalFooter>
-        <CButton onClick={() => console.log('test')} color={'primary'}>
+        <CButton onClick={() => handleEditModeToggle()} color={editMode ? 'success' : 'primary'}>
           {btnText || 'Not Btn Title'}
         </CButton>
         {onDelete && (
@@ -32,4 +48,4 @@ const DetailModalTemplate = ({visible, title, children, setVisible, upDate, onDe
   )
 }
 
-export default DetailModalTemplate
+export default DetailModalEditModeTemplate

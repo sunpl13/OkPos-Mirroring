@@ -10,20 +10,13 @@ import {isEmpty} from '../../../../utils/utility'
 
 const UserInquiryList = () => {
   const [items, setItems] = useState([])
-  const [selectedItem, setSelectedItem] = useState({
-    id: 0,
-    userName: '',
-    email: '',
-    phoneNumber: '',
-    text: '',
-    firstRegistration: '',
-    answer: '',
-  })
+  const [selectedItem, setSelectedItem] = useState({})
+  const [editCheck, setEditCheck] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [inquiryMsg, setInquiryMsg] = useState('')
 
   // 1:1 문의 리스트 API
-  const getInquirys = async () => {
+  const getInquiry = async () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
@@ -44,12 +37,11 @@ const UserInquiryList = () => {
   }
 
   useEffect(() => {
-    getInquirys()
+    getInquiry()
   }, [])
 
   /** Open Modal*/
   const handleShowModal = async ({id}) => {
-    //setSelectedItem(item)
     setShowModal(!showModal)
     try {
       const {data} = await ApiConfig.request({
@@ -62,6 +54,7 @@ const UserInquiryList = () => {
       }
       if (data?.code === 1000) {
         setSelectedItem(data.result)
+        setEditCheck(data.result.inquiryReplies)
       } else {
         alert(data?.message)
       }
@@ -69,15 +62,47 @@ const UserInquiryList = () => {
       console.log(error)
     }
   }
-  const handleInquiryModalOnChange = ({target: {value, id}}) => {
-    setSelectedItem({
-      ...selectedItem,
-      [id]: value,
-    })
+  const handleInquiryModalOnDelete = async () => {
+    const {id} = selectedItem
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.GET,
+          url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}`,
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+          setSelectedItem(data.result)
+          setEditCheck(data.result.inquiryReplies)
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      console.log(id)
+    }
+  }
+  const handleInquiryModalOnChange = ({target: {value}}) => {
+    setInquiryMsg(value)
+    console.log(value)
   }
   const handleInquiryModalUpdate = () => {
-    setItems(items.map(value => (value.id === selectedItem.id ? {...selectedItem, answer: inquiryMsg} : value)))
-    setShowModal(!showModal)
+    if (editCheck.inquiryReplies?.content !== inquiryMsg) {
+      console.log(editCheck.inquiryReplies?.content, inquiryMsg)
+      if (editCheck.inquiryReplies?.content) {
+        if (window.confirm('답변을 등록하시겠습니까?')) {
+          console.log('tttt2')
+        }
+      } else {
+        if (window.confirm('답변을 수정하시겠습니까?')) {
+          console.log('test1')
+        }
+      }
+    }
   }
   useEffect(() => {
     if (!showModal) {
@@ -104,8 +129,10 @@ const UserInquiryList = () => {
         visible={showModal}
         setVisible={setShowModal}
         value={selectedItem}
+        replies={inquiryMsg}
         onChange={handleInquiryModalOnChange}
         upDate={handleInquiryModalUpdate}
+        onDelete={handleInquiryModalOnDelete}
       />
     </CRow>
   )
