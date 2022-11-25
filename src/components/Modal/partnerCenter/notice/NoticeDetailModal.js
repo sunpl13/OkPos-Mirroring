@@ -9,6 +9,7 @@ import DetailModalTemplate from '../DetailModalTemplate'
 
 const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
   const {title, content, noticeFiles, noticeImages, category} = value
+
   const [editMode, setEditMode] = useState(true)
   const noticeOptions = [
     {key: 'DEALER', value: '딜러'},

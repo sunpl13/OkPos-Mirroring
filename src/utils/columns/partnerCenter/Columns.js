@@ -99,22 +99,22 @@ export const withdrawalUsersColumns = [
 export const userInquiryListColumns = [
   {
     key: 'inquiryCategory',
+    label: '문의 유형',
     _props: {color: 'primary', className: 'inquiryCategory'},
   },
   {
     key: 'userName',
+    label: '회원 이름',
     _props: {color: 'primary', className: 'userName'},
   },
   {
-    key: 'email',
-    _props: {color: 'primary', className: 'email'},
-  },
-  {
-    key: 'phoneNumber',
-    _props: {color: 'primary', className: 'phoneNumber'},
+    key: 'userPhoneNum',
+    label: '회원 휴대폰 번호',
+    _props: {color: 'primary', className: 'userPhoneNum'},
   },
   {
     key: 'createdAt',
+    label: '문의 등록일',
     _props: {color: 'primary', className: 'createdAt'},
   },
 ]

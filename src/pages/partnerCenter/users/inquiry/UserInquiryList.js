@@ -69,10 +69,13 @@ const UserInquiryList = () => {
       console.log(error)
     }
   }
-  const handleInquiryModalOnChange = ({target: {value}}) => {
-    setInquiryMsg(value)
+  const handleInquiryModalOnChange = ({target: {value, id}}) => {
+    setSelectedItem({
+      ...selectedItem,
+      [id]: value,
+    })
   }
-  const handleInquiryModalOnClick = () => {
+  const handleInquiryModalUpdate = () => {
     setItems(items.map(value => (value.id === selectedItem.id ? {...selectedItem, answer: inquiryMsg} : value)))
     setShowModal(!showModal)
   }
@@ -98,12 +101,11 @@ const UserInquiryList = () => {
         </CCard>
       </CCol>
       <InquiryDetailModal
-        item={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
-        value={inquiryMsg}
+        value={selectedItem}
         onChange={handleInquiryModalOnChange}
-        onClick={handleInquiryModalOnClick}
+        upDate={handleInquiryModalUpdate}
       />
     </CRow>
   )

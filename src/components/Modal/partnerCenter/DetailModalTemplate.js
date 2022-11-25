@@ -1,7 +1,16 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
-import {useEffect} from 'react'
 
-const DetailModalTemplate = ({visible, title, children, setVisible, upDate, btnText, editMode, setEditMode}) => {
+const DetailModalTemplate = ({
+  visible,
+  title,
+  children,
+  setVisible,
+  upDate,
+  onDelete,
+  btnText,
+  editMode,
+  setEditMode,
+}) => {
   const handleEditModeToggle = () => {
     if (!editMode) {
       upDate(true)
@@ -19,6 +28,11 @@ const DetailModalTemplate = ({visible, title, children, setVisible, upDate, btnT
         <CButton onClick={() => handleEditModeToggle()} color={editMode ? 'success' : 'primary'}>
           {btnText || 'Not Btn Title'}
         </CButton>
+        {onDelete && (
+          <CButton onClick={() => handleEditModeToggle()} color={'danger'}>
+            삭제
+          </CButton>
+        )}
         <CButton color='secondary' onClick={() => setVisible(false)}>
           취소
         </CButton>
