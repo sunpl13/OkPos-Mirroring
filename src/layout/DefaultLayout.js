@@ -24,6 +24,11 @@ const DefaultLayout = () => {
       navigate(-1)
       return
     } else if (location.pathname !== '/' && location.pathname !== '/dashboard') {
+      if (auth === 'EDITOR_PROHIBIT') {
+        alert('접근 권한이 없습니다!')
+        navigate(-1)
+        return
+      }
       if (authority[0].toLowerCase() !== location.pathname[1]) {
         alert('접근 권한이 없습니다!')
         navigate(-1)

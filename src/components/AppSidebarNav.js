@@ -26,8 +26,9 @@ export const AppSidebarNav = ({items}) => {
     const {component, name, badge, accessauthority, icon, ...rest} = item
     const Component = component
 
-    if (authority !== accessauthority) return
     if (name === '회원관리' && !auth.includes('ADMIN')) return
+    if (authority !== accessauthority) return
+    if (auth === 'EDITOR_PROHIBIT') return
     return (
       <Component
         {...(rest.to &&
@@ -44,6 +45,7 @@ export const AppSidebarNav = ({items}) => {
   const navGroup = (item, index) => {
     const {component, name, icon, to, ...rest} = item
     const Component = component
+    if (auth === 'EDITOR_PROHIBIT') return
     return (
       <Component
         idx={String(index)}
