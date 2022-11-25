@@ -11,6 +11,7 @@ const DefaultLayout = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const authority = window.sessionStorage.getItem('accessAuthority')
+  const auth = window.sessionStorage.getItem('auth')
   const toast = useSelector(state => state.toast)
   useEffect(() => {
     if (isEmpty(window.sessionStorage.getItem('jwt'))) {
@@ -18,7 +19,10 @@ const DefaultLayout = () => {
       navigate(`/login`)
       return
     }
-    if (location.pathname === '/memeber') {
+    if (location.pathname === '/memeber' && !auth.includes('ADMIN')) {
+      alert('접근 권한이 없습니다!')
+      navigate(-1)
+      return
     } else if (location.pathname !== '/' && location.pathname !== '/dashboard') {
       if (authority[0].toLowerCase() !== location.pathname[1]) {
         alert('접근 권한이 없습니다!')
