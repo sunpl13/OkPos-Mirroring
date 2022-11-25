@@ -56,7 +56,7 @@ const FaqList = () => {
           alert(res?.message)
         }
       } else {
-        setItems(res.result)
+        setItems(res.result.faqInfos)
       }
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -206,7 +206,7 @@ const FaqList = () => {
     if (!title) return alert('제목을 입력해주세요')
     if (!content) return alert('답변을 입력해주세요')
 
-    if (window.confirm('저장하시겠습니까?')) {
+    if (window.confirm('저장 하시겠습니까?')) {
       if (faqId) {
         // update
         onUpdateFaq(selectedItem)
@@ -230,7 +230,7 @@ const FaqList = () => {
 
   return (
     <CRow>
-      <PageHeader title='FAQ 리스트' />
+      <PageHeader title='FAQ 관리' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardHeader>

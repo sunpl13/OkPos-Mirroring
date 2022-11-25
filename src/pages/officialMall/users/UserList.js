@@ -35,7 +35,7 @@ const UserList = () => {
         }
         return
       }
-      setUserList(res.result)
+      setUserList(res.result.userInfos)
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')

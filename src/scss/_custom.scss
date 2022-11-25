@@ -1,67 +1,66 @@
 // Here you can add other styles
 
 // 테이블 CSS 모음
+
+// Columns 크기는 아래 지정
 table {
   border-collapse: collapse;
-  /** userList */
-  &.userList,
-  &.faqList {
-    tr {
-      text-align: center;
+  tr {
+    text-align: center;
+  }
+  th {
+    &.deleteBtn,
+    &.files,
+    &.checkBox {
+      width: 10%;
+      max-width: 30px;
+      min-width: 20px;
     }
-    th {
-      &.deleteBtn,
-      &.files,
-      &.checkBox{
-        width: 10%;
-        max-width: 30px;
-        min-width: 20px;
-      }
-      &.userId,
-      &.status,
-      &.no,
-      &.id,
-      &.trainingPersonnel,
-      &.noticeFiles{
-        width: 10%;
-        max-width: 90px;
-        min-width: 80px;
-      }
-      &.deliveryStatus,
-      &.CAT,
-      &.POS,
-      &.KIOSK,
-      &.sum {
-        width: 10%;
-        max-width: 110px;
-        min-width: 90px;
-      }
-      &.createdAt,
-      &.category,
-      &.userName,
-      &.orderDate,
-      &.region,
-      &.remark,
-      &.trainingDate {
-        max-width: 200px;
-        min-width: 130px;
-      }
-      &.phoneNumber,
-      &.businessName {
-        min-width: 160px;
-      }
-      &.businessAddress,
-      &.secessionReason,
-      &.businessNumber,
-      &.distributorName {
-        min-width: 180px;
-      }
+    &.userId,
+    &.status,
+    &.no,
+    &.id,
+    &.trainingPersonnel,
+    &.noticeFiles {
+      width: 10%;
+      max-width: 90px;
+      min-width: 80px;
+    }
+    &.deliveryStatus,
+    &.CAT,
+    &.POS,
+    &.KIOSK,
+    &.sum {
+      width: 10%;
+      max-width: 110px;
+      min-width: 90px;
+    }
+    &.createdAt,
+    &.updatedAt,
+    &.category,
+    &.userName,
+    &.orderDate,
+    &.region,
+    &.remark,
+    &.trainingDate {
+      max-width: 200px;
+      min-width: 130px;
+    }
+    &.phoneNumber,
+    &.businessName {
+      min-width: 160px;
+    }
+    &.businessAddress,
+    &.secessionReason,
+    &.businessNumber,
+    &.distributorName {
+      min-width: 180px;
+    }
 
-      &.announcementTitle,
-      &.title {
-        width: 100%;
-        min-width: 200px;
-      }
+    &.announcementTitle,
+    &.title {
+      width: 100%;
+      min-width: 200px;
     }
   }
 }
