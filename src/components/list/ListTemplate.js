@@ -32,6 +32,7 @@ const ListTemplate = ({
   itemPerPageHidden = true, // 리스트의 페이지마다 출력될 아이템 개수 선택 박스 출력 유무
   searchInputHidden = true, // 검색창 출력 유무
   checkBoxInputHidden = false, // 체크박스 출력 유무
+  func, //보낼 함수
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
@@ -128,20 +129,21 @@ const ListTemplate = ({
   }
 
   const handleOnCheckedApi = async item => {
-    try {
-      const data = await ApiConfig.request({
-        data: {
-          editorIds: [item.editorId],
-        },
-        query: {},
-        path: {},
-        method: HttpMethod.PATCH,
-        url: `${EndPoint.EDITOR}/auth`,
-      })
-      console.log(data)
-    } catch (error) {
-      alert(error)
-    }
+    console.log(item)
+    // try {
+    //   const data = await ApiConfig.request({
+    //     data: {
+    //       editorIds: [item.editorId],
+    //     },
+    //     query: {},
+    //     path: {},
+    //     method: HttpMethod.PATCH,
+    //     url: `${EndPoint.EDITOR}/auth`,
+    //   })
+    //   console.log(data)
+    // } catch (error) {
+    //   alert(error)
+    // }
   }
 
   useEffect(() => {
@@ -234,7 +236,7 @@ const ListTemplate = ({
           ),
           isAuthorized: item => (
             <td onClick={event => event.stopPropagation()}>
-              <CFormCheck onChange={() => handleOnCheckedApi(item)} checked={item.isAuthorized || false} />
+              <CFormCheck onChange={() => func(item)} checked={item.isAuthorized || false} />
             </td>
           ),
           // 상태

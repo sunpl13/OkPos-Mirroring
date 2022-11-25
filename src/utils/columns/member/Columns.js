@@ -20,8 +20,8 @@ export const EditorColumns = [
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
-    key: 'accessAuthority',
+    key: 'editAuthorityKorean',
     label: '권한',
-    _props: {color: 'primary', className: 'accessAuthority'},
+    _props: {color: 'primary', className: 'editAuthorityKorean'},
   },
 ]

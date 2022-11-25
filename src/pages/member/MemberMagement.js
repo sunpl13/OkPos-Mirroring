@@ -5,6 +5,7 @@ import ListTemplate from '../../components/list/ListTemplate'
 import {EditorColumns} from '../../utils/columns/member/Columns'
 import ApiConfig, {HttpMethod} from '../../dataManager/apiConfig'
 import {EndPoint} from '../../dataManager/apiMapper'
+
 const MemberManageMent = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -32,7 +33,28 @@ const MemberManageMent = () => {
       alert(error)
     }
   }
-
+  const handleOnCheckedApi = async item => {
+    const sendAuthType = item.isAuthorized === 1 ? 'EDITOR_PROHIBIT' : 'EDITOR_AUTHORIZE'
+    try {
+      const data = await ApiConfig.request({
+        data: [
+          {
+            editorId: item.editorId,
+            editorAuthority: sendAuthType,
+          },
+        ],
+        query: {},
+        path: {},
+        method: HttpMethod.PATCH,
+        url: `${EndPoint.EDITOR}/auth`,
+      })
+      if (data.data.isSuccess) {
+        onLoadMemberManageMentList()
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
   //가져오기 onLoad
   //생성 onCreate
   //수정 onUpdate
@@ -85,6 +107,7 @@ const MemberManageMent = () => {
                 onClick={handleShowMemberManageMentDetailModal}
                 columns={EditorColumns}
                 className={'userList'}
+                func={handleOnCheckedApi}
               />
             </CCardBody>
           </CCard>
