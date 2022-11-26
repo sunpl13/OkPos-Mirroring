@@ -1,7 +1,35 @@
 import {CCol, CFormLabel} from '@coreui/react'
 import {map} from 'lodash'
+import styled from 'styled-components'
+import {antdImageFormat} from '../../../utils/awsCustom'
 
 const MultiFileDownloadForm = ({id, placeholder, files, label, isRequired}) => {
+  const downloadFile = (url, fileName) => {
+    url = antdImageFormat(url)
+
+    fetch(url, {method: 'GET'})
+      .then(res => {
+        return res.blob()
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = fileName
+        document.body.appendChild(a)
+        a.click()
+        setTimeout(_ => {
+          window.URL.revokeObjectURL(url)
+        }, 60000)
+        a.remove()
+      })
+      .catch(err => {
+        console.error('err: ', err)
+      })
+  }
+
+  //onClick={() => downloadFile(file, fileName)}
+
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
@@ -15,9 +43,14 @@ const MultiFileDownloadForm = ({id, placeholder, files, label, isRequired}) => {
             const fileName = splitUrl[splitUrlLength - 1] // 나누어진 배열의 맨 끝이 파일명이다
             return (
               <div key={index} className='col-form-label'>
-                <a key={index} href={file} download>
+                <SpanStyle
+                  role='link'
+                  key={index}
+                  href={antdImageFormat(file)}
+                  onClick={() => downloadFile(file, fileName)}
+                >
                   {index + 1}. {fileName}
-                </a>
+                </SpanStyle>
               </div>
             )
           })
@@ -28,5 +61,19 @@ const MultiFileDownloadForm = ({id, placeholder, files, label, isRequired}) => {
     </>
   )
 }
-
 export default MultiFileDownloadForm
+
+const SpanStyle = styled.span`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 8px;
+  line-height: 1.5714285714285714;
+  flex: auto;
+  transition: all 0.3s;
+  color: #1677ff !important;
+  text-decoration: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+`
