@@ -12,6 +12,8 @@ import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import PropTypes from 'prop-types'
 import {useDispatch} from 'react-redux'
 import {isEmpty} from '../../../../utils/utility'
+import moment from 'moment'
+import {sendFileUrlFormat} from '../../../../utils/awsCustom'
 //const imgs = [
 //   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg', altName: '이미지01'},
 //   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract02.jpg', altName: '이미지02'},
@@ -118,6 +120,9 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
   }
 
   const onCreate = async () => {
+    const startTime = moment(startDate).format('YYYY.MM.DD 00:00:00')
+    const endTime = moment(endDate).format('YYYY.MM.DD 23:59:59')
+
     try {
       if (!validateCheck()) {
         return
@@ -204,6 +209,7 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
 
   const onClose = () => {
     setCloseCheckModalState(false)
+    setFileList([])
     setVisible(false)
     setIsReadOnly(true)
   }
