@@ -3,20 +3,13 @@ import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} fr
 
 const DetailModalTemplate = ({visible, title, children, setVisible, upDate, onDelete, btnText}) => {
   return (
-    <CModal
-      size='lg'
-      visible={visible}
-      onClose={() => {
-        upDate()
-        setVisible(false)
-      }}
-    >
+    <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>
         <CModalTitle>{title || 'Not Title'}</CModalTitle>
       </CModalHeader>
       <CModalBody>{children || <h1>Not Children</h1>}</CModalBody>
       <CModalFooter>
-        <CButton onClick={() => console.log('test')} color={'primary'}>
+        <CButton onClick={() => upDate()} color={'primary'}>
           {btnText || 'Not Btn Title'}
         </CButton>
         {onDelete && (

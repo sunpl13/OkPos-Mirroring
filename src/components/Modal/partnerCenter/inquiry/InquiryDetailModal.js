@@ -11,7 +11,7 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, repli
       title={'문의 상세 보기'}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={inquiryReplies?.content ? '수정' : '답변등록'}
+      btnText={inquiryReplies.length !== 0 ? '수정' : '답변등록'}
       onDelete={onDelete}
     >
       <CRow className={'p-2'}>
@@ -55,7 +55,7 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, repli
           placeholder={'답변 작성'}
           label={'답변 작성'}
           rows={9}
-          value={replies}
+          value={inquiryReplies.length !== 0 ? inquiryReplies[inquiryReplies.length - 1].content : replies}
           onChange={onChange}
         />
       </CForm>

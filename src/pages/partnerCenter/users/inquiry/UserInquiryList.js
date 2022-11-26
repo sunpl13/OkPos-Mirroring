@@ -10,7 +10,15 @@ import {isEmpty} from '../../../../utils/utility'
 
 const UserInquiryList = () => {
   const [items, setItems] = useState([])
-  const [selectedItem, setSelectedItem] = useState({})
+  const [selectedItem, setSelectedItem] = useState({
+    content: '',
+    id: 0,
+    inquiryCategory: '',
+    inquiryFiles: [],
+    inquiryReplies: [],
+    userName: '',
+    userPhoneNum: '',
+  })
   const [editCheck, setEditCheck] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [inquiryMsg, setInquiryMsg] = useState('')
@@ -75,7 +83,10 @@ const UserInquiryList = () => {
           return
         }
         if (data?.code === 1000) {
-          setSelectedItem(data.result)
+          setSelectedItem({
+            ...selectedItem,
+            ...data.result,
+          })
           setEditCheck(data.result.inquiryReplies)
         } else {
           alert(data?.message)
@@ -83,24 +94,39 @@ const UserInquiryList = () => {
       } catch (error) {
         console.log(error)
       }
-      console.log(id)
     }
   }
   const handleInquiryModalOnChange = ({target: {value}}) => {
     setInquiryMsg(value)
-    console.log(value)
   }
-  const handleInquiryModalUpdate = () => {
-    if (editCheck.inquiryReplies?.content !== inquiryMsg) {
-      console.log(editCheck.inquiryReplies?.content, inquiryMsg)
-      if (editCheck.inquiryReplies?.content) {
-        if (window.confirm('답변을 등록하시겠습니까?')) {
-          console.log('tttt2')
+  const handleInquiryModalUpdate = async () => {
+    const {id} = selectedItem
+    console.log(id)
+    if (editCheck?.content) {
+      if (window.confirm('답변을 수정하시겠습니까?')) {
+        console.log('tttt2')
+      }
+    } else if (window.confirm('답변을 등록하시겠습니까?')) {
+      if (!inquiryMsg) return alert('답변을 작성해 주세요.')
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.POST,
+          url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}/reply`,
+          data: {
+            content: inquiryMsg,
+          },
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
         }
-      } else {
-        if (window.confirm('답변을 수정하시겠습니까?')) {
-          console.log('test1')
+        if (data?.code === 1000) {
+          return alert(data?.message)
+        } else {
+          alert(data?.message)
         }
+      } catch (error) {
+        console.log(error)
       }
     }
   }
@@ -131,7 +157,7 @@ const UserInquiryList = () => {
         value={selectedItem}
         replies={inquiryMsg}
         onChange={handleInquiryModalOnChange}
-        upDate={handleInquiryModalUpdate}
+        upDate={() => handleInquiryModalUpdate()}
         onDelete={handleInquiryModalOnDelete}
       />
     </CRow>
