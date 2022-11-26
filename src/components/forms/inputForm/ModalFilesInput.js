@@ -2,10 +2,11 @@ import {InboxOutlined} from '@ant-design/icons'
 import {Upload} from 'antd'
 import styled from 'styled-components'
 import {CFormLabel} from '@coreui/react'
-import {v1} from 'uuid'
 import AWS from 'aws-sdk'
 import {useEffect} from 'react'
-const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList}) => {
+import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
+
+const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath}) => {
   useEffect(() => {
     if (files && files.length > 0) {
       setFileList(
@@ -13,21 +14,22 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList}) =>
           uid: path,
           name: path,
           status: 'done',
-          url: `https://${process.env.REACT_APP_AWS_BUCKET_NAME}.s3.${process.env.REACT_APP_AWS_REGION}.amazonaws.com/${path}`,
+          url: antdImageFormat(path),
         })),
       )
     }
   }, [files])
 
   const onSuccess = successData => {
-    const file = successData.request.httpRequest.body
-    const endPoint = successData.request.httpRequest.endpoint
+    const httpRequest = successData.request.httpRequest
+    const file = httpRequest.body
+    const {protocol, host} = httpRequest.endpoint
 
     const fileData = {
       uid: successData.request.params.Key,
       name: file.name,
       status: 'done',
-      url: `${endPoint.protocol}${endPoint.host}${successData.request.httpRequest.path}`,
+      url: `${protocol}//${host}${httpRequest.path}`,
     }
     setFileList([...fileList, fileData])
   }
@@ -40,9 +42,10 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList}) =>
     })
 
     const S3 = new AWS.S3()
+    const fileName = file.name.replaceAll(' ', '')
     const objParams = {
-      Bucket: `${process.env.REACT_APP_AWS_BUCKET_NAME}/test`,
-      Key: `${v1().toString().replace('-', '')}.${file.type.split('/')[1]}`,
+      Bucket: returnBucketNameFile(filePath),
+      Key: fileName,
       Body: file,
       ContentType: file.type, // TODO: You should set content-type because AWS SDK will not automatically set file MIME
     }
