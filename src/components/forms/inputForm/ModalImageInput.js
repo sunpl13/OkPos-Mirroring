@@ -3,8 +3,8 @@ import {Upload} from 'antd'
 import {useEffect, useState} from 'react'
 import {CCol, CFormLabel, CImage, CRow} from '@coreui/react'
 import styled from 'styled-components'
-import {v1} from 'uuid'
 import AWS from 'aws-sdk'
+import {antdImageFormat, returnBucketName} from '../../../utils/awsCustom'
 const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -13,7 +13,7 @@ const getBase64 = file =>
     reader.onerror = error => reject(error)
   })
 
-const ModalImageInput = ({images, id, label, fileList, setFileList}) => {
+const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -25,11 +25,11 @@ const ModalImageInput = ({images, id, label, fileList, setFileList}) => {
           uid: path,
           name: path,
           status: 'done',
-          url: `https://${process.env.REACT_APP_AWS_BUCKET_NAME}.s3.${process.env.REACT_APP_AWS_REGION}.amazonaws.com/${path}`,
+          url: antdImageFormat(path),
         })),
       )
     }
-  }, [images])
+  }, [images, setFileList])
 
   const handleCloseImage = () => {
     setPreviewImage('')
@@ -46,14 +46,17 @@ const ModalImageInput = ({images, id, label, fileList, setFileList}) => {
   }
 
   const onSuccess = successData => {
-    const file = successData.request.httpRequest.body
-    const endPoint = successData.request.httpRequest.endpoint
+    const httpRequest = successData.request.httpRequest
+    const file = httpRequest.body
+    const {protocol, host} = httpRequest.endpoint
+
     const fileData = {
       uid: successData.request.params.Key,
       name: file.name,
       status: 'done',
-      url: `${endPoint.protocol}${endPoint.host}${successData.request.httpRequest.path}`,
+      url: `${protocol}//${host}${httpRequest.path}`,
     }
+
     setFileList([...fileList, fileData])
   }
 
@@ -65,9 +68,11 @@ const ModalImageInput = ({images, id, label, fileList, setFileList}) => {
     })
 
     const S3 = new AWS.S3()
+    const fileName = file.name.replaceAll(' ', '')
+
     const objParams = {
-      Bucket: `${process.env.REACT_APP_AWS_BUCKET_NAME}/images`,
-      Key: `${v1().toString().replace('-', '')}.${file.type.split('/')[1]}`,
+      Bucket: returnBucketName(imgPath),
+      Key: fileName,
       Body: file,
       ContentType: file.type, // TODO: You should set content-type because AWS SDK will not automatically set file MIME
     }
