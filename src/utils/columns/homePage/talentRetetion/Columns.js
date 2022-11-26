@@ -26,7 +26,7 @@ export const talentRetentionColumns = [
     _props: {color: 'primary', className: 'phoneNumber'},
   },
   {
-    key: 'position',
+    key: 'positionKorean',
     label: '지원 포지션',
     _props: {color: 'primary', className: 'position'},
   },

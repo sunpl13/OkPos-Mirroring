@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
 import {testTalentValues} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
-import ListTemplate from '../../../components/list/ListTemplate'
 import {talentRetentionColumns} from '../../../utils/columns/homePage/talentRetetion/Columns'
 import TalentRetentionDetail from '../../../components/Modal/homePage/talentRetention/TalentRetentionDetail'
 import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
@@ -107,7 +106,7 @@ const TalentRetention = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleRetrieveTestList}>
+                  <CButton color='primary' onClick={onLoadTalentPoolList}>
                     조회하기
                   </CButton>
                 </CCol>
