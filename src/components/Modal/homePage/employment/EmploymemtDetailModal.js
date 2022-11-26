@@ -123,14 +123,30 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
         return
       }
       const {proceed, recruitmentId, ...rest} = value
+      const urls = sendFileUrlFormat(fileList)
       const {data} = await ApiConfig.request({
-        data: {...rest, startedAt: startDate, closedAt: endDate},
+        data: {...rest, startedAt: startTime, closedAt: endTime, imageUrls: urls},
         query: {},
         path: {},
         method: HttpMethod.POST,
         url: `${EndPoint.RECRUITMENT}`,
       })
-      console.log(data)
+      if (data.isSuccess) {
+        getList()
+        setFileList([])
+        setshowDeleteModal(false)
+        setCloseCheckModalState(false)
+        setVisible(false)
+        dispatch({
+          type: 'set',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: '공고가 정상적으로 생성 되었습니다.',
+        })
+      } else {
+        alert(data.message)
+      }
     } catch (error) {
       alert(error)
     }
@@ -177,12 +193,12 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
   }
 
   const onCloseCheck = () => {
-    console.log('여기 들어오나?')
     if (!isReadOnly && value.recruitmentId !== -1) {
       setCloseCheckModalState(true)
     } else {
       setVisible(false)
       setIsReadOnly(true)
+      setFileList([])
     }
   }
 
