@@ -1,6 +1,7 @@
 export const talentRetentionColumns = [
   {
     key: 'talentPoolId',
+    label: 'No',
     _props: {color: 'primary', className: 'employId'},
   },
   {
@@ -25,7 +26,7 @@ export const talentRetentionColumns = [
     _props: {color: 'primary', className: 'phoneNumber'},
   },
   {
-    key: 'position',
+    key: 'positionKorean',
     label: '지원 포지션',
     _props: {color: 'primary', className: 'position'},
   },

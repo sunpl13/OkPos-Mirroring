@@ -2,66 +2,112 @@ import {InboxOutlined} from '@ant-design/icons'
 import {Upload} from 'antd'
 import styled from 'styled-components'
 import {CFormLabel} from '@coreui/react'
+import AWS from 'aws-sdk'
+import {useEffect} from 'react'
+import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
 
-const ModalFilesInput = ({value, label, id, disabled}) => {
-  const files = [
-    {
-      uid: 'rc-upload-1667393971608-62',
-      lastModified: 1666338642315,
-      lastModifiedDate: '2022-10-21T07:50:42.315Z',
-      name: 'TestData1.jpeg',
-      size: 115763,
-      type: 'image/jpeg',
-      percent: 0,
-      originFileObj: {
-        uid: 'rc-upload-16673939721608-6',
+const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath}) => {
+  useEffect(() => {
+    if (files && files.length > 0) {
+      setFileList(
+        files.map(path => ({
+          uid: path,
+          name: path,
+          status: 'done',
+          url: antdImageFormat(path),
+        })),
+      )
+    }
+  }, [files])
+
+  const onSuccess = successData => {
+    const httpRequest = successData.request.httpRequest
+    const file = httpRequest.body
+    const {protocol, host} = httpRequest.endpoint
+
+    const fileData = {
+      uid: successData.request.params.Key,
+      name: file.name,
+      status: 'done',
+      url: `${protocol}//${host}${httpRequest.path}`,
+    }
+    setFileList([...fileList, fileData])
+  }
+
+  const customReq = ({file, onError, onProgress, onSuccess}) => {
+    AWS.config.update({
+      region: process.env.REACT_APP_AWS_REGION,
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    })
+
+    const S3 = new AWS.S3()
+    const fileName = file.name.replaceAll(' ', '')
+    const objParams = {
+      Bucket: returnBucketNameFile(filePath),
+      Key: fileName,
+      Body: file,
+      ContentType: file.type, // TODO: You should set content-type because AWS SDK will not automatically set file MIME
+    }
+
+    const upload = S3.putObject(objParams)
+      .on('httpUploadProgress', ({loaded, total}) => onProgress({percent: (loaded / total) * 100}))
+      .promise()
+    upload.then(
+      function (data) {
+        onSuccess(data.$response)
       },
-      error: {
-        status: 404,
-        method: 'post',
-        url: '업로드 URL',
+      function (error) {
+        onError()
+        console.log(error.code)
+        console.log(error.message)
       },
-      status: 'success',
-    },
-    {
-      uid: 'rc-upload-1667393971608-61',
-      lastModified: 1666338642315,
-      lastModifiedDate: '2022-10-21T07:50:42.315Z',
-      name: 'TestData2.jpeg',
-      size: 115763,
-      type: 'image/jpeg',
-      percent: 0,
-      originFileObj: {
-        uid: 'rc-upload-16673933971608-6',
-      },
-      error: {
-        status: 404,
-        method: 'post',
-        url: '업로드 URL',
-      },
-      status: 'error',
-    },
-  ]
+    )
+  }
+
+  const onDelete = item => {
+    AWS.config.update({
+      region: process.env.REACT_APP_AWS_REGION,
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    })
+
+    const S3 = new AWS.S3()
+
+    const objParams = {
+      Bucket: `${process.env.REACT_APP_AWS_BUCKET_NAME}`,
+      Key: item.uid,
+    }
+
+    S3.deleteObject(objParams, (err, data) => {
+      if (err) {
+        setFileList(
+          fileList.map(file => {
+            if (file.uid === item.uid) {
+              return {...file, status: 'error'}
+            } else {
+              return file
+            }
+          }),
+        )
+      }
+      setFileList(fileList.filter(file => file.uid !== item.uid))
+    })
+  }
+
   const props = {
     name: 'file',
     multiple: true,
     disabled: disabled,
-    fileList: files,
-    //action: '업로드 URL',
-    onChange(info) {
-      const {status} = info.file
-      if (status !== 'uploading') {
-        console.log(info.file, info.fileList)
-      }
-      if (status === 'done') {
-        console.log(value)
-        //message.success(`${info.file.name} file uploaded successfully.`)
-      } else if (status === 'error') {
-        //message.error(`${info.file.name} file upload failed.`)
-      }
+    fileList: fileList,
+    customRequest(data) {
+      customReq(data)
     },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files)
+    onSuccess(data) {
+      onSuccess(data)
+    },
+    onRemove(data) {
+      onDelete(data)
     },
   }
 

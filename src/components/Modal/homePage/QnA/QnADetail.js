@@ -15,6 +15,8 @@ import ModalInput from '../../../forms/inputForm/ModalInput'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import PropTypes from 'prop-types'
+import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
+import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 
 const inquiries = [
   {key: 'a', value: '제품'},
@@ -27,6 +29,7 @@ const inquiries = [
 const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
+  const [fileList, setFileList] = useState([])
   const userDetailEditMode = () => {
     if (!isReadOnly) {
       setIsReadOnly(true)
@@ -35,6 +38,17 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
       setIsReadOnly(false)
     }
   }
+
+  // if (images && images.length > 0) {
+  //   setFileList(
+  //     images.map(path => ({
+  //       uid: path,
+  //       name: path,
+  //       status: 'done',
+  //       url: `https://${process.env.REACT_APP_AWS_BUCKET_NAME}.s3.${process.env.REACT_APP_AWS_REGION}.amazonaws.com/${path}`,
+  //     })),
+  //   )
+  // }
 
   const onCloseCheck = () => {
     if (!isReadOnly && value.No !== -1) {
@@ -125,6 +139,12 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
               rows={15}
               id='content'
             />
+          </CRow>
+          <CRow>
+            <ModalImageInput id={'imageInput'} label={'이미지 리스트'} fileList={fileList} setFileList={setFileList} />
+          </CRow>
+          <CRow>
+            <ModalFilesInput id={'file'} label={'이미지 리스트'} />
           </CRow>
         </CModalBody>
         <CModalFooter>

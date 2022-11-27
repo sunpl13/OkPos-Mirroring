@@ -1,9 +1,10 @@
 import {PlusOutlined} from '@ant-design/icons'
 import {Upload} from 'antd'
-import React, {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {CCol, CFormLabel, CImage, CRow} from '@coreui/react'
 import styled from 'styled-components'
-
+import AWS from 'aws-sdk'
+import {antdImageFormat, returnBucketName} from '../../../utils/awsCustom'
 const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -12,36 +13,27 @@ const getBase64 = file =>
     reader.onerror = error => reject(error)
   })
 
-const ModalImageInput = ({id, label}) => {
+const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
+
+  useEffect(() => {
+    if (images && images.length > 0) {
+      setFileList(
+        images.map(path => ({
+          uid: path,
+          name: path,
+          status: 'done',
+          url: antdImageFormat(path),
+        })),
+      )
+    }
+  }, [images, setFileList])
+
   const handleCloseImage = () => {
     setPreviewImage('')
   }
-  // TestData
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-xxx',
-      percent: 50,
-      name: 'image.png',
-      status: 'uploading',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-5',
-      name: 'image.png',
-      status: 'error',
-    },
-  ])
-
-  const handleCancel = () => setPreviewOpen(false)
 
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
@@ -53,8 +45,82 @@ const ModalImageInput = ({id, label}) => {
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
   }
 
-  const handleChange = ({fileList: newFileList}) => setFileList(newFileList)
+  const onSuccess = successData => {
+    const httpRequest = successData.request.httpRequest
+    const file = httpRequest.body
+    const {protocol, host} = httpRequest.endpoint
 
+    const fileData = {
+      uid: successData.request.params.Key,
+      name: file.name,
+      status: 'done',
+      url: `${protocol}//${host}${httpRequest.path}`,
+    }
+
+    setFileList([...fileList, fileData])
+  }
+
+  const customReq = ({file, onError, onProgress, onSuccess}) => {
+    AWS.config.update({
+      region: process.env.REACT_APP_AWS_REGION,
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    })
+
+    const S3 = new AWS.S3()
+    const fileName = file.name.replaceAll(' ', '')
+
+    const objParams = {
+      Bucket: returnBucketName(imgPath),
+      Key: fileName,
+      Body: file,
+      ContentType: file.type, // TODO: You should set content-type because AWS SDK will not automatically set file MIME
+    }
+
+    const upload = S3.putObject(objParams)
+      .on('httpUploadProgress', ({loaded, total}) => onProgress({percent: (loaded / total) * 100}))
+      .promise()
+    upload.then(
+      function (data) {
+        onSuccess(data.$response)
+      },
+      function (error) {
+        onError()
+        console.log(error.code)
+        console.log(error.message)
+      },
+    )
+  }
+
+  const onDelete = item => {
+    AWS.config.update({
+      region: process.env.REACT_APP_AWS_REGION,
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    })
+
+    const S3 = new AWS.S3()
+
+    const objParams = {
+      Bucket: `${process.env.REACT_APP_AWS_BUCKET_NAME}`,
+      Key: item.uid,
+    }
+
+    S3.deleteObject(objParams, (err, data) => {
+      if (err) {
+        setFileList(
+          fileList.map(file => {
+            if (file.uid === item.uid) {
+              return {...file, status: 'error'}
+            } else {
+              return file
+            }
+          }),
+        )
+      }
+      setFileList(fileList.filter(file => file.uid !== item.uid))
+    })
+  }
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -67,18 +133,16 @@ const ModalImageInput = ({id, label}) => {
         <span>{label || ' * '}</span>
       </CFormLabel>
       <Upload
-        //action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-        beforeUpload={file => {
-          setFileList(fileList.concat(file))
-          return false
-        }}
         listType='picture-card'
         fileList={fileList}
         onPreview={handlePreview}
-        onChange={handleChange}
+        onSuccess={data => onSuccess(data)}
+        onRemove={data => onDelete(data)}
+        customRequest={reqData => customReq(reqData)}
       >
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>
+
       {previewImage && (
         <CCol>
           <PreviewImageBox className={'text-center p-2'}>

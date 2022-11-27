@@ -1,5 +1,5 @@
-import {useState} from 'react'
-import {CCol, CFormLabel, CImage, CModal, CModalBody, CRow, CModalFooter, CButton, CFormCheck} from '@coreui/react'
+import {useEffect, useState} from 'react'
+import {CModal, CModalBody, CRow, CModalFooter, CButton, CFormCheck} from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DatePickerForm from '../../../common/DatePickerForm'
@@ -10,7 +10,10 @@ import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import PropTypes from 'prop-types'
-
+import {useDispatch} from 'react-redux'
+import {isEmpty} from '../../../../utils/utility'
+import moment from 'moment'
+import {sendFileUrlFormat} from '../../../../utils/awsCustom'
 //const imgs = [
 //   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg', altName: '이미지01'},
 //   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract02.jpg', altName: '이미지02'},
@@ -63,17 +66,94 @@ const career = [
   {key: 'EXPERIENCED', value: '경력'},
   {key: 'ANY', value: '무관'},
 ]
-const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
+const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [startDate, setstartDate] = useState(new Date())
   const [endDate, setendDate] = useState(new Date())
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
+  const [fileList, setFileList] = useState([])
+  const dispatch = useDispatch()
   const userDetailEditMode = () => {
     if (!isReadOnly) {
       onUpdate()
       setIsReadOnly(true)
     } else {
       setIsReadOnly(false)
+    }
+  }
+
+  const validateCheck = () => {
+    if (isEmpty(value.category)) {
+      alert('카테고리를 선택해 주세요.')
+      return false
+    }
+    if (isEmpty(value.title)) {
+      alert('공고 제목을 입력해주세요.')
+      return false
+    }
+    if (value.proceed === '선택해주세요') {
+      alert('진행상태를 선택해주세요.')
+      return false
+    }
+    if (isEmpty(value.jobType) || value.jobType === '선택해주세요') {
+      alert('고용 형태를 선택해주세요.')
+      return false
+    }
+    if (isEmpty(value.location)) {
+      alert('근무 지역을 입력해주세요.')
+      return false
+    }
+    if (isEmpty(value.education) || value.education === '선택해주세요') {
+      alert('학력 및 전공을 선택해주세요.')
+      return false
+    }
+    if (isEmpty(value.career) || value.career === '선택해주세요') {
+      alert('경력 정보를 선택해주세요.')
+      return false
+    }
+    if (isEmpty(value.qualification)) {
+      alert('자격 요건을 입력해주세요.')
+      return false
+    }
+
+    return true
+  }
+
+  const onCreate = async () => {
+    const startTime = moment(startDate).format('YYYY.MM.DD 00:00:00')
+    const endTime = moment(endDate).format('YYYY.MM.DD 23:59:59')
+
+    try {
+      if (!validateCheck()) {
+        return
+      }
+      const {proceed, recruitmentId, ...rest} = value
+      const urls = sendFileUrlFormat(fileList)
+      const {data} = await ApiConfig.request({
+        data: {...rest, startedAt: startTime, closedAt: endTime, imageUrls: urls},
+        query: {},
+        path: {},
+        method: HttpMethod.POST,
+        url: `${EndPoint.RECRUITMENT}`,
+      })
+      if (data.isSuccess) {
+        getList()
+        setFileList([])
+        setshowDeleteModal(false)
+        setCloseCheckModalState(false)
+        setVisible(false)
+        dispatch({
+          type: 'set',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: '공고가 정상적으로 생성 되었습니다.',
+        })
+      } else {
+        alert(data.message)
+      }
+    } catch (error) {
+      alert(error)
     }
   }
 
@@ -88,7 +168,14 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
         method: HttpMethod.PATCH,
         url: `${EndPoint.RECRUITMENT}/:recruitmentId/d`,
       })
-      console.log(data)
+      if (data.isSuccess) {
+        getList()
+        setFileList([])
+        setshowDeleteModal(false)
+        setCloseCheckModalState(false)
+        setVisible(false)
+        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+      }
     } catch (error) {
       alert(error)
     }
@@ -105,7 +192,6 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
         method: HttpMethod.PATCH,
         url: `${EndPoint.RECRUITMENT}/:recruitmentId`,
       })
-      console.log(data)
     } catch (error) {
       alert(error)
     }
@@ -117,11 +203,13 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
     } else {
       setVisible(false)
       setIsReadOnly(true)
+      setFileList([])
     }
   }
 
   const onClose = () => {
     setCloseCheckModalState(false)
+    setFileList([])
     setVisible(false)
     setIsReadOnly(true)
   }
@@ -129,9 +217,6 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
   return (
     <>
       <CModal alignment='center' size='lg' visible={visible}>
-        {/* <CModalHeader>
-          <CModalTitle>채용 상세</CModalTitle>
-        </CModalHeader> */}
         <CCustomModalHeader onClick={onCloseCheck}>채용 상세</CCustomModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
@@ -155,6 +240,38 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               isRequired={true}
               placeholder='선택해주세요'
               label='카테고리'
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalInput
+              onChange={onChange}
+              id='title'
+              placeholder='공고제목'
+              label='공고 제목'
+              isRequired={true}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              value={value.title}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <DatePickerForm
+              readOnly={false}
+              label='시작일'
+              isRequired={true}
+              id='startedAt'
+              date={startDate}
+              setDate={setstartDate}
+              isDisabled={isReadOnly}
+            />
+            <DatePickerForm
+              readOnly={false}
+              label='종료일'
+              isRequired={true}
+              id='closedAt'
+              date={endDate}
+              setDate={setendDate}
+              isDisabled={isReadOnly}
             />
           </CRow>
           <CRow className='mb-3'>
@@ -184,26 +301,6 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            <DatePickerForm
-              readOnly={false}
-              label='시작일'
-              isRequired={true}
-              id='startedAt'
-              date={startDate}
-              setDate={setstartDate}
-              isDisabled={isReadOnly}
-            />
-            <DatePickerForm
-              readOnly={false}
-              label='종료일'
-              isRequired={true}
-              id='closedAt'
-              date={endDate}
-              setDate={setendDate}
-              isDisabled={isReadOnly}
-            />
-          </CRow>
-          <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
               id='location'
@@ -221,6 +318,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               size='sm'
               id='education'
               options={education}
+              isRequired={true}
               value={value.education}
               placeholder='선택해주세요'
               label='학력 및 전공'
@@ -232,6 +330,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='duty'
               placeholder='duty'
               label='직무 내용'
+              isRequired={true}
               value={value.duty}
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -243,27 +342,20 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               value={value.career}
               id='career'
               placeholder='선택해주세요'
+              isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
               label='경력'
             />
           </CRow>
           <CRow className='mb-3'>
-            {value.recruitmentId === -1 ? (
-              <ModalImageInput id='image' label='이미지 첨부' />
-            ) : (
-              <>
-                <CFormLabel>이미지</CFormLabel>
-                <CCol>
-                  <CImage
-                    rounded
-                    src='https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fevents%2F2404%2F54ecb586.jpg&w=1200&q=100'
-                    width={200}
-                    height={200}
-                  />
-                </CCol>
-              </>
-            )}
+            <ModalImageInput
+              id='image'
+              label='이미지 첨부'
+              fileList={fileList}
+              setFileList={setFileList}
+              images={value.imageUrl}
+            />
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
@@ -271,6 +363,7 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
               id='qualification'
               placeholder='qualification'
               label='자격 요건'
+              isRequired={true}
               value={value.qualification === null ? '' : value.qualification}
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -323,14 +416,16 @@ const EmploymemtDetailModal = ({value, visible, setVisible, onChange, isReadOnly
         </CModalBody>
         <CModalFooter>
           {value.recruitmentId === -1 ? (
-            <CButton color='primary'>Add</CButton>
+            <CButton color='primary' onClick={onCreate}>
+              추가
+            </CButton>
           ) : (
             <>
-              <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
-                delete
+              <CButton color='danger' className='text-white' onClick={() => setshowDeleteModal(true)}>
+                삭제
               </CButton>
               <CButton color={isReadOnly ? 'primary' : 'success'} onClick={userDetailEditMode}>
-                Edit
+                수정
               </CButton>
             </>
           )}

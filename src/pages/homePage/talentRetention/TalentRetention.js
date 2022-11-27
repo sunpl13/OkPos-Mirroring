@@ -2,16 +2,17 @@ import {useState, useEffect} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
 import {testTalentValues} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
-import ListTemplate from '../../../components/list/ListTemplate'
 import {talentRetentionColumns} from '../../../utils/columns/homePage/talentRetetion/Columns'
 import TalentRetentionDetail from '../../../components/Modal/homePage/talentRetention/TalentRetentionDetail'
 import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
+import TalentPoolList from '../../../components/list/homepage/talentTetention/TalentPoolList'
 const TalentRetention = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
+  const [select, setSelect] = useState('')
   const [selectedItem, setSelectedItem] = useState({
     talentPoolId: -1,
     number: '',
@@ -34,7 +35,7 @@ const TalentRetention = () => {
         method: HttpMethod.GET,
         url: EndPoint.TALENTPOOL,
       })
-      setItems(data?.data.result)
+      setItems(data?.data.result.responses)
     } catch (error) {
       alert(error)
     }
@@ -49,7 +50,7 @@ const TalentRetention = () => {
           id: id,
         },
         method: HttpMethod.GET,
-        url: `${EndPoint.RECRUITMENT}/:id`,
+        url: `${EndPoint.TALENTPOOL}/:id`,
       })
 
       setSelectedItem(data.result)
@@ -67,7 +68,7 @@ const TalentRetention = () => {
   }
 
   const handleShowTalentPoolDetailModal = async item => {
-    onLoadDetail(item.recruitmentId)
+    onLoadDetail(item.talentPoolId)
     setShowModal(!showModal)
   }
 
@@ -105,7 +106,7 @@ const TalentRetention = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleRetrieveTestList}>
+                  <CButton color='primary' onClick={onLoadTalentPoolList}>
                     조회하기
                   </CButton>
                 </CCol>
@@ -117,7 +118,7 @@ const TalentRetention = () => {
               </CForm>
             </CCardHeader>
             <CCardBody>
-              <ListTemplate
+              <TalentPoolList
                 items={items}
                 onClick={handleShowTalentPoolDetailModal}
                 columns={talentRetentionColumns}
@@ -135,6 +136,8 @@ const TalentRetention = () => {
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
+        select={select}
+        setSelect={setSelect}
       />
     </main>
   )

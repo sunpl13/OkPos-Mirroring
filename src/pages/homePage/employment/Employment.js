@@ -16,9 +16,9 @@ const Employment = () => {
     category: '',
     proceed: 0,
     title: '',
-    startedAt: '',
-    closedAt: '',
-    imageUrl: '',
+    startedAt: new Date(),
+    closedAt: new Date(),
+    imageUrls: [],
     jobType: 'FULL_TIME',
     location: '',
     education: 'UNIVERSITY_GRADUATE_4_YEAR',
@@ -40,7 +40,7 @@ const Employment = () => {
         method: HttpMethod.GET,
         url: EndPoint.RECRUITMENT,
       })
-      setItems(data?.data.result)
+      setItems(data?.data.result.responses)
     } catch (error) {
       alert(error)
     }
@@ -84,9 +84,9 @@ const Employment = () => {
       category: '',
       proceed: 0,
       title: '',
-      startedAt: '',
-      closedAt: '',
-      imageUrl: '',
+      startedAt: new Date(),
+      closedAt: new Date(),
+      imageUrls: [],
       jobType: 'FULL_TIME',
       location: '',
       education: 'UNIVERSITY_GRADUATE_4_YEAR',
@@ -149,6 +149,7 @@ const Employment = () => {
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
+        getList={onLoadEmploymentList}
       />
     </>
   )

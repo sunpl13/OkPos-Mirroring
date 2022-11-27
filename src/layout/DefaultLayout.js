@@ -11,6 +11,7 @@ const DefaultLayout = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const authority = window.sessionStorage.getItem('accessAuthority')
+  const auth = window.sessionStorage.getItem('auth')
   const toast = useSelector(state => state.toast)
   useEffect(() => {
     if (isEmpty(window.sessionStorage.getItem('jwt'))) {
@@ -18,11 +19,23 @@ const DefaultLayout = () => {
       navigate(`/login`)
       return
     }
-    if (location.pathname !== '/' && location.pathname !== '/dashboard') {
-      if (authority[0].toLowerCase() !== location.pathname[1]) {
+    if (location.pathname === '/memeber' && !auth.includes('ADMIN')) {
+      alert('접근 권한이 없습니다!')
+      navigate(-1)
+      return
+    } else if (location.pathname !== '/' && location.pathname !== '/dashboard') {
+      if (auth === 'EDITOR_PROHIBIT') {
         alert('접근 권한이 없습니다!')
         navigate(-1)
         return
+      }
+      //경로 명이랑 담당 도메인이 다르면 접근권한 막기(회원관리 제외)
+      if (authority[0].toLowerCase() !== location.pathname[1]) {
+        if (auth !== 'ADMIN') {
+          alert('접근 권한이 없습니다!')
+          navigate(-1)
+          return
+        }
       }
     }
   }, [])

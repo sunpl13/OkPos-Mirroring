@@ -4,13 +4,18 @@ const Dashboard = React.lazy(() => import('./pages/dashboard/Dashboard'))
 
 const TestList = React.lazy(() => import('./pages/test/TestList'))
 const CreateTest = React.lazy(() => import('./pages/test/CreateTest'))
+const Member = React.lazy(() => import('./pages/member/MemberMagement'))
 
 // ------ 오케이포스 홈페이지
 
+const RoillingBanner = React.lazy(() => import('./pages/homePage/rollingBanner/RollingBanner'))
 const Employment = React.lazy(() => import('./pages/homePage/employment/Employment'))
 const TalentRetention = React.lazy(() => import('./pages/homePage/talentRetention/TalentRetention'))
 const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
 const HopageNotice = React.lazy(() => import('./pages/homePage/notice/Notice'))
+
+const EnglishInquiry = React.lazy(() => import('./pages/EnHomePage/Inquiry/EnglishInquiry'))
+const EnglishRollingBanner = React.lazy(() => import('./pages/EnHomePage/rollingBanner/RollingBanner'))
 // ------ 가맹점 전용 공식몰 페이지
 
 // 회원관리
@@ -55,14 +60,19 @@ const routes = [
   {path: '/dashboard', name: 'Dashboard', element: Dashboard},
   {path: `/test/test-list`, name: '조회', element: TestList},
   {path: `/test/create-test`, name: '생성', element: CreateTest},
-
+  {path: `/member`, name: '생성', element: Member},
   // ------ 오케이포스 홈페이지
 
   //홈페이지 관리
+  {path: '/home/rolling-banner', name: '롤링배너 관리', element: RoillingBanner},
   {path: `/home/employment`, name: '채용관리', element: Employment},
   {path: '/home/talentRetention', name: '인재풀 관리', element: TalentRetention},
   {path: '/home/QnA', name: '1:1문의', element: HomePageQnA},
   {path: '/home/notice', name: '공지사항', element: HopageNotice},
+
+  // ------ 영문 홈페이지
+  {path: `/home/en/inquiry`, name: '1:1 Inquiry', element: EnglishInquiry},
+  {path: '/home/en/rolling-banner', name: '롤링배너 관리', element: EnglishRollingBanner},
 
   // ------ 가맹점 전용 공식몰 페이지
 

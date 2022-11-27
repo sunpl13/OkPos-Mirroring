@@ -2,6 +2,7 @@ import CIcon from '@coreui/icons-react'
 import {
   cilSpeedometer,
   cilUser,
+  cilFont,
   cilHome,
   cilChatBubble,
   cilBasket,
@@ -21,6 +22,13 @@ const _nav = [
       color: 'info',
       text: 'NEW',
     },
+  },
+  {
+    component: CNavItem,
+    name: '회원관리',
+    to: '/member',
+    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
   },
   {
     component: CNavItem,
@@ -147,6 +155,11 @@ const _nav = [
     items: [
       {
         component: CNavItem,
+        name: '롤링배너 관리',
+        to: '/home/rolling-banner',
+      },
+      {
+        component: CNavItem,
         name: '채용 관리',
         to: '/home/employment',
       },
@@ -242,6 +255,58 @@ const _nav = [
         component: CNavItem,
         name: '취소 현황',
         to: '/users/withdrawalUsers',
+      },
+    ],
+  },
+
+  /*
+  대리점 전용 파트너센터 코드 작성
+  */
+  {
+    component: CNavTitle,
+    name: '대리점 전용 파트너센터',
+  },
+  {
+    component: CNavGroup,
+    name: '파트너센터 회원 관리',
+    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
+    items: [
+      {
+        component: CNavItem,
+        name: '회원 리스트',
+        to: '/users/userList',
+      },
+      {
+        component: CNavItem,
+        name: '탈퇴 회원 리스트',
+        to: '/users/withdrawalUsers',
+      },
+    ],
+  },
+
+  /*
+  영문 홈페이지
+  */
+  {
+    component: CNavTitle,
+    name: '영문 홈페이지',
+    accessauthority: 'HOME',
+  },
+  {
+    component: CNavGroup,
+    name: '영문 홈페이지',
+    icon: <CIcon icon={cilFont} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
+    items: [
+      {
+        component: CNavItem,
+        name: '1:1 Inquiry',
+        to: '/home/en/inquiry',
+      },
+      {
+        component: CNavItem,
+        name: '롤링배너 관리',
+        to: '/home/en/rolling-banner',
       },
     ],
   },
