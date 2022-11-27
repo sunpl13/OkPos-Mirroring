@@ -81,14 +81,15 @@ const DataRoomList = () => {
         }
         return
       }
+
       res.result.dataRoomId = dataRoomId
-      setSelectedItem(res.result.dataRoomInfos)
+      setSelectedItem(res.result)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
   }
 
-  // Create FAQ
+  // Create DataRoom
   const onCreateFaq = async item => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -116,7 +117,7 @@ const DataRoomList = () => {
     }
   }
 
-  // Update FAQ
+  // Update DataRoom
   const onUpdateFaq = async item => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -144,7 +145,7 @@ const DataRoomList = () => {
     }
   }
 
-  // Delete FAQ
+  // Delete DataRoom
   const onDeleteFaq = async faqId => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -169,22 +170,26 @@ const DataRoomList = () => {
     onLoadMallDataRoomList()
   }, [])
 
-  function setInitItem() {
+  const setInitItem = () => {
     return {
       title: '',
       content: '',
+      category: '',
+      content: '',
+      image: '',
+      files: [],
     }
   }
 
-  /** Open Modal*/
+  // 자료 추가 Modal Open 함수
   const handleShowFaqItemAddModal = () => {
-    setSelectedItem(setInitItem())
+    setSelectedItem(setInitItem)
     setIsReadOnly(false)
     setIsUpdate(false)
     setShowModal(!showModal)
   }
   const handleShowDataRoomDetailModal = item => {
-    onLoadDataRoom(item.faqId)
+    onLoadDataRoom(item.dataRoomId)
     setIsReadOnly(true)
     setIsUpdate(false)
     setShowModal(!showModal)

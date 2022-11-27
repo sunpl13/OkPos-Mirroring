@@ -30,7 +30,7 @@ const FaqDetailModal = ({
     setIsUpdate(true)
   }
 
-  // modal title 세팅
+  // modal Title 세팅
   let modalTitle = 'FAQ 추가'
   if (isUpdate) modalTitle = 'FAQ 수정'
   if (isReadOnly) modalTitle = 'FAQ 상세 내용'
