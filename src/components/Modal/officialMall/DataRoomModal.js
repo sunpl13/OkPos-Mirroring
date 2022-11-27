@@ -1,4 +1,5 @@
 import {useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import ModalTextArrayInput from '../../forms/inputForm/ModalTextArrayInput'
 import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
@@ -6,6 +7,9 @@ import ModalSelect from '../../forms/inputForm/ModalSelect'
 import DetailModalTemplate from './DetailModalTemplate'
 import {CForm, CRow} from '@coreui/react'
 import PropTypes from 'prop-types'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const archieveCategory = [
   {key: 'DRIVE', value: '드라이브'},
@@ -15,8 +19,12 @@ const archieveCategory = [
   {key: 'ETC', value: '기타'},
 ]
 
-const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
-  const {no, title, content, category, createdAt} = value
+const DataRoomModal = ({onChange, item, visible, setVisible, upDate}) => {
+  // 모듈 선언
+  const navigate = useNavigate()
+
+  // Local state 선언
+  const {category, dataRoomId, title, content, image, files, createdAt} = item
 
   useEffect(() => {
     if (visible) {
@@ -25,14 +33,22 @@ const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => 
 
   return (
     <DetailModalTemplate
-      title={no !== 0 ? '자료 상세' : '자료 추가'}
+      title={dataRoomId !== 0 ? '자료 상세' : '자료 추가'}
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={no !== 0 ? '수정' : '추가'}
+      btnText={dataRoomId !== 0 ? '수정' : '추가'}
     >
       <CRow className={'p-2'}>
-        <ModalInput id={'no'} placeholder={'No'} label={'No'} value={no} onChange={onChange} readOnly disabled />
+        <ModalInput
+          id={'no'}
+          placeholder={'No'}
+          label={'No'}
+          value={dataRoomId}
+          onChange={onChange}
+          readOnly
+          disabled
+        />
 
         <ModalSelect
           options={archieveCategory}
@@ -63,12 +79,5 @@ const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => 
     </DetailModalTemplate>
   )
 }
-MeterialDetailModal.propTypes = {
-  onChange: PropTypes.func,
-  value: PropTypes.any,
-  visible: PropTypes.bool,
-  setVisible: PropTypes.func,
-  upDate: PropTypes.func,
-}
 
-export default MeterialDetailModal
+export default DataRoomModal

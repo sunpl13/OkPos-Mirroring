@@ -21,7 +21,7 @@ const OfficailMallInquiryList = React.lazy(() => import('./pages/officialMall/in
 // FAQ 관리
 const OfficialMallFaqList = React.lazy(() => import('./pages/officialMall/faq/FaqList'))
 // 자료실 관리
-const OfficialMallDataRoom = React.lazy(() => import('./pages/officialMall/dataRoom/DataRoom'))
+const OfficialMallDataRoom = React.lazy(() => import('./pages/officialMall/dataRoom/DataRoomList'))
 
 // ------ 대리점 전용 파트너 센터
 
