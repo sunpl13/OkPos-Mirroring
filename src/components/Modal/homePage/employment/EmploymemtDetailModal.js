@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {CModal, CModalBody, CRow, CModalFooter, CButton, CFormCheck} from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
@@ -66,9 +66,16 @@ const career = [
   {key: 'EXPERIENCED', value: '경력'},
   {key: 'ANY', value: '무관'},
 ]
-const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
-  const [startDate, setstartDate] = useState(new Date())
-  const [endDate, setendDate] = useState(new Date())
+const EmploymemtDetailModal = ({
+  getList,
+  value,
+  visible,
+  setSelectedItem,
+  setVisible,
+  onChange,
+  isReadOnly,
+  setIsReadOnly,
+}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const [fileList, setFileList] = useState([])
@@ -76,14 +83,13 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
   const userDetailEditMode = () => {
     if (!isReadOnly) {
       onUpdate()
-      setIsReadOnly(true)
     } else {
       setIsReadOnly(false)
     }
   }
 
   const validateCheck = () => {
-    if (isEmpty(value.category)) {
+    if (isEmpty(value.categoryEnglish)) {
       alert('카테고리를 선택해 주세요.')
       return false
     }
@@ -95,7 +101,7 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
       alert('진행상태를 선택해주세요.')
       return false
     }
-    if (isEmpty(value.jobType) || value.jobType === '선택해주세요') {
+    if (isEmpty(value.jobTypeEnglish) || value.jobTypeEnglish === '선택해주세요') {
       alert('고용 형태를 선택해주세요.')
       return false
     }
@@ -103,11 +109,11 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
       alert('근무 지역을 입력해주세요.')
       return false
     }
-    if (isEmpty(value.education) || value.education === '선택해주세요') {
+    if (isEmpty(value.educationEnglish) || value.educationEnglish === '선택해주세요') {
       alert('학력 및 전공을 선택해주세요.')
       return false
     }
-    if (isEmpty(value.career) || value.career === '선택해주세요') {
+    if (isEmpty(value.careerEnglish) || value.careerEnglish === '선택해주세요') {
       alert('경력 정보를 선택해주세요.')
       return false
     }
@@ -120,17 +126,31 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
   }
 
   const onCreate = async () => {
-    const startTime = moment(startDate).format('YYYY.MM.DD 00:00:00')
-    const endTime = moment(endDate).format('YYYY.MM.DD 23:59:59')
-
+    const startTime = moment(value.startedAt).format('YYYY.MM.DD 00:00:00')
+    const endTime = moment(value.closedAt).format('YYYY.MM.DD 23:59:59')
     try {
       if (!validateCheck()) {
         return
       }
-      const {proceed, recruitmentId, ...rest} = value
       const urls = sendFileUrlFormat(fileList)
       const {data} = await ApiConfig.request({
-        data: {...rest, startedAt: startTime, closedAt: endTime, imageUrls: urls},
+        data: {
+          category: value.categoryEnglish,
+          title: value.title,
+          startedAt: startTime,
+          closedAt: endTime,
+          imageUrls: urls,
+          jobType: value.jobTypeEnglish,
+          location: value.location,
+          education: value.educationEnglish,
+          career: value.careerEnglish,
+          duty: value.duty,
+          qualification: value.qualification,
+          preference: value.preference,
+          hiringReason: value.hiringReason,
+          departmentStatus: value.departmentStatus,
+          otherNote: value.otherNote,
+        },
         query: {},
         path: {},
         method: HttpMethod.POST,
@@ -141,6 +161,7 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
         setFileList([])
         setshowDeleteModal(false)
         setCloseCheckModalState(false)
+        setIsReadOnly(true)
         setVisible(false)
         dispatch({
           type: 'set',
@@ -160,7 +181,7 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
   const onDelete = async () => {
     try {
       const {data} = await ApiConfig.request({
-        data: {...value, startedAt: startDate, closedAt: endDate},
+        data: {},
         query: {},
         path: {
           recruitmentId: value.recruitmentId,
@@ -173,6 +194,7 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
         setFileList([])
         setshowDeleteModal(false)
         setCloseCheckModalState(false)
+        setIsReadOnly(true)
         setVisible(false)
         dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
       }
@@ -182,9 +204,33 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
   }
 
   const onUpdate = async () => {
+    const startTime = moment(value.startedAt).format('YYYY.MM.DD 00:00:00')
+    const endTime = moment(value.closedAt).format('YYYY.MM.DD 23:59:59')
+    const urls = sendFileUrlFormat(fileList)
+
     try {
+      if (!validateCheck()) {
+        return
+      }
       const {data} = await ApiConfig.request({
-        data: {...value, startedAt: startDate, closedAt: endDate},
+        data: {
+          recruitmentId: value.recruitmentId,
+          category: value.categoryEnglish,
+          title: value.title,
+          startedAt: startTime,
+          closedAt: endTime,
+          imageUrls: urls,
+          jobType: value.jobTypeEnglish,
+          location: value.location,
+          education: value.educationEnglish,
+          career: value.careerEnglish,
+          duty: value.duty,
+          qualification: value.qualification,
+          preference: value.preference,
+          hiringReason: value.hiringReason,
+          departmentStatus: value.departmentStatus,
+          otherNote: value.otherNote,
+        },
         query: {},
         path: {
           recruitmentId: value.recruitmentId,
@@ -192,6 +238,15 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
         method: HttpMethod.PATCH,
         url: `${EndPoint.RECRUITMENT}/:recruitmentId`,
       })
+      if (data.isSuccess) {
+        getList()
+        setFileList([])
+        setshowDeleteModal(false)
+        setCloseCheckModalState(false)
+        setIsReadOnly(true)
+        setVisible(false)
+        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+      }
     } catch (error) {
       alert(error)
     }
@@ -204,6 +259,7 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
       setVisible(false)
       setIsReadOnly(true)
       setFileList([])
+      setSelectedItem({})
     }
   }
 
@@ -212,8 +268,8 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
     setFileList([])
     setVisible(false)
     setIsReadOnly(true)
+    setSelectedItem({})
   }
-
   return (
     <>
       <CModal alignment='center' size='lg' visible={visible}>
@@ -230,16 +286,16 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
               value={value.recruitmentId === -1 ? '' : value.recruitmentId}
             />
             <ModalSelect
-              options={category}
               readOnly={isReadOnly}
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
-              id='category'
-              value={value.category}
+              id='jobTypeEnglish'
+              options={type}
+              value={value.jobTypeEnglish}
               isRequired={true}
               placeholder='선택해주세요'
-              label='카테고리'
+              label='고용 형태'
             />
           </CRow>
           <CRow className='mb-3'>
@@ -255,13 +311,27 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
             />
           </CRow>
           <CRow className='mb-3'>
+            <ModalSelect
+              options={category}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              onChange={onChange}
+              size='sm'
+              id='categoryEnglish'
+              value={value.categoryEnglish}
+              isRequired={true}
+              placeholder='선택해주세요'
+              label='카테고리'
+            />
+          </CRow>
+          <CRow className='mb-3'>
             <DatePickerForm
               readOnly={false}
               label='시작일'
               isRequired={true}
               id='startedAt'
-              date={startDate}
-              setDate={setstartDate}
+              date={value.startedAt}
+              onChange={onChange}
               isDisabled={isReadOnly}
             />
             <DatePickerForm
@@ -269,35 +339,9 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
               label='종료일'
               isRequired={true}
               id='closedAt'
-              date={endDate}
-              setDate={setendDate}
+              date={value.closedAt}
+              onChange={onChange}
               isDisabled={isReadOnly}
-            />
-          </CRow>
-          <CRow className='mb-3'>
-            <ModalSelect
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-              onChange={onChange}
-              size='sm'
-              id='proceed'
-              options={status}
-              value={value.proceed}
-              isRequired={true}
-              placeholder='선택해주세요'
-              label='진행 상태'
-            />
-            <ModalSelect
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-              onChange={onChange}
-              size='sm'
-              id='jobType'
-              options={type}
-              value={value.jobType}
-              isRequired={true}
-              placeholder='선택해주세요'
-              label='고용 형태'
             />
           </CRow>
           <CRow className='mb-3'>
@@ -316,10 +360,10 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
-              id='education'
+              id='educationEnglish'
               options={education}
               isRequired={true}
-              value={value.education}
+              value={value.educationEnglish}
               placeholder='선택해주세요'
               label='학력 및 전공'
             />
@@ -339,8 +383,8 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
               onChange={onChange}
               size='sm'
               options={career}
-              value={value.career}
-              id='career'
+              value={value.careerEnglish}
+              id='careerEnglish'
               placeholder='선택해주세요'
               isRequired={true}
               readOnly={isReadOnly}
@@ -355,6 +399,8 @@ const EmploymemtDetailModal = ({getList, value, visible, setVisible, onChange, i
               fileList={fileList}
               setFileList={setFileList}
               images={value.imageUrl}
+              imgPath='recruitment_images'
+              readOnly={isReadOnly}
             />
           </CRow>
           <CRow className='mb-3'>

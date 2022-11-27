@@ -150,6 +150,7 @@ const Employment = () => {
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
         getList={onLoadEmploymentList}
+        setSelectedItem={setSelectedItem}
       />
     </>
   )
