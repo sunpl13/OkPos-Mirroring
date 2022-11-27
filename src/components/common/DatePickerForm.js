@@ -2,30 +2,13 @@ import {CCol, CFormLabel} from '@coreui/react'
 import DatePicker from 'react-datepicker'
 import styled from 'styled-components'
 import 'react-datepicker/dist/react-datepicker.css'
-
+import moment from 'moment'
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-interface IDatePickerProps {
-  id: string
-  date: Date
-  setDate: (date: Date) => void
-  label: string
-  readOnly?: boolean
-  isRequired?: boolean
-  isDisabled?: boolean
-}
 
-const DatePickerForm = ({
-  id,
-  date,
-  setDate,
-  label,
-  readOnly = false,
-  isRequired,
-  isDisabled = false,
-}: IDatePickerProps) => {
-  const onChange = (date: Date) => {
-    setDate(date)
+const DatePickerForm = ({id, date, onChange, label, readOnly = false, isRequired, isDisabled = false}) => {
+  const onSetDate = date => {
+    onChange({target: {value: date, id: id}})
   }
   return (
     <>
@@ -36,9 +19,10 @@ const DatePickerForm = ({
         <CDatePicker
           readOnly={readOnly}
           dateFormat='yyyy-MM-dd'
-          selected={date}
-          onChange={(date: Date) => onChange(date)}
+          selected={moment(date).toDate()}
+          onChange={date => onSetDate(date)}
           disabled={isDisabled}
+          id={id}
         />
       </CCol>
     </>
