@@ -10,6 +10,7 @@ import {isEmpty} from '../../../utils/utility'
 import {useNavigate} from 'react-router-dom'
 import * as _ from 'lodash'
 import DataRoomModal from '../../../components/Modal/officialMall/DataRoomModal'
+import {sendFileUrlFormat} from '../../../utils/awsCustom'
 
 const DataRoomList = () => {
   const navigate = useNavigate()
@@ -18,27 +19,32 @@ const DataRoomList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [showModal, setShowModal] = useState(false)
+  const [fileList, setFileList] = useState([])
 
   const categoryOptions = [
     {
-      key: '하드웨어',
-      value: '하드웨어',
+      key: '드라이버',
+      value: '드라이버',
     },
     {
-      key: '소프트웨어',
-      value: '소프트웨어',
+      key: '프로그램',
+      value: '프로그램',
     },
     {
-      key: '렌탈',
-      value: '렌탈',
+      key: '매뉴얼',
+      value: '매뉴얼',
     },
     {
-      key: '부가서비스',
-      value: '부가서비스',
+      key: '펌웨어',
+      value: '펌웨어',
     },
     {
-      key: '유지보수',
-      value: '유지보수',
+      key: '기술자료',
+      value: '기술자료',
+    },
+    {
+      key: '기타',
+      value: '기타',
     },
   ]
 
@@ -65,7 +71,7 @@ const DataRoomList = () => {
   }
 
   // Load DataRoom Detail
-  const onLoadDataRoom = async dataRoomId => {
+  const onLoadMallDataRoom = async dataRoomId => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
@@ -90,16 +96,17 @@ const DataRoomList = () => {
   }
 
   // Create DataRoom
-  const onCreateFaq = async item => {
+  const onCreateMallDataRoom = async item => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.POST,
-        url: EndPoint.POST_MALL_FAQ,
+        url: EndPoint.POST_MALL_DATAROOMS,
         data: {
-          faqId: item.faqId,
           category: item.category,
           title: item.title,
           content: item.content,
+          image: item.image,
+          files: item.files,
         },
       })
 
@@ -111,7 +118,8 @@ const DataRoomList = () => {
         }
         return
       }
-      setSelectedItem(item)
+      alert(res?.message)
+      setSelectedItem(setInitItem)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -124,7 +132,7 @@ const DataRoomList = () => {
         method: HttpMethod.PATCH,
         url: EndPoint.PATCH_MALL_UPDATE_FAQ,
         data: {
-          faqId: item.faqId,
+          dataRoomId: item.dataRoomId,
           category: item.category,
           title: item.title,
           content: item.content,
@@ -146,12 +154,12 @@ const DataRoomList = () => {
   }
 
   // Delete DataRoom
-  const onDeleteFaq = async faqId => {
+  const onDeleteFaq = async dataRoomId => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
         url: EndPoint.PATCH_MALL_DELETE_FAQ,
-        path: {faqId},
+        path: {dataRoomId},
       })
 
       if (!res?.isSuccess) {
@@ -184,12 +192,13 @@ const DataRoomList = () => {
   // 자료 추가 Modal Open 함수
   const handleShowFaqItemAddModal = () => {
     setSelectedItem(setInitItem)
+    setFileList([])
     setIsReadOnly(false)
     setIsUpdate(false)
     setShowModal(!showModal)
   }
   const handleShowDataRoomDetailModal = item => {
-    onLoadDataRoom(item.dataRoomId)
+    onLoadMallDataRoom(item.dataRoomId)
     setIsReadOnly(true)
     setIsUpdate(false)
     setShowModal(!showModal)
@@ -204,24 +213,38 @@ const DataRoomList = () => {
     })
   }
 
+  const handleMultiFileUrl = array => {
+    console.log(array)
+    let urls = []
+    array.map(item => {
+      urls.push(item.url)
+    })
+    return urls
+  }
+
   const handleDetailModalUpdate = async () => {
-    const {faqId, title, content, category} = selectedItem
+    const {dataRoomId, title, image, content, category} = selectedItem
+    selectedItem.image =
+      'https://homepage-test-resource.s3.ap-northeast-2.amazonaws.com/admin/files/mall/dataroom/test-ge3e510db1_640.jpg'
+
+    selectedItem.files = handleMultiFileUrl(fileList)
+
     // validation
-    const categoryVals = categoryOptions.map(row => row.value)
-    if (!category || !_.includes(categoryVals, category)) return alert('카테고리를 선택해주세요')
     if (!title) return alert('제목을 입력해주세요')
-    if (!content) return alert('답변을 입력해주세요')
+    if (!category) return alert('카테고리를 선택해주세요')
+    if (!selectedItem.image) return alert('이미지를 등록해주세요')
+    //if (!selectedItem.files) return alert('자료를 등록해주세요')
 
     if (window.confirm('저장 하시겠습니까?')) {
-      if (faqId) {
+      if (dataRoomId) {
         // update
-        onUpdateFaq(selectedItem)
+        await onUpdateFaq(selectedItem)
         setShowModal(true)
         setIsReadOnly(true)
         setIsUpdate(false)
       } else {
         // create
-        onCreateFaq(selectedItem)
+        await onCreateMallDataRoom(selectedItem)
         setShowModal(false)
       }
       await onLoadMallDataRoomList()
@@ -230,7 +253,7 @@ const DataRoomList = () => {
 
   const handleDetailModalDelete = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      onDeleteFaq(selectedItem.faqId).then(onLoadMallDataRoomList, setShowModal(false))
+      onDeleteFaq(selectedItem.dataRoomId).then(onLoadMallDataRoomList, setShowModal(false))
     }
   }
 
@@ -267,6 +290,8 @@ const DataRoomList = () => {
         option={categoryOptions}
         visible={showModal}
         setVisible={setShowModal}
+        fileList={fileList}
+        setFileList={setFileList}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
         isUpdate={isUpdate}

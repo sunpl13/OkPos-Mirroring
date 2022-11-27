@@ -36,6 +36,7 @@ export const EndPoint = {
 
   GET_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
   GET_MALL_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
+  POST_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
@@ -71,6 +72,7 @@ const ApiMapper = {
     // ------ 가맹점 전용 공식몰 페이지
     [EndPoint.POST_MALL_INQUIRY_REPLY]: {},
     [EndPoint.POST_MALL_FAQ]: {},
+    [EndPoint.POST_MALL_DATAROOMS]: {},
   },
   patch: {
     // ------ 가맹점 전용 공식몰 페이지

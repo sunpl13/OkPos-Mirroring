@@ -4,20 +4,8 @@ import ModalInput from '../../forms/inputForm/ModalInput'
 import ModalTextArrayInput from '../../forms/inputForm/ModalTextArrayInput'
 import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
-import DetailModalTemplate from './DetailModalTemplate'
 import {CButton, CForm, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
-import PropTypes from 'prop-types'
-import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
-import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from '../../../utils/utility'
-
-const dataRoomCategory = [
-  {key: 'DRIVE', value: '드라이브'},
-  {key: 'MANUAL', value: '메뉴얼'},
-  {key: 'FIRMWARE', value: '펌웨어'},
-  {key: 'TECH_DATA', value: '기술자료'},
-  {key: 'ETC', value: '기타'},
-]
+import {dataRoomCategory} from '../../../utils/categoryOptions/officailMall/categoryOptions'
 
 const DataRoomModal = ({
   onChange,
@@ -26,6 +14,8 @@ const DataRoomModal = ({
   setVisible,
   onUpdate,
   onDelete,
+  fileList,
+  setFileList,
   setIsUpdate,
   isUpdate,
   setIsReadOnly,
@@ -35,7 +25,6 @@ const DataRoomModal = ({
   const navigate = useNavigate()
 
   // Local state 선언
-  const [fileList, setFileLst] = useState()
   const {category, dataRoomId, title, content, image, files, createdAt} = item
 
   // modal Title 세팅
@@ -47,10 +36,6 @@ const DataRoomModal = ({
     if (visible) {
     }
   }, [visible])
-
-  useEffect(() => {
-    setFileLst(item.files)
-  }, [item])
 
   // 수정 버튼 클릭 함수
   const clickUpdateBtn = () => {
@@ -126,9 +111,12 @@ const DataRoomModal = ({
           </CRow>
           <CRow className={'p-2'}>
             <ModalFilesInput
-              id={'files'}
-              value={fileList}
+              id={'fileList'}
+              fileList={fileList}
+              setFileList={setFileList}
+              files={files}
               label={'첨부파일'}
+              filePath={'mall/dataroom'}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />

@@ -7,18 +7,30 @@ import {useEffect} from 'react'
 import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
 
 const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath}) => {
+  // files = 조회를 통해 가져온 데이터가 있는 경우
   useEffect(() => {
     if (files && files.length > 0) {
       setFileList(
-        files.map(path => ({
+        files.map((path, index) => ({
+          key: index,
           uid: path,
-          name: path,
+          name: getFileNameFromURL(path),
           status: 'done',
-          url: antdImageFormat(path),
+          //url: antdImageFormat(path),
+          url: path,
         })),
       )
     }
   }, [files])
+
+  const getFileNameFromURL = url => {
+    //   "/" 로 전체 url 을 나눈다
+    const splitUrl = url.split('/')
+    const splitUrlLength = splitUrl.length
+    // 나누어진 배열의 맨 끝이 파일명이다
+    const fileName = splitUrl[splitUrlLength - 1]
+    return fileName
+  }
 
   const onSuccess = successData => {
     const httpRequest = successData.request.httpRequest
@@ -34,6 +46,7 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
     setFileList([...fileList, fileData])
   }
 
+  // 파일 업로드
   const customReq = ({file, onError, onProgress, onSuccess}) => {
     AWS.config.update({
       region: process.env.REACT_APP_AWS_REGION,
@@ -65,6 +78,7 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
     )
   }
 
+  // 파일 삭제
   const onDelete = item => {
     AWS.config.update({
       region: process.env.REACT_APP_AWS_REGION,
