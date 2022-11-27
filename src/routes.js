@@ -27,6 +27,8 @@ const OfficailMallInquiryList = React.lazy(() => import('./pages/officialMall/in
 const OfficialMallFaqList = React.lazy(() => import('./pages/officialMall/faq/FaqList'))
 // 자료실 관리
 const OfficialMallDataRoom = React.lazy(() => import('./pages/officialMall/dataRoom/DataRoomList'))
+// 주문 현황
+const OfficialMallOrderList = React.lazy(() => import('./pages/officialMall/orders/OrderList'))
 
 // ------ 대리점 전용 파트너 센터
 
@@ -77,14 +79,12 @@ const routes = [
   // ------ 가맹점 전용 공식몰 페이지
 
   // 회원관리
-  {path: `/mall/users`, name: '회원관리', element: OfficailMallUserList},
-  {path: `/mall/resign/users`, name: '탈퇴회원관리', element: OfficailMallResignUserList},
-  // 1:1 문의 관리
-  {path: `/mall/inquirys`, name: '문의관리', element: OfficailMallInquiryList},
-  // FAQ 관리
-  {path: `/mall/faq`, name: 'FAQ관리', element: OfficialMallFaqList},
-  // 자료실 관리
+  {path: `/mall/users`, name: '회원 관리', element: OfficailMallUserList},
+  {path: `/mall/resign/users`, name: '탈퇴회원 관리', element: OfficailMallResignUserList},
+  {path: `/mall/inquirys`, name: '1:1 문의관리', element: OfficailMallInquiryList},
+  {path: `/mall/faq`, name: 'FAQ 관리', element: OfficialMallFaqList},
   {path: `/mall/dataroom`, name: '자료실 관리', element: OfficialMallDataRoom},
+  {path: `/mall/orders`, name: '자료실 관리', element: OfficialMallOrderList},
 
   // ------ 대리점 전용 파트너 센터
 

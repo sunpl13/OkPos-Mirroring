@@ -9,6 +9,7 @@ import {
   cilFindInPage,
   cilFolderOpen,
   cilBook,
+  cilLibrary,
 } from '@coreui/icons'
 import {CNavGroup, CNavItem, CNavTitle} from '@coreui/react'
 
@@ -206,14 +207,15 @@ const _nav = [
       },
     ],
   },
-  /*
+
   {
     component: CNavItem,
     name: '롤링 배너 관리',
-    to: '/official/banners',
+    to: '/mall/banners',
     icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
+    accessauthority: 'MALL',
   },
-  */
+
   {
     component: CNavItem,
     name: '1:1 문의 관리',
@@ -244,17 +246,17 @@ const _nav = [
       {
         component: CNavItem,
         name: '주문 현황',
-        to: '/users/userList',
+        to: '/mall/orders',
       },
       {
         component: CNavItem,
         name: '교환 현황',
-        to: '/users/withdrawalUsers',
+        to: '/mall/orders',
       },
       {
         component: CNavItem,
         name: '취소 현황',
-        to: '/users/withdrawalUsers',
+        to: '/mall/orders',
       },
     ],
   },

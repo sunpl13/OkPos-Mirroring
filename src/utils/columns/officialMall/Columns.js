@@ -43,3 +43,10 @@ export const dataRoomListColumns = [
   {key: 'title', label: '제목', _props: {className: 'title'}},
   {key: 'createdAt', label: '최초등록일', sorter: false, filter: false, _props: {className: 'createdAt'}},
 ]
+
+export const orderListColumns = [
+  {key: 'orderId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'category', label: '분류', _props: {className: 'category'}},
+  {key: 'title', label: '제목', _props: {className: 'title'}},
+  {key: 'createdAt', label: '최초등록일', sorter: false, filter: false, _props: {className: 'createdAt'}},
+]
