@@ -13,7 +13,7 @@ const getBase64 = file =>
     reader.onerror = error => reject(error)
   })
 
-const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath}) => {
+const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, readOnly}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -139,6 +139,7 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath}) =>
         onSuccess={data => onSuccess(data)}
         onRemove={data => onDelete(data)}
         customRequest={reqData => customReq(reqData)}
+        disabled={readOnly}
       >
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>
