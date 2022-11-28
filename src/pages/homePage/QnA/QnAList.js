@@ -1,49 +1,69 @@
-import React, {useState} from 'react'
+import {useState, useEffect} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
-import {testQnAValues} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {qnaColumns} from '../../../utils/columns/homePage/qna/Columns'
 import {inquirys} from '../../../utils/columns/homePage/qna/ColumnsSelectedValue'
 import QnADetail from '../../../components/Modal/homePage/QnA/QnADetail'
-
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
 const QnAList = () => {
   const [items, setItems] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  const [isReadOnly, setIsReadOnly] = useState(true)
   const [selectedItem, setSelectedItem] = useState({
-    No: -1,
+    inquiryId: -1,
     content: '',
     name: '',
     email: '',
     pNum: '',
     inquiryType: '',
+    fileUrl: [],
   })
 
-  const [showModal, setShowModal] = useState(false)
-  const [isReadOnly, setIsReadOnly] = useState(true)
-
-  const handleRetrieveTestList = async () => {
-    setItems(testQnAValues)
+  const onLoadInquiryList = async () => {
+    try {
+      const data = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {},
+        method: HttpMethod.GET,
+        url: EndPoint.HOME_INQUIRY,
+      })
+      setItems(data?.data.result.responses)
+    } catch (error) {
+      alert(error)
+    }
   }
 
-  const handleShowEmploymentDetailModal = item => {
-    setSelectedItem(item)
+  const onLoadDetail = async id => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {
+          id: id,
+        },
+        method: HttpMethod.GET,
+        url: `${EndPoint.HOME_INQUIRY}/:id`,
+      })
+
+      setSelectedItem(data.result)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  useEffect(() => {
+    onLoadInquiryList()
+  }, [])
+
+  const handleShowInquiryDetailModal = async item => {
+    onLoadDetail(item.inquiryId)
     setShowModal(!showModal)
   }
 
-  const handleEmploymentAddModal = () => {
-    setIsReadOnly(false)
-    setSelectedItem({
-      No: -1,
-      content: '',
-      name: '',
-      email: '',
-      pNum: '',
-      inquiryType: '',
-    })
-    setShowModal(!showModal)
-  }
-
-  const handleEmployDetailOnChange = ({target}) => {
+  const handleInquiryDetailOnChange = ({target}) => {
     const {id, value} = target
     setSelectedItem({
       ...selectedItem,
@@ -59,13 +79,8 @@ const QnAList = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleRetrieveTestList}>
+                  <CButton color='primary' onClick={onLoadInquiryList}>
                     조회하기
-                  </CButton>
-                </CCol>
-                <CCol xs={1}>
-                  <CButton color='primary' onClick={handleEmploymentAddModal}>
-                    추가
                   </CButton>
                 </CCol>
               </CForm>
@@ -73,7 +88,7 @@ const QnAList = () => {
             <CCardBody>
               <ListTemplate
                 items={items}
-                onClick={handleShowEmploymentDetailModal}
+                onClick={handleShowInquiryDetailModal}
                 selectedOptions={inquirys}
                 columns={qnaColumns}
                 className={'userList'}
@@ -83,12 +98,13 @@ const QnAList = () => {
         </CCol>
       </CRow>
       <QnADetail
-        onChange={handleEmployDetailOnChange}
+        onChange={handleInquiryDetailOnChange}
         visible={showModal}
         value={selectedItem}
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
+        getList={onLoadInquiryList}
       />
     </main>
   )
