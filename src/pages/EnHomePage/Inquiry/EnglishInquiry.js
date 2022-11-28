@@ -1,49 +1,66 @@
 import {useEffect, useState} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
-import {testEnInquiryValues} from '../../test/testConstant'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import {InquiryColumns} from '../../../utils/columns/EnHomePage/Inquiry/Columns'
+import {InquiryColumns} from '../../../utils/columns/homePage/EnglishInquiry/Columns'
 import EnglishInquiryDetail from '../../../components/Modal/EnHomePage/Inquiry/EnglishInquiryDetail'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
 
 const EnglishInquiry = () => {
   const [items, setItems] = useState([])
-  const [selectedItem, setSelectedItem] = useState({
-    inquiryId: -1,
-    email: '',
-    number: '',
-    category: '',
-    title: '',
-    content: '',
-  })
-  const [item, setItem] = useState({
-    inquiryId: -1,
-    email: '',
-    number: '',
-    category: '',
-    title: '',
-    content: '',
-  })
   const [showModal, setShowModal] = useState(false)
-  const [showAddModal, setShowAddModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
+  const [selectedItem, setSelectedItem] = useState({
+    inquiryEnglishId: -1,
+    email: '',
+    name: '',
+    content: '',
+  })
 
-  useEffect(() => {
-    if (!showModal) {
-      setIsReadOnly(true)
+  const onLoadInquiryList = async () => {
+    try {
+      const data = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {},
+        method: HttpMethod.GET,
+        url: EndPoint.ENGLISH_HOME_INQUIRY,
+      })
+      setItems(data?.data.result.responses)
+    } catch (error) {
+      alert(error)
     }
-  }, [showModal])
-
-  const handleRetrieveTestList = async () => {
-    setItems(testEnInquiryValues)
   }
 
-  const handleShowUserDetailModal = item => {
-    setSelectedItem(item)
+  const onLoadDetail = async id => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {
+          id: id,
+        },
+        method: HttpMethod.GET,
+        url: `${EndPoint.ENGLISH_HOME_INQUIRY}/:id`,
+      })
+
+      setSelectedItem(data.result)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  useEffect(() => {
+    onLoadInquiryList()
+  }, [])
+
+  const handleShowInquiryDetailModal = async item => {
+    onLoadDetail(item.inquiryEnglishId)
     setShowModal(!showModal)
   }
 
-  const handlePopUpOnChange = ({target}) => {
+  const handleInquiryDetailOnChange = ({target}) => {
     const {id, value} = target
     setSelectedItem({
       ...selectedItem,
@@ -51,53 +68,17 @@ const EnglishInquiry = () => {
     })
   }
 
-  const handlePopupAddModal = () => {
-    setIsReadOnly(false)
-    setSelectedItem({
-      inquiryId: -1,
-      email: '',
-      number: '',
-      category: '',
-      title: '',
-      content: '',
-    })
-    setShowModal(!showModal)
-  }
-
-  const handleUserItemAddModalOnClick = () => {
-    setItems([
-      ...items,
-      {
-        ...item,
-      },
-    ])
-    setItem({
-      inquiryId: -1,
-      email: '',
-      number: '',
-      category: '',
-      title: '',
-      content: '',
-    })
-    setShowAddModal(!showAddModal)
-  }
-
   return (
     <main>
-      <PageHeader title='1:1 Inquiry' />
+      <PageHeader title='1:1 문의' />
       <CRow>
         <CCol xs={12}>
           <CCard className='mb-4'>
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleRetrieveTestList}>
+                  <CButton color='primary' onClick={onLoadInquiryList}>
                     조회하기
-                  </CButton>
-                </CCol>
-                <CCol xs={1}>
-                  <CButton color='primary' onClick={handlePopupAddModal}>
-                    추가
                   </CButton>
                 </CCol>
               </CForm>
@@ -105,7 +86,7 @@ const EnglishInquiry = () => {
             <CCardBody>
               <ListTemplate
                 items={items}
-                onClick={handleShowUserDetailModal}
+                onClick={handleShowInquiryDetailModal}
                 columns={InquiryColumns}
                 className={'inquiryList'}
               />
@@ -114,13 +95,13 @@ const EnglishInquiry = () => {
         </CCol>
       </CRow>
       <EnglishInquiryDetail
-        setVisible={setShowModal}
-        onClick={handleUserItemAddModalOnClick}
+        onChange={handleInquiryDetailOnChange}
         visible={showModal}
         value={selectedItem}
-        onChange={handlePopUpOnChange}
+        setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
+        getList={onLoadInquiryList}
       />
     </main>
   )
