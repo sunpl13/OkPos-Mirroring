@@ -97,17 +97,6 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            <ModalInput
-              onChange={onChange}
-              id='number'
-              placeholder='phone number'
-              label='전화번호'
-              value={value.number}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-            />
-          </CRow>
-          <CRow className='mb-3'>
             <MultiFileDownloadForm files={value.otherDocument} id='otherDocument' label='기타 추가자료' />
           </CRow>
           <CRow className='mb-3'>
