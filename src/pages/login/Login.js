@@ -60,7 +60,8 @@ const Login = () => {
       }
 
       window.sessionStorage.setItem('jwt', response.result.jwt)
-      window.sessionStorage.setItem('accessAuthority', response.result.accessAuthority)
+      window.sessionStorage.setItem('accessAuthority', response.result.accessAuthorityEnglish)
+      window.sessionStorage.setItem('auth', response.result.editorAuthorityEnglish)
       navigate(`/`)
     } catch (error) {
       alert(`네트워크 통신 실패. 잠시후 다시 시도해주세요.\n${error.message}`)

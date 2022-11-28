@@ -1,23 +1,20 @@
 import {useState} from 'react'
-import {CModal, CModalBody, CModalHeader, CModalTitle, CRow, CModalFooter, CButton} from '@coreui/react'
+import {CModal, CModalBody, CModalHeader, CModalTitle, CRow, CModalFooter, CButton, CFormLabel} from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import {category} from '../employment/EmploymemtDetailModal'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import PropTypes from 'prop-types'
+import DatePickerForm from '../../../common/DatePickerForm'
+import ModalFilesView from '../../../forms/inputForm/ModalFilesView'
+import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
+import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 
 const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
-  const userDetailEditMode = () => {
-    if (!isReadOnly) {
-      setIsReadOnly(true)
-    } else {
-      //여기에 수정 api 작성
-      setIsReadOnly(false)
-    }
-  }
+  const [createdDate, setcreatedDate] = useState(new Date())
 
   const onCloseCheck = () => {
     if (!isReadOnly && value.No !== -1) {
@@ -36,7 +33,7 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
 
   return (
     <>
-      <CModal alignment='center' size='lg' visible={visible}>
+      <CModal alignment='center' size='xl' visible={visible}>
         <CModalHeader>
           <CModalTitle>인재풀 상세</CModalTitle>
         </CModalHeader>
@@ -44,12 +41,12 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='No'
-              placeholder='No.'
-              label='No'
+              id='talentPoolId'
+              placeholder='talentPoolId'
+              label='ID'
               readOnly={true}
               disabled={true}
-              value={value.No === -1 ? '' : value.No}
+              value={value.talentPoolId === -1 ? '' : value.talentPoolId}
             />
             <ModalInput
               onChange={onChange}
@@ -65,20 +62,20 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='email'
-              placeholder='email'
-              label='이메일'
-              value={value.email}
+              id='number'
+              placeholder='phone number'
+              label='전화번호'
+              value={value.number}
               isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
             <ModalInput
               onChange={onChange}
-              id='pNum'
+              id='phoneNumber'
               placeholder='phone number'
-              label='전화번호'
-              value={value.pNum}
+              label='휴대 전화번호'
+              value={value.phoneNumber}
               isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -90,28 +87,48 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
-              id='position'
+              id='positionEnglish'
               options={category}
-              value={value.position}
+              value={value.positionEnglish}
               isRequired={true}
               placeholder='선택해주세요'
               label='지원 포지션'
             />
+            <DatePickerForm
+              readOnly={false}
+              label='등록일'
+              isRequired={true}
+              id='registeredAt'
+              date={createdDate}
+              isDisabled={true}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalInput
+              onChange={onChange}
+              id='number'
+              placeholder='phone number'
+              label='전화번호'
+              value={value.number}
+              isRequired={true}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <MultiFileDownloadForm files={value.otherDocument} id='otherDocument' label='기타 추가자료' />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalTextArrayInput
+              id='otherLink'
+              label='추가 링크 자료'
+              value={value.otherLink}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+            />
           </CRow>
         </CModalBody>
         <CModalFooter>
-          {value.No === -1 ? (
-            <CButton color='primary'>Add</CButton>
-          ) : (
-            <>
-              <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
-                delete
-              </CButton>
-              <CButton color={isReadOnly ? 'primary' : 'success'} onClick={userDetailEditMode}>
-                Edit
-              </CButton>
-            </>
-          )}
           <CButton color='primary' onClick={onCloseCheck}>
             Cancel
           </CButton>

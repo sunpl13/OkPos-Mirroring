@@ -51,6 +51,36 @@ const InquiryList = () => {
     }
   }
 
+  const onloadMallInquiry = async inquiryId => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {inquiryId},
+        method: HttpMethod.GET,
+        url: EndPoint.GET_MALL_INQUIRY,
+      })
+      if (!res?.isSuccess || isEmpty(res?.result)) {
+        console.log('onloadMallInquiry error')
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      await setSelectedItem(res.result)
+      if (res.result.inquiryReplyId) {
+        setIsReadOnly(true)
+      } else {
+        setIsReadOnly(false)
+      }
+    } catch (error) {
+      console.log(error)
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
   // Create Inquiry Answer
   const onCreateMallInquiryAnswer = async (inquiryId, inquiryReplyContent) => {
     try {
@@ -68,6 +98,7 @@ const InquiryList = () => {
         }
       }
       alert(res?.message)
+      await onloadMallInquiry(inquiryId)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -133,16 +164,9 @@ const InquiryList = () => {
   // 함수 선언
 
   // Open Modal
-  const handleShowInquiryDetailModal = item => {
-    // 선택 아이템을 selectedItem 에 저장
-    setSelectedItem(item)
-
-    if (item.inquiryReplyId) {
-      setIsReadOnly(true)
-    } else {
-      setIsReadOnly(false)
-    }
-    setShowModal(!showModal)
+  const handleShowInquiryDetailModal = async item => {
+    await onloadMallInquiry(item.inquiryId)
+    await setShowModal(!showModal)
   }
 
   // data onChange
@@ -156,7 +180,8 @@ const InquiryList = () => {
 
   // 답변 저장
   const handleInquiryModalCreate = async inquiry => {
-    const {inquiryId, inquiryReplyId, inquiryReplyContent} = inquiry
+    const {inquiryId, inquiryReplyContent} = selectedItem
+    const {inquiryReplyId} = inquiry
 
     // validation
     if (!inquiryId) return alert('번호를 찾을 수 없습니다.')

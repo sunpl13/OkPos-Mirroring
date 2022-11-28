@@ -7,6 +7,7 @@ import {CBadge} from '@coreui/react'
 export const AppSidebarNav = ({items}) => {
   const location = useLocation()
   const authority = window.sessionStorage.getItem('accessAuthority')
+  const auth = window.sessionStorage.getItem('auth')
   const navLink = (name, icon, badge) => {
     return (
       <>
@@ -25,7 +26,9 @@ export const AppSidebarNav = ({items}) => {
     const {component, name, badge, accessauthority, icon, ...rest} = item
     const Component = component
 
+    if (name === '회원관리' && auth !== 'ADMIN') return
     if (authority !== accessauthority) return
+    if (auth === 'EDITOR_PROHIBIT') return
     return (
       <Component
         {...(rest.to &&
@@ -42,6 +45,7 @@ export const AppSidebarNav = ({items}) => {
   const navGroup = (item, index) => {
     const {component, name, icon, to, ...rest} = item
     const Component = component
+    if (auth === 'EDITOR_PROHIBIT') return
     return (
       <Component
         idx={String(index)}

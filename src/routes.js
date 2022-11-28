@@ -4,13 +4,18 @@ const Dashboard = React.lazy(() => import('./pages/dashboard/Dashboard'))
 
 const TestList = React.lazy(() => import('./pages/test/TestList'))
 const CreateTest = React.lazy(() => import('./pages/test/CreateTest'))
+const Member = React.lazy(() => import('./pages/member/MemberMagement'))
 
 // ------ 오케이포스 홈페이지
 
+const RoillingBanner = React.lazy(() => import('./pages/homePage/rollingBanner/RollingBanner'))
 const Employment = React.lazy(() => import('./pages/homePage/employment/Employment'))
 const TalentRetention = React.lazy(() => import('./pages/homePage/talentRetention/TalentRetention'))
 const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
 const HopageNotice = React.lazy(() => import('./pages/homePage/notice/Notice'))
+
+const EnglishInquiry = React.lazy(() => import('./pages/EnHomePage/Inquiry/EnglishInquiry'))
+const EnglishRollingBanner = React.lazy(() => import('./pages/EnHomePage/rollingBanner/RollingBanner'))
 // ------ 가맹점 전용 공식몰 페이지
 
 // 회원관리
@@ -21,7 +26,9 @@ const OfficailMallInquiryList = React.lazy(() => import('./pages/officialMall/in
 // FAQ 관리
 const OfficialMallFaqList = React.lazy(() => import('./pages/officialMall/faq/FaqList'))
 // 자료실 관리
-const OfficialMallDataRoom = React.lazy(() => import('./pages/officialMall/dataRoom/DataRoom'))
+const OfficialMallDataRoom = React.lazy(() => import('./pages/officialMall/dataRoom/DataRoomList'))
+// 주문 현황
+const OfficialMallOrderList = React.lazy(() => import('./pages/officialMall/orders/OrderList'))
 
 // ------ 대리점 전용 파트너 센터
 
@@ -55,26 +62,29 @@ const routes = [
   {path: '/dashboard', name: 'Dashboard', element: Dashboard},
   {path: `/test/test-list`, name: '조회', element: TestList},
   {path: `/test/create-test`, name: '생성', element: CreateTest},
-
+  {path: `/member`, name: '생성', element: Member},
   // ------ 오케이포스 홈페이지
 
   //홈페이지 관리
+  {path: '/home/rolling-banner', name: '롤링배너 관리', element: RoillingBanner},
   {path: `/home/employment`, name: '채용관리', element: Employment},
   {path: '/home/talentRetention', name: '인재풀 관리', element: TalentRetention},
   {path: '/home/QnA', name: '1:1문의', element: HomePageQnA},
   {path: '/home/notice', name: '공지사항', element: HopageNotice},
 
+  // ------ 영문 홈페이지
+  {path: `/home/en/inquiry`, name: '1:1 Inquiry', element: EnglishInquiry},
+  {path: '/home/en/rolling-banner', name: '롤링배너 관리', element: EnglishRollingBanner},
+
   // ------ 가맹점 전용 공식몰 페이지
 
   // 회원관리
-  {path: `/mall/users`, name: '회원관리', element: OfficailMallUserList},
-  {path: `/mall/resign/users`, name: '탈퇴회원관리', element: OfficailMallResignUserList},
-  // 1:1 문의 관리
-  {path: `/mall/inquirys`, name: '문의관리', element: OfficailMallInquiryList},
-  // FAQ 관리
-  {path: `/mall/faq`, name: 'FAQ관리', element: OfficialMallFaqList},
-  // 자료실 관리
+  {path: `/mall/users`, name: '회원 관리', element: OfficailMallUserList},
+  {path: `/mall/resign/users`, name: '탈퇴회원 관리', element: OfficailMallResignUserList},
+  {path: `/mall/inquirys`, name: '1:1 문의관리', element: OfficailMallInquiryList},
+  {path: `/mall/faq`, name: 'FAQ 관리', element: OfficialMallFaqList},
   {path: `/mall/dataroom`, name: '자료실 관리', element: OfficialMallDataRoom},
+  {path: `/mall/orders`, name: '자료실 관리', element: OfficialMallOrderList},
 
   // ------ 대리점 전용 파트너 센터
 

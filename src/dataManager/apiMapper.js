@@ -7,6 +7,7 @@ export const EndPoint = {
   POST_TEST_V1_REGISTER: `${API}/test/v1/register`,
   RECRUITMENT: `${API}/admin/recruitment`,
   TALENTPOOL: `${API}/admin/talent-pool`,
+  EDITOR: `${API}/admin/editor`,
 
   // ------ 파트너 센터 페이지
   GET_PARTNER_USERS: `${API}/admin/partner/users`, // 유저 리스트
@@ -36,6 +37,7 @@ export const EndPoint = {
 
   GET_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
   GET_MALL_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
+  POST_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
@@ -71,6 +73,7 @@ const ApiMapper = {
     // ------ 가맹점 전용 공식몰 페이지
     [EndPoint.POST_MALL_INQUIRY_REPLY]: {},
     [EndPoint.POST_MALL_FAQ]: {},
+    [EndPoint.POST_MALL_DATAROOMS]: {},
   },
   patch: {
     // ------ 가맹점 전용 공식몰 페이지
