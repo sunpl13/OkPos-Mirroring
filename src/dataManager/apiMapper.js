@@ -8,6 +8,7 @@ export const EndPoint = {
   RECRUITMENT: `${API}/admin/recruitment`,
   TALENTPOOL: `${API}/admin/talent-pool`,
   EDITOR: `${API}/admin/editor`,
+  HOME_INQUIRY: `${API}/admin/inquiry`,
 
   // ------ 파트너 센터 페이지
   GET_PARTNER_USERS: `${API}/admin/partner/users`, // 유저 리스트
