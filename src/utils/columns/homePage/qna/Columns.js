@@ -1,6 +1,7 @@
 export const qnaColumns = [
   {
-    key: 'No',
+    key: 'inquiryId',
+    label: 'No',
     _props: {color: 'primary', className: 'employId'},
   },
   {
@@ -14,13 +15,13 @@ export const qnaColumns = [
     _props: {color: 'primary', className: 'email'},
   },
   {
-    key: 'pNum',
+    key: 'number',
     label: '전화번호',
-    _props: {color: 'primary', className: 'pNum'},
+    _props: {color: 'primary', className: 'number'},
   },
   {
-    key: 'inquiryType',
+    key: 'categoryKorean',
     label: '문의 유형',
-    _props: {color: 'primary', className: 'inquiryType'},
+    _props: {color: 'primary', className: 'categoryKorean'},
   },
 ]
