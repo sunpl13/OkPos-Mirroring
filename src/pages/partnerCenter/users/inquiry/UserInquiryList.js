@@ -19,9 +19,11 @@ const UserInquiryList = () => {
     userName: '',
     userPhoneNum: '',
   })
-  const [editCheck, setEditCheck] = useState('')
+  const [editCheck, setEditCheck] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [inquiryMsg, setInquiryMsg] = useState('')
+  const [inquiryMsg, setInquiryMsg] = useState({
+    content: '',
+  })
 
   // 1:1 문의 리스트 API
   const getInquiry = async () => {
@@ -61,8 +63,14 @@ const UserInquiryList = () => {
         return
       }
       if (data?.code === 1000) {
-        setSelectedItem(data.result)
-        setEditCheck(data.result.inquiryReplies)
+        const {result} = data
+        setSelectedItem(result)
+        setEditCheck(result.inquiryReplies)
+        if (result.inquiryReplies.length !== 0) {
+          setInquiryMsg({
+            content: result.inquiryReplies[result.inquiryReplies.length - 1].content,
+          })
+        }
       } else {
         alert(data?.message)
       }
@@ -70,6 +78,7 @@ const UserInquiryList = () => {
       console.log(error)
     }
   }
+
   const handleInquiryModalOnDelete = async () => {
     const {id} = selectedItem
     if (window.confirm('정말 삭제하시겠습니까?')) {
@@ -96,15 +105,33 @@ const UserInquiryList = () => {
       }
     }
   }
-  const handleInquiryModalOnChange = ({target: {value}}) => {
-    setInquiryMsg(value)
+  const handleInquiryModalOnChange = ({target: {id, value}}) => {
+    setInquiryMsg({[id]: value})
   }
   const handleInquiryModalUpdate = async () => {
     const {id} = selectedItem
-    console.log(id)
-    if (editCheck?.content) {
+    console.log(inquiryMsg)
+    if (editCheck.length !== 0) {
       if (window.confirm('답변을 수정하시겠습니까?')) {
-        console.log('tttt2')
+        try {
+          const {data} = await ApiConfig.request({
+            method: HttpMethod.PUT,
+            url: `${EndPoint.GET_PARTNER_INQUIRIES}/reply/${id}`,
+            data: inquiryMsg,
+          })
+          console.log(data)
+          if (!data.isSuccess || isEmpty(data?.result)) {
+            return
+          }
+          if (data?.code === 1000) {
+            setShowModal(false)
+            return alert(data?.message)
+          } else {
+            alert(data?.message)
+          }
+        } catch (error) {
+          console.log(error)
+        }
       }
     } else if (window.confirm('답변을 등록하시겠습니까?')) {
       if (!inquiryMsg) return alert('답변을 작성해 주세요.')
@@ -112,15 +139,14 @@ const UserInquiryList = () => {
         const {data} = await ApiConfig.request({
           method: HttpMethod.POST,
           url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}/reply`,
-          data: {
-            content: inquiryMsg,
-          },
+          data: inquiryMsg,
         })
         console.log(data)
         if (!data.isSuccess || isEmpty(data?.result)) {
           return
         }
         if (data?.code === 1000) {
+          setShowModal(false)
           return alert(data?.message)
         } else {
           alert(data?.message)
@@ -157,7 +183,7 @@ const UserInquiryList = () => {
         value={selectedItem}
         replies={inquiryMsg}
         onChange={handleInquiryModalOnChange}
-        upDate={() => handleInquiryModalUpdate()}
+        upDate={handleInquiryModalUpdate}
         onDelete={handleInquiryModalOnDelete}
       />
     </CRow>

@@ -5,6 +5,8 @@ import DetailModalTemplate from '../DetailModalTemplate'
 
 const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, replies, onDelete}) => {
   const {id, userName, userPhoneNum, content, inquiryCategory, inquiryFiles, inquiryReplies} = value
+  console.log(replies)
+  console.log(replies)
   return (
     <DetailModalTemplate
       visible={visible}
@@ -51,11 +53,11 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, repli
       <br />
       <CForm>
         <CFormTextarea
-          id='replies'
-          placeholder={'답변 작성'}
+          id='content'
+          placeholder={inquiryReplies.length !== 0 ? '답변 수정' : '답변 작성'}
           label={'답변 작성'}
           rows={9}
-          value={inquiryReplies.length !== 0 ? inquiryReplies[inquiryReplies.length - 1].content : replies}
+          value={replies?.content}
           onChange={onChange}
         />
       </CForm>
