@@ -1,8 +1,8 @@
 export const homePageNoticeColumns = [
   {
-    key: 'notictId',
+    key: 'no',
     label: 'No',
-    _props: {color: 'primary', className: 'notictId'},
+    _props: {color: 'primary', className: 'no'},
   },
   {
     key: 'title',
@@ -10,8 +10,8 @@ export const homePageNoticeColumns = [
     _props: {color: 'primary', className: 'title'},
   },
   {
-    key: 'startedAt',
+    key: 'createdAt',
     label: '등록일',
-    _props: {color: 'primary', className: 'startedAt'},
+    _props: {color: 'primary', className: 'createdAt'},
   },
 ]
