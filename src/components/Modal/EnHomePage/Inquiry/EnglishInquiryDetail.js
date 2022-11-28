@@ -68,6 +68,7 @@ const EnglishInquiryDetail = ({getList, value, visible, setVisible, onChange, is
         <CModalBody>
           <CRow className='mb-3'>
             <ModalInput
+              xs={4}
               onChange={onChange}
               id='inquiryEnglishId'
               placeholder='ID'
