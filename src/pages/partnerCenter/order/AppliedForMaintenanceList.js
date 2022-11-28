@@ -3,8 +3,10 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {maintenanceApplicationList} from '../../../utils/columns/partnerCenter/Columns'
-import {AppliedForMaintenanceData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 import OrderDetailModal from '../../../components/Modal/partnerCenter/order/OrderDetailModal'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const AppliedForMaintenanceList = () => {
   const [items, setItems] = useState([])
@@ -12,8 +14,30 @@ const AppliedForMaintenanceList = () => {
   const [editCheck, setEditCheck] = useState({})
 
   const [showModal, setShowModal] = useState(false)
+
+  // 발주신청 리스트 API
+  const getMaintenanceList = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.GET_PARTNER_MAINTENANCES}?page=${1}`,
+      })
+      console.log(data)
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
+      }
+      if (data?.code === 1000) {
+        setItems(data.result?.adminMaintenanceDTOs)
+      } else {
+        alert(data?.message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
-    setItems(AppliedForMaintenanceData)
+    getMaintenanceList()
   }, [])
 
   /** Open Modal*/
