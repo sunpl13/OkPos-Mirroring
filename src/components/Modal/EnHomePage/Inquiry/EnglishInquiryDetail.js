@@ -30,7 +30,7 @@ const EnglishInquiryDetail = ({getList, value, visible, setVisible, onChange, is
           id: value.inquiryEnglishId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.HOME_INQUIRY}/:id/d`,
+        url: `${EndPoint.ENGLISH_HOME_INQUIRY}/:id/d`,
       })
       if (data.isSuccess) {
         getList()
