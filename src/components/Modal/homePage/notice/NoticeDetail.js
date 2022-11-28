@@ -1,69 +1,193 @@
 import {useState} from 'react'
-import {
-  CFormLabel,
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CModalTitle,
-  CRow,
-  CModalFooter,
-  CButton,
-  CFormTextarea,
-} from '@coreui/react'
+import {CModal, CModalBody, CRow, CModalFooter, CButton, CFormLabel, CFormTextarea} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
+import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
+import CloseCheckModal from '../../CloseCheckModal'
+import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
+import {EndPoint} from '../../../../dataManager/apiMapper'
+import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
+import {useDispatch} from 'react-redux'
+import {isEmpty} from '../../../../utils/utility'
+import moment from 'moment'
+import {sendFileUrlFormat} from '../../../../utils/awsCustom'
+import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 
-const NoticeDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
+const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
+  const [iamgeList, setImageList] = useState([])
+  const [fileList, setFileList] = useState([])
+  const dispatch = useDispatch()
   const userDetailEditMode = () => {
     if (!isReadOnly) {
-      setIsReadOnly(true)
+      onUpdate()
     } else {
-      //여기에 수정 api 작성
       setIsReadOnly(false)
     }
   }
 
+  const validateCheck = () => {
+    if (isEmpty(value.title)) {
+      alert('공지 제목을 입력해주세요.')
+      return false
+    }
+    if (isEmpty(value.content)) {
+      alert('공지 내용을 입력해주세요.')
+      return false
+    }
+
+    return true
+  }
+
+  const onCreate = async () => {
+    try {
+      if (!validateCheck()) {
+        return
+      }
+      const imgUrls = sendFileUrlFormat(iamgeList)
+      const fileUrls = sendFileUrlFormat(fileList)
+      const {data} = await ApiConfig.request({
+        data: {
+          title: value.title,
+          content: value.content,
+          imageUrls: imgUrls,
+          fileUrls: fileUrls,
+        },
+        query: {},
+        path: {},
+        method: HttpMethod.POST,
+        url: `${EndPoint.NOTICE}`,
+      })
+      if (data.isSuccess) {
+        getList()
+        setImageList([])
+        setFileList([])
+        setshowDeleteModal(false)
+        setCloseCheckModalState(false)
+        setIsReadOnly(true)
+        setVisible(false)
+        dispatch({
+          type: 'set',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: '공지가 정상적으로 생성 되었습니다.',
+        })
+      } else {
+        alert(data.message)
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  const onDelete = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {
+          id: value.noticeId,
+        },
+        method: HttpMethod.PATCH,
+        url: `${EndPoint.NOTICE}/:id/d`,
+      })
+      if (data.isSuccess) {
+        getList()
+        setImageList([])
+        setFileList([])
+        setshowDeleteModal(false)
+        setCloseCheckModalState(false)
+        setIsReadOnly(true)
+        setVisible(false)
+        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  const onUpdate = async () => {
+    const imgUrls = sendFileUrlFormat(iamgeList)
+    const fileUrls = sendFileUrlFormat(fileList)
+
+    try {
+      if (!validateCheck()) {
+        return
+      }
+      const {data} = await ApiConfig.request({
+        data: {
+          title: value.title,
+          content: value.content,
+          imageUrls: imgUrls,
+          fileUrls: fileUrls,
+        },
+        query: {},
+        path: {
+          id: value.noticeId,
+        },
+        method: HttpMethod.PATCH,
+        url: `${EndPoint.NOTICE}/:id`,
+      })
+      if (data.isSuccess) {
+        getList()
+        setImageList([])
+        setFileList([])
+        setshowDeleteModal(false)
+        setCloseCheckModalState(false)
+        setIsReadOnly(true)
+        setVisible(false)
+        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
+
   const onCloseCheck = () => {
-    if (!isReadOnly && value.No !== -1) {
+    if (!isReadOnly && value.recruitmentId !== -1) {
       setCloseCheckModalState(true)
     } else {
       setVisible(false)
       setIsReadOnly(true)
+      setImageList([])
+      setFileList([])
+      setSelectedItem({})
     }
   }
 
   const onClose = () => {
     setCloseCheckModalState(false)
+    setImageList([])
+    setFileList([])
     setVisible(false)
     setIsReadOnly(true)
+    setSelectedItem({})
   }
   return (
     <>
       <CModal alignment='center' size='lg' visible={visible}>
-        <CModalHeader>
-          <CModalTitle>공지사항 상세</CModalTitle>
-        </CModalHeader>
+        <CCustomModalHeader onClick={onCloseCheck}>공지 상세</CCustomModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
             <ModalInput
+              xs={4}
               onChange={onChange}
-              id='No'
-              placeholder='No.'
-              label='No'
+              id='noticeId'
+              placeholder='ID'
+              label='ID'
               readOnly={true}
               disabled={true}
-              value={value.No === -1 ? '' : value.No}
+              value={value.noticeId === -1 ? '' : value.noticeId}
             />
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
               id='title'
-              placeholder='공고 제목을 입력해주세요'
-              label='공고 제목'
+              placeholder='공지 제목을 입력해주세요'
+              label='공지 제목'
               value={value.title}
               isRequired={true}
               readOnly={isReadOnly}
@@ -71,9 +195,9 @@ const NoticeDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsRe
             />
           </CRow>
           <CRow className='mb-3'>
-            <CFormLabel>공고 본문</CFormLabel>
+            <CFormLabel className='required'>공지 본문</CFormLabel>
             <CFormTextarea
-              placeholder='공고 본문'
+              placeholder='공지 본문'
               readOnly={isReadOnly}
               disabled={isReadOnly}
               onChange={onChange}
@@ -82,17 +206,41 @@ const NoticeDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsRe
               id='content'
             />
           </CRow>
+          <CRow className='mb-3'>
+            <ModalImageInput
+              id='image'
+              label='이미지 첨부'
+              fileList={iamgeList}
+              setFileList={setImageList}
+              images={value.imageUrls}
+              imgPath='notice_images'
+              readOnly={isReadOnly}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalFilesInput
+              id='files'
+              label='파일 첨부'
+              files={value.fileUrls}
+              disabled={isReadOnly}
+              fileList={fileList}
+              setFileList={setFileList}
+              filePath='notice_files'
+            />
+          </CRow>
         </CModalBody>
         <CModalFooter>
-          {value.No === -1 ? (
-            <CButton color='primary'>Add</CButton>
+          {value.noticeId === -1 ? (
+            <CButton color='primary' onClick={onCreate}>
+              추가
+            </CButton>
           ) : (
             <>
               <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
-                delete
+                삭제
               </CButton>
               <CButton color={isReadOnly ? 'primary' : 'success'} onClick={userDetailEditMode}>
-                Edit
+                수정
               </CButton>
             </>
           )}
@@ -101,11 +249,7 @@ const NoticeDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsRe
           </CButton>
         </CModalFooter>
       </CModal>
-      <DeleteModalTemplate
-        onDelete={() => setshowDeleteModal(false)}
-        visible={showDeleteModal}
-        setVisible={setshowDeleteModal}
-      />
+      <DeleteModalTemplate onDelete={onDelete} visible={showDeleteModal} setVisible={setshowDeleteModal} />
       <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
