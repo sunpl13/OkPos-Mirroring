@@ -15,40 +15,45 @@ import ModalInput from '../../../forms/inputForm/ModalInput'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import PropTypes from 'prop-types'
-import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
-import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
-
+import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
+import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
+import {EndPoint} from '../../../../dataManager/apiMapper'
+import {useDispatch} from 'react-redux'
 const inquiries = [
-  {key: 'a', value: '제품'},
-  {key: 'b', value: '부가 서비스'},
-  {key: 'c', value: '채용'},
-  {key: 'd', value: '제휴'},
-  {key: 'e', value: '기타'},
+  {key: 'PRODUCTS', value: '상품'},
+  {key: 'ADDITIONAL_SERVICES', value: '부가 서비스'},
+  {key: 'RECRUITMENT', value: '채용'},
+  {key: 'PARTNERSHIPS', value: '제휴'},
+  {key: 'ETC', value: '기타'},
 ]
 
-const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
+const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
-  const [fileList, setFileList] = useState([])
-  const userDetailEditMode = () => {
-    if (!isReadOnly) {
-      setIsReadOnly(true)
-    } else {
-      //여기에 수정 api 작성
-      setIsReadOnly(false)
+  const dispatch = useDispatch()
+  const onDelete = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {
+          id: value.inquiryId,
+        },
+        method: HttpMethod.PATCH,
+        url: `${EndPoint.HOME_INQUIRY}/:id/d`,
+      })
+      if (data.isSuccess) {
+        getList()
+        setshowDeleteModal(false)
+        setCloseCheckModalState(false)
+        setIsReadOnly(true)
+        setVisible(false)
+        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+      }
+    } catch (error) {
+      alert(error)
     }
   }
-
-  // if (images && images.length > 0) {
-  //   setFileList(
-  //     images.map(path => ({
-  //       uid: path,
-  //       name: path,
-  //       status: 'done',
-  //       url: `https://${process.env.REACT_APP_AWS_BUCKET_NAME}.s3.${process.env.REACT_APP_AWS_REGION}.amazonaws.com/${path}`,
-  //     })),
-  //   )
-  // }
 
   const onCloseCheck = () => {
     if (!isReadOnly && value.No !== -1) {
@@ -74,12 +79,12 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
-              id='No'
+              id='inquiryId'
               placeholder='No.'
-              label='No'
+              label='ID'
               readOnly={true}
               disabled={true}
-              value={value.No === -1 ? '' : value.No}
+              value={value.inquiryId === -1 ? '' : value.inquiryId}
             />
             <ModalInput
               onChange={onChange}
@@ -105,10 +110,10 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
             />
             <ModalInput
               onChange={onChange}
-              id='pNum'
+              id='number'
               placeholder='phone number'
               label='전화번호'
-              value={value.pNum}
+              value={value.number}
               isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -120,9 +125,9 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
-              id='inquiryType'
+              id='categoryEnglish'
               options={inquiries}
-              value={value.inquiryType}
+              value={value.categoryEnglish}
               isRequired={true}
               placeholder='선택해주세요'
               label='문의 유형'
@@ -141,35 +146,20 @@ const QnADetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadO
             />
           </CRow>
           <CRow>
-            <ModalImageInput id={'imageInput'} label={'이미지 리스트'} fileList={fileList} setFileList={setFileList} />
-          </CRow>
-          <CRow>
-            <ModalFilesInput id={'file'} label={'이미지 리스트'} />
+            <MultiFileDownloadForm files={value.fileUrl} id='fileUrl' label='첨부파일' />
           </CRow>
         </CModalBody>
         <CModalFooter>
-          {value.No === -1 ? (
-            <CButton color='primary'>Add</CButton>
-          ) : (
-            <>
-              <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
-                delete
-              </CButton>
-              <CButton color={isReadOnly ? 'primary' : 'success'} onClick={userDetailEditMode}>
-                Edit
-              </CButton>
-            </>
-          )}
+          <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
+            삭제
+          </CButton>
+
           <CButton color='primary' onClick={onCloseCheck}>
             Cancel
           </CButton>
         </CModalFooter>
       </CModal>
-      <DeleteModalTemplate
-        onDelete={() => setshowDeleteModal(false)}
-        visible={showDeleteModal}
-        setVisible={setshowDeleteModal}
-      />
+      <DeleteModalTemplate onDelete={onDelete} visible={showDeleteModal} setVisible={setshowDeleteModal} />
       <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
