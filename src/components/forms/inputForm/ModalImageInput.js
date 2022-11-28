@@ -1,10 +1,11 @@
 import {PlusOutlined} from '@ant-design/icons'
 import {Upload} from 'antd'
 import {useEffect, useState} from 'react'
-import {CCol, CFormLabel, CImage, CRow} from '@coreui/react'
+import {CCol, CFormLabel, CImage} from '@coreui/react'
 import styled from 'styled-components'
 import AWS from 'aws-sdk'
 import {antdImageFormat, returnBucketName} from '../../../utils/awsCustom'
+
 const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -34,27 +35,6 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, rea
   const handleCloseImage = () => {
     setPreviewImage('')
   }
-  // TestData
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-xxx',
-      percent: 50,
-      name: 'image.png',
-      status: 'uploading',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-5',
-      name: 'image.png',
-      status: 'error',
-    },
-  ])
 
   const handleCancel = () => setPreviewOpen(false)
 

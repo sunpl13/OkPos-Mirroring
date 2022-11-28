@@ -21,7 +21,7 @@ const AppliedForMaintenanceList = () => {
     setSelectedItem(item)
     setEditCheck(item)
     setShowModal(!showModal)
-  }
+  } //GET_PARTNER_MAINTENANCES
   const handleDetailModalUpDate = () => {
     const {
       no,

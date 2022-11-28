@@ -191,19 +191,23 @@ export const dealerSupportList = [
 export const materiaList = [
   {
     key: 'id',
+    label: '번호',
     _props: {className: 'id'},
   },
   {
     key: 'title',
+    label: '제목',
     _props: {className: 'title'},
   },
   {
     key: 'dataRoomCategory',
+    label: '자료 유형',
     _props: {className: 'dataRoomCategory'},
   },
 
   {
     key: 'createdAt',
+    label: '등록일',
     _props: {className: 'createdAt'},
     filter: false,
   },
@@ -224,20 +228,23 @@ export const orderList = [
   },
   {
     key: 'orderNo',
+    label: '발주 신청 식별 번호',
     _props: {className: 'orderNo'},
   },
   {
     key: 'businessName',
+    label: '상호명',
     _props: {className: 'BusinessName'},
   },
   {
     key: 'representativeName',
+    label: '대표자  명',
     _props: {className: 'RepresentativeName'},
   },
 
   {
     key: 'createdAt',
-    label: 'Order Date',
+    label: '신청 일자',
     _props: {className: 'createdAt'},
     filter: false,
   },
