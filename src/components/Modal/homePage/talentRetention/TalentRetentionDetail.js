@@ -7,14 +7,12 @@ import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import PropTypes from 'prop-types'
 import DatePickerForm from '../../../common/DatePickerForm'
-import ModalFilesView from '../../../forms/inputForm/ModalFilesView'
 import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 
 const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
-  const [createdDate, setcreatedDate] = useState(new Date())
 
   const onCloseCheck = () => {
     if (!isReadOnly && value.No !== -1) {
@@ -54,7 +52,6 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
               placeholder='이름을 입력해주세요'
               label='이름'
               value={value.name}
-              isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -66,7 +63,6 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
               placeholder='phone number'
               label='전화번호'
               value={value.number}
-              isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -76,7 +72,6 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
               placeholder='phone number'
               label='휴대 전화번호'
               value={value.phoneNumber}
-              isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -90,16 +85,14 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
               id='positionEnglish'
               options={category}
               value={value.positionEnglish}
-              isRequired={true}
               placeholder='선택해주세요'
               label='지원 포지션'
             />
             <DatePickerForm
               readOnly={false}
               label='등록일'
-              isRequired={true}
               id='registeredAt'
-              date={createdDate}
+              date={value.registeredAt}
               isDisabled={true}
             />
           </CRow>
@@ -110,7 +103,6 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
               placeholder='phone number'
               label='전화번호'
               value={value.number}
-              isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
