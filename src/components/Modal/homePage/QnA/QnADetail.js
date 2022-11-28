@@ -78,6 +78,7 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
         <CModalBody>
           <CRow className='mb-3'>
             <ModalInput
+              xs={4}
               onChange={onChange}
               id='inquiryId'
               placeholder='No.'
@@ -86,12 +87,26 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
               disabled={true}
               value={value.inquiryId === -1 ? '' : value.inquiryId}
             />
+          </CRow>
+
+          <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
               id='name'
               placeholder='이름을 입력해주세요'
               label='이름'
               value={value.name}
+              isRequired={true}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+            />
+
+            <ModalInput
+              onChange={onChange}
+              id='number'
+              placeholder='phone number'
+              label='전화번호'
+              value={value.number}
               isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -108,18 +123,6 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
-            <ModalInput
-              onChange={onChange}
-              id='number'
-              placeholder='phone number'
-              label='전화번호'
-              value={value.number}
-              isRequired={true}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-            />
-          </CRow>
-          <CRow className='mb-3'>
             <ModalSelect
               readOnly={isReadOnly}
               disabled={isReadOnly}
