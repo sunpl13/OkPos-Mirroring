@@ -10,6 +10,7 @@ export const EndPoint = {
   EDITOR: `${API}/admin/editor`,
   HOME_INQUIRY: `${API}/admin/inquiry`,
   ENGLISH_HOME_INQUIRY: `${API}/admin/english/inquiry`,
+  NOTICE: `${API}/admin/notice`,
 
   // ------ 파트너 센터 페이지
   GET_PARTNER_USERS: `${API}/admin/partner/users`, // 유저 리스트
