@@ -27,6 +27,7 @@ export const inquiryListColumns = [
   {key: 'name', label: '이름', _props: {className: 'name'}},
   {key: 'email', label: '이메일', _props: {className: 'email'}},
   {key: 'phoneNumber', label: '휴대전화번호', _props: {className: 'phoneNumber'}},
+  {key: 'reply', label: '답변', sorter: false, filter: false, _props: {className: 'reply'}},
 ]
 
 // FAQ 리스트
@@ -44,6 +45,7 @@ export const dataRoomListColumns = [
   {key: 'createdAt', label: '최초등록일', sorter: false, filter: false, _props: {className: 'createdAt'}},
 ]
 
+// 주문 현황 관리
 export const orderListColumns = [
   {key: 'orderId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'category', label: '분류', _props: {className: 'category'}},

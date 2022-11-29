@@ -3,9 +3,9 @@
 /node_modules
 package-lock.json
 yarn.lock
-build/*
-build-dev/*
-build-stage/*
+# build/*
+# build-dev/*
+# build-stage/*
 .yarn
 .env.development
 .env.development.local
