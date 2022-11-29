@@ -61,7 +61,7 @@ const Notice = () => {
   }, [])
 
   const handleShowNoticeDetailModal = async item => {
-    onLoadDetail(item.no)
+    onLoadDetail(item.noticeId)
     setShowModal(!showModal)
   }
 
