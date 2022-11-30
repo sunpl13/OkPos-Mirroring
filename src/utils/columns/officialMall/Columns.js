@@ -52,3 +52,10 @@ export const orderListColumns = [
   {key: 'title', label: '제목', _props: {className: 'title'}},
   {key: 'createdAt', label: '최초등록일', sorter: false, filter: false, _props: {className: 'createdAt'}},
 ]
+
+// 배너 관리
+export const bannerListColumns = [
+  {key: 'bannerId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'image', label: '이미지', _props: {className: 'image'}},
+  {key: 'title', label: '제목', _props: {className: 'title'}},
+]

@@ -1,33 +1,40 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import FaqDetailModal from '../../../components/Modal/officialMall/FaqDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
-import {dataRoomListColumns} from '../../../utils/columns/officialMall/Columns'
+import {bannerListColumns} from '../../../utils/columns/officialMall/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import {useNavigate} from 'react-router-dom'
 import * as _ from 'lodash'
-import DataRoomModal from '../../../components/Modal/officialMall/DataRoomModal'
+import BannerDetailModal from '../../../components/Modal/officialMall/BannerDetailModal'
 
-const DataRoomList = () => {
+const BannerList = () => {
+  // 모듈 선언
   const navigate = useNavigate()
+
+  // local state 선언
+  const [bannerList, setBannerList] = useState([])
+  const [selectedItem, setSelectedItem] = useState({
+    title: '',
+    subTitle: '',
+    image: '',
+  })
+
   const [isReadOnly, setIsReadOnly] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
-  const [items, setItems] = useState([])
-  const [selectedItem, setSelectedItem] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [fileList, setFileList] = useState([])
 
   // API 통신
 
-  // 자료실 리스트 조회
-  const onLoadMallDataRoomList = async () => {
+  // 배너 리스트 조회
+  const onLoadMallBannerList = async () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_MALL_DATAROOMS,
+        url: EndPoint.GET_MALL_BANNERS,
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
@@ -36,21 +43,20 @@ const DataRoomList = () => {
         } else {
           alert(res?.message)
         }
-      } else {
-        setItems(res.result.dataRoomInfos)
       }
+      setBannerList(res.result.bannerInfos)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
   }
 
-  // 자료 상세 조회
-  const onLoadMallDataRoom = async dataRoomId => {
+  // 배너 상세 조회
+  const onLoadMallBanner = async bannerId => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_MALL_DATAROOM,
-        path: {dataRoomId},
+        url: EndPoint.GET_MALL_BANNER,
+        path: {bannerId},
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
@@ -61,26 +67,23 @@ const DataRoomList = () => {
         }
         return
       }
-
-      res.result.dataRoomId = dataRoomId
+      res.result.bannerId = bannerId
       setSelectedItem(res.result)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
   }
 
-  // 자료 추가
-  const onCreateMallDataRoom = async item => {
+  // 배너 추가
+  const onCreateMallBanner = async item => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.POST,
-        url: EndPoint.POST_MALL_DATAROOMS,
+        url: EndPoint.POST_MALL_BANNER,
         data: {
-          category: item.category,
           title: item.title,
-          content: item.content,
+          subTitle: item.subTitle,
           image: item.image,
-          files: item.files,
         },
       })
 
@@ -100,18 +103,16 @@ const DataRoomList = () => {
   }
 
   // 자료 수정
-  const onUpdateMallDataRoom = async item => {
+  const onUpdateMallBanner = async item => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
-        url: EndPoint.PATCH_MALL_UPDATE_DATAROOM,
+        url: EndPoint.PATCH_MALL_UPDATE_BANNER,
         data: {
-          dataRoomId: item.dataRoomId,
-          category: item.category,
+          bannerId: item.bannerId,
           title: item.title,
-          content: item.content,
+          subTitle: item.subTitle,
           image: item.image,
-          files: item.files,
         },
       })
 
@@ -130,12 +131,12 @@ const DataRoomList = () => {
   }
 
   // 자료 삭제
-  const onDeleteMallDataRoom = async dataRoomId => {
+  const onDeleteMallBanner = async bannerId => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
-        url: EndPoint.PATCH_MALL_DELETE_DATAROOM,
-        path: {dataRoomId},
+        url: EndPoint.PATCH_MALL_DELETE_BANNER,
+        path: {bannerId},
       })
 
       if (!res?.isSuccess) {
@@ -151,36 +152,33 @@ const DataRoomList = () => {
   }
 
   useEffect(() => {
-    onLoadMallDataRoomList()
+    onLoadMallBannerList()
   }, [])
 
+  // 초기화
   const setInitItem = () => {
     return {
       title: '',
-      content: '',
-      category: '',
-      content: '',
+      subTitle: '',
       image: '',
-      files: [],
     }
   }
 
   // 자료 추가 Modal Open 함수
   const handleShowFaqItemAddModal = () => {
     setSelectedItem(setInitItem)
-    setFileList([])
     setIsReadOnly(false)
     setIsUpdate(false)
     setShowModal(!showModal)
   }
   const handleShowDataRoomDetailModal = item => {
-    onLoadMallDataRoom(item.dataRoomId)
+    onLoadMallBanner(item.bannerId)
     setIsReadOnly(true)
     setIsUpdate(false)
     setShowModal(!showModal)
   }
 
-  /** Add Faq Modal*/
+  // setSelectedItem Change
   const handleFaqItemModalOnChange = e => {
     const {id, value} = e.target
     setSelectedItem({
@@ -189,57 +187,42 @@ const DataRoomList = () => {
     })
   }
 
-  const handleMultiFileUrl = array => {
-    console.log(array)
-    let urls = []
-    array.map(item => {
-      urls.push({
-        file: item.url,
-        fileTitle: item.name,
-      })
-    })
-    return urls
-  }
-
   const handleDetailModalUpdate = async () => {
-    const {dataRoomId, title, image, content, category} = selectedItem
+    const {bannerId, title, subTitle, image} = selectedItem
     selectedItem.image =
       'https://homepage-test-resource.s3.ap-northeast-2.amazonaws.com/admin/files/mall/dataroom/test-ge3e510db1_640.jpg'
 
-    selectedItem.files = handleMultiFileUrl(fileList)
-
     // validation
     if (!title) return alert('제목을 입력해주세요')
-    if (!category) return alert('카테고리를 선택해주세요')
-    if (!selectedItem.image) return alert('이미지를 등록해주세요')
-    //if (!selectedItem.files) return alert('자료를 등록해주세요')
+    if (!subTitle) return alert('부제목 선택해주세요')
+    if (!image) return alert('이미지를 등록해주세요')
 
     console.log(selectedItem)
 
     if (window.confirm('저장 하시겠습니까?')) {
-      if (dataRoomId) {
+      if (bannerId) {
         // update
-        await onUpdateMallDataRoom(selectedItem)
+        await onUpdateMallBanner(selectedItem)
         setIsReadOnly(true)
         setIsUpdate(false)
       } else {
         // create
-        await onCreateMallDataRoom(selectedItem)
+        await onCreateMallBanner(selectedItem)
         setShowModal(false)
       }
-      await onLoadMallDataRoomList()
+      await onLoadMallBannerList()
     }
   }
 
   const handleDetailModalDelete = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      onDeleteMallDataRoom(selectedItem.dataRoomId).then(onLoadMallDataRoomList, setShowModal(false))
+      onDeleteMallBanner(selectedItem.bannerId).then(onLoadMallBannerList, setShowModal(false))
     }
   }
 
   return (
     <CRow>
-      <PageHeader title='자료실 관리' />
+      <PageHeader title='배너 관리' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardHeader>
@@ -253,24 +236,22 @@ const DataRoomList = () => {
           </CCardHeader>
           <CCardBody>
             <ListTemplate
-              items={items}
+              items={bannerList}
               onClick={handleShowDataRoomDetailModal}
-              columns={dataRoomListColumns}
+              columns={bannerListColumns}
               className={'dataRoomList'}
               datePickerHidden={false}
             />
           </CCardBody>
         </CCard>
       </CCol>
-      <DataRoomModal
+      <BannerDetailModal
         item={selectedItem}
         onUpdate={handleDetailModalUpdate}
         onDelete={handleDetailModalDelete}
         onChange={handleFaqItemModalOnChange}
         visible={showModal}
         setVisible={setShowModal}
-        fileList={fileList}
-        setFileList={setFileList}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
         isUpdate={isUpdate}
@@ -280,4 +261,4 @@ const DataRoomList = () => {
   )
 }
 
-export default DataRoomList
+export default BannerList

@@ -253,12 +253,19 @@ const ListTemplate = ({
               <CBadge color={getBadgeColor(status)}>{getBadgeText(status)}</CBadge>
             </td>
           ),
+          // 1:1 문의 답변 상태
           reply: ({reply}) => (
             <td>
               <CBadge color={getBadgeColor(reply)}>{getBadgeText(reply)}</CBadge>
             </td>
           ),
-          // 이미지
+          // 단일 이미지
+          image: ({image}) => (
+            <td>
+              <CImage rounded src={image} alt='' width={100} height={60} />
+            </td>
+          ),
+          // 이미지 리스트
           images: ({images}) => (
             <td onClick={event => (images.length !== 0 ? testOnClick(event, images) : onClick)}>
               <CImage rounded src={images.length === 0 ? '' : images[0]} alt='' width={100} height={60} />

@@ -211,7 +211,7 @@ const _nav = [
   {
     component: CNavItem,
     name: '롤링 배너 관리',
-    to: '/mall/banners',
+    to: '/mall/banner',
     icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
     accessauthority: 'MALL',
   },
@@ -219,7 +219,7 @@ const _nav = [
   {
     component: CNavItem,
     name: '1:1 문의 관리',
-    to: '/mall/inquirys',
+    to: '/mall/inquiry',
     icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
     accessauthority: 'MALL',
   },
@@ -246,17 +246,17 @@ const _nav = [
       {
         component: CNavItem,
         name: '주문 현황',
-        to: '/mall/orders',
+        to: '/mall/order',
       },
       {
         component: CNavItem,
         name: '교환 현황',
-        to: '/mall/orders',
+        to: '/mall/order',
       },
       {
         component: CNavItem,
         name: '취소 현황',
-        to: '/mall/orders',
+        to: '/mall/order',
       },
     ],
   },
