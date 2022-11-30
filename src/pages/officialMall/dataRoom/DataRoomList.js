@@ -10,7 +10,7 @@ import {isEmpty} from '../../../utils/utility'
 import {useNavigate} from 'react-router-dom'
 import * as _ from 'lodash'
 import DataRoomModal from '../../../components/Modal/officialMall/DataRoomModal'
-import {sendFileUrlFormat} from '../../../utils/awsCustom'
+import {sendImageUrlFormat} from '../../../utils/awsCustom'
 
 const DataRoomList = () => {
   const navigate = useNavigate()

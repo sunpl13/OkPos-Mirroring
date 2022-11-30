@@ -10,7 +10,7 @@ import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import {useDispatch} from 'react-redux'
 import {isEmpty} from '../../../../utils/utility'
 import moment from 'moment'
-import {sendFileUrlFormat} from '../../../../utils/awsCustom'
+import {sendImageUrlFormat} from '../../../../utils/awsCustom'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 
 const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
@@ -45,8 +45,8 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
       if (!validateCheck()) {
         return
       }
-      const imgUrls = sendFileUrlFormat(iamgeList)
-      const fileUrls = sendFileUrlFormat(fileList)
+      const imgUrls = sendImageUrlFormat(iamgeList)
+      const fileUrls = sendImageUrlFormat(fileList)
       const {data} = await ApiConfig.request({
         data: {
           title: value.title,
@@ -109,8 +109,8 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
   }
 
   const onUpdate = async () => {
-    const imgUrls = sendFileUrlFormat(iamgeList)
-    const fileUrls = sendFileUrlFormat(fileList)
+    const imgUrls = sendImageUrlFormat(iamgeList)
+    const fileUrls = sendImageUrlFormat(fileList)
 
     try {
       if (!validateCheck()) {
