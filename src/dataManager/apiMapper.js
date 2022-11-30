@@ -37,6 +37,8 @@ export const EndPoint = {
   GET_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
   GET_MALL_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
   POST_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
+  PATCH_MALL_UPDATE_DATAROOM: `${API}/admin/mall/datarooms`,
+  PATCH_MALL_DELETE_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
@@ -80,6 +82,8 @@ const ApiMapper = {
     [EndPoint.PATCH_MALL_DELETE_INQUIRY]: {},
     [EndPoint.PATCH_MALL_UPDATE_FAQ]: {},
     [EndPoint.PATCH_MALL_DELETE_FAQ]: {},
+    [EndPoint.PATCH_MALL_UPDATE_DATAROOM]: {},
+    [EndPoint.PATCH_MALL_DELETE_DATAROOM]: {},
   },
   put: {},
   delete: {},

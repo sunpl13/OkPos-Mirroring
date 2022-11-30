@@ -9,15 +9,17 @@ import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
 const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath}) => {
   // files = 조회를 통해 가져온 데이터가 있는 경우
   useEffect(() => {
+    console.log(files)
     if (files && files.length > 0) {
       setFileList(
-        files.map((path, index) => ({
+        files.map((file, index) => ({
           key: index,
-          uid: path,
-          name: getFileNameFromURL(path),
+          uid: file.file,
+          name: file.fileTitle,
           status: 'done',
+          url: file.file,
           //url: antdImageFormat(path),
-          url: path,
+          //name: getFileNameFromURL(file),
         })),
       )
     }

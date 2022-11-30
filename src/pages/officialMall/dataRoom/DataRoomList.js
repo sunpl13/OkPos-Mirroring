@@ -10,7 +10,6 @@ import {isEmpty} from '../../../utils/utility'
 import {useNavigate} from 'react-router-dom'
 import * as _ from 'lodash'
 import DataRoomModal from '../../../components/Modal/officialMall/DataRoomModal'
-import {sendFileUrlFormat} from '../../../utils/awsCustom'
 
 const DataRoomList = () => {
   const navigate = useNavigate()
@@ -21,34 +20,9 @@ const DataRoomList = () => {
   const [showModal, setShowModal] = useState(false)
   const [fileList, setFileList] = useState([])
 
-  const categoryOptions = [
-    {
-      key: '드라이버',
-      value: '드라이버',
-    },
-    {
-      key: '프로그램',
-      value: '프로그램',
-    },
-    {
-      key: '매뉴얼',
-      value: '매뉴얼',
-    },
-    {
-      key: '펌웨어',
-      value: '펌웨어',
-    },
-    {
-      key: '기술자료',
-      value: '기술자료',
-    },
-    {
-      key: '기타',
-      value: '기타',
-    },
-  ]
+  // API 통신
 
-  // Load FAQ List
+  // 자료실 리스트 조회
   const onLoadMallDataRoomList = async () => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -70,7 +44,7 @@ const DataRoomList = () => {
     }
   }
 
-  // Load DataRoom Detail
+  // 자료 상세 조회
   const onLoadMallDataRoom = async dataRoomId => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -95,7 +69,7 @@ const DataRoomList = () => {
     }
   }
 
-  // Create DataRoom
+  // 자료 추가
   const onCreateMallDataRoom = async item => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -125,8 +99,8 @@ const DataRoomList = () => {
     }
   }
 
-  // Update DataRoom
-  const onUpdateFaq = async item => {
+  // 자료 수정
+  const onUpdateMallDataRoom = async item => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
@@ -136,6 +110,8 @@ const DataRoomList = () => {
           category: item.category,
           title: item.title,
           content: item.content,
+          image: item.image,
+          files: item.files,
         },
       })
 
@@ -153,12 +129,12 @@ const DataRoomList = () => {
     }
   }
 
-  // Delete DataRoom
-  const onDeleteFaq = async dataRoomId => {
+  // 자료 삭제
+  const onDeleteMallDataRoom = async dataRoomId => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
-        url: EndPoint.PATCH_MALL_DELETE_FAQ,
+        url: EndPoint.PATCH_MALL_DELETE_DATAROOM,
         path: {dataRoomId},
       })
 
@@ -238,8 +214,7 @@ const DataRoomList = () => {
     if (window.confirm('저장 하시겠습니까?')) {
       if (dataRoomId) {
         // update
-        await onUpdateFaq(selectedItem)
-        setShowModal(true)
+        await onUpdateMallDataRoom(selectedItem)
         setIsReadOnly(true)
         setIsUpdate(false)
       } else {
@@ -253,7 +228,7 @@ const DataRoomList = () => {
 
   const handleDetailModalDelete = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      onDeleteFaq(selectedItem.dataRoomId).then(onLoadMallDataRoomList, setShowModal(false))
+      onDeleteMallDataRoom(selectedItem.dataRoomId).then(onLoadMallDataRoomList, setShowModal(false))
     }
   }
 
@@ -287,7 +262,6 @@ const DataRoomList = () => {
         onUpdate={handleDetailModalUpdate}
         onDelete={handleDetailModalDelete}
         onChange={handleFaqItemModalOnChange}
-        option={categoryOptions}
         visible={showModal}
         setVisible={setShowModal}
         fileList={fileList}
