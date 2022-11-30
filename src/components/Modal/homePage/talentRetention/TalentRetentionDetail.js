@@ -97,17 +97,21 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
             />
           </CRow>
           <CRow className='mb-3'>
-            <MultiFileDownloadForm files={value.otherDocument} id='otherDocument' label='기타 추가자료' />
+            <MultiFileDownloadForm files={value.resume} id='resume' label='이력서' />
           </CRow>
           <CRow className='mb-3'>
-            <ModalTextArrayInput
-              id='otherLink'
-              label='추가 링크 자료'
-              value={value.otherLink}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-            />
+            <MultiFileDownloadForm files={value.portfolio} id='portfolio' label='포트폴리오' />
           </CRow>
+          <CRow className='mb-3'>
+            <MultiFileDownloadForm files={value.otherDocument} id='otherDocument' label='기타 추가자료' />
+          </CRow>
+          <ModalTextArrayInput
+            id='otherLink'
+            label='추가 링크 자료'
+            value={value.otherLink}
+            readOnly={isReadOnly}
+            disabled={isReadOnly}
+          />
         </CModalBody>
         <CModalFooter>
           <CButton color='primary' onClick={onCloseCheck}>
