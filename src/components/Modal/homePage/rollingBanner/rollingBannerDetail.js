@@ -1,5 +1,15 @@
 import {useState} from 'react'
-import {CModal, CButton, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import {
+  CModal,
+  CButton,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
+  CRow,
+  CFormTextarea,
+  CFormLabel,
+} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 
@@ -40,7 +50,7 @@ const RollingBannerDetail = ({value, visible, setVisible, onChange, isReadOnly, 
             <ModalInput
               onChange={onChange}
               id='title'
-              placeholder='배너 타이틀'
+              placeholder='공백 포함 30자 이내로 입력해주세요.'
               label='배너 타이틀'
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -56,6 +66,18 @@ const RollingBannerDetail = ({value, visible, setVisible, onChange, isReadOnly, 
               readOnly={isReadOnly}
               disabled={isReadOnly}
               value={value.img}
+            />
+          </CRow>
+          <CRow>
+            <CFormLabel>문구</CFormLabel>
+            <CFormTextarea
+              placeholder='공백 포함 150자'
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              onChange={onChange}
+              value={value.content}
+              rows={15}
+              id='content'
             />
           </CRow>
         </CModalBody>
