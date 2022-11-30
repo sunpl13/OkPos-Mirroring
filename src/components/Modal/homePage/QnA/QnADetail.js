@@ -10,7 +10,6 @@ import {
   CButton,
   CFormTextarea,
 } from '@coreui/react'
-import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
@@ -78,7 +77,6 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
         <CModalBody>
           <CRow className='mb-3'>
             <ModalInput
-              xs={4}
               onChange={onChange}
               id='inquiryId'
               placeholder='No.'
@@ -87,31 +85,17 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
               disabled={true}
               value={value.inquiryId === -1 ? '' : value.inquiryId}
             />
-          </CRow>
-
-          <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
               id='name'
               placeholder='이름을 입력해주세요'
               label='이름'
               value={value.name}
-              isRequired={true}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-            />
-
-            <ModalInput
-              onChange={onChange}
-              id='number'
-              placeholder='phone number'
-              label='전화번호'
-              value={value.number}
-              isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
           </CRow>
+
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
@@ -119,21 +103,17 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
               placeholder='email'
               label='이메일'
               value={value.email}
-              isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
-            <ModalSelect
+            <ModalInput
+              onChange={onChange}
+              id='number'
+              placeholder='phone number'
+              label='전화번호'
+              value={value.number}
               readOnly={isReadOnly}
               disabled={isReadOnly}
-              onChange={onChange}
-              size='sm'
-              id='categoryEnglish'
-              options={inquiries}
-              value={value.categoryEnglish}
-              isRequired={true}
-              placeholder='선택해주세요'
-              label='문의 유형'
             />
           </CRow>
           <CRow>
