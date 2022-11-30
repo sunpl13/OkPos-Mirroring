@@ -190,11 +190,13 @@ const InquiryList = () => {
     if (window.confirm('저장 하시겠습니까?')) {
       if (inquiryReplyId) {
         // update
-        onUpdateInquiryAnswer(inquiryId, inquiryReplyId, inquiryReplyContent)
+        await onUpdateInquiryAnswer(inquiryId, inquiryReplyId, inquiryReplyContent)
       } else {
         // create
-        onCreateMallInquiryAnswer(inquiryId, inquiryReplyContent)
+        await onCreateMallInquiryAnswer(inquiryId, inquiryReplyContent)
       }
+
+      await onLoadMallInquiryList()
       setIsReadOnly(true)
       setIsUpdate(false)
     }

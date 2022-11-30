@@ -98,6 +98,10 @@ const ListTemplate = ({
         return 'success'
       case 'INACTIVE':
         return 'danger'
+      case true:
+        return 'success'
+      case false:
+        return 'danger'
       default:
         return 'primary'
     }
@@ -110,6 +114,10 @@ const ListTemplate = ({
         return '활성화'
       case 'INACTIVE':
         return '비활성화'
+      case true:
+        return '완료'
+      case false:
+        return '미완료'
       default:
         return '기타'
     }
@@ -243,6 +251,11 @@ const ListTemplate = ({
           status: ({status}) => (
             <td>
               <CBadge color={getBadgeColor(status)}>{getBadgeText(status)}</CBadge>
+            </td>
+          ),
+          reply: ({reply}) => (
+            <td>
+              <CBadge color={getBadgeColor(reply)}>{getBadgeText(reply)}</CBadge>
             </td>
           ),
           // 이미지
