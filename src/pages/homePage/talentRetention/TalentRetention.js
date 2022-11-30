@@ -21,9 +21,10 @@ const TalentRetention = () => {
     phoneNumber: '',
     position: '',
     registeredAt: new Date(),
-    portfolio: '',
-    otherDocument: '',
+    portfolio: [],
+    otherDocument: [],
     otherLink: '',
+    resume: [],
   })
 
   const onLoadTalentPoolList = async () => {
@@ -82,9 +83,10 @@ const TalentRetention = () => {
       phoneNumber: '',
       position: '',
       registeredAt: new Date(),
-      portfolio: '',
-      otherDocument: '',
+      portfolio: [],
+      otherDocument: [],
       otherLink: '',
+      resume: [],
     })
     setShowModal(!showModal)
   }
