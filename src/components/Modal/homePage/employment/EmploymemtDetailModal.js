@@ -13,7 +13,7 @@ import PropTypes from 'prop-types'
 import {useDispatch} from 'react-redux'
 import {isEmpty} from '../../../../utils/utility'
 import moment from 'moment'
-import {sendFileUrlFormat} from '../../../../utils/awsCustom'
+import {sendImageUrlFormat} from '../../../../utils/awsCustom'
 
 export const category = [
   {key: 'SERVICE_PLANNING', value: '서비스 기획'},
@@ -126,7 +126,7 @@ const EmploymemtDetailModal = ({
       if (!validateCheck()) {
         return
       }
-      const urls = sendFileUrlFormat(fileList)
+      const urls = sendImageUrlFormat(fileList)
       const {data} = await ApiConfig.request({
         data: {
           category: value.categoryEnglish,
@@ -200,7 +200,7 @@ const EmploymemtDetailModal = ({
   const onUpdate = async () => {
     const startTime = moment(value.startedAt).format('YYYY.MM.DD 00:00:00')
     const endTime = moment(value.closedAt).format('YYYY.MM.DD 23:59:59')
-    const urls = sendFileUrlFormat(fileList)
+    const urls = sendImageUrlFormat(fileList)
 
     try {
       if (!validateCheck()) {
