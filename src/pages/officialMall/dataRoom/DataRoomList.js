@@ -74,7 +74,7 @@ const DataRoomList = () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.POST,
-        url: EndPoint.POST_MALL_DATAROOMS,
+        url: EndPoint.POST_MALL_DATAROOM,
         data: {
           category: item.category,
           title: item.title,
@@ -123,7 +123,7 @@ const DataRoomList = () => {
         }
         return
       }
-      setSelectedItem(item)
+      alert(res?.message)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -189,16 +189,12 @@ const DataRoomList = () => {
     })
   }
 
+  // 객체 to key value
   const handleMultiFileUrl = array => {
-    console.log(array)
-    let urls = []
-    array.map(item => {
-      urls.push({
-        file: item.url,
-        fileTitle: item.name,
-      })
-    })
-    return urls
+    const tempFiles = array.reduce((accumulator, value) => {
+      return {...accumulator, [value.name]: value.url}
+    }, {})
+    return tempFiles
   }
 
   const handleDetailModalUpdate = async () => {
@@ -206,20 +202,22 @@ const DataRoomList = () => {
     selectedItem.image =
       'https://homepage-test-resource.s3.ap-northeast-2.amazonaws.com/admin/files/mall/dataroom/test-ge3e510db1_640.jpg'
 
-    selectedItem.files = handleMultiFileUrl(fileList)
-
     // validation
     if (!title) return alert('제목을 입력해주세요')
     if (!category) return alert('카테고리를 선택해주세요')
-    if (!selectedItem.image) return alert('이미지를 등록해주세요')
-    //if (!selectedItem.files) return alert('자료를 등록해주세요')
+    if (!content) return alert('본문을 입력해주세요')
+    if (!image) return alert('이미지를 등록해주세요')
+    if (!fileList) return alert('자료를 등록해주세요')
 
-    console.log(selectedItem)
+    selectedItem.files = handleMultiFileUrl(fileList)
+
+    console.log(fileList, selectedItem.files)
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (dataRoomId) {
         // update
         await onUpdateMallDataRoom(selectedItem)
+        await onLoadMallDataRoom(dataRoomId)
         setIsReadOnly(true)
         setIsUpdate(false)
       } else {
@@ -227,6 +225,7 @@ const DataRoomList = () => {
         await onCreateMallDataRoom(selectedItem)
         setShowModal(false)
       }
+      await setFileList([])
       await onLoadMallDataRoomList()
     }
   }

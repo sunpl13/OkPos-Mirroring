@@ -1,5 +1,4 @@
-import {useEffect, useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useEffect} from 'react'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import ModalTextArrayInput from '../../forms/inputForm/ModalTextArrayInput'
 import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
@@ -10,7 +9,6 @@ import {dataRoomCategoryOptions} from '../../../utils/categoryOptions/officailMa
 const DataRoomModal = ({
   onChange,
   item,
-  options,
   visible,
   setVisible,
   onUpdate,

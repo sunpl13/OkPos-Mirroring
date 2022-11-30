@@ -9,12 +9,11 @@ import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
 const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath}) => {
   // files = 조회를 통해 가져온 데이터가 있는 경우
   useEffect(() => {
-    console.log(files)
     if (files && files.length > 0) {
       setFileList(
         files.map((file, index) => ({
           key: index,
-          uid: file.file,
+          uid: index,
           name: file.fileTitle,
           status: 'done',
           url: file.file,
@@ -129,7 +128,7 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
 
   return (
     <>
-      <DivBox className={disabled ? 'disabled' : ''}>
+      <DivBox className={disabled}>
         <CFormLabel className=' col-form-label'>{label || ''}</CFormLabel>
         <Upload.Dragger {...props} id={id}>
           <p className='ant-upload-drag-icon'>
