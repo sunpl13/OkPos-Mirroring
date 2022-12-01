@@ -135,7 +135,7 @@ const NoticeList = () => {
           })
           console.log(data)
           if (!data.isSuccess || isEmpty(data?.result)) {
-            return
+            return alert(data?.message)
           }
           if (data?.code === 1000) {
             alert(data.message)
@@ -144,7 +144,8 @@ const NoticeList = () => {
             alert(data?.message)
           }
         } catch (error) {
-          console.log(error)
+          console.log(error, 'asdasd')
+          //return alert(data.message)
         }
         setShowAddModal(false)
       }

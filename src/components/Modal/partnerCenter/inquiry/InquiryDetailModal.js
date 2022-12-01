@@ -2,6 +2,7 @@ import {CForm, CFormTextarea, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import DetailModalTemplate from '../DetailModalTemplate'
+import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 
 const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, replies, onDelete}) => {
   const {id, userName, userPhoneNum, content, inquiryCategory, inquiryFiles, inquiryReplies} = value
@@ -61,6 +62,9 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, repli
           onChange={onChange}
         />
       </CForm>
+      <CRow className={'p-2'}>
+        <ModalQuillEditor />
+      </CRow>
     </DetailModalTemplate>
   )
 }

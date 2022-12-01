@@ -1,4 +1,5 @@
 import {CCol, CFormTextarea} from '@coreui/react'
+import React from 'react'
 
 const ModalTextArrayInput = ({id, value, rows, label, onChange, text, readOnly, disabled}) => {
   return (
