@@ -64,7 +64,7 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, repli
       </CForm>
       */}
       <CRow className={'p-2'}>
-        <ModalQuillEditor id='content' onChange={setValue} />
+        <ModalQuillEditor id='content' label={'문의 답변'} onChange={setValue} />
       </CRow>
     </DetailModalTemplate>
   )

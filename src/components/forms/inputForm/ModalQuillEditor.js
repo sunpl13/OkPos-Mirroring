@@ -1,12 +1,17 @@
-import React, {useMemo, useRef, useState} from 'react'
+import React, {useMemo, useRef} from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import PropTypes from 'prop-types'
-import {CCol} from '@coreui/react'
+import {CCol, CFormLabel} from '@coreui/react'
 
-const ModalQuillEditor = ({id, value, setValue}) => {
+const ModalQuillEditor = ({
+  id, // Tag ID
+  value, // useState
+  setValue, // setUseState
+  label, // Title
+  isRequired, // isRequired
+}) => {
   const QuillRef = useRef()
-  const [contents, setContents] = useState('')
 
   // 이미지를 업로드 하기 위한 함수
   const imageHandler = () => {
@@ -22,14 +27,13 @@ const ModalQuillEditor = ({id, value, setValue}) => {
     // 파일이 input 태그에 담기면 실행 될 함수
     input.onchange = async () => {
       const file = input.files
+      console.log(file)
       if (file !== null) {
         formData.append('image', file[0])
-        // 저의 경우 파일 이미지를 서버에 저장했기 때문에
-        // 백엔드 개발자분과 통신을 통해 이미지를 저장하고 불러왔습니다.
         try {
           const res = (url = res.data.url)
           // 커서의 위치를 알고 해당 위치에 이미지 태그를 넣어주는 코드
-          // 해당 DOM의 데이터가 필요하기에 useRef를 사용한다.
+          // 해당 DOM의 데이터가 필요하기에 useRef를 사용.
           const range = QuillRef.current?.getEditor().getSelection()?.index
           if (range !== null && range !== undefined) {
             let quill = QuillRef.current?.getEditor()
@@ -47,8 +51,8 @@ const ModalQuillEditor = ({id, value, setValue}) => {
     }
   }
 
-  const modules = useMemo(
-    () => ({
+  const modules = useMemo(() => {
+    return {
       toolbar: {
         container: [
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
@@ -60,12 +64,14 @@ const ModalQuillEditor = ({id, value, setValue}) => {
           image: imageHandler,
         },
       },
-    }),
-    [],
-  )
+    }
+  }, [])
 
   return (
     <CCol style={{height: '400px'}} className={'pb-5'}>
+      <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
+        <span className={isRequired && 'required'}>{label || ' * '}</span>
+      </CFormLabel>
       <ReactQuill
         id={id || ''}
         ref={element => {
@@ -95,4 +101,5 @@ ModalQuillEditor.propTypes = {
   text: PropTypes.string,
   readOnly: PropTypes.string,
   disabled: PropTypes.string,
+  isRequired: PropTypes.bool,
 }
