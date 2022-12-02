@@ -21,9 +21,7 @@ const UserInquiryList = () => {
   })
   const [editCheck, setEditCheck] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [inquiryMsg, setInquiryMsg] = useState({
-    content: '',
-  })
+  const [inquiryMsg, setInquiryMsg] = useState('')
 
   // 1:1 문의 리스트 API
   const getInquiry = async () => {
@@ -105,8 +103,13 @@ const UserInquiryList = () => {
       }
     }
   }
-  const handleInquiryModalOnChange = ({target: {id, value}}) => {
-    setInquiryMsg({[id]: value})
+  //const handleInquiryModalOnChange = ({target: {id, value}}) => {
+  //     console.log(id, value)
+  //     setInquiryMsg({[id]: value})
+  //   }
+  const handleInquiryModalOnChange = htmlTagValue => {
+    setInquiryMsg(htmlTagValue)
+    console.log(inquiryMsg)
   }
   const handleInquiryModalUpdate = async () => {
     const {id} = selectedItem
@@ -185,6 +188,7 @@ const UserInquiryList = () => {
         onChange={handleInquiryModalOnChange}
         upDate={handleInquiryModalUpdate}
         onDelete={handleInquiryModalOnDelete}
+        setValue={setInquiryMsg}
       />
     </CRow>
   )

@@ -4,10 +4,8 @@ import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import DetailModalTemplate from '../DetailModalTemplate'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 
-const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, replies, onDelete}) => {
+const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, replies, onDelete, setValue}) => {
   const {id, userName, userPhoneNum, content, inquiryCategory, inquiryFiles, inquiryReplies} = value
-  console.log(replies)
-  console.log(replies)
   return (
     <DetailModalTemplate
       visible={visible}
@@ -40,6 +38,7 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, repli
         />
       </CRow>
       <CFormTextarea id='userInquiry' value={content} readOnly={true} disabled rows={9} />
+
       <CRow className={'p-2'}>
         <ModalFilesInput
           id={'email'}
@@ -52,18 +51,20 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, repli
         />
       </CRow>
       <br />
+      {/*
       <CForm>
         <CFormTextarea
           id='content'
           placeholder={inquiryReplies.length !== 0 ? '답변 수정' : '답변 작성'}
           label={'답변 작성'}
           rows={9}
-          value={replies?.content}
+          value={replies}
           onChange={onChange}
         />
       </CForm>
+      */}
       <CRow className={'p-2'}>
-        <ModalQuillEditor />
+        <ModalQuillEditor id='content' onChange={setValue} />
       </CRow>
     </DetailModalTemplate>
   )
