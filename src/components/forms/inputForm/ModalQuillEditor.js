@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import PropTypes from 'prop-types'
 import {CCol, CFormLabel} from '@coreui/react'
+import styled from 'styled-components'
 
 const ModalQuillEditor = ({
   id, // Tag ID
@@ -10,6 +11,7 @@ const ModalQuillEditor = ({
   setValue, // setUseState
   label, // Title
   isRequired, // isRequired
+  readOnly = false,
 }) => {
   const QuillRef = useRef()
 
@@ -72,7 +74,7 @@ const ModalQuillEditor = ({
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
         <span className={isRequired && 'required'}>{label || ' * '}</span>
       </CFormLabel>
-      <ReactQuill
+      <EditorStyle
         id={id || ''}
         ref={element => {
           if (element !== null) {
@@ -82,6 +84,7 @@ const ModalQuillEditor = ({
         value={value}
         onChange={setValue}
         modules={modules}
+        readOnly={readOnly}
         theme='snow'
         placeholder='내용을 입력해주세요.'
         style={{height: '100%'}}
@@ -92,6 +95,13 @@ const ModalQuillEditor = ({
 
 export default ModalQuillEditor
 
+const EditorStyle = styled(ReactQuill)`
+  background-color: ${({readOnly}) => (readOnly ? '#d8dbe0' : 'transparent')};
+
+  .ql-toolbar {
+    display: ${({readOnly}) => (readOnly ? 'none' : 'block')};
+  }
+`
 ModalQuillEditor.propTypes = {
   id: PropTypes.string,
   value: PropTypes.string,
