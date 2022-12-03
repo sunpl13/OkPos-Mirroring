@@ -5,6 +5,7 @@ import {CFormLabel} from '@coreui/react'
 import AWS from 'aws-sdk'
 import {useEffect} from 'react'
 import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
+import MultiFileDownloadForm from '../downloadForm/MultiFileDownloadForm'
 
 const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath}) => {
   // files = 조회를 통해 가져온 데이터가 있는 경우
@@ -101,16 +102,20 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
 
   return (
     <>
-      <DivBox className={disabled ? 'disabled' : ''}>
-        <CFormLabel className=' col-form-label'>{label || ''}</CFormLabel>
-        <Upload.Dragger {...props} id={id}>
-          <p className='ant-upload-drag-icon'>
-            <InboxOutlined />
-          </p>
-          <p className='ant-upload-text'>업로드하려면 이 영역으로 파일을 클릭하거나 드래그하세요.</p>
-          <p className='ant-upload-hint'>추가설명</p>
-        </Upload.Dragger>
-      </DivBox>
+      {disabled ? (
+        <MultiFileDownloadForm files={files} id={id} label={label} />
+      ) : (
+        <DivBox className={disabled ? 'disabled' : ''}>
+          <CFormLabel className=' col-form-label'>{label || ''}</CFormLabel>
+          <Upload.Dragger {...props} id={id}>
+            <p className='ant-upload-drag-icon'>
+              <InboxOutlined />
+            </p>
+            <p className='ant-upload-text'>업로드하려면 이 영역으로 파일을 클릭하거나 드래그하세요.</p>
+            <p className='ant-upload-hint'>추가설명</p>
+          </Upload.Dragger>
+        </DivBox>
+      )}
     </>
   )
 }
