@@ -80,33 +80,7 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
 
   // 파일 삭제
   const onDelete = item => {
-    AWS.config.update({
-      region: process.env.REACT_APP_AWS_REGION,
-      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-    })
-
-    const S3 = new AWS.S3()
-
-    const objParams = {
-      Bucket: `${process.env.REACT_APP_AWS_BUCKET_NAME}`,
-      Key: item.uid,
-    }
-
-    S3.deleteObject(objParams, (err, data) => {
-      if (err) {
-        setFileList(
-          fileList.map(file => {
-            if (file.uid === item.uid) {
-              return {...file, status: 'error'}
-            } else {
-              return file
-            }
-          }),
-        )
-      }
-      setFileList(fileList.filter(file => file.uid !== item.uid))
-    })
+    setFileList(fileList.filter(file => file.uid !== item.uid))
   }
 
   const props = {
