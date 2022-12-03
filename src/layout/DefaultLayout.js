@@ -45,7 +45,7 @@ const DefaultLayout = () => {
     let timeoutId
     if (toast.visibleState) {
       timeoutId = setTimeout(() => {
-        dispatch({type: 'set', visibleState: false, toastColor: 'success', textColor: 'white', text: ''})
+        dispatch({type: 'SET_TOAST_STATE', visibleState: false, toastColor: 'success', textColor: 'white', text: ''})
       }, 3000)
     }
     return () => {

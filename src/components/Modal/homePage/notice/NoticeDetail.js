@@ -75,7 +75,7 @@ const NoticeDetail = ({
         getList()
         setshowDeleteModal(false)
         dispatch({
-          type: 'set',
+          type: 'SET_TOAST_STATE',
           visibleState: true,
           toastColor: 'success',
           textColor: 'white',
@@ -104,7 +104,13 @@ const NoticeDetail = ({
       if (data.isSuccess) {
         getList()
         setshowDeleteModal(false)
-        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+        dispatch({
+          type: 'SET_TOAST_STATE',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: `${data.result}`,
+        })
         onClose()
       }
     } catch (error) {
@@ -138,7 +144,13 @@ const NoticeDetail = ({
         getList()
         onClose()
         setshowDeleteModal(false)
-        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+        dispatch({
+          type: 'SET_TOAST_STATE',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: `${data.result}`,
+        })
       }
     } catch (error) {
       alert(error)

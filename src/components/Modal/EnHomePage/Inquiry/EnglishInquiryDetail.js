@@ -38,7 +38,13 @@ const EnglishInquiryDetail = ({getList, value, visible, setVisible, onChange, is
         setCloseCheckModalState(false)
         setIsReadOnly(true)
         setVisible(false)
-        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+        dispatch({
+          type: 'SET_TOAST_STATE',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: `${data.result}`,
+        })
       }
     } catch (error) {
       alert(error)

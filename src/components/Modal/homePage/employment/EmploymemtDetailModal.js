@@ -158,7 +158,7 @@ const EmploymemtDetailModal = ({
         setIsReadOnly(true)
         setVisible(false)
         dispatch({
-          type: 'set',
+          type: 'SET_TOAST_STATE',
           visibleState: true,
           toastColor: 'success',
           textColor: 'white',
@@ -190,7 +190,13 @@ const EmploymemtDetailModal = ({
         setCloseCheckModalState(false)
         setIsReadOnly(true)
         setVisible(false)
-        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+        dispatch({
+          type: 'SET_TOAST_STATE',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: `${data.result}`,
+        })
       }
     } catch (error) {
       alert(error)
@@ -239,7 +245,13 @@ const EmploymemtDetailModal = ({
         setCloseCheckModalState(false)
         setIsReadOnly(true)
         setVisible(false)
-        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+        dispatch({
+          type: 'SET_TOAST_STATE',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: `${data.result}`,
+        })
       }
     } catch (error) {
       alert(error)
