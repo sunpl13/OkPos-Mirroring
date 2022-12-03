@@ -10,6 +10,7 @@ const Notice = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
+  const [content, setContent] = useState('') //quill용 state
   const [selectedItem, setSelectedItem] = useState({
     noticeId: -1,
     title: '',
@@ -49,8 +50,8 @@ const Notice = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.NOTICE}/:id`,
       })
-
       setSelectedItem(data.result)
+      setContent(data.result.content)
     } catch (error) {
       alert(error)
     }
@@ -75,6 +76,7 @@ const Notice = () => {
       imageUrls: [],
       fileUrls: [],
     })
+    setContent('')
     setShowModal(!showModal)
   }
 
@@ -127,6 +129,8 @@ const Notice = () => {
         setIsReadOnly={setIsReadOnly}
         getList={onLoadNoticeList}
         setSelectedItem={setSelectedItem}
+        content={content}
+        setContent={setContent}
       />
     </>
   )

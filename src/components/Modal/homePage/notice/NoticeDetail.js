@@ -12,8 +12,20 @@ import {isEmpty} from '../../../../utils/utility'
 import moment from 'moment'
 import {sendImageUrlFormat} from '../../../../utils/awsCustom'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
+import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 
-const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
+const NoticeDetail = ({
+  getList,
+  value,
+  visible,
+  setSelectedItem,
+  setContent,
+  content,
+  setVisible,
+  onChange,
+  isReadOnly,
+  setIsReadOnly,
+}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const [iamgeList, setImageList] = useState([])
@@ -32,7 +44,7 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
       alert('공지 제목을 입력해주세요.')
       return false
     }
-    if (isEmpty(value.content)) {
+    if (isEmpty(content)) {
       alert('공지 내용을 입력해주세요.')
       return false
     }
@@ -50,7 +62,7 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
       const {data} = await ApiConfig.request({
         data: {
           title: value.title,
-          content: value.content,
+          content: content,
           imageUrls: imgUrls,
           fileUrls: fileUrls,
         },
@@ -59,14 +71,10 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
         method: HttpMethod.POST,
         url: `${EndPoint.NOTICE}`,
       })
+      console.log(data)
       if (data.isSuccess) {
         getList()
-        setImageList([])
-        setFileList([])
         setshowDeleteModal(false)
-        setCloseCheckModalState(false)
-        setIsReadOnly(true)
-        setVisible(false)
         dispatch({
           type: 'set',
           visibleState: true,
@@ -74,6 +82,7 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
           textColor: 'white',
           text: '공지가 정상적으로 생성 되었습니다.',
         })
+        onClose()
       } else {
         alert(data.message)
       }
@@ -95,13 +104,9 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
       })
       if (data.isSuccess) {
         getList()
-        setImageList([])
-        setFileList([])
         setshowDeleteModal(false)
-        setCloseCheckModalState(false)
-        setIsReadOnly(true)
-        setVisible(false)
         dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+        onClose()
       }
     } catch (error) {
       alert(error)
@@ -119,7 +124,7 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
       const {data} = await ApiConfig.request({
         data: {
           title: value.title,
-          content: value.content,
+          content: content,
           imageUrls: imgUrls,
           fileUrls: fileUrls,
         },
@@ -132,12 +137,8 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
       })
       if (data.isSuccess) {
         getList()
-        setImageList([])
-        setFileList([])
+        onClose()
         setshowDeleteModal(false)
-        setCloseCheckModalState(false)
-        setIsReadOnly(true)
-        setVisible(false)
         dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
       }
     } catch (error) {
@@ -153,7 +154,14 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
       setIsReadOnly(true)
       setImageList([])
       setFileList([])
-      setSelectedItem({})
+      setSelectedItem({
+        noticeId: -1,
+        title: '',
+        createdAt: '',
+        content: '',
+        imageUrls: [],
+        fileUrls: [],
+      })
     }
   }
 
@@ -162,8 +170,16 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
     setImageList([])
     setFileList([])
     setVisible(false)
+    setContent('')
     setIsReadOnly(true)
-    setSelectedItem({})
+    setSelectedItem({
+      noticeId: -1,
+      title: '',
+      createdAt: '',
+      content: '',
+      imageUrls: [],
+      fileUrls: [],
+    })
   }
   return (
     <>
@@ -195,7 +211,15 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
             />
           </CRow>
           <CRow className='mb-3'>
-            <CFormLabel className='required'>공지 본문</CFormLabel>
+            <ModalQuillEditor
+              id='content'
+              value={content}
+              isRequired={true}
+              readOnly={isReadOnly}
+              setValue={setContent}
+              label='공지 본문'
+            />
+            {/* <CFormLabel className='required'>공지 본문</CFormLabel>
             <CFormTextarea
               placeholder='공지 본문'
               readOnly={isReadOnly}
@@ -204,9 +228,9 @@ const NoticeDetail = ({getList, value, visible, setSelectedItem, setVisible, onC
               value={value.content}
               rows={15}
               id='content'
-            />
+            /> */}
           </CRow>
-          <CRow className='mb-3'>
+          <CRow className='mb-3 pt-3'>
             <ModalImageInput
               id='image'
               label='이미지 첨부'
