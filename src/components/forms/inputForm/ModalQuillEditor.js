@@ -1,7 +1,6 @@
 import React, {useMemo, useRef} from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import PropTypes from 'prop-types'
 import {CCol, CFormLabel} from '@coreui/react'
 import styled from 'styled-components'
 
@@ -102,14 +101,3 @@ const EditorStyle = styled(ReactQuill)`
     display: ${({readOnly}) => (readOnly ? 'none' : 'block')};
   }
 `
-ModalQuillEditor.propTypes = {
-  id: PropTypes.string,
-  value: PropTypes.string,
-  setValue: PropTypes.func,
-  label: PropTypes.string,
-  onChange: PropTypes.func,
-  text: PropTypes.string,
-  readOnly: PropTypes.string,
-  disabled: PropTypes.string,
-  isRequired: PropTypes.bool,
-}
