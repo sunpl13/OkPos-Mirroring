@@ -51,18 +51,6 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, repli
         />
       </CRow>
       <br />
-      {/*
-      <CForm>
-        <CFormTextarea
-          id='content'
-          placeholder={inquiryReplies.length !== 0 ? '답변 수정' : '답변 작성'}
-          label={'답변 작성'}
-          rows={9}
-          value={replies}
-          onChange={onChange}
-        />
-      </CForm>
-      */}
       <CRow className={'p-2'}>
         <ModalQuillEditor id='content' label={'문의 답변'} onChange={setValue} />
       </CRow>

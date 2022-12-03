@@ -6,6 +6,7 @@ import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
+import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 
 const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
   const {title, content, noticeFiles, noticeImages, category} = value

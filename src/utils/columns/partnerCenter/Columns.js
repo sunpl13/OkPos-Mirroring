@@ -413,22 +413,25 @@ export const managementTargetColumns = [
 // 교육 일정 / 교육 일정 리스트
 export const educationScheduleListColumns = [
   {
-    key: 'no',
+    key: 'id',
+    label: 'No',
     _props: {color: 'primary', className: 'no'},
   },
   {
     key: 'title',
+    label: 'No',
     _props: {color: 'primary', className: 'title'},
   },
 
   {
     key: 'createdAt',
+    label: '신청일',
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },
   {
     key: 'deleteBtn',
-    label: ' ',
+    label: '삭제',
     _props: {color: 'primary', className: 'deleteBtn'},
     filter: false,
     sorter: false,

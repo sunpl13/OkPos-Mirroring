@@ -18,6 +18,7 @@ export const EndPoint = {
   GET_PARTNER_DATAROOMS: `${API}/admin/partner/dataRooms`, // 자료실 리스트
   GET_PARTNER_ORDERS: `${API}/admin/partner/orders`, // 발주신청 리스트
   GET_PARTNER_MAINTENANCES: `${API}/admin/partner/maintenances`, // 유지보수 신청 리스트
+  GET_PARTNER_SCHEDULES: `${API}/admin/partner/educations/schedules`, // 교육일정 리스트
 
   // ------ 가맹점 전용 공식몰 페이지
   GET_MALL_USERS: `${API}/admin/mall/users`,
@@ -69,6 +70,7 @@ const ApiMapper = {
     [EndPoint.GET_PARTNER_AGENCYAPPLICANT]: {},
     [EndPoint.GET_PARTNER_ORDERS]: {},
     [EndPoint.GET_PARTNER_MAINTENANCES]: {},
+    [EndPoint.GET_PARTNER_SCHEDULES]: {},
   },
   post: {
     [EndPoint.POST_LOGIN]: {},
