@@ -1,3 +1,6 @@
+//Action
+const SET_TOAST_STATE = 'SET_TOAST_STATE'
+
 const initialState = {
   visibleState: false,
   text: '',
@@ -5,13 +8,13 @@ const initialState = {
   textColor: 'white',
 }
 
-const testState = (state = initialState, {type, ...rest}) => {
+const toastState = (state = initialState, {type, ...rest}) => {
   switch (type) {
-    case 'set':
+    case SET_TOAST_STATE:
       return {...state, ...rest}
     default:
       return state
   }
 }
 
-export default testState
+export default toastState

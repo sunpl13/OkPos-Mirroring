@@ -1,15 +1,11 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-
 import {CImage, CSidebar, CSidebarBrand, CSidebarNav, CSidebarToggler} from '@coreui/react'
-
 import {AppSidebarNav} from './AppSidebarNav'
-
 import neordinaryLogo from '../assets/neordinary-logo.svg'
-
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
-
+import {sidebarUnfoldableToggle} from '../store/sidebars'
 // sidebar nav config
 import navigation from '../_nav'
 
@@ -24,7 +20,7 @@ const AppSidebar = () => {
       unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={visible => {
-        dispatch({type: 'set', sidebarShow: visible})
+        dispatch({type: 'SIDEBAR_TOGGLE', payload: visible})
       }}
     >
       <CSidebarBrand className='d-none d-md-flex' to='/'>
@@ -35,10 +31,7 @@ const AppSidebar = () => {
           <AppSidebarNav items={navigation} />
         </SimpleBar>
       </CSidebarNav>
-      <CSidebarToggler
-        className='d-none d-lg-flex'
-        onClick={() => dispatch({type: 'set', sidebarUnfoldable: !unfoldable})}
-      />
+      <CSidebarToggler className='d-none d-lg-flex' onClick={() => dispatch(sidebarUnfoldableToggle())} />
     </CSidebar>
   )
 }

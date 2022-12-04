@@ -9,6 +9,7 @@ const ModalSelect = ({
   value,
   readOnly,
   id,
+  xs,
   disabled = false,
   isRequired,
   options,
@@ -24,7 +25,7 @@ const ModalSelect = ({
       <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
         <span className={isRequired ? 'required' : ''}>{label || ' * '}</span>
       </CFormLabel>
-      <CCol>
+      <CCol xs={xs}>
         <CFormSelect value={value} disabled={disabled} id={id} size={size} onChange={onChange} readOnly={readOnly}>
           <option>{placeholder}</option>
           {newOptions}

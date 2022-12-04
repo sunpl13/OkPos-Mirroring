@@ -5,6 +5,7 @@ import {CFormLabel} from '@coreui/react'
 import AWS from 'aws-sdk'
 import {useEffect} from 'react'
 import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
+import MultiFileDownloadForm from '../downloadForm/MultiFileDownloadForm'
 
 const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath}) => {
   // files = 조회를 통해 가져온 데이터가 있는 경우
@@ -80,33 +81,7 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
 
   // 파일 삭제
   const onDelete = item => {
-    AWS.config.update({
-      region: process.env.REACT_APP_AWS_REGION,
-      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-    })
-
-    const S3 = new AWS.S3()
-
-    const objParams = {
-      Bucket: `${process.env.REACT_APP_AWS_BUCKET_NAME}`,
-      Key: item.uid,
-    }
-
-    S3.deleteObject(objParams, (err, data) => {
-      if (err) {
-        setFileList(
-          fileList.map(file => {
-            if (file.uid === item.uid) {
-              return {...file, status: 'error'}
-            } else {
-              return file
-            }
-          }),
-        )
-      }
-      setFileList(fileList.filter(file => file.uid !== item.uid))
-    })
+    setFileList(fileList.filter(file => file.uid !== item.uid))
   }
 
   const props = {
@@ -127,16 +102,20 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
 
   return (
     <>
-      <DivBox className={disabled ? 'disabled' : ''}>
-        <CFormLabel className=' col-form-label'>{label || ''}</CFormLabel>
-        <Upload.Dragger {...props} id={id}>
-          <p className='ant-upload-drag-icon'>
-            <InboxOutlined />
-          </p>
-          <p className='ant-upload-text'>업로드하려면 이 영역으로 파일을 클릭하거나 드래그하세요.</p>
-          <p className='ant-upload-hint'>추가설명</p>
-        </Upload.Dragger>
-      </DivBox>
+      {disabled ? (
+        <MultiFileDownloadForm files={files} id={id} label={label} />
+      ) : (
+        <DivBox className={disabled ? 'disabled' : ''}>
+          <CFormLabel className=' col-form-label'>{label || ''}</CFormLabel>
+          <Upload.Dragger {...props} id={id}>
+            <p className='ant-upload-drag-icon'>
+              <InboxOutlined />
+            </p>
+            <p className='ant-upload-text'>업로드하려면 이 영역으로 파일을 클릭하거나 드래그하세요.</p>
+            <p className='ant-upload-hint'>추가설명</p>
+          </Upload.Dragger>
+        </DivBox>
+      )}
     </>
   )
 }

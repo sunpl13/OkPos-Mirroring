@@ -16,12 +16,14 @@ const RollingBanner = () => {
   const [selectedItem, setSelectedItem] = useState({
     bannerId: -1,
     title: '',
-    imgUrl: '',
+    imgUrl: [],
+    content: '',
   })
   const [item, setItem] = useState({
     bannerId: -1,
     title: '',
-    imgUrl: '',
+    imgUrl: [],
+    content: '',
   })
 
   useEffect(() => {
@@ -38,9 +40,30 @@ const RollingBanner = () => {
     setSelectedItem(item)
     setShowModal(!showModal)
   }
+  const getStringLength = str => {
+    let strLength = 0
+
+    for (let i = 0; i < str.length; i++) {
+      let code = str.charCodeAt(i)
+      let ch = str.substr(i, 1).toUpperCase()
+
+      code = parseInt(code)
+
+      if ((ch < '0' || ch > '9') && (ch < 'A' || ch > 'Z') && (code > 255 || code < 0)) strLength = strLength + 2
+      else strLength = strLength + 1
+    }
+    return strLength
+  }
 
   const handlePopUpOnChange = ({target}) => {
     const {id, value} = target
+
+    if (id === 'title' && getStringLength(value) > 30) {
+      alert('배너 타이틀은 공백 포함 30자 까지입니다.')
+    }
+    if (id === 'content' && getStringLength(value) > 30) {
+      alert('문구는 공백 포함 150자 까지입니다.')
+    }
     setSelectedItem({
       ...selectedItem,
       [id]: value,
@@ -52,7 +75,8 @@ const RollingBanner = () => {
     setSelectedItem({
       bannerId: -1,
       title: '',
-      imgUrl: '',
+      imgUrl: [],
+      content: '',
     })
     setShowModal(!showModal)
   }
