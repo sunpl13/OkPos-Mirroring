@@ -12,6 +12,17 @@ import {isEmpty} from '../../../../utils/utility'
 import {sendImageUrlFormat} from '../../../../utils/awsCustom'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
+import ModalSelect from '../../../forms/inputForm/ModalSelect'
+
+export const category = [
+  {key: 'ALL', value: '전체'},
+  {key: 'HARDWARE', value: '하드웨어'},
+  {key: 'SOFTWARE', value: '소프트웨어'},
+  {key: 'RENTAL', value: '렌탈'},
+  {key: 'ADDITIONAL_SERVICE', value: '부가서비스'},
+  {key: 'MAINTENANCE', value: '유지보수'},
+]
+
 const EnglishDataRoomDetail = ({
   getList,
   value,
@@ -38,6 +49,10 @@ const EnglishDataRoomDetail = ({
   }
 
   const validateCheck = () => {
+    if (isEmpty(value.category)) {
+      alert('제목을 입력해주세요.')
+      return false
+    }
     if (isEmpty(value.title)) {
       alert('제목을 입력해주세요.')
       return false
@@ -59,6 +74,7 @@ const EnglishDataRoomDetail = ({
       const fileUrls = sendImageUrlFormat(fileList)
       const {data} = await ApiConfig.request({
         data: {
+          category: value.category,
           title: value.title,
           content: content,
           imageUrls: imgUrls,
@@ -128,6 +144,7 @@ const EnglishDataRoomDetail = ({
       const {data} = await ApiConfig.request({
         data: {
           title: value.title,
+          category: value.category,
           content: content,
           imageUrls: imgUrls,
           fileUrls: fileUrls,
@@ -168,6 +185,7 @@ const EnglishDataRoomDetail = ({
         dataRoomEnglishId: -1,
         title: '',
         createdAt: '',
+        category: '',
         content: '',
         images: [],
         files: [],
@@ -186,6 +204,7 @@ const EnglishDataRoomDetail = ({
       dataRoomEnglishId: -1,
       title: '',
       createdAt: '',
+      category: '',
       content: '',
       images: [],
       files: [],
@@ -198,6 +217,7 @@ const EnglishDataRoomDetail = ({
         <CModalBody>
           <CRow className='mb-3'>
             <ModalInput
+              xs={4}
               onChange={onChange}
               id='dataRoomEnglishId'
               placeholder='ID'
@@ -205,6 +225,20 @@ const EnglishDataRoomDetail = ({
               readOnly={true}
               disabled={true}
               value={value.dataRoomEnglishId === -1 ? '' : value.dataRoomEnglishId}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalSelect
+              options={category}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              onChange={onChange}
+              size='sm'
+              id='category'
+              value={value.category}
+              isRequired={true}
+              placeholder='선택해주세요'
+              label='카테고리'
             />
             <ModalInput
               onChange={onChange}
