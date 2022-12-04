@@ -27,20 +27,6 @@ const EducationScheduleDetailModal = ({onChange, value, visible, setVisible, upD
       </CRow>
 
       <CRow className={'p-2'}>
-        {no !== 0 && (
-          <ModalInput
-            id={'createdAt'}
-            placeholder={'등록일'}
-            label={'등록일'}
-            value={createdAt}
-            onChange={onChange}
-            readOnly={true}
-            disabled={true}
-          />
-        )}
-      </CRow>
-
-      <CRow className={'p-2'}>
         <ModalFilesInput label={'첨부 파일'} id={'files'} />
       </CRow>
       <CRow className={'p-2'}>
