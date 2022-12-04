@@ -7,12 +7,13 @@ import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 
 const EducationScheduleDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
-  const {no, title, createdAt, files, content} = value
+  const {no, title, createdAt, files, content, educationScheduleImages} = value
 
   useEffect(() => {
     if (visible) {
     }
   }, [visible])
+
   return (
     <DetailModalEditModeTemplate
       title={no !== 0 ? '교육 일정 상세' : '교육 일정 추가'}

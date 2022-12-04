@@ -15,7 +15,7 @@ const EducationScheduleList = () => {
 
   const [showModal, setShowModal] = useState(false)
 
-  // 1:1 문의 리스트 API
+  // 교육 일정 리스트 API
   const getSchedules = async () => {
     try {
       const {data} = await ApiConfig.request({
@@ -41,8 +41,9 @@ const EducationScheduleList = () => {
   }, [])
 
   /** Open Modal*/
-  const handleShowMaterialDetailModal = item => {
-    if (!item) {
+  const handleShowMaterialDetailModal = async ({id}) => {
+    console.log(id)
+    if (!id) {
       setShowModal(!showModal)
       setSelectedItem({
         no: 0,
@@ -52,9 +53,25 @@ const EducationScheduleList = () => {
         images: '',
       })
     } else {
-      setSelectedItem(item)
-      setEditCheck(item)
-      setShowModal(!showModal)
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.GET,
+          url: `${EndPoint.GET_PARTNER_SCHEDULES}/${id}`,
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+          setSelectedItem(data.result)
+          setEditCheck(data.result)
+          setShowModal(!showModal)
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
@@ -97,6 +114,7 @@ const EducationScheduleList = () => {
   }
 
   const handleOrderModalOnChange = ({target: {id, value}}) => {
+    console.log(id, value)
     setSelectedItem({
       ...selectedItem,
       [id]: value,
