@@ -36,7 +36,7 @@ const MultiFileDownloadForm = ({id, placeholder, files, label, isRequired}) => {
         <span className={isRequired ? 'required' : ''}>{label || ' * '}</span>
       </CFormLabel>
       <CCol>
-        {files.length > 0 ? (
+        {files?.length > 0 ? (
           files.map((file, index) => {
             const splitUrl = file.split('/') //   "/" 로 전체 url 을 나눈다
             const splitUrlLength = splitUrl.length

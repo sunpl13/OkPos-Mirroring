@@ -38,10 +38,10 @@ const UserList = React.lazy(() => import('./pages/partnerCenter/users/Userlist')
 const WithdrawalUsers = React.lazy(() => import('./pages/partnerCenter/users/WithdrawalUsers'))
 
 // 1:1 문의 리스트
-const UserInquiryList = React.lazy(() => import('./pages/partnerCenter/users/inquiry/UserInquiryList'))
+const UserInquiryList = React.lazy(() => import('./pages/partnerCenter/inquiry/UserInquiryList'))
 
 // 공지사항 리스트
-const NoticeList = React.lazy(() => import('./pages/partnerCenter/users/notice/NoticeList'))
+const NoticeList = React.lazy(() => import('./pages/partnerCenter/notice/NoticeList'))
 
 // 영업 데리점 딜러 지원 리스트
 const DealerSupportList = React.lazy(() => import('./pages/partnerCenter/agency/DealerSupportList'))

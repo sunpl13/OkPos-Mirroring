@@ -24,7 +24,7 @@ const Userlist = () => {
         return
       }
       if (data?.code === 1000) {
-        setItems(data.result.adminUserInfoPartnerDTOs)
+        setItems(data.result?.adminUserInfoPartnerDTOs)
       } else {
         alert(data?.message)
       }
@@ -106,33 +106,6 @@ const Userlist = () => {
       setShowModal(false)
     }
   }
-  {
-    /*
-  const handleUserItemAddModalOnClick = () => {
-    if (!item.userName) return alert('Is Not User Name')
-    if (!item.businessNumber) return alert('Is Not Business Number')
-    if (!item.phoneNumber) return alert('Is Not Phone Number')
-    if (!item.businessRegistration) return alert('Is Not Business Registration File')
-    if (!item.businessName) return alert('Is Not Business Name')
-    if (!item.businessAddress) return alert('Is Not Business Address')
-    setItems([
-      ...items,
-      {
-        ...item,
-      },
-    ])
-    setItem({
-      userName: '',
-      businessNumber: '',
-      phoneNumber: '',
-      businessRegistration: '',
-      businessName: '',
-      businessAddress: '',
-    })
-    setShowAddModal(!showAddModal)
-  }
-  */
-  }
 
   return (
     <CRow>
@@ -149,15 +122,6 @@ const Userlist = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      {/*
-      <UserAddModal
-        value={item}
-        visible={showAddModal}
-        setVisible={setShowAddModal}
-        onChange={handleDetailModalOnChange}
-        onClick={handleUserItemAddModalOnClick}
-      />
-      */}
       <UserDetailModal
         value={selectedItem}
         visible={showModal}

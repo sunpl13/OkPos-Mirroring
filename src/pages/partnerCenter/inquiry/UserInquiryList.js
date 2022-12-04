@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
-import ListTemplate from '../../../../components/list/ListTemplate'
-import InquiryDetailModal from '../../../../components/Modal/partnerCenter/inquiry/InquiryDetailModal'
-import PageHeader from '../../../../components/common/PageHeader'
-import {userInquiryListColumns} from '../../../../utils/columns/partnerCenter/Columns'
-import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
-import {EndPoint} from '../../../../dataManager/apiMapper'
-import {isEmpty} from '../../../../utils/utility'
+import ListTemplate from '../../../components/list/ListTemplate'
+import InquiryDetailModal from '../../../components/Modal/partnerCenter/inquiry/InquiryDetailModal'
+import PageHeader from '../../../components/common/PageHeader'
+import {userInquiryListColumns} from '../../../utils/columns/partnerCenter/Columns'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const UserInquiryList = () => {
   const [items, setItems] = useState([])

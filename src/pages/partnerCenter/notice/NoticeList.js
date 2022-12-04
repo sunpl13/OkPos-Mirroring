@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
-import PageHeader from '../../../../components/common/PageHeader'
-import ListTemplate from '../../../../components/list/ListTemplate'
-import NoticeDetailModal from '../../../../components/Modal/partnerCenter/notice/NoticeDetailModal'
-import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
-import NoticeAddModal from '../../../../components/Modal/partnerCenter/notice/NoticeAddModal'
-import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
-import {EndPoint} from '../../../../dataManager/apiMapper'
-import {isEmpty} from '../../../../utils/utility'
+import PageHeader from '../../../components/common/PageHeader'
+import ListTemplate from '../../../components/list/ListTemplate'
+import NoticeDetailModal from '../../../components/Modal/partnerCenter/notice/NoticeDetailModal'
+import {noticeList} from '../../../utils/columns/partnerCenter/Columns'
+import NoticeAddModal from '../../../components/Modal/partnerCenter/notice/NoticeAddModal'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const NoticeList = () => {
   const [items, setItems] = useState()
