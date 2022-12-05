@@ -1,35 +1,40 @@
 // 회원 리스트
 import {CFormSelect} from '@coreui/react'
 import React from 'react'
-
 export const userListColumns = [
   {
     key: 'id',
+    label: '번호',
     _props: {color: 'primary', className: 'userId'},
     filter: false,
   },
   {
     key: 'userName',
+    label: '회원 이름',
     _props: {color: 'primary', className: 'userName'},
     filter: false,
   },
   {
     key: 'certificateNum',
+    label: '사업자번호',
     _props: {color: 'primary', className: 'certificateNum'},
     filter: false,
   },
   {
     key: 'phoneNum',
+    lebel: '휴대폰 번호',
     _props: {color: 'primary', className: 'phoneNum'},
     filter: false,
   },
   {
     key: 'createdAt',
+    lebel: '계정 생성일',
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },
   {
     key: 'status',
+    lebel: '계정 상태',
     _props: {color: 'primary', className: 'status'},
     sorter: false,
     filter: false,
@@ -39,67 +44,77 @@ export const userListColumns = [
 export const withdrawalUsersColumns = [
   {
     key: 'userName',
+    label: '회원 이름',
     _props: {color: 'primary', className: 'userName'},
   },
   {
     key: 'createdAt',
+    label: '계정 생성일',
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
     key: 'status',
+    label: '계정 상태',
     _props: {color: 'primary', className: 'status'},
     sorter: false,
     filter: false,
   },
   {
     key: 'deletedAt',
+    label: '계정 삭제일',
     _props: {color: 'primary', className: 'deletedAt'},
   },
   {
-    key: 'phoneNumber',
-    _props: {color: 'primary', className: 'phoneNumber'},
+    key: 'phoneNum',
+    label: '휴대폰 번호',
+    _props: {color: 'primary', className: 'phoneNum'},
   },
   {
-    key: 'businessRegistration',
-    _props: {color: 'primary', className: 'businessRegistration'},
+    key: 'certificateFile',
+    label: '사업자 등록증 파일',
+    _props: {color: 'primary', className: 'certificateFile'},
   },
   {
     key: 'businessName',
+    label: '상호명',
     _props: {color: 'primary', className: 'businessName'},
   },
   {
-    key: 'businessNumber',
-    _props: {color: 'primary', className: 'businessNumber'},
+    key: 'certificateNum',
+    label: '사업자 등록번호',
+    _props: {color: 'primary', className: 'certificateNum'},
   },
   {
-    key: 'businessAddress',
-    _props: {color: 'primary', className: 'businessAddress'},
+    key: 'address',
+    label: '사업장 주소',
+    _props: {color: 'primary', className: 'address'},
   },
   {
-    key: 'secessionReason',
-    _props: {color: 'primary', className: 'secessionReason'},
+    key: 'withdrawalReason',
+    label: '탈퇴 사유',
+    _props: {color: 'primary', className: 'withdrawalReason'},
   },
 ]
 // 1:1 문의 리스트
 export const userInquiryListColumns = [
   {
-    key: 'inquiryType',
-    _props: {color: 'primary', className: 'inquiryType'},
+    key: 'inquiryCategory',
+    label: '문의 유형',
+    _props: {color: 'primary', className: 'inquiryCategory'},
   },
   {
     key: 'userName',
+    label: '회원 이름',
     _props: {color: 'primary', className: 'userName'},
   },
   {
-    key: 'email',
-    _props: {color: 'primary', className: 'email'},
-  },
-  {
-    key: 'phoneNumber',
-    _props: {color: 'primary', className: 'phoneNumber'},
+    key: 'userPhoneNum',
+    label: '회원 휴대폰 번호',
+    _props: {color: 'primary', className: 'userPhoneNum'},
   },
   {
     key: 'createdAt',
+    label: '문의 등록일',
     _props: {color: 'primary', className: 'createdAt'},
   },
 ]
@@ -175,20 +190,24 @@ export const dealerSupportList = [
 // 자료 리스트
 export const materiaList = [
   {
-    key: 'no',
-    _props: {className: 'no'},
+    key: 'id',
+    label: '번호',
+    _props: {className: 'id'},
   },
   {
     key: 'title',
+    label: '제목',
     _props: {className: 'title'},
   },
   {
-    key: 'category',
-    _props: {className: 'Category'},
+    key: 'dataRoomCategory',
+    label: '자료 유형',
+    _props: {className: 'dataRoomCategory'},
   },
 
   {
     key: 'createdAt',
+    label: '등록일',
     _props: {className: 'createdAt'},
     filter: false,
   },
@@ -209,20 +228,23 @@ export const orderList = [
   },
   {
     key: 'orderNo',
+    label: '발주 신청 식별 번호',
     _props: {className: 'orderNo'},
   },
   {
     key: 'businessName',
+    label: '상호명',
     _props: {className: 'BusinessName'},
   },
   {
     key: 'representativeName',
+    label: '대표자  명',
     _props: {className: 'RepresentativeName'},
   },
 
   {
     key: 'createdAt',
-    label: 'Order Date',
+    label: '신청 일자',
     _props: {className: 'createdAt'},
     filter: false,
   },

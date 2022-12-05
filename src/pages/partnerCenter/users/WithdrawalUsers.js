@@ -40,7 +40,7 @@ const WithdrawalUsers = () => {
       } else {
         alert(data?.message)
       }
-      setItems(data.result.userInfoPartnerDTOS)
+      setItems(data.result.inActiveUserInfoPartnerDTOs)
     } catch (error) {
       console.log(error)
     }
@@ -51,27 +51,25 @@ const WithdrawalUsers = () => {
   }, [])
 
   /** Open Modal*/
-  const handleShowUserDetailModal = async item => {
-    setSelectedItem(item)
+  const handleShowUserDetailModal = async ({id}) => {
     setShowModal(!showModal)
-    if (false) {
-      try {
-        const {data} = await ApiConfig.request({
-          method: HttpMethod.GET,
-          // userId
-          url: `${EndPoint.GET_V1_MALL_PARTNER_INACTIVE_USERS}/${item.id}`,
-        })
-        console.log(data)
-        if (!data.isSuccess || isEmpty(data?.result)) {
-          return
-        }
-        if (data?.code === 1000) {
-        } else {
-          alert(data?.message)
-        }
-      } catch (error) {
-        console.log(error)
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        // userId
+        url: `${EndPoint.GET_PARTNER_INACTIVE_USERS}/${id}`,
+      })
+      console.log(data)
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
       }
+      if (data?.code === 1000) {
+        setSelectedItem(data.result)
+      } else {
+        alert(data?.message)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
   const handleUserDetailModalUpdateData = data => {

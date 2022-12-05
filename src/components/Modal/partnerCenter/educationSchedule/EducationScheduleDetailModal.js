@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import DetailModalTemplate from '../DetailModalTemplate'
+import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import {CRow} from '@coreui/react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
@@ -14,7 +14,7 @@ const EducationScheduleDetailModal = ({onChange, value, visible, setVisible, upD
     }
   }, [visible])
   return (
-    <DetailModalTemplate
+    <DetailModalEditModeTemplate
       title={no !== 0 ? '교육 일정 상세' : '교육 일정 추가'}
       visible={visible}
       setVisible={setVisible}
@@ -48,7 +48,7 @@ const EducationScheduleDetailModal = ({onChange, value, visible, setVisible, upD
       <CRow className={'p-2'}>
         <ModalTextArrayInput id={'content'} label={'본문'} value={content} onChange={onChange} rows={10} />
       </CRow>
-    </DetailModalTemplate>
+    </DetailModalEditModeTemplate>
   )
 }
 

@@ -3,8 +3,10 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {orderList} from '../../../utils/columns/partnerCenter/Columns'
-import {meterialListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
 import OrderDetailModal from '../../../components/Modal/partnerCenter/order/OrderDetailModal'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const OrderList = () => {
   const [items, setItems] = useState([])
@@ -12,16 +14,38 @@ const OrderList = () => {
   const [editCheck, setEditCheck] = useState({})
 
   const [showModal, setShowModal] = useState(false)
-  useEffect(() => {
-    setItems(meterialListData)
-  }, [])
 
   /** Open Modal*/
   const handleShowMaterialDetailModal = item => {
     setSelectedItem(item)
     setEditCheck(item)
     setShowModal(!showModal)
+    //GET_PARTNER_ORDERS
   }
+  // 발주신청 리스트 API
+  const getOrdersList = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.GET_PARTNER_ORDERS}?page=${1}`,
+      })
+      console.log(data)
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
+      }
+      if (data?.code === 1000) {
+        setItems(data.result?.adminOrderPartnerDTOs)
+      } else {
+        alert(data?.message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getOrdersList()
+  }, [])
 
   const handleDetailModalUpDate = () => {
     const {

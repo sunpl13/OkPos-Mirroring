@@ -1,10 +1,11 @@
 import {PlusOutlined} from '@ant-design/icons'
 import {Upload} from 'antd'
 import {useEffect, useState} from 'react'
-import {CCol, CFormLabel, CImage, CRow} from '@coreui/react'
+import {CCol, CFormLabel, CImage} from '@coreui/react'
 import styled from 'styled-components'
 import AWS from 'aws-sdk'
 import {antdImageFormat, returnBucketName} from '../../../utils/awsCustom'
+
 const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -34,6 +35,8 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, rea
   const handleCloseImage = () => {
     setPreviewImage('')
   }
+
+  const handleCancel = () => setPreviewOpen(false)
 
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
@@ -93,33 +96,7 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, rea
   }
 
   const onDelete = item => {
-    AWS.config.update({
-      region: process.env.REACT_APP_AWS_REGION,
-      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-    })
-
-    const S3 = new AWS.S3()
-
-    const objParams = {
-      Bucket: `${process.env.REACT_APP_AWS_BUCKET_NAME}`,
-      Key: item.uid,
-    }
-
-    S3.deleteObject(objParams, (err, data) => {
-      if (err) {
-        setFileList(
-          fileList.map(file => {
-            if (file.uid === item.uid) {
-              return {...file, status: 'error'}
-            } else {
-              return file
-            }
-          }),
-        )
-      }
-      setFileList(fileList.filter(file => file.uid !== item.uid))
-    })
+    setFileList(fileList.filter(file => file.uid !== item.uid))
   }
   const uploadButton = (
     <div>
@@ -141,11 +118,14 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, rea
         customRequest={reqData => customReq(reqData)}
         disabled={readOnly}
       >
-        {fileList.length >= 8 ? null : uploadButton}
+        {fileList?.length >= 8 ? null : uploadButton}
       </Upload>
 
       {previewImage && (
         <CCol>
+          <CFormLabel className='col-form-label'>
+            <span>{previewTitle || ''}</span>
+          </CFormLabel>
           <PreviewImageBox className={'text-center p-2'}>
             <CImage
               rounded

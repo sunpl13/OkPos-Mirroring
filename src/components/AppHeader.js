@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
+import {sidebarToggle} from '../store/sidebars'
 import {
   CButton,
   CContainer,
@@ -20,14 +21,13 @@ import packageJson from '../../package.json'
 
 const AppHeader = () => {
   const dispatch = useDispatch()
-  const sidebarShow = useSelector(state => state.sideBar.sidebarShow)
 
   const [visible, setVisible] = useState(false)
 
   return (
     <CHeader position='sticky' className='mb-4'>
       <CContainer fluid>
-        <CHeaderToggler className='ps-1' onClick={() => dispatch({type: 'set', sidebarShow: !sidebarShow})}>
+        <CHeaderToggler className='ps-1' onClick={() => dispatch(sidebarToggle())}>
           <CIcon icon={cilHamburgerMenu} size='lg' />
         </CHeaderToggler>
         <CHeaderNav className='d-none d-md-flex me-auto'>

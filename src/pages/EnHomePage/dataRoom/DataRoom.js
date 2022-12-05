@@ -1,34 +1,34 @@
-import {useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import {qnaColumns} from '../../../utils/columns/homePage/qna/Columns'
-import {inquirys} from '../../../utils/columns/homePage/qna/ColumnsSelectedValue'
-import QnADetail from '../../../components/Modal/homePage/QnA/QnADetail'
+import {dataRoomColumns} from '../../../utils/columns/EnHomePage/dataRoom/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-const QnAList = () => {
+import EnglishDataRoomDetail from '../../../components/Modal/EnHomePage/dataRoom/EnglishDataRoomDetail'
+
+const DataRoom = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
+  const [post, setPost] = useState('') //quill용 state
   const [selectedItem, setSelectedItem] = useState({
-    inquiryId: -1,
-    content: '',
-    name: '',
-    email: '',
-    pNum: '',
-    inquiryType: '',
-    fileUrl: [],
+    dataRoomEnglishId: -1,
+    title: '',
+    createdAt: '',
+    post: '',
+    images: [],
+    files: [],
   })
 
-  const onLoadInquiryList = async () => {
+  const onLoadDataRoomList = async () => {
     try {
       const data = await ApiConfig.request({
         data: {},
         query: {},
         path: {},
         method: HttpMethod.GET,
-        url: EndPoint.HOME_INQUIRY,
+        url: EndPoint.DATA_ROOM,
       })
       setItems(data?.data.result.responses)
     } catch (error) {
@@ -36,6 +36,10 @@ const QnAList = () => {
     }
   }
 
+  //가져오기 onLoad
+  //생성 onCreate
+  //수정 onUpdate
+  //삭제 onDelete
   const onLoadDetail = async id => {
     try {
       const {data} = await ApiConfig.request({
@@ -45,42 +49,62 @@ const QnAList = () => {
           id: id,
         },
         method: HttpMethod.GET,
-        url: `${EndPoint.HOME_INQUIRY}/:id`,
+        url: `${EndPoint.DATA_ROOM}/:id`,
       })
-
       setSelectedItem(data.result)
+      setPost(data.result.post)
     } catch (error) {
       alert(error)
     }
   }
 
   useEffect(() => {
-    onLoadInquiryList()
+    onLoadDataRoomList()
   }, [])
 
-  const handleShowInquiryDetailModal = async item => {
-    onLoadDetail(item.inquiryId)
+  const handleShowDataRoomDetailModal = async item => {
+    onLoadDetail(item.dataRoomEnglishId)
     setShowModal(!showModal)
   }
 
-  const handleInquiryDetailOnChange = ({target}) => {
+  const handleDataRoomAddModal = () => {
+    setIsReadOnly(false)
+    setSelectedItem({
+      dataRoomEnglishId: -1,
+      title: '',
+      createdAt: '',
+      post: '',
+      images: [],
+      files: [],
+    })
+    setPost('')
+    setShowModal(!showModal)
+  }
+
+  const handleDataRoomDetailOnChange = ({target}) => {
     const {id, value} = target
+
     setSelectedItem({
       ...selectedItem,
       [id]: value,
     })
   }
   return (
-    <main>
-      <PageHeader title='1:1 문의' />
+    <>
+      <PageHeader title='Data Room' />
       <CRow>
         <CCol xs={12}>
           <CCard className='mb-4'>
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={onLoadInquiryList}>
+                  <CButton color='primary' onClick={onLoadDataRoomList}>
                     조회하기
+                  </CButton>
+                </CCol>
+                <CCol xs={1}>
+                  <CButton color='primary' onClick={handleDataRoomAddModal}>
+                    추가
                   </CButton>
                 </CCol>
               </CForm>
@@ -88,26 +112,28 @@ const QnAList = () => {
             <CCardBody>
               <ListTemplate
                 items={items}
-                onClick={handleShowInquiryDetailModal}
-                selectedOptions={inquirys}
-                columns={qnaColumns}
+                onClick={handleShowDataRoomDetailModal}
+                columns={dataRoomColumns}
                 className={'userList'}
               />
             </CCardBody>
           </CCard>
         </CCol>
       </CRow>
-      <QnADetail
-        onChange={handleInquiryDetailOnChange}
+      <EnglishDataRoomDetail
+        onChange={handleDataRoomDetailOnChange}
         visible={showModal}
         value={selectedItem}
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
-        getList={onLoadInquiryList}
+        getList={onLoadDataRoomList}
+        setSelectedItem={setSelectedItem}
+        content={post}
+        setContent={setPost}
       />
-    </main>
+    </>
   )
 }
 
-export default QnAList
+export default DataRoom

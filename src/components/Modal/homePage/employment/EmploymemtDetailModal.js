@@ -13,13 +13,7 @@ import PropTypes from 'prop-types'
 import {useDispatch} from 'react-redux'
 import {isEmpty} from '../../../../utils/utility'
 import moment from 'moment'
-import {sendFileUrlFormat} from '../../../../utils/awsCustom'
-//const imgs = [
-//   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract01.jpg', altName: '이미지01'},
-//   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract02.jpg', altName: '이미지02'},
-//   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract03.jpg', altName: '이미지03'},
-//   {img: 'https://s3.amazonaws.com/static.neostack.com/img/react-slick/abstract04.jpg', altName: '이미지04'},
-// ]
+import {sendImageUrlFormat} from '../../../../utils/awsCustom'
 
 export const category = [
   {key: 'SERVICE_PLANNING', value: '서비스 기획'},
@@ -132,7 +126,7 @@ const EmploymemtDetailModal = ({
       if (!validateCheck()) {
         return
       }
-      const urls = sendFileUrlFormat(fileList)
+      const urls = sendImageUrlFormat(fileList)
       const {data} = await ApiConfig.request({
         data: {
           category: value.categoryEnglish,
@@ -164,7 +158,7 @@ const EmploymemtDetailModal = ({
         setIsReadOnly(true)
         setVisible(false)
         dispatch({
-          type: 'set',
+          type: 'SET_TOAST_STATE',
           visibleState: true,
           toastColor: 'success',
           textColor: 'white',
@@ -196,7 +190,13 @@ const EmploymemtDetailModal = ({
         setCloseCheckModalState(false)
         setIsReadOnly(true)
         setVisible(false)
-        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+        dispatch({
+          type: 'SET_TOAST_STATE',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: `${data.result}`,
+        })
       }
     } catch (error) {
       alert(error)
@@ -206,7 +206,7 @@ const EmploymemtDetailModal = ({
   const onUpdate = async () => {
     const startTime = moment(value.startedAt).format('YYYY.MM.DD 00:00:00')
     const endTime = moment(value.closedAt).format('YYYY.MM.DD 23:59:59')
-    const urls = sendFileUrlFormat(fileList)
+    const urls = sendImageUrlFormat(fileList)
 
     try {
       if (!validateCheck()) {
@@ -245,7 +245,13 @@ const EmploymemtDetailModal = ({
         setCloseCheckModalState(false)
         setIsReadOnly(true)
         setVisible(false)
-        dispatch({type: 'set', visibleState: true, toastColor: 'success', textColor: 'white', text: `${data.result}`})
+        dispatch({
+          type: 'SET_TOAST_STATE',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: `${data.result}`,
+        })
       }
     } catch (error) {
       alert(error)

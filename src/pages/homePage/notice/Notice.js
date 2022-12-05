@@ -3,142 +3,91 @@ import PageHeader from '../../../components/common/PageHeader'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {homePageNoticeColumns} from '../../../utils/columns/homePage/notice/Columns'
-import {testHomePageNoticeValues} from '../../test/testConstant'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import NoticeDetail from '../../../components/Modal/homePage/notice/NoticeDetail'
 const Notice = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [showAddModal, setShowAddModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
+  const [content, setContent] = useState('') //quill용 state
   const [selectedItem, setSelectedItem] = useState({
-    notictId: -1,
+    noticeId: -1,
     title: '',
-    startedAt: '',
+    createdAt: '',
     content: '',
-  })
-  const [item, setItem] = useState({
-    notictId: -1,
-    title: '',
-    startedAt: '',
-    content: '',
+    imageUrls: [],
+    fileUrls: [],
   })
 
-  useEffect(() => {
-    if (!showModal) {
-      setIsReadOnly(true)
+  const onLoadNoticeList = async () => {
+    try {
+      const data = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {},
+        method: HttpMethod.GET,
+        url: EndPoint.NOTICE,
+      })
+      setItems(data?.data.result.responses)
+    } catch (error) {
+      alert(error)
     }
-  }, [showModal])
-
-  const handleRetrieveTestList = async () => {
-    setItems(testHomePageNoticeValues)
   }
-
-  const handleShowUserDetailModal = item => {
-    setSelectedItem(item)
-    setShowModal(!showModal)
-  }
-
-  const handlePopUpOnChange = ({target}) => {
-    const {id, value} = target
-    setSelectedItem({
-      ...selectedItem,
-      [id]: value,
-    })
-  }
-
-  const handlePopupAddModal = () => {
-    setIsReadOnly(false)
-    setSelectedItem({
-      notictId: -1,
-      title: '',
-      startedAt: '',
-      content: '',
-    })
-    setShowModal(!showModal)
-  }
-
-  const handleUserItemAddModalOnClick = () => {
-    setItems([
-      ...items,
-      {
-        ...item,
-      },
-    ])
-    setItem({
-      No: 0,
-      popUpName: '',
-      popUpImg: '',
-    })
-    setShowAddModal(!showAddModal)
-  }
-
-  // const onLoadEmploymentList = async () => {
-  //   try {
-  //     const data = await ApiConfig.request({
-  //       data: {},
-  //       query: {},
-  //       path: {},
-  //       method: HttpMethod.GET,
-  //       url: EndPoint.RECRUITMENT,
-  //     })
-  //     setItems(data?.data.result)
-  //   } catch (error) {
-  //     alert(error)
-  //   }
-  // }
 
   //가져오기 onLoad
   //생성 onCreate
   //수정 onUpdate
   //삭제 onDelete
-  // const onLoadDetail = async id => {
-  //   try {
-  //     const {data} = await ApiConfig.request({
-  //       data: {},
-  //       query: {},
-  //       path: {
-  //         recruitmentId: id,
-  //       },
-  //       method: HttpMethod.GET,
-  //       url: `${EndPoint.RECRUITMENT}/:recruitmentId`,
-  //     })
+  const onLoadDetail = async id => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {
+          id: id,
+        },
+        method: HttpMethod.GET,
+        url: `${EndPoint.NOTICE}/:id`,
+      })
+      setSelectedItem(data.result)
+      setContent(data.result.content)
+    } catch (error) {
+      alert(error)
+    }
+  }
 
-  //     setSelectedItem(data.result)
-  //   } catch (error) {
-  //     alert(error)
-  //   }
-  // }
+  useEffect(() => {
+    onLoadNoticeList()
+  }, [])
 
-  // useEffect(() => {
-  //   onLoadEmploymentList()
-  // }, [])
+  const handleShowNoticeDetailModal = async item => {
+    onLoadDetail(item.noticeId)
+    setShowModal(!showModal)
+  }
 
-  // const handleShowEmploymentDetailModal = async item => {
-  //   onLoadDetail(item.recruitmentId)
-  //   setShowModal(!showModal)
-  // }
+  const handleNoticeAddModal = () => {
+    setIsReadOnly(false)
+    setSelectedItem({
+      noticeId: -1,
+      title: '',
+      createdAt: '',
+      content: '',
+      imageUrls: [],
+      fileUrls: [],
+    })
+    setContent('')
+    setShowModal(!showModal)
+  }
 
-  // const handleEmploymentAddModal = () => {
-  //   setIsReadOnly(false)
-  //   setSelectedItem({
-  //     notictId: -1,
-  //     title: '',
-  //     startedAt: '',
-  //     content: '',
-  //   })
-  //   setShowModal(!showModal)
-  // }
+  const handleNoticeDetailOnChange = ({target}) => {
+    const {id, value} = target
 
-  // const handleEmployDetailOnChange = ({target}) => {
-  //   const {id, value} = target
-
-  //   setSelectedItem({
-  //     ...selectedItem,
-  //     [id]: value,
-  //   })
-  // }
+    setSelectedItem({
+      ...selectedItem,
+      [id]: value,
+    })
+  }
 
   return (
     <>
@@ -149,12 +98,12 @@ const Notice = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleRetrieveTestList}>
+                  <CButton color='primary' onClick={onLoadNoticeList}>
                     조회하기
                   </CButton>
                 </CCol>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handlePopupAddModal}>
+                  <CButton color='primary' onClick={handleNoticeAddModal}>
                     추가
                   </CButton>
                 </CCol>
@@ -163,7 +112,7 @@ const Notice = () => {
             <CCardBody>
               <ListTemplate
                 items={items}
-                onClick={handleShowUserDetailModal}
+                onClick={handleShowNoticeDetailModal}
                 columns={homePageNoticeColumns}
                 className={'userList'}
               />
@@ -172,13 +121,16 @@ const Notice = () => {
         </CCol>
       </CRow>
       <NoticeDetail
-        onClick={handleUserItemAddModalOnClick}
-        onChange={handlePopUpOnChange}
+        onChange={handleNoticeDetailOnChange}
         visible={showModal}
         value={selectedItem}
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
+        getList={onLoadNoticeList}
+        setSelectedItem={setSelectedItem}
+        content={content}
+        setContent={setContent}
       />
     </>
   )

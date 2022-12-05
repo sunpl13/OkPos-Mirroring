@@ -1,60 +1,81 @@
-import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import {CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
+import ModalSelect from '../../../forms/inputForm/ModalSelect'
+import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
+import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 
 const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
-  const {id, title, content, files} = value
-  const [toggle, setToggle] = useState(true)
-  useEffect(() => {
-    if (visible) {
-      setToggle(true)
-    }
-  }, [visible])
-  const btnClick = () => {
-    setToggle(false)
-    upDate()
-  }
+  const {title, content, noticeFiles, noticeImages, category} = value
+
+  const [editMode, setEditMode] = useState(true)
+  const noticeOptions = [
+    {key: 'DEALER', value: '딜러'},
+    {key: 'AGENCY', value: '대리점'},
+  ]
+
   return (
-    <CModal size='lg' visible={visible} onClose={() => toggle && upDate()}>
-      <CModalHeader>
-        <CModalTitle>id : {id} Notice Detail</CModalTitle>
-      </CModalHeader>
-      <CModalBody>
-        <CRow className={'p-2'}>
-          <ModalInput
-            id={'title'}
-            placeholder={'Notice Title'}
-            label={'Notice Title'}
-            value={title}
-            onChange={onChange}
-          />
-        </CRow>
-        <CRow className={'p-2'}>
-          <ModalFilesInput id={'files'} label={'Files'} value={files} />
-        </CRow>
-        <CRow className={'p-2'}>
-          <ModalTextArrayInput
-            id='content'
-            label={'Notice'}
-            rows={15}
-            value={content}
-            onChange={onChange}
-            text='Must be 8-20 words long.'
-          />
-        </CRow>
-      </CModalBody>
-      <CModalFooter>
-        <CButton color={'primary'} onClick={() => btnClick()}>
-          Edit
-        </CButton>
-        <CButton color='primary' onClick={() => setVisible(false)}>
-          Cancel
-        </CButton>
-      </CModalFooter>
-    </CModal>
+    <DetailModalEditModeTemplate
+      visible={visible}
+      title={'공지사항'}
+      setVisible={setVisible}
+      upDate={upDate}
+      btnText={'수정'}
+      editMode={editMode}
+      setEditMode={setEditMode}
+    >
+      <CRow className={'p-2'}>
+        <ModalInput
+          id={'title'}
+          placeholder={'공지사항 제목'}
+          label={'공지사항 제목'}
+          value={title}
+          onChange={onChange}
+          readOnly={editMode}
+          disabled={editMode}
+        />
+        <ModalSelect
+          id={'category'}
+          placeholder={'카테고리를 선택해 주세요'}
+          label={'카테고리'}
+          options={noticeOptions}
+          value={category || ''}
+          onChange={onChange}
+          readOnly={editMode}
+          disabled={editMode}
+        />
+      </CRow>
+      <CRow className={'p-2'}>
+        <ModalFilesInput
+          id={'files'}
+          type={'file'}
+          placeholder={'파일 첨부'}
+          label={'파일 첨부'}
+          value={noticeFiles}
+          onChange={onChange}
+          readOnly={editMode}
+          disabled={editMode}
+        />
+      </CRow>
+      <CRow className={'p-2'}>
+        <ModalImageInput id='image' label='이미지 첨부' value={noticeImages} onChange={onChange} disabled={editMode} />
+      </CRow>
+      <CRow className={'p-2'}>
+        <ModalTextArrayInput
+          id='content'
+          label='공지사항 본문'
+          rows={15}
+          value={content}
+          onChange={onChange}
+          text=''
+          readOnly={editMode}
+          disabled={editMode}
+        />
+      </CRow>
+    </DetailModalEditModeTemplate>
   )
 }
 
-export default React.memo(NoticeDetailModal)
+export default NoticeDetailModal

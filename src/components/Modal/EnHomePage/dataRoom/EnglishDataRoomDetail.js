@@ -12,8 +12,7 @@ import {isEmpty} from '../../../../utils/utility'
 import {sendImageUrlFormat} from '../../../../utils/awsCustom'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
-
-const NoticeDetail = ({
+const EnglishDataRoomDetail = ({
   getList,
   value,
   visible,
@@ -40,11 +39,11 @@ const NoticeDetail = ({
 
   const validateCheck = () => {
     if (isEmpty(value.title)) {
-      alert('공지 제목을 입력해주세요.')
+      alert('제목을 입력해주세요.')
       return false
     }
     if (isEmpty(content)) {
-      alert('공지 내용을 입력해주세요.')
+      alert('본문을 입력해주세요.')
       return false
     }
 
@@ -68,7 +67,7 @@ const NoticeDetail = ({
         query: {},
         path: {},
         method: HttpMethod.POST,
-        url: `${EndPoint.NOTICE}`,
+        url: `${EndPoint.DATA_ROOM}`,
       })
       console.log(data)
       if (data.isSuccess) {
@@ -96,10 +95,10 @@ const NoticeDetail = ({
         data: {},
         query: {},
         path: {
-          id: value.noticeId,
+          id: value.dataRoomEnglishId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.NOTICE}/:id/d`,
+        url: `${EndPoint.DATA_ROOM}/:id/d`,
       })
       if (data.isSuccess) {
         getList()
@@ -135,10 +134,10 @@ const NoticeDetail = ({
         },
         query: {},
         path: {
-          id: value.noticeId,
+          id: value.dataRoomEnglishId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.NOTICE}/:id`,
+        url: `${EndPoint.DATA_ROOM}/:id`,
       })
       if (data.isSuccess) {
         getList()
@@ -166,12 +165,12 @@ const NoticeDetail = ({
       setImageList([])
       setFileList([])
       setSelectedItem({
-        noticeId: -1,
+        dataRoomEnglishId: -1,
         title: '',
         createdAt: '',
         content: '',
-        imageUrls: [],
-        fileUrls: [],
+        images: [],
+        files: [],
       })
     }
   }
@@ -184,37 +183,45 @@ const NoticeDetail = ({
     setContent('')
     setIsReadOnly(true)
     setSelectedItem({
-      noticeId: -1,
+      dataRoomEnglishId: -1,
       title: '',
       createdAt: '',
       content: '',
-      imageUrls: [],
-      fileUrls: [],
+      images: [],
+      files: [],
     })
   }
   return (
     <>
       <CModal alignment='center' size='lg' visible={visible}>
-        <CCustomModalHeader onClick={onCloseCheck}>공지 상세</CCustomModalHeader>
+        <CCustomModalHeader onClick={onCloseCheck}>Data Room 상세</CCustomModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
             <ModalInput
-              xs={4}
               onChange={onChange}
-              id='noticeId'
+              id='dataRoomEnglishId'
               placeholder='ID'
               label='ID'
               readOnly={true}
               disabled={true}
-              value={value.noticeId === -1 ? '' : value.noticeId}
+              value={value.dataRoomEnglishId === -1 ? '' : value.dataRoomEnglishId}
+            />
+            <ModalInput
+              onChange={onChange}
+              id='dataRoomEnglishId'
+              placeholder=''
+              label='작성일'
+              readOnly={true}
+              disabled={true}
+              value={value.createdAt}
             />
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
               id='title'
-              placeholder='공지 제목을 입력해주세요'
-              label='공지 제목'
+              placeholder='제목을 입력해주세요'
+              label='제목'
               value={value.title}
               isRequired={true}
               readOnly={isReadOnly}
@@ -230,16 +237,6 @@ const NoticeDetail = ({
               setValue={setContent}
               label='공지 본문'
             />
-            {/* <CFormLabel className='required'>공지 본문</CFormLabel>
-            <CFormTextarea
-              placeholder='공지 본문'
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-              onChange={onChange}
-              value={value.content}
-              rows={15}
-              id='content'
-            /> */}
           </CRow>
           <CRow className='mb-3 pt-3'>
             <ModalImageInput
@@ -247,8 +244,8 @@ const NoticeDetail = ({
               label='이미지 첨부'
               fileList={iamgeList}
               setFileList={setImageList}
-              images={value.imageUrls}
-              imgPath='notice_images'
+              images={value.images}
+              imgPath='english/data-room_images'
               readOnly={isReadOnly}
             />
           </CRow>
@@ -256,16 +253,16 @@ const NoticeDetail = ({
             <ModalFilesInput
               id='files'
               label='파일 첨부'
-              files={value.fileUrls}
+              files={value.files}
               disabled={isReadOnly}
               fileList={fileList}
               setFileList={setFileList}
-              filePath='notice_files'
+              filePath='english/data-room_files'
             />
           </CRow>
         </CModalBody>
         <CModalFooter>
-          {value.noticeId === -1 ? (
+          {value.dataRoomEnglishId === -1 ? (
             <CButton color='primary' onClick={onCreate}>
               추가
             </CButton>
@@ -290,4 +287,4 @@ const NoticeDetail = ({
   )
 }
 
-export default NoticeDetail
+export default EnglishDataRoomDetail

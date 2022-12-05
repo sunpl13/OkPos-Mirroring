@@ -8,6 +8,10 @@ export const EndPoint = {
   RECRUITMENT: `${API}/admin/recruitment`,
   TALENTPOOL: `${API}/admin/talent-pool`,
   EDITOR: `${API}/admin/editor`,
+  HOME_INQUIRY: `${API}/admin/inquiry`,
+  ENGLISH_HOME_INQUIRY: `${API}/admin/english/inquiry`,
+  NOTICE: `${API}/admin/notice`,
+  DATA_ROOM: `${API}/admin/english/data-room`,
 
   // ------ 파트너 센터 페이지
   GET_PARTNER_USERS: `${API}/admin/partner/users`, // 유저 리스트
@@ -15,6 +19,9 @@ export const EndPoint = {
   GET_PARTNER_INQUIRIES: `${API}/admin/partner/inquiries`, // 1:1 문의 리스트
   GET_PARTNER_NOTICES: `${API}/admin/partner/notices`, // 공지사항 리스트
   GET_PARTNER_AGENCYAPPLICANT: `${API}/admin/partner/notices/agencyApplicant`, // 영업점 딜러 지원 리스트
+  GET_PARTNER_DATAROOMS: `${API}/admin/partner/dataRooms`, // 자료실 리스트
+  GET_PARTNER_ORDERS: `${API}/admin/partner/orders`, // 발주신청 리스트
+  GET_PARTNER_MAINTENANCES: `${API}/admin/partner/maintenances`, // 유지보수 신청 리스트
 
   // ------ 가맹점 전용 공식몰 페이지
   GET_MALL_USERS: `${API}/admin/mall/users`,
@@ -74,6 +81,8 @@ const ApiMapper = {
     [EndPoint.GET_PARTNER_INQUIRIES]: {},
     [EndPoint.GET_PARTNER_NOTICES]: {},
     [EndPoint.GET_PARTNER_AGENCYAPPLICANT]: {},
+    [EndPoint.GET_PARTNER_ORDERS]: {},
+    [EndPoint.GET_PARTNER_MAINTENANCES]: {},
   },
   post: {
     [EndPoint.POST_LOGIN]: {},

@@ -5,36 +5,13 @@ import ListTemplate from '../../../../components/list/ListTemplate'
 import NoticeDetailModal from '../../../../components/Modal/partnerCenter/notice/NoticeDetailModal'
 import {noticeList} from '../../../../utils/columns/partnerCenter/Columns'
 import NoticeAddModal from '../../../../components/Modal/partnerCenter/notice/NoticeAddModal'
-import moment from 'moment'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import {isEmpty} from '../../../../utils/utility'
-//{
-//     "id": 4,
-//     "title": "공지사항 작성 테스트",
-//     "createdAt": "2022.11.16 17:11:472",
-//     "noticeFiles": [
-//         {
-//             "id": 2,
-//             "title": "test.pdf",
-//             "capacity": 8175,
-//             "url": "https://homepage-test-resource.s3.ap-northeast-2.amazonaws.com/images/b4479668-8554-42e3-9039-2fc2434fe31etest.pdf",
-//             "createdAt": "2022.11.16 17:11:481",
-//             "updatedAt": "2022.11.16 17:11:481",
-//             "status": "ACTIVE"
-//         }
-//     ],
-//     "isApplicationNotice": true
-// }
 
 const NoticeList = () => {
   const [items, setItems] = useState()
-  const [selectedItem, setSelectedItem] = useState({
-    content: '',
-    createdAt: '',
-    noticeFiles: [],
-    noticeImages: [],
-  })
+  const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
 
   /** Show Modal */
@@ -55,41 +32,42 @@ const NoticeList = () => {
           return
         }
         if (data?.code === 1000) {
-          setSelectedItem(data.result)
-          setEditCheck(data.result)
         } else {
           alert(data?.message)
         }
+        setSelectedItem(data.result)
+        setEditCheck(data.result)
+        console.log(data.result)
       } catch (error) {
         console.log(error)
       }
     } else {
       setSelectedItem({
+        title: '',
         content: '',
-        createdAt: '',
-        noticeFiles: [],
-        noticeImages: [],
+        files: [],
+        images: [],
       })
       setEditCheck({
+        title: '',
         content: '',
-        createdAt: '',
-        noticeFiles: [],
-        noticeImages: [],
+        files: [],
+        images: [],
       })
     }
   }
   const handleShowAddModal = () => {
     setSelectedItem({
-      id: 0,
       title: '',
       content: '',
-      createdAt: '',
-      files: '',
+      category: '',
+      files: [],
+      images: [],
     })
     setShowAddModal(!showAddModal)
   }
   // 공지사항 API
-  const getUsers = async () => {
+  const getNoticeList = async () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
@@ -109,7 +87,7 @@ const NoticeList = () => {
     }
   }
   useEffect(() => {
-    getUsers()
+    getNoticeList()
   }, [])
 
   /** Detail Modal */
@@ -119,36 +97,56 @@ const NoticeList = () => {
       [id]: value,
     })
   }
-  const handleNoticeDetailModalUpdate = () => {
+
+  const handleNoticeDetailModalUpdate = editBtnClick => {
+    console.log(selectedItem)
+    console.log(editCheck)
     const {id, title, content, files} = selectedItem
+
     if (editCheck.title !== title || editCheck.content !== content || editCheck.files !== files) {
-      if (window.confirm('Edit ?')) {
+      if (window.confirm('공지사항을 수정하시겠습니까?')) {
         if (!title) return alert('Not Title')
         if (!files) return alert('Not File')
         if (!content) return alert('Not Content')
         setItems(items.map(value => (value.id === id ? selectedItem : value)))
         setShowModal(false)
+      } else {
+        setShowModal(false)
       }
-    } else {
+    } else if (!editBtnClick) {
       setShowModal(false)
     }
   }
 
   /** Add Modal */
-  const handleNoticeAddModalUpdate = () => {
-    const {title, content, files} = selectedItem
-    if (title || content || files) {
-      if (window.confirm('Add ?')) {
-        if (!title) return alert('Not Title')
-        if (!files) return alert('Not File')
-        if (!content) return alert('Not Content')
-        setItems([
-          ...items,
-          {
-            ...selectedItem,
-            createdAt: moment().format('YYYY-MM-DD'),
-          },
-        ])
+  const handleNoticeAddModalUpdate = async () => {
+    const {title, content, category} = selectedItem
+    if (title || content || category) {
+      if (window.confirm('공지사항을 추가하시겠습니까?')) {
+        if (!title) return alert('공지사항 제목을 입력해 주세요.')
+        if (!category) return alert('카테고리를 선택해 주세요.')
+        if (!content) return alert('공지사항 본문을 입력해 주세요.')
+        console.log(selectedItem)
+        try {
+          const {data} = await ApiConfig.request({
+            method: HttpMethod.POST,
+            url: EndPoint.GET_PARTNER_NOTICES,
+            data: JSON.stringify({selectedItem}),
+          })
+          console.log(data)
+          if (!data.isSuccess || isEmpty(data?.result)) {
+            return alert(data?.message)
+          }
+          if (data?.code === 1000) {
+            alert(data.message)
+            window.reload()
+          } else {
+            alert(data?.message)
+          }
+        } catch (error) {
+          console.log(error, 'asdasd')
+          //return alert(data.message)
+        }
         setShowAddModal(false)
       }
     } else {
@@ -157,9 +155,28 @@ const NoticeList = () => {
   }
 
   /** List Row onDelete */
-  const handleNoticeDeleteBtnOnClick = ({id}) => {
+  const handleNoticeDeleteBtnOnClick = async ({id}) => {
+    console.log(id)
     if (window.confirm('해당 공지사항을 삭제하시겠습니까?')) {
-      setItems(items.filter(value => value.id !== id))
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.DELETE,
+          //url: `${EndPoint.GET_PARTNER_NOTICES}/${id}`,
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+          alert(data.message)
+          window.reload()
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      setShowAddModal(false)
     }
   }
 

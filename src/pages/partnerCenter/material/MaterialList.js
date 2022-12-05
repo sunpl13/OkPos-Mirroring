@@ -4,39 +4,78 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {materiaList} from '../../../utils/columns/partnerCenter/Columns'
 import MeterialDetailModal from '../../../components/Modal/partnerCenter/material/MeterialDetailModal'
-import {meterialListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const MaterialList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
-
   const [showModal, setShowModal] = useState(false)
-  useEffect(() => {
-    setItems(meterialListData)
-  }, [])
 
   /** Open Modal*/
-  const handleShowMaterialDetailModal = item => {
-    if (!item.no) {
+  const handleShowMaterialDetailModal = async item => {
+    if (!item.id) {
       setShowModal(!showModal)
       setSelectedItem({
-        no: 0,
+        id: 0,
         title: '',
         content: '',
         files: '',
         createdAt: '',
       })
     } else {
-      setSelectedItem(item)
-      setEditCheck(item)
       setShowModal(!showModal)
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.GET,
+          url: `${EndPoint.GET_PARTNER_DATAROOMS}/${item.id}`,
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+          setSelectedItem(data.result)
+          setEditCheck(data.result)
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
+  // 자료실 API
+  const getDataList = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.GET_PARTNER_DATAROOMS}?page=${1}`,
+      })
+      console.log(data)
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
+      }
+      if (data?.code === 1000) {
+        setItems(data.result?.adminDataRoomPartnerDTOs)
+      } else {
+        alert(data?.message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getDataList()
+  }, [])
+
   const handleDetailModalUpDate = () => {
-    const {no, title, content, files, category} = selectedItem
-    if (no !== 0) {
+    const {id, title, content, files, category} = selectedItem
+    if (id !== 0) {
       if (
         editCheck.title !== title ||
         editCheck.content !== content ||
@@ -48,7 +87,7 @@ const MaterialList = () => {
           //if (!files) return alert('Not File')
           if (!category) return alert('Not Selected Category')
           if (!content) return alert('Not Content')
-          setItems(items.map(value => (value.no === no ? selectedItem : value)))
+          setItems(items.map(value => (value.id === id ? selectedItem : value)))
           setShowModal(false)
         }
       } else {
@@ -65,7 +104,7 @@ const MaterialList = () => {
             ...items,
             {
               ...selectedItem,
-              no: items.length + 1,
+              id: items.length + 1,
             },
           ])
           setShowModal(false)
@@ -76,16 +115,16 @@ const MaterialList = () => {
     }
   }
 
-  const handleMaterialModalOnChange = ({target: {id, value}, target}) => {
+  const handleMaterialModalOnChange = ({target: {id, value}}) => {
     setSelectedItem({
       ...selectedItem,
       [id]: value,
     })
   }
 
-  const handleMaterialModalOnDelete = ({no}) => {
+  const handleMaterialModalOnDelete = ({id}) => {
     if (window.confirm('Delete ?')) {
-      setItems(items.filter(value => value.no !== no))
+      setItems(items.filter(value => value.id !== id))
     }
   }
   return (
