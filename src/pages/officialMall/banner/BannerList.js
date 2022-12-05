@@ -124,6 +124,7 @@ const BannerList = () => {
         }
         return
       }
+      alert(res?.message)
       setSelectedItem(item)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -146,6 +147,7 @@ const BannerList = () => {
           alert(res?.message)
         }
       }
+      alert(res?.message)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
