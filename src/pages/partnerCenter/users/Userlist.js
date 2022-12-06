@@ -39,12 +39,10 @@ const Userlist = () => {
 
   /** Open Modal*/
   const handleShowUserDetailModal = async ({id}) => {
-    console.log(id)
     setShowModal(!showModal)
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
-        // userId
         url: `${EndPoint.GET_PARTNER_USERS}/${id}`,
       })
       if (!data.isSuccess || isEmpty(data?.result)) {
@@ -69,43 +67,6 @@ const Userlist = () => {
       [id]: value,
     })
   }
-  const handleDetailModalUpdate = editOnClick => {
-    const {
-      address, // 사업장 주소
-      businessName, // 상호명
-      certificateNum, // 사업자 번호
-      phoneNum, // 휴대전화 번호
-      status, // 계정 상태
-      userName, // 회원 이름
-      certificateFile, // 사업자 등록증
-    } = selectedItem
-    if (
-      address !== editCheck.address ||
-      businessName !== editCheck.businessName ||
-      certificateFile !== editCheck.certificateFile ||
-      certificateNum !== editCheck.certificateNum ||
-      phoneNum !== editCheck.phoneNum ||
-      status !== editCheck.status ||
-      userName !== editCheck.userName
-    ) {
-      if (window.confirm('회원 정보를 수정하시겠습니까?')) {
-        if (!address) return alert('사업장 주소를 입력해 주세요.')
-        if (!businessName) return alert('상호명을 입력해 주세요.')
-        if (!certificateNum) return alert('사업자 번호를 입력해 주세요.')
-        if (!phoneNum) return alert('휴대폰 번호를 입력해 주세요')
-        if (!userName) return alert('회원 이름을 입력해 주세요.')
-        if (!certificateFile) return alert('사업자 등록증을 등록해 주세요.')
-        if (!editOnClick) return setShowModal(false)
-        setEditCheck(selectedItem)
-      } else {
-        setSelectedItem({})
-        setEditCheck({})
-        setShowModal(false)
-      }
-    } else {
-      setShowModal(false)
-    }
-  }
 
   return (
     <CRow>
@@ -127,7 +88,7 @@ const Userlist = () => {
         visible={showModal}
         setVisible={setShowModal}
         readOnly
-        upDate={handleDetailModalUpdate}
+        //upDate={handleDetailModalUpdate}
         onChange={handleDetailModalOnChange}
       />
     </CRow>

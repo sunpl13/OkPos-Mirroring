@@ -12,21 +12,11 @@ const DetailModalEditModeTemplate = ({
   setEditMode,
 }) => {
   const handleEditModeToggle = () => {
-    if (!editMode) {
-      upDate()
-    }
     setEditMode(!editMode)
   }
 
   return (
-    <CModal
-      size='lg'
-      visible={visible}
-      onClose={() => {
-        upDate()
-        setVisible(false)
-      }}
-    >
+    <CModal size='lg' visible={visible} onClose={() => upDate()}>
       <CModalHeader>
         <CModalTitle>{title || 'Not Title'}</CModalTitle>
       </CModalHeader>
