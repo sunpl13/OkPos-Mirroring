@@ -1,8 +1,7 @@
 import {CModalBody, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
-import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import DetailModalTemplate from '../DetailModalTemplate'
 
 const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
@@ -40,29 +39,26 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             readOnly={true}
           />
         </CRow>
-        {
-          <CRow className={'pb-4'}>
-            <ModalInput
-              id={'createdAt'}
-              placeholder={'계정 등록일'}
-              label={'계정 등록일'}
-              value={createdAt}
-              onChange={onChange}
-              disabled
-              readOnly
-            />
-            <ModalInput
-              id={'status'}
-              placeholder={'계정 상태'}
-              label={'계정 상태'}
-              value={status}
-              onChange={onChange}
-              disabled={true}
-              readOnly={true}
-            />
-          </CRow>
-        }
-
+        <CRow className={'pb-4'}>
+          <ModalInput
+            id={'createdAt'}
+            placeholder={'계정 등록일'}
+            label={'계정 등록일'}
+            value={createdAt}
+            onChange={onChange}
+            disabled
+            readOnly
+          />
+          <ModalInput
+            id={'status'}
+            placeholder={'계정 상태'}
+            label={'계정 상태'}
+            value={status}
+            onChange={onChange}
+            disabled={true}
+            readOnly={true}
+          />
+        </CRow>
         <CRow className={'pb-4'}>
           <ModalInput
             id={'phoneNum'}

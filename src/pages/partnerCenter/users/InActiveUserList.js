@@ -3,27 +3,40 @@ import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
 import BarChartTemplate from '../../../components/chart/BarChartTemplate'
-import {ChartTestData} from '../../test/ChartTest'
 import PageHeader from '../../../components/common/PageHeader'
 import {withdrawalUsersColumns} from '../../../utils/columns/partnerCenter/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 
-const WithdrawalUsers = () => {
+const InActiveUserList = () => {
   const [items, setItems] = useState([])
-  const [selectedItem, setSelectedItem] = useState({})
+  const [selectedItem, setSelectedItem] = useState([])
   const [showModal, setShowModal] = useState(false)
+  const [chartData, setChartData] = useState([])
 
-  const [chartData, setChartData] = useState([
-    {
-      label: '',
-      data: [0],
-      backgroundColor: '',
-      borderColor: '',
-      borderWidth: 2,
+  const chartList = {
+    inconvenienceOfService: {
+      value: '불편한 서비스',
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgb(255, 159, 64)',
     },
-  ])
+    disSatisfiedWithPrice: {
+      value: '가격 불만족',
+      backgroundColor: 'rgba(255, 159, 64, 0.2)',
+      borderColor: 'rgb(201, 203, 207)',
+    },
+    disSatisfiedWithProductFeature: {
+      value: '제품 기능에 만족하지 못함',
+      backgroundColor: 'rgba(201, 203, 207, 0.2)',
+      borderColor: 'rgb(255, 205, 86)',
+    },
+    directInput: {
+      value: '직접 입력',
+      backgroundColor: 'rgba(255, 205, 86, 0.2)',
+      borderColor: 'rgb(75, 192, 192)',
+    },
+  }
 
   // 탈퇴회원 API
   const getUsers = async () => {
@@ -41,14 +54,29 @@ const WithdrawalUsers = () => {
         alert(data?.message)
       }
       setItems(data.result.inActiveUserInfoPartnerDTOs)
+      setChartData([])
+      for (const [key, value] of Object.entries(data.result.inActiveUserWithdrawalCategoryStatistics)) {
+        setChartData(chartData => [
+          ...chartData,
+          {
+            label: chartList[key].value,
+            data: [value],
+            backgroundColor: chartList[key].backgroundColor,
+            borderColor: chartList[key].borderColor,
+            borderWidth: 1,
+          },
+        ])
+      }
     } catch (error) {
       console.log(error)
     }
   }
   useEffect(() => {
     getUsers()
-    setChartData(ChartTestData)
   }, [])
+  useEffect(() => {
+    console.log(chartData)
+  }, [chartData])
 
   /** Open Modal*/
   const handleShowUserDetailModal = async ({id}) => {
@@ -101,4 +129,4 @@ const WithdrawalUsers = () => {
     </CRow>
   )
 }
-export default WithdrawalUsers
+export default InActiveUserList

@@ -13,7 +13,7 @@ const BarChartTemplate = ({title, data}) => {
       }}
       options={{
         responsive: true,
-        hoverBorderWidth: 4,
+        hoverBorderWidth: 2,
         plugins: {
           title: {
             display: true,
@@ -23,6 +23,8 @@ const BarChartTemplate = ({title, data}) => {
             },
           },
         },
+        borderRadius: 10,
+        inflateAmount: 1,
       }}
     />
   )

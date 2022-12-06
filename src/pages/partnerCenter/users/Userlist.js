@@ -11,7 +11,6 @@ import {isEmpty} from '../../../utils/utility'
 const Userlist = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
-  const [editCheck, setEditCheck] = useState({})
   const [showModal, setShowModal] = useState(false)
 
   const getUsers = async () => {
@@ -50,22 +49,12 @@ const Userlist = () => {
       }
       if (data?.code === 1000) {
         setSelectedItem(data.result)
-        setEditCheck(data.result)
       } else {
         alert(data?.message)
       }
     } catch (error) {
       console.log(error)
     }
-  }
-
-  /** Add User Modal*/
-  const handleDetailModalOnChange = ({target: {id, value}}) => {
-    console.log(id, value, selectedItem)
-    setSelectedItem({
-      ...selectedItem,
-      [id]: value,
-    })
   }
 
   return (
@@ -83,14 +72,7 @@ const Userlist = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <UserDetailModal
-        value={selectedItem}
-        visible={showModal}
-        setVisible={setShowModal}
-        readOnly
-        //upDate={handleDetailModalUpdate}
-        onChange={handleDetailModalOnChange}
-      />
+      <UserDetailModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
     </CRow>
   )
 }

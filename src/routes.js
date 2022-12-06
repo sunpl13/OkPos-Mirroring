@@ -35,7 +35,7 @@ const OfficialMallOrderList = React.lazy(() => import('./pages/officialMall/orde
 
 // 유저 리스트
 const UserList = React.lazy(() => import('./pages/partnerCenter/users/Userlist'))
-const WithdrawalUsers = React.lazy(() => import('./pages/partnerCenter/users/WithdrawalUsers'))
+const WithdrawalUsers = React.lazy(() => import('./pages/partnerCenter/users/InActiveUserList'))
 
 // 1:1 문의 리스트
 const UserInquiryList = React.lazy(() => import('./pages/partnerCenter/inquiry/UserInquiryList'))
