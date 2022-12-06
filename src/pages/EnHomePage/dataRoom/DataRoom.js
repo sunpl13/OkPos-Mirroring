@@ -15,6 +15,7 @@ const DataRoom = () => {
   const [selectedItem, setSelectedItem] = useState({
     dataRoomEnglishId: -1,
     title: '',
+    category: '',
     createdAt: '',
     post: '',
     images: [],
@@ -72,6 +73,7 @@ const DataRoom = () => {
     setSelectedItem({
       dataRoomEnglishId: -1,
       title: '',
+      category: '',
       createdAt: '',
       post: '',
       images: [],
