@@ -117,6 +117,7 @@ const DataRoom = () => {
                 onClick={handleShowDataRoomDetailModal}
                 columns={dataRoomColumns}
                 className={'userList'}
+                datePickerHidden={false}
               />
             </CCardBody>
           </CCard>

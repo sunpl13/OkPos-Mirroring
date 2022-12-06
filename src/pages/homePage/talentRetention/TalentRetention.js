@@ -125,7 +125,8 @@ const TalentRetention = () => {
                 onClick={handleShowTalentPoolDetailModal}
                 columns={talentRetentionColumns}
                 selectedOptions={category}
-                className={'userList'}
+                className='talentPoolList'
+                datePickerHidden={false}
               />
             </CCardBody>
           </CCard>

@@ -91,7 +91,8 @@ const QnAList = () => {
                 onClick={handleShowInquiryDetailModal}
                 selectedOptions={inquirys}
                 columns={qnaColumns}
-                className={'userList'}
+                className='inquiryList'
+                datePickerHidden={false}
               />
             </CCardBody>
           </CCard>
