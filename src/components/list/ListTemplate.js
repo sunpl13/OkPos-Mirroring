@@ -312,6 +312,21 @@ const ListTemplate = ({
               )}
             </td>
           ),
+          image: ({image}) => (
+            <td onClick={event => (image.length !== 0 && image[0] !== '.' ? testOnClick(event, image[0]) : onClick)}>
+              {image.length === 0 || image[0] === '.' ? (
+                ''
+              ) : (
+                <CImage
+                  rounded
+                  src={antdImageFormat(image[0])}
+                  alt={antdImageFormat(image[0])}
+                  width={100}
+                  height={60}
+                />
+              )}
+            </td>
+          ),
         }}
         noItemsLabel={'데이터가 없습니다.'}
         //itemsPerPageSelect={itemPerPageHidden}
