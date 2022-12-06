@@ -76,7 +76,7 @@ const EnglishDataRoomDetail = ({
         data: {
           category: value.category,
           title: value.title,
-          content: content,
+          post: content,
           imageUrls: imgUrls,
           fileUrls: fileUrls,
         },
@@ -127,6 +127,8 @@ const EnglishDataRoomDetail = ({
           text: `${data.result}`,
         })
         onClose()
+      } else {
+        alert(data.message)
       }
     } catch (error) {
       alert(error)
@@ -145,7 +147,7 @@ const EnglishDataRoomDetail = ({
         data: {
           title: value.title,
           category: value.category,
-          content: content,
+          post: content,
           imageUrls: imgUrls,
           fileUrls: fileUrls,
         },
@@ -167,6 +169,8 @@ const EnglishDataRoomDetail = ({
           textColor: 'white',
           text: `${data.result}`,
         })
+      } else {
+        alert(data.message)
       }
     } catch (error) {
       alert(error)
@@ -235,7 +239,7 @@ const EnglishDataRoomDetail = ({
               onChange={onChange}
               size='sm'
               id='category'
-              value={value.category}
+              value={value.categoryEnglish}
               isRequired={true}
               placeholder='선택해주세요'
               label='카테고리'
