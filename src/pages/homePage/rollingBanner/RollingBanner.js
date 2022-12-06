@@ -3,10 +3,9 @@ import PageHeader from '../../../components/common/PageHeader'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {rollingBannerColumns} from '../../../utils/columns/homePage/rollingBanner/Columns'
-import {testHomePageRollingBannerValues} from '../../test/testConstant'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import RollingBannerDetail from '../../../components/Modal/homePage/rollingBanner/rollingBannerDetail'
+import RollingBannerDetail from '../../../components/Modal/homePage/rollingBanner/RollingBannerDetail'
 
 const RollingBanner = () => {
   const [items, setItems] = useState([])
@@ -111,7 +110,7 @@ const RollingBanner = () => {
                 items={items}
                 onClick={handleShowBannerDetailModal}
                 columns={rollingBannerColumns}
-                className={'userList'}
+                className='BannerList'
               />
             </CCardBody>
           </CCard>

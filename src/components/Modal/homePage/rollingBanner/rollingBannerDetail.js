@@ -10,6 +10,7 @@ import {sendImageUrlFormat} from '../../../../utils/awsCustom'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
+import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
 const RollingBannerDetail = ({
   getList,
   value,
@@ -186,10 +187,8 @@ const RollingBannerDetail = ({
 
   return (
     <>
-      <CModal alignment='center' size='lg' visible={visible} onClose={() => setVisible(false)}>
-        <CModalHeader>
-          <CModalTitle>롤링배너 상세</CModalTitle>
-        </CModalHeader>
+      <CModal alignment='center' size='lg' visible={visible}>
+        <CCustomModalHeader onClick={onCloseCheck}>롤링배너 상세</CCustomModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
             <ModalInput
