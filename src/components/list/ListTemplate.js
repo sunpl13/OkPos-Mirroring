@@ -213,10 +213,11 @@ const ListTemplate = ({
             </CInputGroup>
           </CCol>
         )}
-
-        <CCol xs={4}>
-          {datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}
-        </CCol>
+        {datePickerHidden && (
+          <CCol xs={4}>
+            <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
+          </CCol>
+        )}
       </CRow>
       <br />
       <CSmartTable
