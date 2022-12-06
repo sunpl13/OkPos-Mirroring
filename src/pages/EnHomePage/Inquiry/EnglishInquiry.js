@@ -88,7 +88,8 @@ const EnglishInquiry = () => {
                 items={items}
                 onClick={handleShowInquiryDetailModal}
                 columns={InquiryColumns}
-                className={'inquiryList'}
+                className='inquiryList'
+                datePickerHidden={false}
               />
             </CCardBody>
           </CCard>

@@ -111,6 +111,7 @@ const RollingBanner = () => {
                 onClick={handleShowBannerDetailModal}
                 columns={rollingBannerColumns}
                 className='BannerList'
+                datePickerHidden={false}
               />
             </CCardBody>
           </CCard>
