@@ -158,7 +158,7 @@ const NoticeDetail = ({
   }
 
   const onCloseCheck = () => {
-    if (!isReadOnly && value.recruitmentId !== -1) {
+    if (!isReadOnly && value.noticeId !== -1) {
       setCloseCheckModalState(true)
     } else {
       setVisible(false)
@@ -230,16 +230,6 @@ const NoticeDetail = ({
               setValue={setContent}
               label='공지 본문'
             />
-            {/* <CFormLabel className='required'>공지 본문</CFormLabel>
-            <CFormTextarea
-              placeholder='공지 본문'
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-              onChange={onChange}
-              value={value.content}
-              rows={15}
-              id='content'
-            /> */}
           </CRow>
           <CRow className='mb-3 pt-3'>
             <ModalImageInput
