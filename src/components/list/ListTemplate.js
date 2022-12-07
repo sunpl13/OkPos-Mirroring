@@ -18,9 +18,8 @@ import {
 import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
-import ApiConfig, {HttpMethod} from '../../dataManager/apiConfig'
-import {EndPoint} from '../../dataManager/apiMapper'
 import {isPrice} from '../../utils/utility'
+import {antdImageFormat} from '../../utils/awsCustom'
 
 const ListTemplate = ({
   items, // 리스트 아이템
@@ -39,6 +38,7 @@ const ListTemplate = ({
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
+
   const [imgClick, setImgClick] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
@@ -132,6 +132,7 @@ const ListTemplate = ({
   const modalOnClick = () => {
     setShowModal(!showModal)
   }
+
   const handleDeleteOnClick = (event, item) => {
     event.stopPropagation()
     onDelete(item)
@@ -302,6 +303,40 @@ const ListTemplate = ({
           deletedAt: ({deletedAt}) => <td>{moment(deletedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           updatedAt: ({updatedAt}) => <td>{moment(updatedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           noticeFiles: ({noticeFiles}) => <td>{noticeFiles?.length} 개</td>,
+          imageUrls: ({imageUrls}) => (
+            <td
+              onClick={event =>
+                imageUrls.length !== 0 && imageUrls[0] !== '.' ? testOnClick(event, imageUrls[0]) : onClick
+              }
+            >
+              {imageUrls.length === 0 || imageUrls[0] === '.' ? (
+                ''
+              ) : (
+                <CImage
+                  rounded
+                  src={antdImageFormat(imageUrls[0])}
+                  alt={antdImageFormat(imageUrls[0])}
+                  width={100}
+                  height={60}
+                />
+              )}
+            </td>
+          ),
+          image: ({image}) => (
+            <td onClick={event => (image.length !== 0 && image[0] !== '.' ? testOnClick(event, image[0]) : onClick)}>
+              {image.length === 0 || image[0] === '.' ? (
+                ''
+              ) : (
+                <CImage
+                  rounded
+                  src={antdImageFormat(image[0])}
+                  alt={antdImageFormat(image[0])}
+                  width={100}
+                  height={60}
+                />
+              )}
+            </td>
+          ),
         }}
         noItemsLabel={'데이터가 없습니다.'}
         //itemsPerPageSelect={itemPerPageHidden}

@@ -2,8 +2,7 @@ import {useEffect, useState} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import {rollingBannerColumns} from '../../../utils/columns/homePage/rollingBanner/Columns'
-import {testHomePageRollingBannerValues} from '../../test/testConstant'
+import {rollingBannerColumns} from '../../../utils/columns/EnHomePage/rollingBanner/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import RollingBannerDetail from '../../../components/Modal/EnHomePage/rollingBanner/RollingBannerDetail'
@@ -11,132 +10,76 @@ import RollingBannerDetail from '../../../components/Modal/EnHomePage/rollingBan
 const RollingBanner = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [showAddModal, setShowAddModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
   const [selectedItem, setSelectedItem] = useState({
-    bannerId: -1,
+    bannerEnglishId: -1,
     title: '',
-    imgUrl: '',
-  })
-  const [item, setItem] = useState({
-    bannerId: -1,
-    title: '',
-    imgUrl: '',
+    imageUrls: [],
   })
 
-  useEffect(() => {
-    if (!showModal) {
-      setIsReadOnly(true)
+  const onLoadBannerList = async () => {
+    try {
+      const data = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {},
+        method: HttpMethod.GET,
+        url: EndPoint.ENGLISH_BANNER,
+      })
+      setItems(data?.data.result.responses)
+    } catch (error) {
+      alert(error)
     }
-  }, [showModal])
-
-  const handleTestList = async () => {
-    setItems(testHomePageRollingBannerValues)
   }
-
-  const handleShowUserDetailModal = item => {
-    setSelectedItem(item)
-    setShowModal(!showModal)
-  }
-
-  const handlePopUpOnChange = ({target}) => {
-    const {id, value} = target
-    setSelectedItem({
-      ...selectedItem,
-      [id]: value,
-    })
-  }
-
-  const handlePopupAddModal = () => {
-    setIsReadOnly(false)
-    setSelectedItem({
-      bannerId: -1,
-      title: '',
-      imgUrl: '',
-    })
-    setShowModal(!showModal)
-  }
-
-  const handleUserItemAddModalOnClick = () => {
-    setItems([
-      ...items,
-      {
-        ...item,
-      },
-    ])
-    setItem({
-      No: 0,
-      popUpName: '',
-      popUpImg: '',
-    })
-    setShowAddModal(!showAddModal)
-  }
-
-  // const onLoadEmploymentList = async () => {
-  //   try {
-  //     const data = await ApiConfig.request({
-  //       data: {},
-  //       query: {},
-  //       path: {},
-  //       method: HttpMethod.GET,
-  //       url: EndPoint.RECRUITMENT,
-  //     })
-  //     setItems(data?.data.result)
-  //   } catch (error) {
-  //     alert(error)
-  //   }
-  // }
 
   //가져오기 onLoad
   //생성 onCreate
   //수정 onUpdate
   //삭제 onDelete
-  // const onLoadDetail = async id => {
-  //   try {
-  //     const {data} = await ApiConfig.request({
-  //       data: {},
-  //       query: {},
-  //       path: {
-  //         recruitmentId: id,
-  //       },
-  //       method: HttpMethod.GET,
-  //       url: `${EndPoint.RECRUITMENT}/:recruitmentId`,
-  //     })
+  const onLoadDetail = async id => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {},
+        query: {},
+        path: {
+          id: id,
+        },
+        method: HttpMethod.GET,
+        url: `${EndPoint.ENGLISH_BANNER}/:id`,
+      })
+      setSelectedItem(data.result)
+    } catch (error) {
+      alert(error)
+    }
+  }
 
-  //     setSelectedItem(data.result)
-  //   } catch (error) {
-  //     alert(error)
-  //   }
-  // }
+  useEffect(() => {
+    onLoadBannerList()
+  }, [])
 
-  // useEffect(() => {
-  //   onLoadEmploymentList()
-  // }, [])
+  const handleShowBannerDetailModal = async item => {
+    onLoadDetail(item.bannerEnglishId)
+    setShowModal(!showModal)
+  }
 
-  // const handleShowEmploymentDetailModal = async item => {
-  //   onLoadDetail(item.recruitmentId)
-  //   setShowModal(!showModal)
-  // }
+  const handleBannerAddModal = () => {
+    setIsReadOnly(false)
+    setSelectedItem({
+      bannerEnglishId: -1,
+      title: '',
+      imageUrls: [],
+    })
+    setShowModal(!showModal)
+  }
 
-  // const handleEmploymentAddModal = () => {
-  //   setIsReadOnly(false)
-  //   setSelectedItem({
-  //     bannerId: -1,
-  //     title: '',
-  //     startedAt: '',
-  //     content: '',
-  //   })
-  //   setShowModal(!showModal)
-  // }
+  const handleBannerDetailOnChange = ({target}) => {
+    const {id, value} = target
 
-  // const handleEmployDetailOnChange = ({target}) => {
-  //   const {id, value} = target
-
-  //   setSelectedItem({
-  //     ...selectedItem,
-  //     [id]: value,
-  //   })
-  // }
+    setSelectedItem({
+      ...selectedItem,
+      [id]: value,
+    })
+  }
   return (
     <>
       <PageHeader title='롤링배너 관리' />
@@ -146,12 +89,12 @@ const RollingBanner = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleTestList}>
+                  <CButton color='primary' onClick={onLoadBannerList}>
                     조회하기
                   </CButton>
                 </CCol>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handlePopupAddModal}>
+                  <CButton color='primary' onClick={handleBannerAddModal}>
                     추가
                   </CButton>
                 </CCol>
@@ -160,22 +103,23 @@ const RollingBanner = () => {
             <CCardBody>
               <ListTemplate
                 items={items}
-                onClick={handleShowUserDetailModal}
+                onClick={handleShowBannerDetailModal}
                 columns={rollingBannerColumns}
-                className={'userList'}
+                className='BannerList'
               />
             </CCardBody>
           </CCard>
         </CCol>
       </CRow>
       <RollingBannerDetail
-        onClick={handleUserItemAddModalOnClick}
-        onChange={handlePopUpOnChange}
+        onChange={handleBannerDetailOnChange}
         visible={showModal}
         value={selectedItem}
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
+        getList={onLoadBannerList}
+        setSelectedItem={setSelectedItem}
       />
     </>
   )
