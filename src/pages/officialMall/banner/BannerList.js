@@ -180,8 +180,8 @@ const BannerList = () => {
     setShowModal(!showModal)
   }
 
-  // setSelectedItem Change
-  const handleFaqItemModalOnChange = e => {
+  // 값 변경
+  const handleBannerOnChange = e => {
     const {id, value} = e.target
     setSelectedItem({
       ...selectedItem,
@@ -189,11 +189,15 @@ const BannerList = () => {
     })
   }
 
+  const handleBannerImageOnChange = url => {
+    setSelectedItem({
+      ...selectedItem,
+      image: url,
+    })
+  }
+
   const handleDetailModalUpdate = async () => {
     const {bannerId, title, subTitle, image} = selectedItem
-    selectedItem.image =
-      'https://homepage-test-resource.s3.ap-northeast-2.amazonaws.com/admin/files/mall/dataroom/test-ge3e510db1_640.jpg'
-
     // validation
     if (!title) return alert('제목을 입력해주세요')
     if (!subTitle) return alert('부제목 선택해주세요')
@@ -251,7 +255,8 @@ const BannerList = () => {
         item={selectedItem}
         onUpdate={handleDetailModalUpdate}
         onDelete={handleDetailModalDelete}
-        onChange={handleFaqItemModalOnChange}
+        onChange={handleBannerOnChange}
+        onChangeImage={handleBannerImageOnChange}
         visible={showModal}
         setVisible={setShowModal}
         isReadOnly={isReadOnly}

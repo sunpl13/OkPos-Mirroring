@@ -1,10 +1,11 @@
 import {CButton, CForm, CImage, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
-import ModalImageInput from '../../forms/inputForm/ModalImageInput'
+import ModalSingleImageInput from '../../forms/inputForm/ModalSingleImageInput'
 import ModalInput from '../../forms/inputForm/ModalInput'
 
 const BannerDetailModal = ({
   item,
   onChange,
+  onChangeImage,
   onUpdate,
   onDelete,
   visible,
@@ -45,6 +46,7 @@ const BannerDetailModal = ({
               onChange={onChange}
               readOnly={isReadOnly}
               disabled={isReadOnly}
+              isRequired
             />
           </CRow>
           <CRow className={'p-2'}>
@@ -56,22 +58,20 @@ const BannerDetailModal = ({
               onChange={onChange}
               readOnly={isReadOnly}
               disabled={isReadOnly}
+              isRequired
             />
           </CRow>
           <CRow className={'p-2'}>
-            {isReadOnly ? (
-              <CImage rounded src={item.image} alt='' width={460} height={350} />
-            ) : (
-              <ModalInput
-                id={'image'}
-                placeholder={'이미지'}
-                label={'이미지'}
-                value={item.image || ''}
-                onChange={onChange}
-                readOnly={isReadOnly}
-                disabled={isReadOnly}
-              />
-            )}
+            <ModalSingleImageInput
+              id={'image'}
+              placeholder={'이미지'}
+              label={'이미지'}
+              image={item.image || ''}
+              onChangeImage={onChangeImage}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              isRequired
+            />
           </CRow>
         </CForm>
       </CModalBody>

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import FaqDetailModal from '../../../components/Modal/officialMall/FaqDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {dataRoomListColumns} from '../../../utils/columns/officialMall/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
@@ -10,7 +9,6 @@ import {isEmpty} from '../../../utils/utility'
 import {useNavigate} from 'react-router-dom'
 import * as _ from 'lodash'
 import DataRoomModal from '../../../components/Modal/officialMall/DataRoomModal'
-import {sendImageUrlFormat} from '../../../utils/awsCustom'
 
 const DataRoomList = () => {
   const navigate = useNavigate()
