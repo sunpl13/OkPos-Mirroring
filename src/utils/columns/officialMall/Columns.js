@@ -48,9 +48,12 @@ export const dataRoomListColumns = [
 // 주문 현황 관리
 export const orderListColumns = [
   {key: 'orderId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
-  {key: 'category', label: '분류', _props: {className: 'category'}},
-  {key: 'title', label: '제목', _props: {className: 'title'}},
-  {key: 'createdAt', label: '최초등록일', sorter: false, filter: false, _props: {className: 'createdAt'}},
+  {key: 'orderNumber', label: '주문번호', sorter: false, _props: {className: 'orderNumber'}},
+  {key: 'receiver', label: '수취인', _props: {className: 'receiver'}},
+  {key: 'phoneNumber', label: '휴대전화번호', _props: {className: 'phoneNumber'}},
+  {key: 'category', label: '주문상태', _props: {className: 'category'}},
+  {key: 'totalPrice', label: '주문총액', _props: {className: 'totalPrice'}},
+  {key: 'createdAt', label: '주문일', sorter: false, filter: false, _props: {className: 'createdAt'}},
 ]
 
 // 배너 관리

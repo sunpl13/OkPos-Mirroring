@@ -53,6 +53,10 @@ export const EndPoint = {
   PATCH_MALL_UPDATE_BANNER: `${API}/admin/mall/banners`,
   PATCH_MALL_DELETE_BANNER: `${API}/admin/mall/banners/:bannerId`,
 
+  GET_MALL_ORDERS: `${API}/admin/mall/orders`,
+  GET_MALL_CANCEL_ORDERS: `${API}/admin/mall/orders/cancel`,
+  GET_MALL_EXCHANGE_ORDERS: `${API}/admin/mall/orders/exchange`,
+
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
 }
@@ -74,6 +78,9 @@ const ApiMapper = {
     [EndPoint.GET_MALL_DATAROOM]: {},
     [EndPoint.GET_MALL_BANNERS]: {},
     [EndPoint.GET_MALL_BANNER]: {},
+    [EndPoint.GET_MALL_ORDERS]: {},
+    [EndPoint.GET_MALL_CANCEL_ORDERS]: {},
+    [EndPoint.GET_MALL_EXCHANGE_ORDERS]: {},
 
     // ------ 파트너센터 페이지
     [EndPoint.GET_PARTNER_USERS]: {},

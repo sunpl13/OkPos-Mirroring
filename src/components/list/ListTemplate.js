@@ -20,6 +20,7 @@ import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
 import ApiConfig, {HttpMethod} from '../../dataManager/apiConfig'
 import {EndPoint} from '../../dataManager/apiMapper'
+import {isPrice} from '../../utils/utility'
 
 const ListTemplate = ({
   items, // 리스트 아이템
@@ -293,6 +294,8 @@ const ListTemplate = ({
               <CImage rounded src={productImg || ''} alt='' width={100} height={60} />
             </td>
           ),
+          totalPrice: ({totalPrice}) => <td className='totalPrice'>{isPrice(totalPrice)}</td>,
+
           startedAt: ({startedAt}) => <td>{moment(startedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           closedAt: ({closedAt}) => <td>{moment(closedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           createdAt: ({createdAt}) => <td>{moment(createdAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,

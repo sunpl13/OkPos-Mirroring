@@ -23,7 +23,7 @@ const OrderList = () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_MALL_USERS,
+        url: EndPoint.GET_MALL_ORDERS,
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
@@ -35,7 +35,7 @@ const OrderList = () => {
         }
         return
       }
-      setOrderList(res.result.userInfos)
+      setOrderList(res.result.responses)
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
