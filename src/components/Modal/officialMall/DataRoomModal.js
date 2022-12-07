@@ -86,17 +86,6 @@ const DataRoomModal = ({
             />
           </CRow>
           <CRow className={'p-2'}>
-            <ModalTextArrayInput
-              id='content'
-              label={'본문'}
-              value={content}
-              onChange={onChange}
-              rows={9}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-            />
-          </CRow>
-          <CRow className={'p-2'}>
             <ModalSingleImageInput
               id={'image'}
               placeholder={'이미지'}
@@ -106,6 +95,17 @@ const DataRoomModal = ({
               readOnly={isReadOnly}
               disabled={isReadOnly}
               isRequired
+            />
+          </CRow>{' '}
+          <CRow className={'p-2'}>
+            <ModalTextArrayInput
+              id='content'
+              label={'본문'}
+              value={content}
+              onChange={onChange}
+              rows={9}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
             />
           </CRow>
           <CRow className={'p-2'}>

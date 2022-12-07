@@ -100,6 +100,7 @@ const DataRoomList = () => {
 
   // 자료 수정
   const onUpdateMallDataRoom = async item => {
+    console.log(item)
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
@@ -144,6 +145,7 @@ const DataRoomList = () => {
           alert(res?.message)
         }
       }
+      alert(res?.message)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -205,8 +207,6 @@ const DataRoomList = () => {
 
   const handleDetailModalUpdate = async () => {
     const {dataRoomId, title, image, content, category} = selectedItem
-    selectedItem.image =
-      'https://homepage-test-resource.s3.ap-northeast-2.amazonaws.com/admin/files/mall/dataroom/test-ge3e510db1_640.jpg'
 
     // validation
     if (!title) return alert('제목을 입력해주세요')
