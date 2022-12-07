@@ -7,7 +7,7 @@ import {useEffect} from 'react'
 import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
 import MultiFileDownloadForm from '../downloadForm/MultiFileDownloadForm'
 
-const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath}) => {
+const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath, isRequired}) => {
   // files = 조회를 통해 가져온 데이터가 있는 경우
   useEffect(() => {
     if (files && files.length > 0) {
@@ -107,7 +107,7 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
         <MultiFileDownloadForm files={files} id={id} label={label} />
       ) : (
         <DivBox className={disabled ? 'disabled' : ''}>
-          <CFormLabel className=' col-form-label'>{label || ''}</CFormLabel>
+          <CFormLabel className={isRequired ? 'required' : ''}>{label || ''}</CFormLabel>
           <Upload.Dragger {...props} id={id}>
             <p className='ant-upload-drag-icon'>
               <InboxOutlined />

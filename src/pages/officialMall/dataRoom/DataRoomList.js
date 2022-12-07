@@ -179,12 +179,19 @@ const DataRoomList = () => {
     setShowModal(!showModal)
   }
 
-  /** Add Faq Modal*/
-  const handleFaqItemModalOnChange = e => {
+  /** Add dataroom Modal*/
+  const handleDataRoomItemModalOnChange = e => {
     const {id, value} = e.target
     setSelectedItem({
       ...selectedItem,
       [id]: value,
+    })
+  }
+
+  const handleDataRoomImageOnChange = url => {
+    setSelectedItem({
+      ...selectedItem,
+      image: url,
     })
   }
 
@@ -264,7 +271,8 @@ const DataRoomList = () => {
         item={selectedItem}
         onUpdate={handleDetailModalUpdate}
         onDelete={handleDetailModalDelete}
-        onChange={handleFaqItemModalOnChange}
+        onChange={handleDataRoomItemModalOnChange}
+        onChangeImage={handleDataRoomImageOnChange}
         visible={showModal}
         setVisible={setShowModal}
         fileList={fileList}

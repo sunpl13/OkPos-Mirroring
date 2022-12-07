@@ -5,9 +5,11 @@ import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 import {CButton, CForm, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import {dataRoomCategoryOptions} from '../../../utils/categoryOptions/officailMall/categoryOptions'
+import ModalSingleImageInput from '../../forms/inputForm/ModalSingleImageInput'
 
 const DataRoomModal = ({
   onChange,
+  onChangeImage,
   item,
   visible,
   setVisible,
@@ -80,19 +82,8 @@ const DataRoomModal = ({
               onChange={onChange}
               readOnly={isReadOnly}
               disabled={isReadOnly}
+              isRequired
             />
-          </CRow>
-          <CRow className={'p-2'}>
-            {(isReadOnly || isUpdate) && (
-              <ModalInput
-                id={'createdAt'}
-                placeholder={'작성일'}
-                label={'작성일'}
-                value={createdAt}
-                readOnly
-                disabled
-              />
-            )}
           </CRow>
           <CRow className={'p-2'}>
             <ModalTextArrayInput
@@ -106,6 +97,18 @@ const DataRoomModal = ({
             />
           </CRow>
           <CRow className={'p-2'}>
+            <ModalSingleImageInput
+              id={'image'}
+              placeholder={'이미지'}
+              label={'이미지'}
+              image={image || ''}
+              onChangeImage={onChangeImage}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              isRequired
+            />
+          </CRow>
+          <CRow className={'p-2'}>
             <ModalFilesInput
               id={'fileList'}
               fileList={fileList}
@@ -115,6 +118,7 @@ const DataRoomModal = ({
               filePath={'mall/dataroom'}
               readOnly={isReadOnly}
               disabled={isReadOnly}
+              isRequired
             />
           </CRow>
           <br />

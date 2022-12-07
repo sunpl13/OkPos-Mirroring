@@ -9,7 +9,6 @@ const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, fileP
   const [loading, setLoading] = useState(false)
 
   const beforeUpload = file => {
-    console.log(file)
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
       window.alert('옳바른 확장자가 아닙니다 (JPG/PNG)')
