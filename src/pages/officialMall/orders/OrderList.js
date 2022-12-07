@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import UserModal from '../../../components/Modal/officialMall/UserModal'
+import OrderModal from '../../../components/Modal/officialMall/OrderModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {orderListColumns} from '../../../utils/columns/officialMall/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
@@ -70,7 +70,7 @@ const OrderList = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <UserModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
+      <OrderModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
     </CRow>
   )
 }

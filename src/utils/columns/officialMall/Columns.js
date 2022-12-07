@@ -56,6 +56,14 @@ export const orderListColumns = [
   {key: 'createdAt', label: '주문일', sorter: false, filter: false, _props: {className: 'createdAt'}},
 ]
 
+// 제품 관리
+export const productListColumns = [
+  {key: 'itemName', label: '제품명', sorter: false, filter: false, _props: {className: 'itemName'}},
+  {key: 'orderItemPrice', sorter: false, filter: false, label: '제품가격', _props: {className: 'orderItemPrice'}},
+  {key: 'orderStatus', label: '제품상태', sorter: false, filter: false, _props: {className: 'orderStatus'}},
+  {key: 'invoiceNumber', sorter: false, filter: false, label: '송장번호', _props: {className: 'invoiceNumber'}},
+]
+
 // 배너 관리
 export const bannerListColumns = [
   {key: 'bannerId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
