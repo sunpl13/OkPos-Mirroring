@@ -11,3 +11,7 @@ export function isValidEmail(email) {
 export function isValidPhoneNumber(phoneNumber) {
   return phoneNumber.match(/^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/)
 }
+
+export function isPrice(price) {
+  return price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',') + ' 원'
+}

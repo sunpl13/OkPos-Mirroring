@@ -285,7 +285,7 @@ const EmploymemtDetailModal = ({
             <ModalInput
               onChange={onChange}
               id='recruitmentId'
-              placeholder='recruitmentId.'
+              placeholder='ID'
               label='ID'
               readOnly={true}
               disabled={true}

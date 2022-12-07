@@ -17,8 +17,8 @@ const HopageNotice = React.lazy(() => import('./pages/homePage/notice/Notice'))
 const EnglishInquiry = React.lazy(() => import('./pages/EnHomePage/Inquiry/EnglishInquiry'))
 const EnglishDataRoom = React.lazy(() => import('./pages/EnHomePage/dataRoom/DataRoom'))
 const EnglishRollingBanner = React.lazy(() => import('./pages/EnHomePage/rollingBanner/RollingBanner'))
-// ------ 가맹점 전용 공식몰 페이지
 
+// ------ 가맹점 전용 공식몰 페이지
 // 회원관리
 const OfficailMallUserList = React.lazy(() => import('./pages/officialMall/users/UserList'))
 const OfficailMallResignUserList = React.lazy(() => import('./pages/officialMall/users/ResignUserList'))
@@ -30,9 +30,10 @@ const OfficialMallFaqList = React.lazy(() => import('./pages/officialMall/faq/Fa
 const OfficialMallDataRoom = React.lazy(() => import('./pages/officialMall/dataRoom/DataRoomList'))
 // 주문 현황
 const OfficialMallOrderList = React.lazy(() => import('./pages/officialMall/orders/OrderList'))
+// 배너 관리
+const OfficialMallBannerList = React.lazy(() => import('./pages/officialMall/banner/BannerList'))
 
 // ------ 대리점 전용 파트너 센터
-
 // 유저 리스트
 const UserList = React.lazy(() => import('./pages/partnerCenter/users/Userlist'))
 const WithdrawalUsers = React.lazy(() => import('./pages/partnerCenter/users/InActiveUserList'))
@@ -79,14 +80,13 @@ const routes = [
   {path: '/home/en/data-room', name: 'Data Room', element: EnglishDataRoom},
 
   // ------ 가맹점 전용 공식몰 페이지
-
-  // 회원관리
   {path: `/mall/users`, name: '회원 관리', element: OfficailMallUserList},
   {path: `/mall/resign/users`, name: '탈퇴회원 관리', element: OfficailMallResignUserList},
-  {path: `/mall/inquirys`, name: '1:1 문의관리', element: OfficailMallInquiryList},
+  {path: `/mall/inquiry`, name: '1:1 문의관리', element: OfficailMallInquiryList},
   {path: `/mall/faq`, name: 'FAQ 관리', element: OfficialMallFaqList},
   {path: `/mall/dataroom`, name: '자료실 관리', element: OfficialMallDataRoom},
-  {path: `/mall/orders`, name: '자료실 관리', element: OfficialMallOrderList},
+  {path: `/mall/order`, name: '주문 관리', element: OfficialMallOrderList},
+  {path: `/mall/banner`, name: '배너 관리', element: OfficialMallBannerList},
 
   // ------ 대리점 전용 파트너 센터
 

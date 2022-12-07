@@ -1,5 +1,5 @@
 // 자료실 카테고리 옵션
-export const dataRoomCategory = [
+export const dataRoomCategoryOptions = [
   {
     key: '드라이버',
     value: '드라이버',

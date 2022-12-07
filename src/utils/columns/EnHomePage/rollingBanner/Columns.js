@@ -1,8 +1,8 @@
 export const rollingBannerColumns = [
   {
-    key: 'bannerId',
+    key: 'bannerEnglishId',
     label: 'No',
-    _props: {color: 'primary', className: 'bannerId'},
+    _props: {color: 'primary', className: 'bannerEnglishId'},
   },
   {
     key: 'title',
@@ -10,7 +10,7 @@ export const rollingBannerColumns = [
     _props: {color: 'primary', className: 'title'},
   },
   {
-    key: 'imageUrls',
+    key: 'image',
     label: '배너 이미지',
     _props: {color: 'primary', className: 'image'},
   },

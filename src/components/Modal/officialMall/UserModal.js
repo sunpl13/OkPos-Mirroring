@@ -82,7 +82,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}) => {
           <ModalInput
             id={'userName'}
             placeholder={''}
-            label={'사용자명'}
+            label={'이름'}
             value={user.name}
             onChange={onChange}
             readOnly

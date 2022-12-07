@@ -1,5 +1,6 @@
 import {CButton, CImage, CModal, CModalBody, CModalFooter} from '@coreui/react'
 import {useState} from 'react'
+import {antdImageFormat} from '../../utils/awsCustom'
 
 export interface IImage {
   img: string
@@ -9,12 +10,12 @@ export interface IImage {
 interface IThumbnail {
   thumbnails: any
   visible: boolean
+  url: string
   setVisible: (state: boolean) => void
 }
 
-const ThumbnailModal = ({visible, setVisible}: IThumbnail) => {
+const ThumbnailModal = ({visible, setVisible, url}: IThumbnail) => {
   const [imgUrl, setImgUrl] = useState('')
-  console.log(setImgUrl)
   // useEffect(() => {
   //   setImgUrl(thumbnails[0].img)
 
@@ -29,7 +30,7 @@ const ThumbnailModal = ({visible, setVisible}: IThumbnail) => {
     <CModal alignment='center' size='xl' visible={visible} onClose={() => setVisible(false)}>
       {/*<CModalHeader></CModalHeader>*/}
       <CModalBody className='clearfix'>
-        <CImage align='center' fluid src={imgUrl} alt='안녕하세요' width={600} />
+        <CImage align='center' fluid src={antdImageFormat(url)} alt='안녕하세요' width={600} />
         {/* <MultipleRows>
           {thumbnails.map(item => (
             <CImage key={item.img} src={item.img} alt={item.altName} width={80} height={60} />
@@ -37,9 +38,6 @@ const ThumbnailModal = ({visible, setVisible}: IThumbnail) => {
         </MultipleRows> */}
       </CModalBody>
       <CModalFooter>
-        <CButton color='danger' onClick={() => setVisible(false)}>
-          삭제
-        </CButton>
         <CButton color='primary' onClick={() => setVisible(false)}>
           Cancel
         </CButton>
