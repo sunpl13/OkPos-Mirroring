@@ -5,7 +5,7 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {rollingBannerColumns} from '../../../utils/columns/homePage/rollingBanner/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import RollingBannerDetail from '../../../components/Modal/homePage/rollingBanner/RollingBannerDetail'
+import RollingBannerDetail from '../../../components/Modal/homePage/rollingBanner/rollingBannerDetail'
 
 const RollingBanner = () => {
   const [items, setItems] = useState([])
