@@ -7,18 +7,19 @@ import {useEffect} from 'react'
 import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
 import MultiFileDownloadForm from '../downloadForm/MultiFileDownloadForm'
 
-const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath}) => {
+const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath, isRequired}) => {
   // files = 조회를 통해 가져온 데이터가 있는 경우
   useEffect(() => {
     if (files && files.length > 0) {
       setFileList(
-        files.map((path, index) => ({
+        files.map((file, index) => ({
           key: index,
-          uid: path,
-          name: getFileNameFromURL(path),
+          uid: index,
+          name: file.fileTitle,
           status: 'done',
+          url: file.file,
           //url: antdImageFormat(path),
-          url: path,
+          //name: getFileNameFromURL(file),
         })),
       )
     }
@@ -102,20 +103,16 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
 
   return (
     <>
-      {disabled ? (
-        <MultiFileDownloadForm files={files} id={id} label={label} />
-      ) : (
-        <DivBox className={disabled ? 'disabled' : ''}>
-          <CFormLabel className=' col-form-label'>{label || ''}</CFormLabel>
-          <Upload.Dragger {...props} id={id}>
-            <p className='ant-upload-drag-icon'>
-              <InboxOutlined />
-            </p>
-            <p className='ant-upload-text'>업로드하려면 이 영역으로 파일을 클릭하거나 드래그하세요.</p>
-            <p className='ant-upload-hint'>추가설명</p>
-          </Upload.Dragger>
-        </DivBox>
-      )}
+      <DivBox className={disabled}>
+        <CFormLabel className={isRequired ? 'required' : ''}>{label || ''}</CFormLabel>
+        <Upload.Dragger {...props} id={id}>
+          <p className='ant-upload-drag-icon'>
+            <InboxOutlined />
+          </p>
+          <p className='ant-upload-text'>업로드하려면 이 영역으로 파일을 클릭하거나 드래그하세요.</p>
+          <p className='ant-upload-hint'>추가설명</p>
+        </Upload.Dragger>
+      </DivBox>
     </>
   )
 }

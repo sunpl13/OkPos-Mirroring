@@ -45,7 +45,19 @@ export const EndPoint = {
 
   GET_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
   GET_MALL_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
-  POST_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
+  POST_MALL_DATAROOM: `${API}/admin/mall/datarooms`,
+  PATCH_MALL_UPDATE_DATAROOM: `${API}/admin/mall/datarooms`,
+  PATCH_MALL_DELETE_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
+
+  GET_MALL_BANNERS: `${API}/admin/mall/banners`,
+  GET_MALL_BANNER: `${API}/admin/mall/banners/:bannerId`,
+  POST_MALL_BANNER: `${API}/admin/mall/banners`,
+  PATCH_MALL_UPDATE_BANNER: `${API}/admin/mall/banners`,
+  PATCH_MALL_DELETE_BANNER: `${API}/admin/mall/banners/:bannerId`,
+
+  GET_MALL_ORDERS: `${API}/admin/mall/orders`,
+  GET_MALL_CANCEL_ORDERS: `${API}/admin/mall/orders/cancel`,
+  GET_MALL_EXCHANGE_ORDERS: `${API}/admin/mall/orders/exchange`,
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
@@ -66,6 +78,11 @@ const ApiMapper = {
     [EndPoint.GET_MALL_FAQ]: {},
     [EndPoint.GET_MALL_DATAROOMS]: {},
     [EndPoint.GET_MALL_DATAROOM]: {},
+    [EndPoint.GET_MALL_BANNERS]: {},
+    [EndPoint.GET_MALL_BANNER]: {},
+    [EndPoint.GET_MALL_ORDERS]: {},
+    [EndPoint.GET_MALL_CANCEL_ORDERS]: {},
+    [EndPoint.GET_MALL_EXCHANGE_ORDERS]: {},
 
     // ------ 파트너센터 페이지
     [EndPoint.GET_PARTNER_USERS]: {},
@@ -83,7 +100,8 @@ const ApiMapper = {
     // ------ 가맹점 전용 공식몰 페이지
     [EndPoint.POST_MALL_INQUIRY_REPLY]: {},
     [EndPoint.POST_MALL_FAQ]: {},
-    [EndPoint.POST_MALL_DATAROOMS]: {},
+    [EndPoint.POST_MALL_DATAROOM]: {},
+    [EndPoint.POST_MALL_BANNER]: {},
   },
   patch: {
     // ------ 가맹점 전용 공식몰 페이지
@@ -91,6 +109,10 @@ const ApiMapper = {
     [EndPoint.PATCH_MALL_DELETE_INQUIRY]: {},
     [EndPoint.PATCH_MALL_UPDATE_FAQ]: {},
     [EndPoint.PATCH_MALL_DELETE_FAQ]: {},
+    [EndPoint.PATCH_MALL_UPDATE_DATAROOM]: {},
+    [EndPoint.PATCH_MALL_DELETE_DATAROOM]: {},
+    [EndPoint.PATCH_MALL_UPDATE_BANNER]: {},
+    [EndPoint.PATCH_MALL_DELETE_BANNER]: {},
   },
   put: {},
   delete: {},

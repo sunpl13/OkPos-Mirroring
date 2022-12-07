@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import UserModal from '../../../components/Modal/officialMall/UserModal'
+import OrderModal from '../../../components/Modal/officialMall/OrderModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {orderListColumns} from '../../../utils/columns/officialMall/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
@@ -23,7 +23,7 @@ const OrderList = () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_MALL_USERS,
+        url: EndPoint.GET_MALL_ORDERS,
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
@@ -35,7 +35,7 @@ const OrderList = () => {
         }
         return
       }
-      setOrderList(res.result.userInfos)
+      setOrderList(res.result.responses)
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -70,7 +70,7 @@ const OrderList = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <UserModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
+      <OrderModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
     </CRow>
   )
 }

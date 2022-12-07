@@ -28,6 +28,7 @@ const InquiryList = () => {
   const [isUpdate, setIsUpdate] = useState(false)
 
   // API 통신 함수
+  // 1:1 문의 리스트 조회
   const onLoadMallInquiryList = async () => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -51,6 +52,7 @@ const InquiryList = () => {
     }
   }
 
+  // 1:1 문의 상세정보 조회
   const onloadMallInquiry = async inquiryId => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -81,7 +83,7 @@ const InquiryList = () => {
     }
   }
 
-  // Create Inquiry Answer
+  // 1:1 문의 답변 추가
   const onCreateMallInquiryAnswer = async (inquiryId, inquiryReplyContent) => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -104,7 +106,7 @@ const InquiryList = () => {
     }
   }
 
-  // Update Inquiry Answer
+  // 1:1 문의 답변 수정
   const onUpdateInquiryAnswer = async (inquiryId, inquiryReplyId, inquiryReplyContent) => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -131,28 +133,30 @@ const InquiryList = () => {
     }
   }
 
-  // Delete Inquiry
+  // 1:1 문의 삭제
   const onDeleteInquiry = async inquiry => {
-    const {inquiryId} = inquiry
-    try {
-      const {data: res} = await ApiConfig.request({
-        method: HttpMethod.PATCH,
-        url: EndPoint.PATCH_MALL_DELETE_INQUIRY,
-        path: {inquiryId},
-      })
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      const {inquiryId} = inquiry
+      try {
+        const {data: res} = await ApiConfig.request({
+          method: HttpMethod.PATCH,
+          url: EndPoint.PATCH_MALL_DELETE_INQUIRY,
+          path: {inquiryId},
+        })
 
-      if (!res?.isSuccess) {
-        if (res?.code === 2014) {
-          navigate('/login')
-        } else {
-          alert(res?.message)
+        if (!res?.isSuccess) {
+          if (res?.code === 2014) {
+            navigate('/login')
+          } else {
+            alert(res?.message)
+          }
         }
+        alert(res?.message)
+        setShowModal(!showModal)
+        await onLoadMallInquiryList()
+      } catch (error) {
+        alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
       }
-      alert(res?.message)
-      setShowModal(!showModal)
-      await onLoadMallInquiryList()
-    } catch (error) {
-      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
   }
 

@@ -1,14 +1,15 @@
-import {useEffect, useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useEffect} from 'react'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import ModalTextArrayInput from '../../forms/inputForm/ModalTextArrayInput'
 import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 import {CButton, CForm, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
-import {dataRoomCategory} from '../../../utils/categoryOptions/officailMall/categoryOptions'
+import {dataRoomCategoryOptions} from '../../../utils/categoryOptions/officailMall/categoryOptions'
+import ModalSingleImageInput from '../../forms/inputForm/ModalSingleImageInput'
 
 const DataRoomModal = ({
   onChange,
+  onChangeImage,
   item,
   visible,
   setVisible,
@@ -21,9 +22,6 @@ const DataRoomModal = ({
   setIsReadOnly,
   isReadOnly,
 }) => {
-  // 모듈 선언
-  const navigate = useNavigate()
-
   // Local state 선언
   const {category, dataRoomId, title, content, image, files, createdAt} = item
 
@@ -63,7 +61,7 @@ const DataRoomModal = ({
               />
             )}
             <ModalSelect
-              options={dataRoomCategory}
+              options={dataRoomCategoryOptions}
               onChange={onChange}
               size='sm'
               id='category'
@@ -84,20 +82,21 @@ const DataRoomModal = ({
               onChange={onChange}
               readOnly={isReadOnly}
               disabled={isReadOnly}
+              isRequired
             />
           </CRow>
           <CRow className={'p-2'}>
-            {(isReadOnly || isUpdate) && (
-              <ModalInput
-                id={'createdAt'}
-                placeholder={'작성일'}
-                label={'작성일'}
-                value={createdAt}
-                readOnly
-                disabled
-              />
-            )}
-          </CRow>
+            <ModalSingleImageInput
+              id={'image'}
+              placeholder={'이미지'}
+              label={'이미지'}
+              image={image || ''}
+              onChangeImage={onChangeImage}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              isRequired
+            />
+          </CRow>{' '}
           <CRow className={'p-2'}>
             <ModalTextArrayInput
               id='content'
@@ -119,6 +118,7 @@ const DataRoomModal = ({
               filePath={'mall/dataroom'}
               readOnly={isReadOnly}
               disabled={isReadOnly}
+              isRequired
             />
           </CRow>
           <br />
