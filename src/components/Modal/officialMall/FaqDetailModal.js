@@ -52,7 +52,7 @@ const FaqDetailModal = ({
             <ModalSelect
               id={'category'}
               size={'sm'}
-              placeholder={'선택'}
+              placeholder={'선택해주세요.'}
               label={'카테고리'}
               value={item.category || ''}
               options={option}
@@ -81,7 +81,7 @@ const FaqDetailModal = ({
               isRequired={true}
               readOnly={isReadOnly}
               setValue={setContent}
-              label='답변'
+              label='본문'
             />
           </CRow>
           <br />
