@@ -1,18 +1,13 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
+import {useState} from 'react'
 
-const DetailModalEditModeTemplate = ({
-  visible,
-  title,
-  children,
-  setVisible,
-  upDate,
-  onDelete,
-  btnText,
-  editMode,
-  setEditMode,
-}) => {
+const DetailModalEditModeTemplate = ({visible, title, children, setVisible, upDate, onDelete, btnText}) => {
+  const [editMode, setEditMode] = useState(false)
   const handleEditModeToggle = () => {
     setEditMode(!editMode)
+    if (editMode) {
+      upDate()
+    }
   }
 
   return (

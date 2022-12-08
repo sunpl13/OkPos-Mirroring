@@ -21,8 +21,8 @@ const UserInquiryList = () => {
   })
   const [editCheck, setEditCheck] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [inquiryMsg, setInquiryMsg] = useState('')
   const [editor, setEditor] = useState('')
+
   // 1:1 문의 리스트 API
   const getInquiry = async () => {
     try {
@@ -75,6 +75,7 @@ const UserInquiryList = () => {
     }
   }
 
+  // 1:1 문의 삭제
   const handleInquiryModalOnDelete = async () => {
     const {id} = selectedItem
     if (window.confirm('정말 삭제하시겠습니까?')) {
@@ -101,6 +102,7 @@ const UserInquiryList = () => {
       }
     }
   }
+
   // Editor onChange
   const handleInquiryModalOnChange = htmlTagValue => {
     setEditor(htmlTagValue)
@@ -109,17 +111,16 @@ const UserInquiryList = () => {
   // Modal UPDate
   const handleInquiryModalUpdate = async () => {
     const {id} = selectedItem
-    console.log(inquiryMsg)
     if (editCheck.length !== 0) {
       if (window.confirm('답변을 수정하시겠습니까?')) {
         if (!editor) return alert('답벼을 작성해 주세요.')
-
         try {
           const {data} = await ApiConfig.request({
             method: HttpMethod.PUT,
             url: `${EndPoint.GET_PARTNER_INQUIRIES}/reply/${id}`,
-            // admin/partner/inquiries/reply/:replyId
-            data: editor,
+            data: {
+              content: editor,
+            },
           })
           console.log(data)
           if (!data.isSuccess || isEmpty(data?.result)) {
@@ -136,12 +137,14 @@ const UserInquiryList = () => {
         }
       }
     } else if (window.confirm('답변을 등록하시겠습니까?')) {
-      if (!inquiryMsg) return alert('답변을 작성해 주세요.')
+      if (!editor) return alert('답변을 작성해 주세요.')
       try {
         const {data} = await ApiConfig.request({
           method: HttpMethod.POST,
           url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}/reply`,
-          data: editCheck,
+          data: {
+            content: editor,
+          },
         })
         console.log(data)
         if (!data.isSuccess || isEmpty(data?.result)) {
@@ -183,13 +186,11 @@ const UserInquiryList = () => {
         visible={showModal}
         setVisible={setShowModal}
         value={selectedItem}
-        replies={inquiryMsg}
         onChange={handleInquiryModalOnChange}
         upDate={handleInquiryModalUpdate}
         onDelete={handleInquiryModalOnDelete}
-        setValue={setInquiryMsg}
         editor={editor}
-        setEditor={setEditor}
+        setValue={setEditor}
       />
     </CRow>
   )

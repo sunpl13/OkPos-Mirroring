@@ -7,20 +7,8 @@ import ModalFilesView from '../../../forms/inputForm/ModalFilesView'
 import ModalTextarea from '../../../forms/inputForm/ModalTextarea'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 
-const InquiryDetailModal = ({
-  upDate,
-  onChange,
-  value,
-  visible,
-  setVisible,
-  replies,
-  onDelete,
-  setValue,
-  editor,
-  setEditor,
-}) => {
+const InquiryDetailModal = ({upDate, setValue, value, visible, setVisible, onDelete, editor}) => {
   const {id, userName, userPhoneNum, content, inquiryCategory, inquiryFiles, inquiryReplies} = value
-  console.log(inquiryFiles)
   return (
     <DetailModalTemplate
       visible={visible}
@@ -61,7 +49,7 @@ const InquiryDetailModal = ({
       </CRow>
       <br />
       <CRow className={'p-2'}>
-        <ModalQuillEditor id='content' label={'문의 답변'} value={editor} onChange={onChange} />
+        <ModalQuillEditor id='content' label={'문의 답변'} value={editor} setValue={setValue} />
       </CRow>
     </DetailModalTemplate>
   )

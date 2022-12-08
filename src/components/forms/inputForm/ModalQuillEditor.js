@@ -10,7 +10,7 @@ const ModalQuillEditor = ({
   label, // Title
   isRequired, // isRequired
   readOnly = false,
-  onChange, // onChange function
+  setValue, // onChange function
 }) => {
   const QuillRef = useRef()
 
@@ -81,7 +81,7 @@ const ModalQuillEditor = ({
           }
         }}
         value={value}
-        onChange={onChange}
+        onChange={setValue}
         modules={modules}
         readOnly={readOnly}
         theme='snow'

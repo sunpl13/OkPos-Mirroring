@@ -143,13 +143,6 @@ export const noticeList = [
     filter: false,
     sorter: false,
   },
-  {
-    key: 'deleteBtn',
-    label: '삭제',
-    _props: {color: 'primary', className: 'deleteBtn'},
-    filter: false,
-    sorter: false,
-  },
 ]
 
 // 영업 대리점/ 딜러 지원 리스트

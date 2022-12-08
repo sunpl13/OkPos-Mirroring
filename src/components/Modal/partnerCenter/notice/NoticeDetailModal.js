@@ -8,10 +8,9 @@ import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 
-const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
+const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate, setEditor, editor, onDelete}) => {
   const {title, content, noticeFiles, noticeImages, category} = value
 
-  const [editMode, setEditMode] = useState(true)
   const noticeOptions = [
     {key: 'DEALER', value: '딜러'},
     {key: 'AGENCY', value: '대리점'},
@@ -20,22 +19,19 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
   return (
     <DetailModalEditModeTemplate
       visible={visible}
-      title={'공지사항'}
+      title={'공지사항' || ''}
       setVisible={setVisible}
       upDate={upDate}
       btnText={'수정'}
-      editMode={editMode}
-      setEditMode={setEditMode}
+      onDelete={onDelete}
     >
       <CRow className={'p-2'}>
         <ModalInput
           id={'title'}
           placeholder={'공지사항 제목'}
           label={'공지사항 제목'}
-          value={title}
+          value={title || ''}
           onChange={onChange}
-          readOnly={editMode}
-          disabled={editMode}
         />
         <ModalSelect
           id={'category'}
@@ -44,8 +40,6 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
           options={noticeOptions}
           value={category || ''}
           onChange={onChange}
-          readOnly={editMode}
-          disabled={editMode}
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -56,24 +50,13 @@ const NoticeDetailModal = ({value, visible, setVisible, onChange, upDate}) => {
           label={'파일 첨부'}
           value={noticeFiles}
           onChange={onChange}
-          readOnly={editMode}
-          disabled={editMode}
         />
       </CRow>
       <CRow className={'p-2'}>
-        <ModalImageInput id='image' label='이미지 첨부' value={noticeImages} onChange={onChange} disabled={editMode} />
+        <ModalImageInput id='image' label='이미지 첨부' value={noticeImages} onChange={onChange} />
       </CRow>
       <CRow className={'p-2'}>
-        <ModalTextArrayInput
-          id='content'
-          label='공지사항 본문'
-          rows={15}
-          value={content}
-          onChange={onChange}
-          text=''
-          readOnly={editMode}
-          disabled={editMode}
-        />
+        <ModalQuillEditor id='content' label={'문의 답변'} value={editor} setValue={setEditor} />
       </CRow>
     </DetailModalEditModeTemplate>
   )
