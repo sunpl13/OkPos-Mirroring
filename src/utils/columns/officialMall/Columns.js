@@ -41,7 +41,7 @@ export const dataRoomListColumns = [
   {key: 'dataRoomId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'category', label: '카테고리', _props: {className: 'category'}},
   {key: 'title', label: '제목', _props: {className: 'title'}},
-  {key: 'createdAt', label: '최초등록일', sorter: false, filter: false, _props: {className: 'createdAt'}},
+  {key: 'createdAt', label: '작성일', sorter: false, filter: false, _props: {className: 'createdAt'}},
 ]
 
 // 주문 현황 관리
