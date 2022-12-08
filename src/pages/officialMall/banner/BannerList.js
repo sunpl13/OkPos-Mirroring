@@ -25,7 +25,6 @@ const BannerList = () => {
   const [isReadOnly, setIsReadOnly] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [fileList, setFileList] = useState([])
 
   // API 통신
 
@@ -102,7 +101,7 @@ const BannerList = () => {
     }
   }
 
-  // 자료 수정
+  // 배너 수정
   const onUpdateMallBanner = async item => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -131,7 +130,7 @@ const BannerList = () => {
     }
   }
 
-  // 자료 삭제
+  // 배너 삭제
   const onDeleteMallBanner = async bannerId => {
     try {
       const {data: res} = await ApiConfig.request({
@@ -196,23 +195,23 @@ const BannerList = () => {
     })
   }
 
+  // 배너 업데이트
   const handleDetailModalUpdate = async () => {
     const {bannerId, title, subTitle, image} = selectedItem
     // validation
-    if (!title) return alert('제목을 입력해주세요')
-    if (!subTitle) return alert('부제목 선택해주세요')
-    if (!image) return alert('이미지를 등록해주세요')
-
-    console.log(selectedItem)
+    if (!title) return alert('배너 타이틀을 입력해주세요.')
+    if (title.length > 30) return alert('배너 타이틀을 글자수 초과입니다.')
+    if (!subTitle) return alert('서브 타이틀을 입력해주세요.')
+    if (!image) return alert('이미지를 등록해주세요.')
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (bannerId) {
-        // update
+        // 수정
         await onUpdateMallBanner(selectedItem)
         setIsReadOnly(true)
         setIsUpdate(false)
       } else {
-        // create
+        // 생성
         await onCreateMallBanner(selectedItem)
         setShowModal(false)
       }
@@ -220,6 +219,7 @@ const BannerList = () => {
     }
   }
 
+  // 배너 삭제
   const handleDetailModalDelete = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       onDeleteMallBanner(selectedItem.bannerId).then(onLoadMallBannerList, setShowModal(false))
@@ -245,8 +245,9 @@ const BannerList = () => {
               items={bannerList}
               onClick={handleShowDataRoomDetailModal}
               columns={bannerListColumns}
-              className={'dataRoomList'}
+              className={'bannerList'}
               datePickerHidden={false}
+              searchInputHidden={false}
             />
           </CCardBody>
         </CCard>

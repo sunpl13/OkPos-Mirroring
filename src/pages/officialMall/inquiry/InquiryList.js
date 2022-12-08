@@ -16,13 +16,17 @@ const InquiryList = () => {
   // Local state 선언
   const [inquiryList, setInquiryList] = useState([])
   const [selectedItem, setSelectedItem] = useState({
-    inquiryMallId: 0,
+    inquiryId: 0,
     name: '',
     email: '',
     category: '',
     phoneNumber: '',
+    content: '',
+    file: [],
+    inquiryReplyId: null,
     inquiryReplyContent: '',
   })
+  const [inquiryReplyContent, setInquiryReplyContent] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
@@ -72,6 +76,7 @@ const InquiryList = () => {
         return
       }
       await setSelectedItem(res.result)
+      await setInquiryReplyContent(res.result.inquiryReplyContent)
       if (res.result.inquiryReplyId) {
         setIsReadOnly(true)
       } else {
@@ -107,13 +112,12 @@ const InquiryList = () => {
   }
 
   // 1:1 문의 답변 수정
-  const onUpdateInquiryAnswer = async (inquiryId, inquiryReplyId, inquiryReplyContent) => {
+  const onUpdateInquiryAnswer = async (inquiryReplyId, inquiryReplyContent) => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
         url: EndPoint.PATCH_MALL_UPDATE_INQUIRY_REPLY,
         data: {
-          inquiryId: inquiryId,
           inquiryReplyId: inquiryReplyId,
           inquiryReplyContent: inquiryReplyContent,
         },
@@ -183,20 +187,21 @@ const InquiryList = () => {
   }
 
   // 답변 저장
-  const handleInquiryModalCreate = async inquiry => {
-    const {inquiryId, inquiryReplyContent} = selectedItem
-    const {inquiryReplyId} = inquiry
+  const handleInquiryModalCreate = async () => {
+    const {inquiryId, inquiryReplyId} = selectedItem
 
     // validation
     if (!inquiryId) return alert('번호를 찾을 수 없습니다.')
-    if (!inquiryReplyContent) return alert('답변을 입력해주세요')
+    if (!inquiryReplyId) return alert('번호를 찾을 수 없습니다.')
+    if (!inquiryReplyContent) return alert('답변을 입력해주세요.')
+    if (inquiryReplyContent.length > 300) return alert('답변 글자 수를 초과했습니다.')
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (inquiryReplyId) {
-        // update
-        await onUpdateInquiryAnswer(inquiryId, inquiryReplyId, inquiryReplyContent)
+        // 수정
+        await onUpdateInquiryAnswer(inquiryReplyId, inquiryReplyContent)
       } else {
-        // create
+        // 생성
         await onCreateMallInquiryAnswer(inquiryId, inquiryReplyContent)
       }
 
@@ -228,6 +233,8 @@ const InquiryList = () => {
         onCreate={handleInquiryModalCreate}
         onChange={handleInquiryModalOnChange}
         onDelete={onDeleteInquiry}
+        inquiryReplyContent={inquiryReplyContent}
+        setInquiryReplyContent={setInquiryReplyContent}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
         isUpdate={isUpdate}

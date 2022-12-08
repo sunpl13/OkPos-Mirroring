@@ -69,7 +69,7 @@ const ModalQuillEditor = ({
   }, [])
 
   return (
-    <CCol style={{height: '400px'}} className={'pb-5'}>
+    <CCol style={{height: '300px'}} className={'pb-5'}>
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
         <span className={isRequired && 'required'}>{label || ' * '}</span>
       </CFormLabel>

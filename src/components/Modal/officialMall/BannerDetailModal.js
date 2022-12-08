@@ -40,8 +40,8 @@ const BannerDetailModal = ({
           <CRow className={'p-2'}>
             <ModalInput
               id={'title'}
-              placeholder={'제목'}
-              label={'제목'}
+              placeholder={'배너 타이틀'}
+              label={'배너 타이틀'}
               value={item.title || ''}
               onChange={onChange}
               readOnly={isReadOnly}
@@ -52,8 +52,8 @@ const BannerDetailModal = ({
           <CRow className={'p-2'}>
             <ModalInput
               id={'subTitle'}
-              placeholder={'부제목'}
-              label={'부제목'}
+              placeholder={'서브 타이틀'}
+              label={'서브 타이틀'}
               value={item.subTitle || ''}
               onChange={onChange}
               readOnly={isReadOnly}
