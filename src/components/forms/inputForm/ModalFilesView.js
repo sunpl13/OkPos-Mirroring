@@ -1,6 +1,6 @@
 import {PaperClipOutlined} from '@ant-design/icons'
 import styled from 'styled-components'
-import {CCol} from '@coreui/react'
+import {CCol, CFormInput} from '@coreui/react'
 import {useEffect, useState} from 'react'
 import {antdImageFormat} from '../../../utils/awsCustom'
 
@@ -24,12 +24,16 @@ const ModalFilesView = ({fileItem}) => {
 
   return (
     <CCol>
-      {fileList.map(item => (
-        <DivBox key={item.uid}>
-          <PaperClipOutlined />
-          <a>{item.name}</a>
-        </DivBox>
-      ))}
+      {fileList.length !== 0 ? (
+        fileList.map(item => (
+          <DivBox key={item.uid}>
+            <PaperClipOutlined />
+            <a>{item.name}</a>
+          </DivBox>
+        ))
+      ) : (
+        <CFormInput type='text' placeholder='파일이 없습니다.' disabled />
+      )}
     </CCol>
   )
 }

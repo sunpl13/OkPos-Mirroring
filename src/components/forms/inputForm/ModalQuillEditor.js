@@ -7,10 +7,10 @@ import styled from 'styled-components'
 const ModalQuillEditor = ({
   id, // Tag ID
   value, // useState
-  setValue, // setUseState
   label, // Title
   isRequired, // isRequired
   readOnly = false,
+  onChange, // onChange function
 }) => {
   const QuillRef = useRef()
 
@@ -81,7 +81,7 @@ const ModalQuillEditor = ({
           }
         }}
         value={value}
-        onChange={setValue}
+        onChange={onChange}
         modules={modules}
         readOnly={readOnly}
         theme='snow'

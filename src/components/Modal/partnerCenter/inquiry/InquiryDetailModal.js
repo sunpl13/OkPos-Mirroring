@@ -1,11 +1,26 @@
-import {CForm, CFormTextarea, CRow} from '@coreui/react'
+import {CForm, CFormLabel, CFormTextarea, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import DetailModalTemplate from '../DetailModalTemplate'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
+import ModalFilesView from '../../../forms/inputForm/ModalFilesView'
+import ModalTextarea from '../../../forms/inputForm/ModalTextarea'
+import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 
-const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, replies, onDelete, setValue}) => {
+const InquiryDetailModal = ({
+  upDate,
+  onChange,
+  value,
+  visible,
+  setVisible,
+  replies,
+  onDelete,
+  setValue,
+  editor,
+  setEditor,
+}) => {
   const {id, userName, userPhoneNum, content, inquiryCategory, inquiryFiles, inquiryReplies} = value
+  console.log(inquiryFiles)
   return (
     <DetailModalTemplate
       visible={visible}
@@ -37,22 +52,16 @@ const InquiryDetailModal = ({upDate, onChange, value, visible, setVisible, repli
           disabled
         />
       </CRow>
-      <CFormTextarea id='userInquiry' value={content} readOnly={true} disabled rows={9} />
-
       <CRow className={'p-2'}>
-        <ModalFilesInput
-          id={'email'}
-          placeholder={'첨부파일'}
-          label={'첨부파일'}
-          value={inquiryFiles}
-          onChange={onChange}
-          readOnly
-          disabled
-        />
+        <ModalTextArrayInput id='userInquiry' value={content} readOnly={true} disabled rows={9} label={'문의 내용'} />
+      </CRow>
+      <CRow className={'p-2'}>
+        <CFormLabel>{'첨부파일'}</CFormLabel>
+        <ModalFilesView fileItem={inquiryFiles} />
       </CRow>
       <br />
       <CRow className={'p-2'}>
-        <ModalQuillEditor id='content' label={'문의 답변'} onChange={setValue} />
+        <ModalQuillEditor id='content' label={'문의 답변'} value={editor} onChange={onChange} />
       </CRow>
     </DetailModalTemplate>
   )
