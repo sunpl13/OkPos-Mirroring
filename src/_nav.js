@@ -207,35 +207,57 @@ const _nav = [
       },
     ],
   },
-
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: '롤링 배너 관리',
-    to: '/mall/banner',
     icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
     accessauthority: 'MALL',
+    items: [
+      {
+        component: CNavItem,
+        name: '롤링 배너 관리',
+        to: '/mall/banner',
+      },
+    ],
   },
-
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: '1:1 문의 관리',
-    to: '/mall/inquiry',
     icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
     accessauthority: 'MALL',
+    items: [
+      {
+        component: CNavItem,
+        name: '1:1 문의 관리',
+        to: '/mall/inquiry',
+      },
+    ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'FAQ 관리',
-    to: '/mall/faq',
-    accessauthority: 'MALL',
     icon: <CIcon icon={cilFindInPage} customClassName='nav-icon' />,
+    accessauthority: 'MALL',
+    items: [
+      {
+        component: CNavItem,
+        name: 'FAQ 관리',
+        to: '/mall/faq',
+      },
+    ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: '자료실 관리',
-    to: '/mall/dataroom',
-    accessauthority: 'MALL',
     icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
+    accessauthority: 'MALL',
+    items: [
+      {
+        component: CNavItem,
+        name: '자료실 관리',
+        to: '/mall/dataroom',
+      },
+    ],
   },
   {
     component: CNavGroup,

@@ -25,7 +25,6 @@ export const inquiryListColumns = [
   {key: 'inquiryId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'category', label: '문의 유형', _props: {className: 'category'}},
   {key: 'name', label: '이름', _props: {className: 'name'}},
-  {key: 'email', label: '이메일', _props: {className: 'email'}},
   {key: 'phoneNumber', label: '휴대전화번호', _props: {className: 'phoneNumber'}},
   {key: 'reply', label: '답변', sorter: false, filter: false, _props: {className: 'reply'}},
 ]
