@@ -10,6 +10,7 @@ import {
   CRow,
 } from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
+import ModalQuillEditor from '../../forms/inputForm/ModalQuillEditor'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 
 const FaqDetailModal = ({
@@ -17,6 +18,8 @@ const FaqDetailModal = ({
   onChange,
   onUpdate,
   onDelete,
+  content,
+  setContent,
   option,
   visible,
   setVisible,
@@ -50,10 +53,10 @@ const FaqDetailModal = ({
               id={'category'}
               size={'sm'}
               placeholder={'선택'}
-              label={'분류'}
+              label={'카테고리'}
               value={item.category || ''}
               options={option}
-              isRequired={false}
+              isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
               onChange={onChange}
@@ -65,21 +68,23 @@ const FaqDetailModal = ({
               placeholder={''}
               label={'제목'}
               value={item.title || ''}
+              isRequired={true}
               onChange={onChange}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
           </CRow>
           <CRow className={'p-2'}>
-            <CFormTextarea
+            <ModalQuillEditor
               id='content'
-              label='답변 내용'
-              rows={9}
-              value={item.content || ''}
-              onChange={onChange}
-              disabled={isReadOnly}
-            ></CFormTextarea>
+              value={content || ''}
+              isRequired={true}
+              readOnly={isReadOnly}
+              setValue={setContent}
+              label='답변'
+            />
           </CRow>
+          <br />
         </CForm>
       </CModalBody>
       <CModalFooter>

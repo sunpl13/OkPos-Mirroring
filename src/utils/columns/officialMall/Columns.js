@@ -32,14 +32,14 @@ export const inquiryListColumns = [
 // FAQ 리스트
 export const faqListColumns = [
   {key: 'faqId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
-  {key: 'category', label: '분류', _props: {className: 'category'}},
+  {key: 'category', label: '카테고리', _props: {className: 'category'}},
   {key: 'title', label: '제목', _props: {className: 'title'}},
 ]
 
 // 자료실 리스트
 export const dataRoomListColumns = [
   {key: 'dataRoomId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
-  {key: 'category', label: '분류', _props: {className: 'category'}},
+  {key: 'category', label: '카테고리', _props: {className: 'category'}},
   {key: 'title', label: '제목', _props: {className: 'title'}},
   {key: 'createdAt', label: '최초등록일', sorter: false, filter: false, _props: {className: 'createdAt'}},
 ]

@@ -17,6 +17,7 @@ const FaqList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [showModal, setShowModal] = useState(false)
+  const [content, setContent] = useState('')
 
   const categoryOptions = [
     {
@@ -82,13 +83,14 @@ const FaqList = () => {
       }
       res.result.faqId = faqId
       setSelectedItem(res.result)
+      setContent(res.result.content)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
   }
 
   // Create FAQ
-  const onCreateFaq = async item => {
+  const onCreateFaq = async (item, content) => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.POST,
@@ -97,7 +99,7 @@ const FaqList = () => {
           faqId: item.faqId,
           category: item.category,
           title: item.title,
-          content: item.content,
+          content: content,
         },
       })
 
@@ -116,7 +118,7 @@ const FaqList = () => {
   }
 
   // Update FAQ
-  const onUpdateFaq = async item => {
+  const onUpdateFaq = async (item, content) => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
@@ -125,7 +127,7 @@ const FaqList = () => {
           faqId: item.faqId,
           category: item.category,
           title: item.title,
-          content: item.content,
+          content: content,
         },
       })
 
@@ -178,6 +180,7 @@ const FaqList = () => {
   /** Open Modal*/
   const handleShowFaqItemAddModal = () => {
     setSelectedItem(setInitItem())
+    setContent('')
     setIsReadOnly(false)
     setIsUpdate(false)
     setShowModal(!showModal)
@@ -199,23 +202,26 @@ const FaqList = () => {
   }
 
   const handleDetailModalUpdate = async () => {
-    const {faqId, title, content, category} = selectedItem
+    const {faqId, title, category} = selectedItem
+
     // validation
     const categoryVals = categoryOptions.map(row => row.value)
     if (!category || !_.includes(categoryVals, category)) return alert('카테고리를 선택해주세요')
-    if (!title) return alert('제목을 입력해주세요')
-    if (!content) return alert('답변을 입력해주세요')
+    if (!title) return alert('제목을 입력해주세요.')
+    if (title.length > 30) return alert('제목 글자수 초과입니다.')
+    if (!content) return alert('본문을 입력해주세요.')
+    if (content.length > 100) return alert('본문 글자수 초과입니다.')
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (faqId) {
         // update
-        onUpdateFaq(selectedItem)
+        onUpdateFaq(selectedItem, content)
         setShowModal(true)
         setIsReadOnly(true)
         setIsUpdate(false)
       } else {
         // create
-        onCreateFaq(selectedItem)
+        onCreateFaq(selectedItem, content)
         setShowModal(false)
       }
       await onLoadFaqList()
@@ -258,6 +264,8 @@ const FaqList = () => {
         onUpdate={handleDetailModalUpdate}
         onDelete={handleDetailModalDelete}
         onChange={handleFaqItemModalOnChange}
+        content={content}
+        setContent={setContent}
         option={categoryOptions}
         visible={showModal}
         setVisible={setShowModal}
