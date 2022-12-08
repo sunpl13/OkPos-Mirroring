@@ -68,5 +68,5 @@ export const productListColumns = [
 export const bannerListColumns = [
   {key: 'bannerId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'image', label: '이미지', _props: {className: 'image'}},
-  {key: 'title', label: '제목', _props: {className: 'title'}},
+  {key: 'title', label: '배너 타이틀', _props: {className: 'title'}},
 ]
