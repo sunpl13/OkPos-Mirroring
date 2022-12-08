@@ -14,7 +14,7 @@ const getBase64 = file =>
     reader.onerror = error => reject(error)
   })
 
-const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, readOnly}) => {
+const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, readOnly, oneSheet = false}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -24,7 +24,7 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, rea
       setFileList(
         images.map(path => ({
           uid: path,
-          name: path,
+          name: decodeURI(path.split('/')[path.split('/').length - 1]),
           status: 'done',
           url: antdImageFormat(path),
         })),
@@ -35,8 +35,6 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, rea
   const handleCloseImage = () => {
     setPreviewImage('')
   }
-
-  const handleCancel = () => setPreviewOpen(false)
 
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
@@ -64,6 +62,10 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, rea
   }
 
   const customReq = ({file, onError, onProgress, onSuccess}) => {
+    if (oneSheet && fileList.length === 1) {
+      alert('이미지는 한장만 등록 가능합니다!')
+      return
+    }
     AWS.config.update({
       region: process.env.REACT_APP_AWS_REGION,
       accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,

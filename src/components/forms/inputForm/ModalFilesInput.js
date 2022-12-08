@@ -15,11 +15,9 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
         files.map((file, index) => ({
           key: index,
           uid: index,
-          name: file.fileTitle,
+          name: file.fileTitle ? file.fileTitle : decodeURI(file.split('/')[file.split('/').length - 1]),
           status: 'done',
-          url: file.file,
-          //url: antdImageFormat(path),
-          //name: getFileNameFromURL(file),
+          url: file.file ? antdImageFormat(file.file) : antdImageFormat(file),
         })),
       )
     }
