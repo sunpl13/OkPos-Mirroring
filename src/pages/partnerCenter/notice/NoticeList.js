@@ -8,6 +8,7 @@ import NoticeAddModal from '../../../components/Modal/partnerCenter/notice/Notic
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import {useNavigate} from 'react-router-dom'
 
 const NoticeList = () => {
   const [items, setItems] = useState()
@@ -15,6 +16,10 @@ const NoticeList = () => {
   const [editCheck, setEditCheck] = useState({})
   const [editor, setEditor] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const [editMode, setEditMode] = useState(true)
+
+  // 모듈 선언
+  const navigate = useNavigate()
 
   // 공지사항 API
   const getNoticeList = async () => {
@@ -23,7 +28,6 @@ const NoticeList = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.GET_PARTNER_NOTICES}?page=${1}`,
       })
-      console.log(data)
       if (!data.isSuccess || isEmpty(data?.result)) {
         return
       }
@@ -55,7 +59,10 @@ const NoticeList = () => {
         }
         if (data?.code === 1000) {
           console.log(data)
-          setSelectedItem(data.result)
+          setSelectedItem({
+            id: id,
+            ...data.result,
+          })
           setEditCheck(data.result)
           setEditor(data.result.content)
         } else {
@@ -69,7 +76,6 @@ const NoticeList = () => {
         title: '',
         category: '',
         content: '',
-        createdAt: '',
         noticeFiles: [],
         noticeImages: [],
       })
@@ -77,7 +83,6 @@ const NoticeList = () => {
         title: '',
         category: '',
         content: '',
-        createdAt: '',
         noticeFiles: [],
         noticeImages: [],
       })
@@ -92,39 +97,50 @@ const NoticeList = () => {
     })
   }
 
-  const handleNoticeDetailModalUpdate = editBtnClick => {
-    const {id, title, content, files} = selectedItem
-    console.log(selectedItem)
-    console.log(editCheck)
-    if (editCheck.title !== title || editCheck.content !== content || editCheck.files !== files) {
+  const handleNoticeDetailModalUpdate = async () => {
+    const {id, title, content, noticeFiles, noticeImages, category} = selectedItem
+    const json = JSON.stringify({
+      ...selectedItem,
+      content: editor,
+    })
+    if (id && (editCheck.title !== title || editCheck.content !== editor || editCheck.category !== category)) {
       if (window.confirm('공지사항을 수정하시겠습니까?')) {
-        if (!title) return alert('Not Title')
-        if (!files) return alert('Not File')
-        if (!content) return alert('Not Content')
-        setItems(items.map(value => (value.id === id ? selectedItem : value)))
-        setShowModal(false)
+        if (!title) return alert('공지사항 제목을 입력해 주세요.')
+        if (noticeFiles.length === 0) return alert('파일을 등록해 주세요.')
+        if (noticeImages.length === 0) return alert('이미지를 등록해 주세요.')
+        if (!editor) return alert('공지사항 본문을 작성해 주세요.')
+        if (!category) return alert('카테고리를 선택해 주세요.')
+        try {
+          const {data} = await ApiConfig.request({
+            method: HttpMethod.PUT,
+            url: `${EndPoint.GET_PARTNER_NOTICES}/${id}`,
+            data: json,
+          })
+          console.log(data)
+          if (!data.isSuccess || isEmpty(data?.result)) {
+            return
+          }
+          if (data?.code === 1000) {
+            setShowModal(false)
+            return alert(data.message)
+          }
+        } catch (error) {
+          console.log(error)
+        }
       } else {
         setShowModal(false)
       }
-    } else if (!editBtnClick) {
-      setShowModal(false)
-    }
-  }
-
-  /** Add Modal */
-  const handleNoticeAddModalUpdate = async () => {
-    const {title, content, category} = selectedItem
-    if (title || content || category) {
+    } else if (!id && (title || editor || category)) {
       if (window.confirm('공지사항을 추가하시겠습니까?')) {
         if (!title) return alert('공지사항 제목을 입력해 주세요.')
         if (!category) return alert('카테고리를 선택해 주세요.')
-        if (!content) return alert('공지사항 본문을 입력해 주세요.')
-        console.log(selectedItem)
+        if (!editor) return alert('공지사항 본문을 입력해 주세요.')
+        console.log(json)
         try {
           const {data} = await ApiConfig.request({
             method: HttpMethod.POST,
             url: EndPoint.GET_PARTNER_NOTICES,
-            data: JSON.stringify({selectedItem}),
+            data: json,
           })
           console.log(data)
           if (!data.isSuccess || isEmpty(data?.result)) {
@@ -140,7 +156,7 @@ const NoticeList = () => {
           return alert(error)
         }
       }
-    } else {
+      setShowModal(false)
     }
   }
 
@@ -150,8 +166,8 @@ const NoticeList = () => {
     if (window.confirm('해당 공지사항을 삭제하시겠습니까?')) {
       try {
         const {data} = await ApiConfig.request({
-          method: HttpMethod.DELETE,
-          //url: `${EndPoint.GET_PARTNER_NOTICES}/${id}`,
+          method: HttpMethod.PATCH,
+          url: `${EndPoint.GET_PARTNER_NOTICES}/${id}`,
         })
         console.log(data)
         if (!data.isSuccess || isEmpty(data?.result)) {
@@ -168,9 +184,11 @@ const NoticeList = () => {
       }
     }
   }
+
   useEffect(() => {
     if (!showModal) {
       setEditor('')
+      setEditMode(true)
     }
   }, [showModal])
 
@@ -182,7 +200,7 @@ const NoticeList = () => {
           <CCardHeader>
             <CForm className='row g-3'>
               <CCol xs={1}>
-                <CButton color='primary' onClick={() => handleShowModal()}>
+                <CButton color='primary' onClick={handleShowModal}>
                   추가
                 </CButton>
               </CCol>
@@ -208,6 +226,8 @@ const NoticeList = () => {
         editor={editor}
         setEditor={setEditor}
         onDelete={handleNoticeDeleteBtnOnClick}
+        editMode={editMode}
+        setEditMode={setEditMode}
       />
     </CRow>
   )
