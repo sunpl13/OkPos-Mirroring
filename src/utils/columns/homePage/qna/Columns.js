@@ -1,8 +1,8 @@
 export const qnaColumns = [
   {
-    key: 'inquiryId',
+    key: 'no',
     label: 'No',
-    _props: {color: 'primary', className: 'employId'},
+    _props: {color: 'primary', className: 'no'},
   },
   {
     key: 'name',

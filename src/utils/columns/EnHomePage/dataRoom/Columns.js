@@ -1,8 +1,8 @@
 export const dataRoomColumns = [
   {
-    key: 'dataRoomEnglishId',
+    key: 'number',
     label: 'No',
-    _props: {color: 'primary', className: 'dataRoomEnglishId'},
+    _props: {color: 'primary', className: 'number'},
   },
   {
     key: 'title',
