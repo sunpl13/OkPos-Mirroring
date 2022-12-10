@@ -5,6 +5,7 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {dataRoomColumns} from '../../../utils/columns/EnHomePage/dataRoom/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
+import DataRoomDetail from '../../../components/Modal/EnHomePage/dataRoom/DataRoomDetail'
 
 const DataRoom = () => {
   const [items, setItems] = useState([])
@@ -122,6 +123,18 @@ const DataRoom = () => {
           </CCard>
         </CCol>
       </CRow>
+      <DataRoomDetail
+        onChange={handleDataRoomDetailOnChange}
+        visible={showModal}
+        value={selectedItem}
+        setVisible={setShowModal}
+        isReadOnly={isReadOnly}
+        setIsReadOnly={setIsReadOnly}
+        getList={onLoadDataRoomList}
+        setSelectedItem={setSelectedItem}
+        content={post}
+        setContent={setPost}
+      />
     </>
   )
 }
