@@ -260,5 +260,4 @@ const RollingBannerDetail = ({
     </>
   )
 }
-
 export default RollingBannerDetail
