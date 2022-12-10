@@ -5,7 +5,7 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {rollingBannerColumns} from '../../../utils/columns/homePage/rollingBanner/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-
+import HomePageRollingBannerDetail from '../../../components/Modal/homePage/rollingBanner/HomePageRollingBannerDetail'
 const RollingBanner = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -116,6 +116,18 @@ const RollingBanner = () => {
           </CCard>
         </CCol>
       </CRow>
+      <HomePageRollingBannerDetail
+        onChange={handleBannerDetailOnChange}
+        visible={showModal}
+        value={selectedItem}
+        setVisible={setShowModal}
+        isReadOnly={isReadOnly}
+        setIsReadOnly={setIsReadOnly}
+        getList={onLoadBannerList}
+        setSelectedItem={setSelectedItem}
+        content={content}
+        setContent={setContent}
+      />
     </>
   )
 }
