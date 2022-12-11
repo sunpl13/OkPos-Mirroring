@@ -4,7 +4,6 @@ import PageHeader from '../../../components/common/PageHeader'
 import ListTemplate from '../../../components/list/ListTemplate'
 import NoticeDetailModal from '../../../components/Modal/partnerCenter/notice/NoticeDetailModal'
 import {noticeList} from '../../../utils/columns/partnerCenter/Columns'
-import NoticeAddModal from '../../../components/Modal/partnerCenter/notice/NoticeAddModal'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
@@ -175,7 +174,7 @@ const NoticeList = () => {
         }
         if (data?.code === 1000) {
           alert(data.message)
-          window.reload()
+          window.location.reload()
         } else {
           alert(data?.message)
         }

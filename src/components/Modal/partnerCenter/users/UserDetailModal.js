@@ -26,7 +26,6 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'회원 이름'}
             value={userName}
             onChange={onChange}
-            disabled={true}
             readOnly={true}
           />
           <ModalInput
@@ -35,7 +34,6 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'사업자 번호'}
             value={certificateNum}
             onChange={onChange}
-            disabled={true}
             readOnly={true}
           />
         </CRow>
@@ -55,7 +53,6 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'계정 상태'}
             value={status}
             onChange={onChange}
-            disabled={true}
             readOnly={true}
           />
         </CRow>
@@ -66,7 +63,6 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'휴대전화번호'}
             value={phoneNum}
             onChange={onChange}
-            disabled={true}
             readOnly={true}
           />
           <ModalInput
@@ -75,7 +71,6 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'상호명'}
             value={businessName}
             onChange={onChange}
-            disabled={true}
             readOnly={true}
           />
         </CRow>
@@ -87,12 +82,11 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'사업장 주소'}
             value={address}
             onChange={onChange}
-            disabled={true}
             readOnly={true}
           />
         </CRow>
         <CRow>
-          <ModalFilesInput id={'files'} label={'사업자 등록증'} value={certificateFile} disabled={true} />
+          <ModalFilesInput id={'files'} label={'사업자 등록증'} value={certificateFile} />
         </CRow>
       </CModalBody>
     </DetailModalTemplate>

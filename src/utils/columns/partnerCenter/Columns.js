@@ -204,13 +204,6 @@ export const materiaList = [
     _props: {className: 'createdAt'},
     filter: false,
   },
-  {
-    key: 'deleteBtn',
-    label: ' ',
-    _props: {className: 'deleteBtn'},
-    filter: false,
-    sorter: false,
-  },
 ]
 
 // 발주 신청 리스트
