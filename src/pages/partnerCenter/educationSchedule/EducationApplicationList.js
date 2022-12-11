@@ -4,21 +4,68 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {educationApplicationListColumns} from '../../../utils/columns/partnerCenter/Columns'
 import EducationApplicationDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationApplicationDetailModal'
-import {educationApplicationListData} from '../../../utils/columns/partnerCenter/ColumnsTestData'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
+import {isEmpty} from '../../../utils/utility'
 
 const EducationApplicationList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
-
+  const [applicantList, setApplicantList] = useState([])
   const [showModal, setShowModal] = useState(false)
+
+  // 교육 신청 리스트 API
+  const getRegistrauins = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.GET_PARTNER_REGISTRAUINS}?page=${1}`,
+      })
+      console.log(data)
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
+      }
+      if (data?.code === 1000) {
+        setItems(data.result?.adminEducationRegistrationDTOs)
+      } else {
+        alert(data?.message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
-    setItems(educationApplicationListData)
+    getRegistrauins()
   }, [])
 
   /** Open Modal*/
-  const handleShowDetailModal = item => {
-    if (!item) {
+  const handleShowDetailModal = async item => {
+    if (item) {
+      const {id} = item
+      try {
+        const {data} = await ApiConfig.request({
+          method: HttpMethod.GET,
+          url: `${EndPoint.GET_PARTNER_REGISTRAUINS}/${id}`,
+        })
+        console.log(data)
+        if (!data.isSuccess || isEmpty(data?.result)) {
+          return
+        }
+        if (data?.code === 1000) {
+          console.log(data)
+          setSelectedItem(data.result)
+          setEditCheck(data.result)
+          setApplicantList(data.result.adminApplicantDTOs)
+          setShowModal(!showModal)
+        } else {
+          alert(data?.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
       setShowModal(!showModal)
       setSelectedItem({
         no: 0,
@@ -29,10 +76,6 @@ const EducationApplicationList = () => {
         trainingPersonnel: '',
         applicantInformationList: [],
       })
-    } else {
-      setSelectedItem(item)
-      setEditCheck(item)
-      setShowModal(!showModal)
     }
   }
 
@@ -131,7 +174,7 @@ const EducationApplicationList = () => {
           <CCardHeader>
             <CForm className='row g-3'>
               <CCol xs={1}>
-                <CButton color='primary' onClick={() => handleShowDetailModal()}>
+                <CButton color='primary' onClick={() => handleShowDetailModal(undefined)}>
                   추가
                 </CButton>
               </CCol>
@@ -156,6 +199,7 @@ const EducationApplicationList = () => {
         upDate={handleDetailModalUpDate}
         onDelete={handleOrderOnDelete}
         searchInputHidden={false}
+        applicantList={applicantList}
       />
     </CRow>
   )
