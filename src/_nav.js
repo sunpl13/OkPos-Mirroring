@@ -10,6 +10,11 @@ import {
   cilFolderOpen,
   cilBook,
   cilLibrary,
+  cilPaint,
+  cilPeople,
+  cilAddressBook,
+  cilNotes,
+  cilDataTransferDown,
 } from '@coreui/icons'
 import {CNavGroup, CNavItem, CNavTitle} from '@coreui/react'
 
@@ -150,8 +155,8 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: '홈페이지 관리',
-    icon: <CIcon icon={cilHome} customClassName='nav-icon' />,
+    name: '롤링배너 관리',
+    icon: <CIcon icon={cilPaint} customClassName='nav-icon' />,
     accessauthority: 'HOME',
     items: [
       {
@@ -159,21 +164,53 @@ const _nav = [
         name: '롤링배너 관리',
         to: '/home/rolling-banner',
       },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: '채용 관리',
+    icon: <CIcon icon={cilPeople} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
+    items: [
       {
         component: CNavItem,
         name: '채용 관리',
         to: '/home/employment',
       },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: '인재풀 관리',
+    icon: <CIcon icon={cilAddressBook} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
+    items: [
       {
         component: CNavItem,
         name: '인재풀 관리',
         to: '/home/talentRetention',
       },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: '1:1 문의',
+    icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
+    items: [
       {
         component: CNavItem,
         name: '1:1 문의',
         to: '/home/QnA',
       },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: '공지사항',
+    icon: <CIcon icon={cilNotes} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
+    items: [
       {
         component: CNavItem,
         name: '공지사항',
@@ -181,6 +218,7 @@ const _nav = [
       },
     ],
   },
+
   /*
   가맹점 전용 공식몰 코드 작성
   */
@@ -207,35 +245,57 @@ const _nav = [
       },
     ],
   },
-
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: '롤링 배너 관리',
-    to: '/mall/banner',
     icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
     accessauthority: 'MALL',
+    items: [
+      {
+        component: CNavItem,
+        name: '롤링 배너 관리',
+        to: '/mall/banner',
+      },
+    ],
   },
-
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: '1:1 문의 관리',
-    to: '/mall/inquiry',
     icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
     accessauthority: 'MALL',
+    items: [
+      {
+        component: CNavItem,
+        name: '1:1 문의 관리',
+        to: '/mall/inquiry',
+      },
+    ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'FAQ 관리',
-    to: '/mall/faq',
-    accessauthority: 'MALL',
     icon: <CIcon icon={cilFindInPage} customClassName='nav-icon' />,
+    accessauthority: 'MALL',
+    items: [
+      {
+        component: CNavItem,
+        name: 'FAQ 관리',
+        to: '/mall/faq',
+      },
+    ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: '자료실 관리',
-    to: '/mall/dataroom',
-    accessauthority: 'MALL',
     icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
+    accessauthority: 'MALL',
+    items: [
+      {
+        component: CNavItem,
+        name: '자료실 관리',
+        to: '/mall/dataroom',
+      },
+    ],
   },
   {
     component: CNavGroup,
@@ -296,8 +356,8 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: '영문 홈페이지',
-    icon: <CIcon icon={cilFont} customClassName='nav-icon' />,
+    name: '롤링배너 관리',
+    icon: <CIcon icon={cilPaint} customClassName='nav-icon' />,
     accessauthority: 'HOME',
     items: [
       {
@@ -305,14 +365,30 @@ const _nav = [
         name: '롤링배너 관리',
         to: '/home/en/rolling-banner',
       },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Data Room',
+    icon: <CIcon icon={cilDataTransferDown} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
+    items: [
       {
         component: CNavItem,
         name: 'Data Room',
         to: '/home/en/data-room',
       },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: '1:1 문의',
+    icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
+    items: [
       {
         component: CNavItem,
-        name: '1:1 Inquiry',
+        name: '1:1 문의',
         to: '/home/en/inquiry',
       },
     ],

@@ -1,18 +1,17 @@
 import {useState} from 'react'
-import {CModal, CModalBody, CRow, CModalFooter, CButton} from '@coreui/react'
+import {CModal, CButton, CModalBody, CModalFooter, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
-import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
-import CloseCheckModal from '../../CloseCheckModal'
-import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
-import {EndPoint} from '../../../../dataManager/apiMapper'
-import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
-import {useDispatch} from 'react-redux'
 import {isEmpty} from '../../../../utils/utility'
+import {useDispatch} from 'react-redux'
+import CloseCheckModal from '../../CloseCheckModal'
+import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import {sendImageUrlFormat} from '../../../../utils/awsCustom'
-import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
+import {EndPoint} from '../../../../dataManager/apiMapper'
+import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
-const EnglishDataRoomDetail = ({
+import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
+const HomePageRollingBannerDetail = ({
   getList,
   value,
   visible,
@@ -27,7 +26,7 @@ const EnglishDataRoomDetail = ({
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const [iamgeList, setImageList] = useState([])
-  const [fileList, setFileList] = useState([])
+
   const dispatch = useDispatch()
   const userDetailEditMode = () => {
     if (!isReadOnly) {
@@ -39,11 +38,11 @@ const EnglishDataRoomDetail = ({
 
   const validateCheck = () => {
     if (isEmpty(value.title)) {
-      alert('제목을 입력해주세요.')
+      alert('배너 제목을 입력해주세요.')
       return false
     }
     if (isEmpty(content)) {
-      alert('본문을 입력해주세요.')
+      alert('배너 내용을 입력해주세요.')
       return false
     }
 
@@ -56,18 +55,16 @@ const EnglishDataRoomDetail = ({
         return
       }
       const imgUrls = sendImageUrlFormat(iamgeList)
-      const fileUrls = sendImageUrlFormat(fileList)
       const {data} = await ApiConfig.request({
         data: {
           title: value.title,
           content: content,
           imageUrls: imgUrls,
-          fileUrls: fileUrls,
         },
         query: {},
         path: {},
         method: HttpMethod.POST,
-        url: `${EndPoint.DATA_ROOM}`,
+        url: `${EndPoint.HOME_BANNER}`,
       })
       console.log(data)
       if (data.isSuccess) {
@@ -95,10 +92,10 @@ const EnglishDataRoomDetail = ({
         data: {},
         query: {},
         path: {
-          id: value.dataRoomEnglishId,
+          id: value.bannerId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.DATA_ROOM}/:id/d`,
+        url: `${EndPoint.HOME_BANNER}/:id/d`,
       })
       if (data.isSuccess) {
         getList()
@@ -111,6 +108,8 @@ const EnglishDataRoomDetail = ({
           text: `${data.result}`,
         })
         onClose()
+      } else {
+        alert(data.message)
       }
     } catch (error) {
       alert(error)
@@ -119,7 +118,6 @@ const EnglishDataRoomDetail = ({
 
   const onUpdate = async () => {
     const imgUrls = sendImageUrlFormat(iamgeList)
-    const fileUrls = sendImageUrlFormat(fileList)
 
     try {
       if (!validateCheck()) {
@@ -130,14 +128,13 @@ const EnglishDataRoomDetail = ({
           title: value.title,
           content: content,
           imageUrls: imgUrls,
-          fileUrls: fileUrls,
         },
         query: {},
         path: {
-          id: value.dataRoomEnglishId,
+          id: value.bannerId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.DATA_ROOM}/:id`,
+        url: `${EndPoint.HOME_BANNER}/:id`,
       })
       if (data.isSuccess) {
         getList()
@@ -150,6 +147,8 @@ const EnglishDataRoomDetail = ({
           textColor: 'white',
           text: `${data.result}`,
         })
+      } else {
+        alert(data.message)
       }
     } catch (error) {
       alert(error)
@@ -157,20 +156,17 @@ const EnglishDataRoomDetail = ({
   }
 
   const onCloseCheck = () => {
-    if (!isReadOnly && value.recruitmentId !== -1) {
+    if (!isReadOnly && value.bannerId !== -1) {
       setCloseCheckModalState(true)
     } else {
       setVisible(false)
       setIsReadOnly(true)
       setImageList([])
-      setFileList([])
       setSelectedItem({
-        dataRoomEnglishId: -1,
+        bannerId: -1,
         title: '',
-        createdAt: '',
         content: '',
-        images: [],
-        files: [],
+        imageUrls: [],
       })
     }
   }
@@ -178,54 +174,43 @@ const EnglishDataRoomDetail = ({
   const onClose = () => {
     setCloseCheckModalState(false)
     setImageList([])
-    setFileList([])
     setVisible(false)
     setContent('')
     setIsReadOnly(true)
     setSelectedItem({
-      dataRoomEnglishId: -1,
+      bannerId: -1,
       title: '',
-      createdAt: '',
       content: '',
-      images: [],
-      files: [],
+      imageUrls: [],
     })
   }
+
   return (
     <>
       <CModal alignment='center' size='lg' visible={visible}>
-        <CCustomModalHeader onClick={onCloseCheck}>Data Room 상세</CCustomModalHeader>
+        <CCustomModalHeader onClick={onCloseCheck}>롤링배너 상세</CCustomModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
             <ModalInput
+              xs={4}
               onChange={onChange}
-              id='dataRoomEnglishId'
+              id='bannerId'
               placeholder='ID'
-              label='ID'
+              label='No'
               readOnly={true}
               disabled={true}
-              value={value.dataRoomEnglishId === -1 ? '' : value.dataRoomEnglishId}
-            />
-            <ModalInput
-              onChange={onChange}
-              id='dataRoomEnglishId'
-              placeholder=''
-              label='작성일'
-              readOnly={true}
-              disabled={true}
-              value={value.createdAt}
+              value={value.bannerId === -1 ? '' : value.bannerId}
             />
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
               id='title'
-              placeholder='제목을 입력해주세요'
-              label='제목'
-              value={value.title}
-              isRequired={true}
+              placeholder='공백 포함 30자 이내로 입력해주세요.'
+              label='배너 타이틀'
               readOnly={isReadOnly}
               disabled={isReadOnly}
+              value={value.title}
             />
           </CRow>
           <CRow className='mb-3'>
@@ -235,34 +220,23 @@ const EnglishDataRoomDetail = ({
               isRequired={true}
               readOnly={isReadOnly}
               setValue={setContent}
-              label='공지 본문'
+              label='본문'
             />
           </CRow>
-          <CRow className='mb-3 pt-3'>
+          <CRow className='pt-3'>
             <ModalImageInput
               id='image'
               label='이미지 첨부'
               fileList={iamgeList}
               setFileList={setImageList}
-              images={value.images}
-              imgPath='english/data-room_images'
+              images={value.imageUrls}
+              imgPath='home_banner_images'
               readOnly={isReadOnly}
-            />
-          </CRow>
-          <CRow className='mb-3'>
-            <ModalFilesInput
-              id='files'
-              label='파일 첨부'
-              files={value.files}
-              disabled={isReadOnly}
-              fileList={fileList}
-              setFileList={setFileList}
-              filePath='english/data-room_files'
             />
           </CRow>
         </CModalBody>
         <CModalFooter>
-          {value.dataRoomEnglishId === -1 ? (
+          {value.bannerId === -1 ? (
             <CButton color='primary' onClick={onCreate}>
               추가
             </CButton>
@@ -286,5 +260,4 @@ const EnglishDataRoomDetail = ({
     </>
   )
 }
-
-export default EnglishDataRoomDetail
+export default HomePageRollingBannerDetail

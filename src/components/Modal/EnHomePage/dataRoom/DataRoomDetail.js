@@ -1,17 +1,29 @@
 import {useState} from 'react'
-import {CModal, CButton, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import {CModal, CModalBody, CRow, CModalFooter, CButton} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
-import {isEmpty} from '../../../../utils/utility'
-import {useDispatch} from 'react-redux'
-import CloseCheckModal from '../../CloseCheckModal'
-import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
-import {sendImageUrlFormat} from '../../../../utils/awsCustom'
-import {EndPoint} from '../../../../dataManager/apiMapper'
-import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
-import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
-const RollingBannerDetail = ({
+import CloseCheckModal from '../../CloseCheckModal'
+import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
+import {EndPoint} from '../../../../dataManager/apiMapper'
+import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
+import {useDispatch} from 'react-redux'
+import {isEmpty} from '../../../../utils/utility'
+import {sendImageUrlFormat} from '../../../../utils/awsCustom'
+import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
+import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
+import ModalSelect from '../../../forms/inputForm/ModalSelect'
+
+export const category = [
+  {key: 'ALL', value: '전체'},
+  {key: 'HARDWARE', value: '하드웨어'},
+  {key: 'SOFTWARE', value: '소프트웨어'},
+  {key: 'RENTAL', value: '렌탈'},
+  {key: 'ADDITIONAL_SERVICE', value: '부가서비스'},
+  {key: 'MAINTENANCE', value: '유지보수'},
+]
+
+const DataRoomDetail = ({
   getList,
   value,
   visible,
@@ -26,7 +38,7 @@ const RollingBannerDetail = ({
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const [iamgeList, setImageList] = useState([])
-
+  const [fileList, setFileList] = useState([])
   const dispatch = useDispatch()
   const userDetailEditMode = () => {
     if (!isReadOnly) {
@@ -37,12 +49,16 @@ const RollingBannerDetail = ({
   }
 
   const validateCheck = () => {
+    if (isEmpty(value.category)) {
+      alert('제목을 입력해주세요.')
+      return false
+    }
     if (isEmpty(value.title)) {
-      alert('배너 제목을 입력해주세요.')
+      alert('제목을 입력해주세요.')
       return false
     }
     if (isEmpty(content)) {
-      alert('배너 내용을 입력해주세요.')
+      alert('본문을 입력해주세요.')
       return false
     }
 
@@ -55,16 +71,19 @@ const RollingBannerDetail = ({
         return
       }
       const imgUrls = sendImageUrlFormat(iamgeList)
+      const fileUrls = sendImageUrlFormat(fileList)
       const {data} = await ApiConfig.request({
         data: {
+          category: value.category,
           title: value.title,
-          content: content,
+          post: content,
           imageUrls: imgUrls,
+          fileUrls: fileUrls,
         },
         query: {},
         path: {},
         method: HttpMethod.POST,
-        url: `${EndPoint.HOME_BANNER}`,
+        url: `${EndPoint.DATA_ROOM}`,
       })
       console.log(data)
       if (data.isSuccess) {
@@ -92,10 +111,10 @@ const RollingBannerDetail = ({
         data: {},
         query: {},
         path: {
-          id: value.bannerId,
+          id: value.dataRoomEnglishId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.HOME_BANNER}/:id/d`,
+        url: `${EndPoint.DATA_ROOM}/:id/d`,
       })
       if (data.isSuccess) {
         getList()
@@ -118,6 +137,7 @@ const RollingBannerDetail = ({
 
   const onUpdate = async () => {
     const imgUrls = sendImageUrlFormat(iamgeList)
+    const fileUrls = sendImageUrlFormat(fileList)
 
     try {
       if (!validateCheck()) {
@@ -126,15 +146,17 @@ const RollingBannerDetail = ({
       const {data} = await ApiConfig.request({
         data: {
           title: value.title,
-          content: content,
+          category: value.category,
+          post: content,
           imageUrls: imgUrls,
+          fileUrls: fileUrls,
         },
         query: {},
         path: {
-          id: value.bannerId,
+          id: value.dataRoomEnglishId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.HOME_BANNER}/:id`,
+        url: `${EndPoint.DATA_ROOM}/:id`,
       })
       if (data.isSuccess) {
         getList()
@@ -156,17 +178,21 @@ const RollingBannerDetail = ({
   }
 
   const onCloseCheck = () => {
-    if (!isReadOnly && value.bannerId !== -1) {
+    if (!isReadOnly && value.recruitmentId !== -1) {
       setCloseCheckModalState(true)
     } else {
       setVisible(false)
       setIsReadOnly(true)
       setImageList([])
+      setFileList([])
       setSelectedItem({
-        bannerId: -1,
+        dataRoomEnglishId: -1,
         title: '',
+        createdAt: '',
+        category: '',
         content: '',
-        imageUrls: [],
+        images: [],
+        files: [],
       })
     }
   }
@@ -174,43 +200,70 @@ const RollingBannerDetail = ({
   const onClose = () => {
     setCloseCheckModalState(false)
     setImageList([])
+    setFileList([])
     setVisible(false)
     setContent('')
     setIsReadOnly(true)
     setSelectedItem({
-      bannerId: -1,
+      dataRoomEnglishId: -1,
       title: '',
+      createdAt: '',
+      category: '',
       content: '',
-      imageUrls: [],
+      images: [],
+      files: [],
     })
   }
-
   return (
     <>
       <CModal alignment='center' size='lg' visible={visible}>
-        <CCustomModalHeader onClick={onCloseCheck}>롤링배너 상세</CCustomModalHeader>
+        <CCustomModalHeader onClick={onCloseCheck}>Data Room 상세</CCustomModalHeader>
         <CModalBody>
           <CRow className='mb-3'>
             <ModalInput
               xs={4}
               onChange={onChange}
-              id='bannerId'
+              id='dataRoomEnglishId'
               placeholder='ID'
-              label='No'
+              label='ID'
               readOnly={true}
               disabled={true}
-              value={value.bannerId === -1 ? '' : value.bannerId}
+              value={value.dataRoomEnglishId === -1 ? '' : value.dataRoomEnglishId}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalSelect
+              options={category}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              onChange={onChange}
+              size='sm'
+              id='category'
+              value={value.categoryEnglish}
+              isRequired={true}
+              placeholder='선택해주세요'
+              label='카테고리'
+            />
+            <ModalInput
+              onChange={onChange}
+              id='dataRoomEnglishId'
+              placeholder=''
+              label='작성일'
+              readOnly={true}
+              disabled={true}
+              value={value.createdAt}
             />
           </CRow>
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
               id='title'
-              placeholder='공백 포함 30자 이내로 입력해주세요.'
-              label='배너 타이틀'
+              placeholder='제목을 입력해주세요'
+              label='제목'
+              value={value.title}
+              isRequired={true}
               readOnly={isReadOnly}
               disabled={isReadOnly}
-              value={value.title}
             />
           </CRow>
           <CRow className='mb-3'>
@@ -220,23 +273,34 @@ const RollingBannerDetail = ({
               isRequired={true}
               readOnly={isReadOnly}
               setValue={setContent}
-              label='본문'
+              label='공지 본문'
             />
           </CRow>
-          <CRow className='pt-3'>
+          <CRow className='mb-3 pt-3'>
             <ModalImageInput
               id='image'
               label='이미지 첨부'
               fileList={iamgeList}
               setFileList={setImageList}
-              images={value.imageUrls}
-              imgPath='home_banner_images'
+              images={value.images}
+              imgPath='english/data-room_images'
               readOnly={isReadOnly}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalFilesInput
+              id='files'
+              label='파일 첨부'
+              files={value.files}
+              disabled={isReadOnly}
+              fileList={fileList}
+              setFileList={setFileList}
+              filePath='english/data-room_files'
             />
           </CRow>
         </CModalBody>
         <CModalFooter>
-          {value.bannerId === -1 ? (
+          {value.dataRoomEnglishId === -1 ? (
             <CButton color='primary' onClick={onCreate}>
               추가
             </CButton>
@@ -261,4 +325,4 @@ const RollingBannerDetail = ({
   )
 }
 
-export default RollingBannerDetail
+export default DataRoomDetail

@@ -5,8 +5,7 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {rollingBannerColumns} from '../../../utils/columns/homePage/rollingBanner/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import RollingBannerDetail from '../../../components/Modal/homePage/rollingBanner/rollingBannerDetail'
-
+import HomePageRollingBannerDetail from '../../../components/Modal/homePage/rollingBanner/HomePageRollingBannerDetail'
 const RollingBanner = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -111,12 +110,13 @@ const RollingBanner = () => {
                 onClick={handleShowBannerDetailModal}
                 columns={rollingBannerColumns}
                 className='BannerList'
+                datePickerHidden={false}
               />
             </CCardBody>
           </CCard>
         </CCol>
       </CRow>
-      <RollingBannerDetail
+      <HomePageRollingBannerDetail
         onChange={handleBannerDetailOnChange}
         visible={showModal}
         value={selectedItem}

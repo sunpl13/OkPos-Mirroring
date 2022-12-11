@@ -1,8 +1,8 @@
 export const homePageNoticeColumns = [
   {
-    key: 'noticeId',
+    key: 'no',
     label: 'No',
-    _props: {color: 'primary', className: 'noticeId'},
+    _props: {color: 'primary', className: 'no'},
   },
   {
     key: 'title',

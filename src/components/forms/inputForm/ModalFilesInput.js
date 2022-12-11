@@ -15,11 +15,9 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
         files.map((file, index) => ({
           key: index,
           uid: index,
-          name: file.fileTitle,
+          name: file.fileTitle ? file.fileTitle : decodeURI(file.split('/')[file.split('/').length - 1]),
           status: 'done',
-          url: file.file,
-          //url: antdImageFormat(path),
-          //name: getFileNameFromURL(file),
+          url: file.file ? antdImageFormat(file.file) : antdImageFormat(file),
         })),
       )
     }
@@ -110,7 +108,6 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
             <InboxOutlined />
           </p>
           <p className='ant-upload-text'>업로드하려면 이 영역으로 파일을 클릭하거나 드래그하세요.</p>
-          <p className='ant-upload-hint'>추가설명</p>
         </Upload.Dragger>
       </DivBox>
     </>

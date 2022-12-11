@@ -5,7 +5,7 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import {dataRoomColumns} from '../../../utils/columns/EnHomePage/dataRoom/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import EnglishDataRoomDetail from '../../../components/Modal/EnHomePage/dataRoom/EnglishDataRoomDetail'
+import DataRoomDetail from '../../../components/Modal/EnHomePage/dataRoom/DataRoomDetail'
 
 const DataRoom = () => {
   const [items, setItems] = useState([])
@@ -15,6 +15,7 @@ const DataRoom = () => {
   const [selectedItem, setSelectedItem] = useState({
     dataRoomEnglishId: -1,
     title: '',
+    category: '',
     createdAt: '',
     post: '',
     images: [],
@@ -72,6 +73,7 @@ const DataRoom = () => {
     setSelectedItem({
       dataRoomEnglishId: -1,
       title: '',
+      category: '',
       createdAt: '',
       post: '',
       images: [],
@@ -115,12 +117,13 @@ const DataRoom = () => {
                 onClick={handleShowDataRoomDetailModal}
                 columns={dataRoomColumns}
                 className={'userList'}
+                datePickerHidden={false}
               />
             </CCardBody>
           </CCard>
         </CCol>
       </CRow>
-      <EnglishDataRoomDetail
+      <DataRoomDetail
         onChange={handleDataRoomDetailOnChange}
         visible={showModal}
         value={selectedItem}

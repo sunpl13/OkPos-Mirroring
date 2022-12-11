@@ -108,6 +108,7 @@ const MemberManageMent = () => {
                 columns={EditorColumns}
                 className={'userList'}
                 func={handleOnCheckedApi}
+                datePickerHidden={false}
               />
             </CCardBody>
           </CCard>

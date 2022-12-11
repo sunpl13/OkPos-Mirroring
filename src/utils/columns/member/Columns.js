@@ -5,9 +5,9 @@ export const EditorColumns = [
     _props: {color: 'primary', className: 'isAuthorized'},
   },
   {
-    key: 'editorId',
+    key: 'number',
     label: 'No',
-    _props: {color: 'primary', className: 'editorId'},
+    _props: {color: 'primary', className: 'number'},
   },
   {
     key: 'loginId',

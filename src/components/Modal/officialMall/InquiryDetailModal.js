@@ -11,12 +11,14 @@ import {
 } from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import MultiFileDownloadForm from '../../forms/downloadForm/MultiFileDownloadForm'
+import ModalQuillEditor from '../../forms/inputForm/ModalQuillEditor'
 
 const InquiryDetailModal = ({
-  onClick,
   onCreate,
   onChange,
   onDelete,
+  inquiryReplyContent,
+  setInquiryReplyContent,
   value,
   isReadOnly,
   setIsReadOnly,
@@ -70,9 +72,6 @@ const InquiryDetailModal = ({
           />
         </CRow>
         <CRow className={'p-2'}>
-          <CFormTextarea id='content' label='문의내용' value={value.content} readOnly disabled rows={9} />
-        </CRow>
-        <CRow className={'p-2'}>
           <MultiFileDownloadForm
             id={'files'}
             placeholder={'첨부파일'}
@@ -82,17 +81,20 @@ const InquiryDetailModal = ({
             disabled
           />
         </CRow>
-        <hr />
-        <CForm>
-          <CFormTextarea
+        <CRow className={'p-2'}>
+          <CFormTextarea id='content' label='문의내용' value={value.content} readOnly disabled rows={9} />
+        </CRow>
+        <CRow className={'p-2'}>
+          <ModalQuillEditor
             id='inquiryReplyContent'
-            placeholder={'답변 미작성'}
-            rows={9}
-            value={value.inquiryReplyContent || ''}
-            onChange={onChange}
-            disabled={isReadOnly}
+            value={inquiryReplyContent || ''}
+            isRequired={true}
+            readOnly={isReadOnly}
+            setValue={setInquiryReplyContent}
+            label='답변'
           />
-        </CForm>
+        </CRow>
+        <br />
       </CModalBody>
       <CModalFooter>
         {isReadOnly ? (

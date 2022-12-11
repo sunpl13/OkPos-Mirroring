@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {CModal, CButton, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import {CModal, CButton, CModalBody, CModalFooter, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import {isEmpty} from '../../../../utils/utility'

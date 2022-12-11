@@ -1,18 +1,8 @@
 export const InquiryColumns = [
   {
-    key: 'inquiryId',
+    key: 'no',
     label: 'No',
-    _props: {color: 'primary', className: 'inquiryId'},
-  },
-  {
-    key: 'category',
-    label: '카테고리',
-    _props: {color: 'primary', className: 'category'},
-  },
-  {
-    key: 'email',
-    label: '이메일',
-    _props: {color: 'primary', className: 'email'},
+    _props: {color: 'primary', className: 'no'},
   },
   {
     key: 'name',
@@ -20,8 +10,8 @@ export const InquiryColumns = [
     _props: {color: 'primary', className: 'name'},
   },
   {
-    key: 'number',
-    label: '전화번호',
-    _props: {color: 'primary', className: 'number'},
+    key: 'email',
+    label: '이메일',
+    _props: {color: 'primary', className: 'email'},
   },
 ]

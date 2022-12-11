@@ -1,8 +1,8 @@
 export const talentRetentionColumns = [
   {
-    key: 'talentPoolId',
+    key: 'number',
     label: 'No',
-    _props: {color: 'primary', className: 'employId'},
+    _props: {color: 'primary', className: 'number'},
   },
   {
     key: 'name',
@@ -10,20 +10,14 @@ export const talentRetentionColumns = [
     _props: {color: 'primary', className: 'name'},
   },
   {
-    key: 'email',
-    label: '이메일',
-    _props: {color: 'primary', className: 'email'},
-  },
-  {
-    key: 'number',
-    label: '전화번호',
-    _props: {color: 'primary', className: 'number'},
-  },
-
-  {
     key: 'phoneNumber',
     label: '휴대전화번호',
     _props: {color: 'primary', className: 'phoneNumber'},
+  },
+  {
+    key: 'email',
+    label: '이메일',
+    _props: {color: 'primary', className: 'email'},
   },
   {
     key: 'positionKorean',

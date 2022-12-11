@@ -214,10 +214,11 @@ const ListTemplate = ({
             </CInputGroup>
           </CCol>
         )}
-
-        <CCol xs={4}>
-          {datePickerHidden && <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />}
-        </CCol>
+        {datePickerHidden && (
+          <CCol xs={4}>
+            <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
+          </CCol>
+        )}
       </CRow>
       <br />
       <CSmartTable
@@ -264,7 +265,7 @@ const ListTemplate = ({
           // 단일 이미지
           image: ({image}) => (
             <td>
-              <CImage rounded src={image} alt='' width={100} height={60} />
+              <CImage rounded thumbnail src={image} alt='' />
             </td>
           ),
           // 이미지 리스트
@@ -322,21 +323,22 @@ const ListTemplate = ({
               )}
             </td>
           ),
-          image: ({image}) => (
-            <td onClick={event => (image.length !== 0 && image[0] !== '.' ? testOnClick(event, image[0]) : onClick)}>
-              {image.length === 0 || image[0] === '.' ? (
-                ''
-              ) : (
-                <CImage
-                  rounded
-                  src={antdImageFormat(image[0])}
-                  alt={antdImageFormat(image[0])}
-                  width={100}
-                  height={60}
-                />
-              )}
-            </td>
-          ),
+          // 변수명 겹침
+          // image: ({image}) => (
+          //   <td onClick={event => (image.length !== 0 && image[0] !== '.' ? testOnClick(event, image[0]) : onClick)}>
+          //     {image.length === 0 || image[0] === '.' ? (
+          //       ''
+          //     ) : (
+          //       <CImage
+          //         rounded
+          //         src={antdImageFormat(image[0])}
+          //         alt={antdImageFormat(image[0])}
+          //         width={100}
+          //         height={60}
+          //       />
+          //     )}
+          //   </td>
+          // ),
         }}
         noItemsLabel={'데이터가 없습니다.'}
         //itemsPerPageSelect={itemPerPageHidden}

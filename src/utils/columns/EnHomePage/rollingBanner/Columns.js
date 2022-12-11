@@ -1,8 +1,8 @@
 export const rollingBannerColumns = [
   {
-    key: 'bannerEnglishId',
+    key: 'no',
     label: 'No',
-    _props: {color: 'primary', className: 'bannerEnglishId'},
+    _props: {color: 'primary', className: 'no'},
   },
   {
     key: 'title',

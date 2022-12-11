@@ -1,7 +1,7 @@
 export const employmentColumns = [
   {
-    key: 'recruitmentId',
-    _props: {color: 'primary', className: 'recruitmentId'},
+    key: 'number',
+    _props: {color: 'primary', className: 'number'},
   },
   {
     key: 'categoryKorean',

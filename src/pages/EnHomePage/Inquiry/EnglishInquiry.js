@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
-import {InquiryColumns} from '../../../utils/columns/homePage/EnglishInquiry/Columns'
+import {InquiryColumns} from '../../../utils/columns/EnHomePage/Inquiry/Columns'
 import EnglishInquiryDetail from '../../../components/Modal/EnHomePage/Inquiry/EnglishInquiryDetail'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
@@ -88,7 +88,8 @@ const EnglishInquiry = () => {
                 items={items}
                 onClick={handleShowInquiryDetailModal}
                 columns={InquiryColumns}
-                className={'inquiryList'}
+                className='inquiryList'
+                datePickerHidden={false}
               />
             </CCardBody>
           </CCard>
