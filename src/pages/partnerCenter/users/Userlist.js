@@ -12,20 +12,27 @@ const Userlist = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [showModal, setShowModal] = useState(false)
+  const [totalPage, setTotalPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1)
 
+  // 회원 리스트 API
   const getUsers = async () => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {result, isSuccess, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
         url: `${EndPoint.GET_PARTNER_USERS}?page=${1}`,
       })
-      if (!data.isSuccess || isEmpty(data?.result)) {
+      if (!isSuccess || isEmpty(result)) {
         return
       }
-      if (data?.code === 1000) {
-        setItems(data.result?.adminUserInfoPartnerDTOs)
+      if (code === 1000) {
+        setItems(result?.adminUserInfoPartnerDTOs)
+        setTotalPage(result?.totalPage)
+        setCurrentPage(result?.page)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
@@ -68,6 +75,9 @@ const Userlist = () => {
               onClick={handleShowUserDetailModal}
               columns={userListColumns}
               className={'userList'}
+              totalPage={totalPage}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
             />
           </CCardBody>
         </CCard>

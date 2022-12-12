@@ -405,7 +405,7 @@ export const educationScheduleListColumns = [
   },
   {
     key: 'title',
-    label: 'No',
+    label: '제목',
     _props: {color: 'primary', className: 'title'},
   },
 

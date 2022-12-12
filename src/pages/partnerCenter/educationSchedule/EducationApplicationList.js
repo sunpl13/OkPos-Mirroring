@@ -12,7 +12,6 @@ const EducationApplicationList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
-  const [applicantList, setApplicantList] = useState([])
   const [showModal, setShowModal] = useState(false)
 
   // 교육 신청 리스트 API
@@ -57,7 +56,6 @@ const EducationApplicationList = () => {
           console.log(data)
           setSelectedItem(data.result)
           setEditCheck(data.result)
-          setApplicantList(data.result.adminApplicantDTOs)
           setShowModal(!showModal)
         } else {
           alert(data?.message)
@@ -199,7 +197,6 @@ const EducationApplicationList = () => {
         upDate={handleDetailModalUpDate}
         onDelete={handleOrderOnDelete}
         searchInputHidden={false}
-        applicantList={applicantList}
       />
     </CRow>
   )
