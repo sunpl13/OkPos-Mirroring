@@ -41,21 +41,22 @@ const InActiveUserList = () => {
   // 탈퇴회원 API
   const getUsers = async () => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {isSuccess, result, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
         url: `${EndPoint.GET_PARTNER_INACTIVE_USERS}?page=${1}`,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
+      if (!isSuccess || isEmpty(result)) {
         return
       }
-      if (data?.code === 1000) {
+      if (code === 1000) {
       } else {
-        alert(data?.message)
+        alert(message)
       }
-      setItems(data.result.inActiveUserInfoPartnerDTOs)
+      setItems(result.inActiveUserInfoPartnerDTOs)
       setChartData([])
-      for (const [key, value] of Object.entries(data.result.inActiveUserWithdrawalCategoryStatistics)) {
+      for (const [key, value] of Object.entries(result.inActiveUserWithdrawalCategoryStatistics)) {
         setChartData(chartData => [
           ...chartData,
           {
@@ -103,6 +104,7 @@ const InActiveUserList = () => {
   const handleUserDetailModalUpdateData = data => {
     setItems(items.map(value => (value.id === data.id ? data : value)))
   }
+
   return (
     <CRow>
       <PageHeader title='탈퇴 회원 리스트' />
