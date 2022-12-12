@@ -380,7 +380,7 @@ const ListTemplate = ({
         }}
         noItemsLabel={'데이터가 없습니다.'}
         //itemsPerPageSelect={itemPerPageHidden}
-        itemsPerPage={1}
+        itemsPerPage={20}
       />
       {showModal ? (
         <ThumbnailModal visible={showModal} setVisible={setShowModal} onClick={modalOnClick} url={imgClick} />
