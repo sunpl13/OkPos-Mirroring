@@ -16,6 +16,9 @@ const EnglishInquiry = () => {
     email: '',
     name: '',
     content: '',
+    country: '',
+    companyName: '',
+    address: '',
   })
 
   const onLoadInquiryList = async () => {
