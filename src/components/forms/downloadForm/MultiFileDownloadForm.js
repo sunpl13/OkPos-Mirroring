@@ -1,9 +1,8 @@
 import {CCol, CFormLabel} from '@coreui/react'
-import {map} from 'lodash'
 import styled from 'styled-components'
 import {antdImageFormat} from '../../../utils/awsCustom'
 
-const MultiFileDownloadForm = ({id, placeholder, files, label, isRequired}) => {
+const MultiFileDownloadForm = ({id, files, label, isRequired}) => {
   const downloadFile = (url, fileName) => {
     url = antdImageFormat(url)
 

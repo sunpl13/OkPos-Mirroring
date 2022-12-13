@@ -1,17 +1,7 @@
-import {
-  CButton,
-  CForm,
-  CFormTextarea,
-  CModal,
-  CModalBody,
-  CModalFooter,
-  CModalHeader,
-  CModalTitle,
-  CRow,
-} from '@coreui/react'
+import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
-import MultiFileDownloadForm from '../../forms/downloadForm/MultiFileDownloadForm'
 import ModalQuillEditor from '../../forms/inputForm/ModalQuillEditor'
+import BasicFileDownloadForm from '../../forms/downloadForm/BasicFileDownloadForm'
 
 const InquiryDetailModal = ({
   onCreate,
@@ -71,11 +61,11 @@ const InquiryDetailModal = ({
           />
         </CRow>
         <CRow className={'p-2'}>
-          <MultiFileDownloadForm
+          <BasicFileDownloadForm
             id={'files'}
             placeholder={'첨부파일'}
             label={'첨부파일'}
-            files={value.files || ''}
+            value={value.file || ''}
             readOnly
             disabled
           />
