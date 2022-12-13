@@ -15,15 +15,6 @@ const BasicFileDownloadForm = ({id, value, label, isRequired}) => {
     }
   }, [value])
 
-  const downloadFile = ({value}) => {
-    const element = document.createElement('a')
-    const file = new Blob([document.getElementById('input').value], {
-      type: 'text/plain;charset=utf-8}',
-    })
-    element.href = value
-    element.click()
-  }
-
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>

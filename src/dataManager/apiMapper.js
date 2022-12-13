@@ -42,8 +42,8 @@ export const EndPoint = {
   GET_MALL_FAQS: `${API}/admin/mall/faqs`,
   GET_MALL_FAQ: `${API}/admin/mall/faqs/:faqId`,
   POST_MALL_FAQ: `${API}/admin/mall/faqs`,
-  PATCH_MALL_UPDATE_FAQ: `${API}/admin/mall/faqs`,
-  PATCH_MALL_DELETE_FAQ: `${API}/admin/mall/faqs/:faqId`,
+  PATCH_MALL_UPDATE_FAQ: `${API}/admin/mall/faqs/:faqId`,
+  PATCH_MALL_DELETE_FAQ: `${API}/admin/mall/faqs/:faqId/status`,
 
   GET_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
   GET_MALL_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,

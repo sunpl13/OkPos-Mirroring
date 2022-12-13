@@ -1,7 +1,7 @@
 import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
-import ModalQuillEditor from '../../forms/inputForm/ModalQuillEditor'
 import BasicFileDownloadForm from '../../forms/downloadForm/BasicFileDownloadForm'
+import ModalTextOnlyQuillEditor from '../../forms/inputForm/ModalTextOnlyQuillEditor'
 
 const InquiryDetailModal = ({
   onCreate,
@@ -74,7 +74,7 @@ const InquiryDetailModal = ({
           <CFormTextarea id='content' label='문의내용' value={value.content} readOnly disabled rows={9} />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalQuillEditor
+          <ModalTextOnlyQuillEditor
             id='inquiryReplyContent'
             value={inquiryReplyContent || ''}
             isRequired={true}
@@ -88,9 +88,11 @@ const InquiryDetailModal = ({
       </CModalBody>
       <CModalFooter>
         {isReadOnly ? (
-          <CButton color='success' onClick={clickUpdateBtn}>
-            수정
-          </CButton>
+          <>
+            <CButton color='success' onClick={clickUpdateBtn}>
+              수정
+            </CButton>
+          </>
         ) : (
           <CButton onClick={() => onCreate(value)} color='primary'>
             저장

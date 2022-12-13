@@ -10,8 +10,8 @@ import {
   CRow,
 } from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
-import ModalQuillEditor from '../../forms/inputForm/ModalQuillEditor'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
+import ModalTextOnlyQuillEditor from '../../forms/inputForm/ModalTextOnlyQuillEditor'
 
 const FaqDetailModal = ({
   item,
@@ -75,7 +75,7 @@ const FaqDetailModal = ({
             />
           </CRow>
           <CRow className={'p-2'}>
-            <ModalQuillEditor
+            <ModalTextOnlyQuillEditor
               id='content'
               value={content || ''}
               isRequired={true}

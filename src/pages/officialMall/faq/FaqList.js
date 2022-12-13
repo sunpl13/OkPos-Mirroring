@@ -123,8 +123,10 @@ const FaqList = () => {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
         url: EndPoint.PATCH_MALL_UPDATE_FAQ,
-        data: {
+        path: {
           faqId: item.faqId,
+        },
+        data: {
           category: item.category,
           title: item.title,
           content: content,
@@ -161,6 +163,8 @@ const FaqList = () => {
           alert(res?.message)
         }
       }
+
+      alert(res?.message)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
