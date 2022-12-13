@@ -117,8 +117,10 @@ const InquiryList = () => {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
         url: EndPoint.PATCH_MALL_UPDATE_INQUIRY_REPLY,
-        data: {
+        path: {
           inquiryReplyId: inquiryReplyId,
+        },
+        data: {
           inquiryReplyContent: inquiryReplyContent,
         },
       })
