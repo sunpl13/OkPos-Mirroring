@@ -7,7 +7,6 @@ import {noticeList} from '../../../utils/columns/partnerCenter/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
-import {useNavigate} from 'react-router-dom'
 
 const NoticeList = () => {
   const [items, setItems] = useState()
@@ -16,11 +15,6 @@ const NoticeList = () => {
   const [editor, setEditor] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
-  const [totalPage, setTotalPage] = useState(1)
-  const [currentPage, setCurrentPage] = useState(1)
-
-  // 모듈 선언
-  const navigate = useNavigate()
 
   // 공지사항 API
   const getNoticeList = async (selectedPage = 1) => {
@@ -186,34 +180,6 @@ const NoticeList = () => {
     }
   }
 
-  // List 페이지네이션 콜백함수
-  const handleCurrentPageOnChange = selectedPage => {
-    console.log(selectedPage)
-    if (selectedPage !== 1) {
-      //getNoticeList(selectedPage)
-      setCurrentPage(selectedPage)
-    }
-  }
-
-  const handleItemSearch = async searchData => {
-    try {
-      const {data} = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_NOTICES}?${searchData.category}=${searchData.value}}`,
-      })
-      if (!data.isSuccess || isEmpty(data?.result)) {
-        return
-      }
-      if (data?.code === 1000) {
-      } else {
-        alert(data?.message)
-      }
-      setItems(data.result.adminNoticePartnerDTOs)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   useEffect(() => {
     if (!showModal) {
       setEditor('')
@@ -241,10 +207,6 @@ const NoticeList = () => {
               columns={noticeList}
               className={'userList'}
               onDelete={handleNoticeDeleteBtnOnClick}
-              totalPage={totalPage}
-              currentPage={currentPage}
-              pageOnChange={handleCurrentPageOnChange}
-              itemOnSearch={handleItemSearch}
             />
           </CCardBody>
         </CCard>

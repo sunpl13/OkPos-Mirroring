@@ -6,25 +6,21 @@ export const userListColumns = [
     key: 'id',
     label: '번호',
     _props: {color: 'primary', className: 'userId'},
-    filter: false,
   },
   {
     key: 'userName',
     label: '회원 이름',
     _props: {color: 'primary', className: 'userName'},
-    filter: false,
   },
   {
     key: 'certificateNum',
     label: '사업자번호',
     _props: {color: 'primary', className: 'certificateNum'},
-    filter: false,
   },
   {
     key: 'phoneNum',
     lebel: '휴대폰 번호',
     _props: {color: 'primary', className: 'phoneNum'},
-    filter: false,
   },
   {
     key: 'createdAt',

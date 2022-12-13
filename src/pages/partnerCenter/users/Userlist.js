@@ -12,8 +12,6 @@ const Userlist = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [showModal, setShowModal] = useState(false)
-  const [totalPage, setTotalPage] = useState(1)
-  const [currentPage, setCurrentPage] = useState(1)
 
   // 회원 리스트 API
   const getUsers = async () => {
@@ -29,8 +27,6 @@ const Userlist = () => {
       }
       if (code === 1000) {
         setItems(result?.adminUserInfoPartnerDTOs)
-        setTotalPage(result?.totalPage)
-        setCurrentPage(result?.page)
       } else {
         alert(message)
       }
@@ -75,9 +71,6 @@ const Userlist = () => {
               onClick={handleShowUserDetailModal}
               columns={userListColumns}
               className={'userList'}
-              totalPage={totalPage}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
             />
           </CCardBody>
         </CCard>

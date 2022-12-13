@@ -32,10 +32,6 @@ const ListTemplate = ({
   itemPerPageHidden = true, // 리스트의 페이지마다 출력될 아이템 개수 선택 박스 출력 유무
   searchInputHidden = true, // 검색창 출력 유무
   checkBoxInputHidden = false, // 체크박스 출력 유무
-  currentPage = 1, // 현제 페이지
-  pageOnChange, // 페이지 변경 함수
-  totalPage = 1, // 페이지 총 개수
-  itemOnSearch, // 검색 함수 (searchOption : {a: category, b: value}) => void(a,b)
   func, //보낼 함수
 }) => {
   // Local state 선언
@@ -172,12 +168,14 @@ const ListTemplate = ({
 
   useEffect(() => {
     setListItems(items)
+    /*
     if (columns) {
       setSearchOption({
         ...searchOption,
         category: columns[0].key,
       })
     }
+    */
   }, [items])
 
   useEffect(() => {
@@ -196,17 +194,10 @@ const ListTemplate = ({
     }
   }, [endDate])
 
-  const handleSearchItemOnClick = key => {
-    console.log(key)
-    setSearchOption({
-      ...searchOption,
-      category: key,
-    })
-  }
-
   return (
     <>
       <CRow className={'justify-content-end'}>
+        {/*
         {searchInputHidden && (
           <CCol xs={4}>
             <CInputGroup>
@@ -246,12 +237,14 @@ const ListTemplate = ({
             </CInputGroup>
           </CCol>
         )}
+        */}
         {datePickerHidden && (
           <CCol xs={4}>
             <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
           </CCol>
         )}
       </CRow>
+
       <br />
       <CSmartTable
         items={filterItems || listItems}
@@ -259,12 +252,13 @@ const ListTemplate = ({
         columnSorter
         pagination
         clickableRows
+        columnFilter
         //onActivePageChange={selectPage => pageOnChange(selectPage)}
-        paginationProps={{
-          activePage: currentPage,
-          align: 'center',
-          pages: totalPage,
-        }}
+        //paginationProps={{
+        //  activePage: currentPage,
+        //  align: 'center',
+        //  pages: totalPage,
+        //}}
         tableHeadProps={{
           color: 'primary',
         }}
