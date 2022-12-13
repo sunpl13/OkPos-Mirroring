@@ -48,8 +48,8 @@ export const EndPoint = {
   GET_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
   GET_MALL_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
   POST_MALL_DATAROOM: `${API}/admin/mall/datarooms`,
-  PATCH_MALL_UPDATE_DATAROOM: `${API}/admin/mall/datarooms`,
-  PATCH_MALL_DELETE_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
+  PATCH_MALL_UPDATE_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
+  PATCH_MALL_DELETE_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId/status`,
 
   GET_MALL_BANNERS: `${API}/admin/mall/banners`,
   GET_MALL_BANNER: `${API}/admin/mall/banners/:bannerId`,

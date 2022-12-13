@@ -9,6 +9,7 @@ import {isEmpty} from '../../../utils/utility'
 import {useNavigate} from 'react-router-dom'
 import * as _ from 'lodash'
 import DataRoomModal from '../../../components/Modal/officialMall/DataRoomModal'
+import {sendImageUrlFormat} from '../../../utils/awsCustom'
 
 const DataRoomList = () => {
   const navigate = useNavigate()
@@ -18,6 +19,7 @@ const DataRoomList = () => {
   const [selectedItem, setSelectedItem] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [fileList, setFileList] = useState([])
+  const [imageList, setImageList] = useState([])
 
   // API 통신
 
@@ -78,7 +80,7 @@ const DataRoomList = () => {
           category: item.category,
           title: item.title,
           content: item.content,
-          image: item.image,
+          images: item.image,
           files: item.files,
         },
       })
@@ -206,18 +208,19 @@ const DataRoomList = () => {
   }
 
   const handleDetailModalUpdate = async () => {
-    const {dataRoomId, title, image, content, category} = selectedItem
+    const {dataRoomId, title, content, category} = selectedItem
 
     // validation
     if (!title) return alert('제목을 입력해주세요')
     if (!category) return alert('카테고리를 선택해주세요')
     if (!content) return alert('본문을 입력해주세요')
-    if (!image) return alert('이미지를 등록해주세요')
+    if (!imageList) return alert('이미지를 등록해주세요')
     if (!fileList) return alert('자료를 등록해주세요')
 
     selectedItem.files = handleMultiFileUrl(fileList)
+    selectedItem.image = sendImageUrlFormat(imageList)
 
-    console.log(fileList, selectedItem.files)
+    console.log(selectedItem)
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (dataRoomId) {
@@ -277,6 +280,8 @@ const DataRoomList = () => {
         setVisible={setShowModal}
         fileList={fileList}
         setFileList={setFileList}
+        imageList={imageList}
+        setImageList={setImageList}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
         isUpdate={isUpdate}
