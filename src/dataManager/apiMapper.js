@@ -36,8 +36,8 @@ export const EndPoint = {
   GET_MALL_INQUIRIES: `${API}/admin/mall/inquiries`,
   GET_MALL_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId`,
   POST_MALL_INQUIRY_REPLY: `${API}/admin/mall/inquiryReplies`,
-  PATCH_MALL_UPDATE_INQUIRY_REPLY: `${API}/admin/mall/inquiryReplies`,
-  PATCH_MALL_DELETE_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId`,
+  PATCH_MALL_UPDATE_INQUIRY_REPLY: `${API}/admin/mall/inquiryReplies/:inquiryReplyId`,
+  PATCH_MALL_DELETE_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId/status`,
 
   GET_MALL_FAQS: `${API}/admin/mall/faqs`,
   GET_MALL_FAQ: `${API}/admin/mall/faqs/:faqId`,

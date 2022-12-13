@@ -33,7 +33,6 @@ const InquiryDetailModal = ({
   if (isReadOnly) modalTitle = '1:1 문의 상세 내용'
 
   // 함수 선언
-
   const clickUpdateBtn = () => {
     setIsReadOnly(false)
     setIsUpdate(true)
@@ -90,6 +89,7 @@ const InquiryDetailModal = ({
             value={inquiryReplyContent || ''}
             isRequired={true}
             readOnly={isReadOnly}
+            disabled={isReadOnly}
             setValue={setInquiryReplyContent}
             label='답변'
           />
