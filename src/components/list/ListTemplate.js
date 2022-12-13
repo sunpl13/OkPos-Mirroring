@@ -173,7 +173,6 @@ const ListTemplate = ({
   useEffect(() => {
     setListItems(items)
     if (columns) {
-      console.log('asdasd')
       setSearchOption({
         ...searchOption,
         category: columns[0].key,
@@ -227,7 +226,7 @@ const ListTemplate = ({
                 <CDropdownMenu>
                   {columns.map(({key}) => {
                     if (key !== 'createdAt' && key !== 'noticeFiles' && key !== searchOption.category) {
-                      console.log(searchSelectedBox[key])
+                      //console.log(searchSelectedBox[key])
                       return (
                         <CDropdownItem
                           key={key}
@@ -260,7 +259,7 @@ const ListTemplate = ({
         columnSorter
         pagination
         clickableRows
-        onActivePageChange={selectPage => pageOnChange(selectPage)}
+        //onActivePageChange={selectPage => pageOnChange(selectPage)}
         paginationProps={{
           activePage: currentPage,
           align: 'center',
