@@ -1,20 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
-import {
-  CBadge,
-  CButton,
-  CCol,
-  CDropdown,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
-  CFormCheck,
-  CFormInput,
-  CImage,
-  CInputGroup,
-  CRow,
-} from '@coreui/react'
+import {CBadge, CCol, CFormCheck, CImage, CRow} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
 import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
@@ -42,16 +29,6 @@ const ListTemplate = ({
   const [imgClick, setImgClick] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const [searchOption, setSearchOption] = useState({
-    category: '',
-    value: '',
-  })
-  const searchSelectedBox = {
-    id: '번호',
-    no: '번호',
-    userName: '회원이름',
-    title: '제목',
-  }
 
   const [allSelected, setAllSelected] = useState(false)
 
@@ -61,7 +38,7 @@ const ListTemplate = ({
     setListItems(
       listItems.map(value => ({
         ...value,
-        checked: allSelected ? false : true,
+        checked: !allSelected,
       })),
     )
   }

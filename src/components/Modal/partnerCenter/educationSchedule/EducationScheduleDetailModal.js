@@ -19,7 +19,7 @@ const EducationScheduleDetailModal = ({
   setEditor,
 }) => {
   const {no, title, createdAt, files, content, educationScheduleFiles, educationScheduleImages} = value
-
+  console.log(editor)
   return (
     <DetailModalEditModeTemplate
       title={no !== 0 ? '교육 일정 상세' : '교육 일정 추가'}
@@ -49,17 +49,6 @@ const EducationScheduleDetailModal = ({
           id={'imageInput'}
           label={'이미지 리스트'}
           value={educationScheduleImages}
-          readOnly={no !== 0 && editMode}
-          disabled={no !== 0 && editMode}
-        />
-      </CRow>
-      <CRow className={'p-2'}>
-        <ModalTextArrayInput
-          id={'content'}
-          label={'본문'}
-          value={content}
-          onChange={onChange}
-          rows={10}
           readOnly={no !== 0 && editMode}
           disabled={no !== 0 && editMode}
         />

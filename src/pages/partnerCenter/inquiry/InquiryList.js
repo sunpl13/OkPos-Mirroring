@@ -116,13 +116,14 @@ const InquiryList = () => {
     })
     if (editCheck.length !== 0) {
       if (window.confirm('답변을 수정하시겠습니까?')) {
-        if (!editor) return alert('답벼을 작성해 주세요.')
+        if (!editor) return alert('답변을 작성해 주세요.')
         try {
           const {data} = await ApiConfig.request({
             method: HttpMethod.PUT,
             url: `${EndPoint.GET_PARTNER_INQUIRIES}/reply/${id}`,
+            // /admin/partner/inquiries/reply/1
             data: {
-              json,
+              content: editor,
             },
           })
           console.log(data)
