@@ -43,7 +43,7 @@ const DetailModalEditModeTemplate = ({
           </CButton>
         )}
         <CButton color='secondary' onClick={cancel}>
-          취소
+          닫기
         </CButton>
       </CModalFooter>
     </CModal>

@@ -21,7 +21,7 @@ const DealerSupportList = () => {
   })
 
   // 1:1 문의 리스트 API
-  const getUsers = async () => {
+  const getList = async () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
@@ -42,7 +42,7 @@ const DealerSupportList = () => {
   }
 
   useEffect(() => {
-    getUsers()
+    getList()
   }, [])
 
   const [showModal, setShowModal] = useState(false)

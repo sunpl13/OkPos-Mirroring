@@ -45,7 +45,7 @@ const InActiveUserList = () => {
         data: {isSuccess, result, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_INACTIVE_USERS}?page=${1}`,
+        url: `${EndPoint.GET_PARTNER_INACTIVE_USERS}`,
       })
       if (!isSuccess || isEmpty(result)) {
         return
