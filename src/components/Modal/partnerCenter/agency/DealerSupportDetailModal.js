@@ -111,7 +111,7 @@ const DealerSupportDetailModal = ({
             size='sm'
             value={value.career}
             placeholder='선택해주세요'
-            label='경력'
+            label='경력 유무'
           />
         </CRow>
 
@@ -126,21 +126,35 @@ const DealerSupportDetailModal = ({
           />
         </CRow>
         <CRow className='p-2'>
-          <ModalImageInput fileList={noticeImages || []} id={'images'} label={'이미지'} readOnly={true} />
+          <ModalImageInput fileList={noticeImages || []} id={'images'} label={'지원 공고 이미지'} readOnly />
         </CRow>
         <br />
         <CRow className='p-2'>
-          <ModalInput onChange={onChange} id='name' placeholder='지원자 이름' label='이름' value={name} readOnly />
+          <ModalInput
+            onChange={onChange}
+            id='name'
+            placeholder='지원자 이름'
+            label='지원자 이름'
+            value={name}
+            readOnly
+          />
         </CRow>
         <CRow className='p-2'>
-          <ModalInput onChange={onChange} id='email' placeholder='이메일' label='이메일' value={email} readOnly />
+          <ModalInput
+            onChange={onChange}
+            id='email'
+            placeholder='이메일'
+            label='지원자 이메일'
+            value={email}
+            readOnly
+          />
         </CRow>
         <CRow className='p-2'>
           <ModalInput
             onChange={onChange}
             id='phoneNum'
             placeholder='전화번호'
-            label='전화번호'
+            label='지원자 전화번호'
             value={phoneNum}
             readOnly
           />

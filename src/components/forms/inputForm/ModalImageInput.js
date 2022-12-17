@@ -108,7 +108,7 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, rea
   )
   return (
     <>
-      <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
+      <CFormLabel htmlFor={`${id}Static`} className='col-sm-4 col-form-label'>
         <span>{label || ' * '}</span>
       </CFormLabel>
       <Upload
@@ -120,7 +120,7 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, rea
         customRequest={reqData => customReq(reqData)}
         disabled={readOnly}
       >
-        {fileList?.length >= 8 ? null : uploadButton}
+        {fileList?.length >= 8 ? null : !readOnly && uploadButton}
       </Upload>
 
       {previewImage && (
