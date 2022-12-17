@@ -42,7 +42,17 @@ const ListTemplate = ({
   const [imgClick, setImgClick] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const [searchOption, setSearchOption] = useState('')
+  const [searchOption, setSearchOption] = useState({
+    category: '',
+    value: '',
+  })
+  const searchSelectedBox = {
+    id: '번호',
+    no: '번호',
+    userName: '회원이름',
+    title: '제목',
+  }
+
   const [allSelected, setAllSelected] = useState(false)
 
   // 리스트 헤더 전체 체크박스
@@ -158,9 +168,14 @@ const ListTemplate = ({
 
   useEffect(() => {
     setListItems(items)
+    /*
     if (columns) {
-      setSearchOption(columns[0].key)
+      setSearchOption({
+        ...searchOption,
+        category: columns[0].key,
+      })
     }
+    */
   }, [items])
 
   useEffect(() => {
@@ -179,55 +194,71 @@ const ListTemplate = ({
     }
   }, [endDate])
 
-  const handleSearchOnClick = () => {
-    console.log('test')
-  }
-  const handleSearchItemOnClick = key => {
-    setSearchOption(key)
-  }
   return (
     <>
       <CRow className={'justify-content-end'}>
+        {/*
         {searchInputHidden && (
           <CCol xs={4}>
             <CInputGroup>
               <CDropdown alignment='end' variant='input-group'>
                 <CDropdownToggle color='secondary' variant='outline' split>
-                  {searchOption}
+                  {searchSelectedBox[searchOption?.category]}
                 </CDropdownToggle>
-                <CFormInput aria-label='Text input with segmented dropdown button' />
+                <CFormInput
+                  aria-label='Text input with segmented dropdown button'
+                  onChange={({target: {value}}) =>
+                    setSearchOption({
+                      ...searchOption,
+                      value: value,
+                    })
+                  }
+                />
                 <CDropdownMenu>
                   {columns.map(({key}) => {
-                    if (key !== 'createdAt') {
+                    if (key !== 'createdAt' && key !== 'noticeFiles' && key !== searchOption.category) {
+                      //console.log(searchSelectedBox[key])
                       return (
-                        <CDropdownItem key={key} onClick={() => handleSearchItemOnClick(key)}>
-                          {key}
+                        <CDropdownItem
+                          key={key}
+                          value={searchSelectedBox[key]}
+                          onClick={() => handleSearchItemOnClick(key)}
+                        >
+                          {searchSelectedBox[key]}
                         </CDropdownItem>
                       )
                     }
                   })}
                 </CDropdownMenu>
               </CDropdown>
-              <CButton type='button' color='secondary' variant='outline' onClick={() => handleSearchOnClick()}>
+              <CButton type='button' color='secondary' variant='outline' onClick={() => itemOnSearch(searchOption)}>
                 검색
               </CButton>
             </CInputGroup>
           </CCol>
         )}
+        */}
         {datePickerHidden && (
           <CCol xs={4}>
             <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
           </CCol>
         )}
       </CRow>
+
       <br />
       <CSmartTable
         items={filterItems || listItems}
         columns={checkBoxInputHidden ? [allCheckBox, ...columns] : columns || null}
-        activePage={1}
         columnSorter
         pagination
         clickableRows
+        columnFilter
+        //onActivePageChange={selectPage => pageOnChange(selectPage)}
+        //paginationProps={{
+        //  activePage: currentPage,
+        //  align: 'center',
+        //  pages: totalPage,
+        //}}
         tableHeadProps={{
           color: 'primary',
         }}

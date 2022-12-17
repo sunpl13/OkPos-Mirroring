@@ -2,7 +2,6 @@ import CIcon from '@coreui/icons-react'
 import {
   cilSpeedometer,
   cilUser,
-  cilFont,
   cilHome,
   cilChatBubble,
   cilBasket,
@@ -10,11 +9,9 @@ import {
   cilFolderOpen,
   cilBook,
   cilLibrary,
-  cilPaint,
   cilPeople,
   cilAddressBook,
   cilNotes,
-  cilDataTransferDown,
 } from '@coreui/icons'
 import {CNavGroup, CNavItem, CNavTitle} from '@coreui/react'
 
@@ -156,7 +153,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: '롤링배너 관리',
-    icon: <CIcon icon={cilPaint} customClassName='nav-icon' />,
+    icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
     accessauthority: 'HOME',
     items: [
       {
@@ -357,7 +354,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: '롤링배너 관리',
-    icon: <CIcon icon={cilPaint} customClassName='nav-icon' />,
+    icon: <CIcon icon={cilLibrary} customClassName='nav-icon' />,
     accessauthority: 'HOME',
     items: [
       {
@@ -370,7 +367,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Data Room',
-    icon: <CIcon icon={cilDataTransferDown} customClassName='nav-icon' />,
+    icon: <CIcon icon={cilFolderOpen} customClassName='nav-icon' />,
     accessauthority: 'HOME',
     items: [
       {

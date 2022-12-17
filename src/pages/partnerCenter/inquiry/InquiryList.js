@@ -8,7 +8,7 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 
-const UserInquiryList = () => {
+const InquiryList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({
     content: '',
@@ -111,6 +111,9 @@ const UserInquiryList = () => {
   // Modal UPDate
   const handleInquiryModalUpdate = async () => {
     const {id} = selectedItem
+    const json = JSON.stringify({
+      content: editor,
+    })
     if (editCheck.length !== 0) {
       if (window.confirm('답변을 수정하시겠습니까?')) {
         if (!editor) return alert('답벼을 작성해 주세요.')
@@ -119,7 +122,7 @@ const UserInquiryList = () => {
             method: HttpMethod.PUT,
             url: `${EndPoint.GET_PARTNER_INQUIRIES}/reply/${id}`,
             data: {
-              content: editor,
+              json,
             },
           })
           console.log(data)
@@ -143,7 +146,7 @@ const UserInquiryList = () => {
           method: HttpMethod.POST,
           url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}/reply`,
           data: {
-            content: editor,
+            json,
           },
         })
         console.log(data)
@@ -196,4 +199,4 @@ const UserInquiryList = () => {
   )
 }
 
-export default UserInquiryList
+export default InquiryList

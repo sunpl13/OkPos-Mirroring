@@ -25,6 +25,7 @@ export const EndPoint = {
   GET_PARTNER_ORDERS: `${API}/admin/partner/orders`, // 발주신청 리스트
   GET_PARTNER_MAINTENANCES: `${API}/admin/partner/maintenances`, // 유지보수 신청 리스트
   GET_PARTNER_SCHEDULES: `${API}/admin/partner/educations/schedules`, // 교육일정 리스트
+  GET_PARTNER_REGISTRAUINS: `${API}/admin/partner/educations/registrations`, // 교육신청 리스트
 
   // ------ 가맹점 전용 공식몰 페이지
   GET_MALL_USERS: `${API}/admin/mall/users`,
@@ -35,20 +36,20 @@ export const EndPoint = {
   GET_MALL_INQUIRIES: `${API}/admin/mall/inquiries`,
   GET_MALL_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId`,
   POST_MALL_INQUIRY_REPLY: `${API}/admin/mall/inquiryReplies`,
-  PATCH_MALL_UPDATE_INQUIRY_REPLY: `${API}/admin/mall/inquiryReplies`,
-  PATCH_MALL_DELETE_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId`,
+  PATCH_MALL_UPDATE_INQUIRY_REPLY: `${API}/admin/mall/inquiryReplies/:inquiryReplyId`,
+  PATCH_MALL_DELETE_INQUIRY: `${API}/admin/mall/inquiries/:inquiryId/status`,
 
   GET_MALL_FAQS: `${API}/admin/mall/faqs`,
   GET_MALL_FAQ: `${API}/admin/mall/faqs/:faqId`,
   POST_MALL_FAQ: `${API}/admin/mall/faqs`,
-  PATCH_MALL_UPDATE_FAQ: `${API}/admin/mall/faqs`,
-  PATCH_MALL_DELETE_FAQ: `${API}/admin/mall/faqs/:faqId`,
+  PATCH_MALL_UPDATE_FAQ: `${API}/admin/mall/faqs/:faqId`,
+  PATCH_MALL_DELETE_FAQ: `${API}/admin/mall/faqs/:faqId/status`,
 
   GET_MALL_DATAROOMS: `${API}/admin/mall/datarooms`,
   GET_MALL_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
   POST_MALL_DATAROOM: `${API}/admin/mall/datarooms`,
-  PATCH_MALL_UPDATE_DATAROOM: `${API}/admin/mall/datarooms`,
-  PATCH_MALL_DELETE_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
+  PATCH_MALL_UPDATE_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId`,
+  PATCH_MALL_DELETE_DATAROOM: `${API}/admin/mall/datarooms/:dataRoomId/status`,
 
   GET_MALL_BANNERS: `${API}/admin/mall/banners`,
   GET_MALL_BANNER: `${API}/admin/mall/banners/:bannerId`,
@@ -94,6 +95,7 @@ const ApiMapper = {
     [EndPoint.GET_PARTNER_ORDERS]: {},
     [EndPoint.GET_PARTNER_MAINTENANCES]: {},
     [EndPoint.GET_PARTNER_SCHEDULES]: {},
+    [EndPoint.GET_PARTNER_REGISTRAUINS]: {},
   },
   post: {
     [EndPoint.POST_LOGIN]: {},

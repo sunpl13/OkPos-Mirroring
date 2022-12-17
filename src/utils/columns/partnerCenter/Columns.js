@@ -6,25 +6,21 @@ export const userListColumns = [
     key: 'id',
     label: '번호',
     _props: {color: 'primary', className: 'userId'},
-    filter: false,
   },
   {
     key: 'userName',
     label: '회원 이름',
     _props: {color: 'primary', className: 'userName'},
-    filter: false,
   },
   {
     key: 'certificateNum',
     label: '사업자번호',
     _props: {color: 'primary', className: 'certificateNum'},
-    filter: false,
   },
   {
     key: 'phoneNum',
     lebel: '휴대폰 번호',
     _props: {color: 'primary', className: 'phoneNum'},
-    filter: false,
   },
   {
     key: 'createdAt',
@@ -184,7 +180,7 @@ export const dealerSupportList = [
 export const materiaList = [
   {
     key: 'id',
-    label: '번호',
+    label: 'No',
     _props: {className: 'id'},
   },
   {
@@ -203,13 +199,6 @@ export const materiaList = [
     label: '등록일',
     _props: {className: 'createdAt'},
     filter: false,
-  },
-  {
-    key: 'deleteBtn',
-    label: ' ',
-    _props: {className: 'deleteBtn'},
-    filter: false,
-    sorter: false,
   },
 ]
 
@@ -412,7 +401,7 @@ export const educationScheduleListColumns = [
   },
   {
     key: 'title',
-    label: 'No',
+    label: '제목',
     _props: {color: 'primary', className: 'title'},
   },
 
@@ -422,45 +411,37 @@ export const educationScheduleListColumns = [
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },
-  {
-    key: 'deleteBtn',
-    label: '삭제',
-    _props: {color: 'primary', className: 'deleteBtn'},
-    filter: false,
-    sorter: false,
-  },
 ]
 
 // 교육 일정 / 교육 신청 리스트
 export const educationApplicationListColumns = [
   {
-    key: 'no',
-    _props: {color: 'primary', className: 'no'},
+    key: 'id',
+    label: 'No',
+    _props: {color: 'primary', className: 'id'},
   },
   {
-    key: 'distributorName',
-    _props: {color: 'primary', className: 'distributorName'},
-  },
-
-  {
-    key: 'distributorContact',
-    _props: {color: 'primary', className: 'distributorContact'},
+    key: 'agencyName',
+    label: '대리점',
+    _props: {color: 'primary', className: 'agencyName'},
   },
   {
-    key: 'trainingDate',
-    _props: {color: 'primary', className: 'trainingDate'},
+    key: 'educationDate',
+    label: '교육 신청일',
+    _props: {color: 'primary', className: 'educationDate'},
     filter: false,
   },
   {
-    key: 'trainingPersonnel',
-    _props: {color: 'primary', className: 'trainingPersonnel'},
+    key: 'phoneNum',
+    label: '연락처',
+    _props: {color: 'primary', className: 'phoneNum'},
     filter: false,
     sorter: false,
   },
   {
-    key: 'deleteBtn',
-    label: ' ',
-    _props: {color: 'primary', className: 'deleteBtn'},
+    key: 'applicantNum',
+    label: '교육 신청 인원',
+    _props: {color: 'primary', className: 'applicantNum'},
     filter: false,
     sorter: false,
   },
@@ -469,35 +450,29 @@ export const educationApplicationListColumns = [
 // 교육 일정 / 교육 신청 인원 상세정보
 export const educationApplicationListDetailColumns = [
   {
-    key: 'no',
-    _props: {color: 'primary', className: 'no'},
+    key: 'id',
+    label: 'No',
+    _props: {color: 'primary', className: 'id'},
     filter: false,
     sorter: false,
   },
   {
     key: 'name',
+    label: '이름',
     _props: {color: 'primary', className: 'distributorName'},
-
     sorter: false,
   },
 
   {
     key: 'email',
+    label: '이메일',
     _props: {color: 'primary', className: 'distributorContact'},
-
     sorter: false,
   },
   {
-    key: 'phoneNumber',
-    _props: {color: 'primary', className: 'trainingDate'},
-
-    sorter: false,
-  },
-  {
-    key: 'deleteBtn',
-    label: ' ',
-    _props: {color: 'primary', className: 'deleteBtn'},
-    filter: false,
+    key: 'mobilePhoneNum',
+    label: '연락처',
+    _props: {color: 'primary', className: 'phoneNumber'},
     sorter: false,
   },
 ]

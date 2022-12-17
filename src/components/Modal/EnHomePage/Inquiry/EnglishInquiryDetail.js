@@ -88,7 +88,7 @@ const EnglishInquiryDetail = ({getList, value, visible, setVisible, onChange, is
             <ModalInput
               onChange={onChange}
               id='name'
-              placeholder='Name'
+              placeholder='이름'
               label='이름'
               readOnly={isReadOnly}
               disabled={isReadOnly}
@@ -97,11 +97,42 @@ const EnglishInquiryDetail = ({getList, value, visible, setVisible, onChange, is
             <ModalInput
               onChange={onChange}
               id='email'
-              placeholder='Name'
+              placeholder='이메일'
               label='이메일'
               readOnly={isReadOnly}
               disabled={isReadOnly}
               value={value.email}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalInput
+              onChange={onChange}
+              id='country'
+              placeholder='국가'
+              label='국가'
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              value={value.country}
+            />
+            <ModalInput
+              onChange={onChange}
+              id='companyName'
+              placeholder='회사 명'
+              label='회사 명'
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              value={value.companyName}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalInput
+              onChange={onChange}
+              id='address'
+              placeholder='주소'
+              label='주소'
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              value={value.address}
             />
           </CRow>
           <CRow>

@@ -19,7 +19,6 @@ const DealerSupportList = () => {
     email: '',
     phoneNum: '',
   })
-  const [editCheck, setEditCheck] = useState({})
 
   // 1:1 문의 리스트 API
   const getUsers = async () => {
@@ -50,38 +49,22 @@ const DealerSupportList = () => {
   const [isReadOnly, setIsReadOnly] = useState(true)
 
   const handleShowDealerSupportDetailModal = async ({id}) => {
-    if (id !== undefined) {
-      try {
-        const {data} = await ApiConfig.request({
-          method: HttpMethod.GET,
-          url: `${EndPoint.GET_PARTNER_AGENCYAPPLICANT}/${id}`,
-        })
-        console.log(data)
-        if (!data.isSuccess || isEmpty(data?.result)) {
-          return
-        }
-        if (data?.code === 1000) {
-          setSelectedItem(data.result)
-          setEditCheck(data.result)
-        } else {
-          alert(data?.message)
-        }
-      } catch (error) {
-        console.log(error)
+    try {
+      const {data} = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.GET_PARTNER_AGENCYAPPLICANT}/${id}`,
+      })
+      console.log(data)
+      if (!data.isSuccess || isEmpty(data?.result)) {
+        return
       }
-    } else {
-      setSelectedItem({
-        content: '',
-        createdAt: '',
-        noticeFiles: [],
-        noticeImages: [],
-      })
-      setEditCheck({
-        content: '',
-        createdAt: '',
-        noticeFiles: [],
-        noticeImages: [],
-      })
+      if (data?.code === 1000) {
+        setSelectedItem(data.result)
+      } else {
+        alert(data?.message)
+      }
+    } catch (error) {
+      console.log(error)
     }
     setShowModal(!showModal)
   }
@@ -105,7 +88,6 @@ const DealerSupportList = () => {
                 onClick={handleShowDealerSupportDetailModal}
                 columns={dealerSupportList}
                 className={'userList'}
-                checkBoxInputHidden={true}
               />
             </CCardBody>
           </CCard>

@@ -12,8 +12,9 @@ const EducationScheduleList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
-
   const [showModal, setShowModal] = useState(false)
+  const [editMode, setEditMode] = useState(true)
+  const [editor, setEditor] = useState('')
 
   // 교육 일정 리스트 API
   const getSchedules = async () => {
@@ -133,6 +134,14 @@ const EducationScheduleList = () => {
       })
     }
   }
+
+  useEffect(() => {
+    if (!showModal) {
+      setEditor('')
+      setEditMode(true)
+    }
+  }, [showModal])
+
   return (
     <CRow>
       <PageHeader title='교육 일정 리스트' />
@@ -165,6 +174,10 @@ const EducationScheduleList = () => {
         onChange={handleOrderModalOnChange}
         upDate={handleDetailModalUpDate}
         onDelete={handleOrderOnDelete}
+        editMode={editMode}
+        setEditMode={setEditMode}
+        editor={editor}
+        setEditor={setEditor}
       />
     </CRow>
   )

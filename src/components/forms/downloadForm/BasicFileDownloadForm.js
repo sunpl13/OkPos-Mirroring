@@ -1,7 +1,7 @@
 import {CCol, CFormLabel} from '@coreui/react'
 import {useEffect, useState} from 'react'
 
-const BasicFileDownloadForm = ({id, placeholder, value, label, isRequired}) => {
+const BasicFileDownloadForm = ({id, value, label, isRequired}) => {
   // Local state
   const [fileName, setFileName] = useState('')
 
@@ -15,15 +15,6 @@ const BasicFileDownloadForm = ({id, placeholder, value, label, isRequired}) => {
     }
   }, [value])
 
-  const downloadFile = ({value}) => {
-    const element = document.createElement('a')
-    const file = new Blob([document.getElementById('input').value], {
-      type: 'text/plain;charset=utf-8}',
-    })
-    element.href = value
-    element.click()
-  }
-
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
@@ -32,7 +23,7 @@ const BasicFileDownloadForm = ({id, placeholder, value, label, isRequired}) => {
       <CCol className='align-items-center' style={{display: 'flex'}}>
         {value ? (
           <div className='col-form-label'>
-            <a href={value} download>
+            <a href={value} download target='_blank' rel='noreferrer'>
               {fileName}
             </a>
           </div>

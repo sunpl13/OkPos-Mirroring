@@ -39,7 +39,7 @@ const UserList = React.lazy(() => import('./pages/partnerCenter/users/Userlist')
 const WithdrawalUsers = React.lazy(() => import('./pages/partnerCenter/users/InActiveUserList'))
 
 // 1:1 문의 리스트
-const UserInquiryList = React.lazy(() => import('./pages/partnerCenter/inquiry/UserInquiryList'))
+const UserInquiryList = React.lazy(() => import('./pages/partnerCenter/inquiry/InquiryList'))
 
 // 공지사항 리스트
 const NoticeList = React.lazy(() => import('./pages/partnerCenter/notice/NoticeList'))
