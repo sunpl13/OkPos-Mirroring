@@ -10,30 +10,22 @@ import {isEmpty} from '../../../utils/utility'
 
 const InquiryList = () => {
   const [items, setItems] = useState([])
-  const [selectedItem, setSelectedItem] = useState({
-    content: '',
-    id: 0,
-    inquiryCategory: '',
-    inquiryFiles: [],
-    inquiryReplies: [],
-    userName: '',
-    userPhoneNum: '',
-  })
+  const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [editor, setEditor] = useState('')
 
   // 1:1 문의 리스트 API
-  const getInquiry = async () => {
+  const getList = async () => {
     try {
       const {
         data: {result, isSuccess, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_INQUIRIES}?page=${1}`,
+        url: EndPoint.GET_PARTNER_INQUIRIES,
       })
       if (!isSuccess || isEmpty(result)) {
-        return
+        return alert(message)
       }
       if (code === 1000) {
         setItems(result.inquiryPartnerDTOs)
@@ -46,7 +38,7 @@ const InquiryList = () => {
   }
 
   useEffect(() => {
-    getInquiry()
+    getList()
   }, [])
 
   /** Open Modal*/
@@ -60,7 +52,7 @@ const InquiryList = () => {
         url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}`,
       })
       if (!isSuccess || isEmpty(result)) {
-        return
+        return alert(message)
       }
       if (code === 1000) {
         setSelectedItem(result)
@@ -88,7 +80,7 @@ const InquiryList = () => {
           url: `${EndPoint.GET_PARTNER_INQUIRIES}/reply/${id}`,
         })
         if (!isSuccess || isEmpty(result)) {
-          return
+          return alert(message)
         }
         if (code === 1000) {
           alert(message)
@@ -124,7 +116,7 @@ const InquiryList = () => {
             },
           })
           if (!isSuccess || isEmpty(result)) {
-            return
+            return alert(message)
           }
           if (code === 1000) {
             setShowModal(false)

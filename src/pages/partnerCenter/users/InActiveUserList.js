@@ -39,7 +39,7 @@ const InActiveUserList = () => {
   }
 
   // 탈퇴회원 API
-  const getUsers = async () => {
+  const getList = async () => {
     try {
       const {
         data: {isSuccess, result, code, message},
@@ -54,9 +54,9 @@ const InActiveUserList = () => {
       } else {
         alert(message)
       }
-      setItems(result.inActiveUserInfoPartnerDTOs)
+      setItems(result?.inActiveUserInfoPartnerDTOs)
       setChartData([])
-      for (const [key, value] of Object.entries(result.inActiveUserWithdrawalCategoryStatistics)) {
+      for (const [key, value] of Object.entries(result?.inActiveUserWithdrawalCategoryStatistics)) {
         setChartData(chartData => [
           ...chartData,
           {
@@ -73,7 +73,7 @@ const InActiveUserList = () => {
     }
   }
   useEffect(() => {
-    getUsers()
+    getList()
   }, [])
   useEffect(() => {
     console.log(chartData)

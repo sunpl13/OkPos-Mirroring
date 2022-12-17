@@ -15,7 +15,7 @@ const InquiryDetailModal = ({upDate, setValue, value, visible, setVisible, onDel
       title={'문의 상세 보기'}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={inquiryReplies.length !== 0 ? '수정' : '답변등록'}
+      btnText={inquiryReplies?.length !== 0 ? '수정' : '답변등록'}
       onDelete={onDelete}
     >
       <CRow className={'p-2'}>

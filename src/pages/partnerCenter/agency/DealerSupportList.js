@@ -10,31 +10,24 @@ import {isEmpty} from '../../../utils/utility'
 
 const DealerSupportList = () => {
   const [items, setItems] = useState([])
-  const [selectedItem, setSelectedItem] = useState({
-    noticeTitle: '',
-    noticeContent: '',
-    noticeImages: [],
-    supportArea: '',
-    name: '',
-    email: '',
-    phoneNum: '',
-  })
+  const [selectedItem, setSelectedItem] = useState({})
 
-  // 1:1 문의 리스트 API
+  // 딜러 지원 리스트 API
   const getList = async () => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {result, isSuccess, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_AGENCYAPPLICANT}?page=${1}`,
+        url: EndPoint.GET_PARTNER_AGENCYAPPLICANT,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
+      if (!isSuccess || isEmpty(result)) {
         return
       }
-      if (data?.code === 1000) {
-        setItems(data.result.adminAgencyApplicantDTOs)
+      if (code === 1000) {
+        setItems(result.adminAgencyApplicantDTOs)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
@@ -50,18 +43,20 @@ const DealerSupportList = () => {
 
   const handleShowDealerSupportDetailModal = async ({id}) => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {result, isSuccess, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
         url: `${EndPoint.GET_PARTNER_AGENCYAPPLICANT}/${id}`,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
+      console.log(result)
+      if (!isSuccess || isEmpty(result)) {
         return
       }
-      if (data?.code === 1000) {
-        setSelectedItem(data.result)
+      if (code === 1000) {
+        setSelectedItem(result)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
@@ -94,7 +89,6 @@ const DealerSupportList = () => {
         </CCol>
       </CRow>
       <DealerSupportDetailModal
-        readOnly={false}
         onChange={handleEmployDetailOnChange}
         visible={showModal}
         value={selectedItem}
