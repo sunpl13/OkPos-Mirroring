@@ -1,17 +1,7 @@
-import {
-  CButton,
-  CForm,
-  CFormTextarea,
-  CModal,
-  CModalBody,
-  CModalFooter,
-  CModalHeader,
-  CModalTitle,
-  CRow,
-} from '@coreui/react'
+import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalInput from '../../forms/inputForm/ModalInput'
-import MultiFileDownloadForm from '../../forms/downloadForm/MultiFileDownloadForm'
-import ModalQuillEditor from '../../forms/inputForm/ModalQuillEditor'
+import BasicFileDownloadForm from '../../forms/downloadForm/BasicFileDownloadForm'
+import ModalTextOnlyQuillEditor from '../../forms/inputForm/ModalTextOnlyQuillEditor'
 
 const InquiryDetailModal = ({
   onCreate,
@@ -33,7 +23,6 @@ const InquiryDetailModal = ({
   if (isReadOnly) modalTitle = '1:1 문의 상세 내용'
 
   // 함수 선언
-
   const clickUpdateBtn = () => {
     setIsReadOnly(false)
     setIsUpdate(true)
@@ -72,11 +61,11 @@ const InquiryDetailModal = ({
           />
         </CRow>
         <CRow className={'p-2'}>
-          <MultiFileDownloadForm
+          <BasicFileDownloadForm
             id={'files'}
             placeholder={'첨부파일'}
             label={'첨부파일'}
-            files={value.files || ''}
+            value={value.file || ''}
             readOnly
             disabled
           />
@@ -85,11 +74,12 @@ const InquiryDetailModal = ({
           <CFormTextarea id='content' label='문의내용' value={value.content} readOnly disabled rows={9} />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalQuillEditor
+          <ModalTextOnlyQuillEditor
             id='inquiryReplyContent'
             value={inquiryReplyContent || ''}
             isRequired={true}
             readOnly={isReadOnly}
+            disabled={isReadOnly}
             setValue={setInquiryReplyContent}
             label='답변'
           />
@@ -98,9 +88,11 @@ const InquiryDetailModal = ({
       </CModalBody>
       <CModalFooter>
         {isReadOnly ? (
-          <CButton color='success' onClick={clickUpdateBtn}>
-            수정
-          </CButton>
+          <>
+            <CButton color='success' onClick={clickUpdateBtn}>
+              수정
+            </CButton>
+          </>
         ) : (
           <CButton onClick={() => onCreate(value)} color='primary'>
             저장

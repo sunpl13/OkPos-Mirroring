@@ -6,6 +6,7 @@ import ModalSelect from '../../forms/inputForm/ModalSelect'
 import {CButton, CForm, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import {dataRoomCategoryOptions} from '../../../utils/categoryOptions/officailMall/categoryOptions'
 import ModalSingleImageInput from '../../forms/inputForm/ModalSingleImageInput'
+import ModalImageInput from '../../forms/inputForm/ModalImageInput'
 
 const DataRoomModal = ({
   onChange,
@@ -17,6 +18,8 @@ const DataRoomModal = ({
   onDelete,
   fileList,
   setFileList,
+  imageList,
+  setImageList,
   setIsUpdate,
   isUpdate,
   setIsReadOnly,
@@ -86,15 +89,14 @@ const DataRoomModal = ({
             />
           </CRow>
           <CRow className={'p-2'}>
-            <ModalSingleImageInput
-              id={'image'}
-              placeholder={'이미지'}
-              label={'이미지'}
-              image={image || ''}
-              onChangeImage={onChangeImage}
+            <ModalImageInput
+              id='image'
+              label='이미지 첨부'
+              fileList={imageList}
+              setFileList={setImageList}
+              images={image}
+              imgPath='mall/dataRroom_images'
               readOnly={isReadOnly}
-              disabled={isReadOnly}
-              isRequired
             />
           </CRow>{' '}
           <CRow className={'p-2'}>
@@ -115,7 +117,7 @@ const DataRoomModal = ({
               setFileList={setFileList}
               files={files}
               label={'첨부파일'}
-              filePath={'mall/dataroom'}
+              filePath={'mall/dataroom_files'}
               readOnly={isReadOnly}
               disabled={isReadOnly}
               isRequired

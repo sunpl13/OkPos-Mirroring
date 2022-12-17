@@ -194,7 +194,7 @@ const ListTemplate = ({
                 <CDropdownMenu>
                   {columns.map(({key}) => {
                     if (key !== 'createdAt' && key !== 'noticeFiles' && key !== searchOption.category) {
-                      console.log(searchSelectedBox[key])
+                      //console.log(searchSelectedBox[key])
                       return (
                         <CDropdownItem
                           key={key}
