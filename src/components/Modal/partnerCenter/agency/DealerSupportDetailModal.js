@@ -1,22 +1,9 @@
 import React, {useState} from 'react'
-import {
-  CCol,
-  CFormLabel,
-  CImage,
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CModalTitle,
-  CRow,
-  CModalFooter,
-  CButton,
-} from '@coreui/react'
+import {CRow} from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import DeleteModalTemplate from '../../DeleteModalTemplate'
 import PropTypes from 'prop-types'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
-import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import DetailModalTemplate from '../DetailModalTemplate'
 
@@ -34,17 +21,7 @@ const career = [
   {key: 6, value: '5년'},
   {key: 7, value: '6년 이상'},
 ]
-const DealerSupportDetailModal = ({
-  value,
-  visible,
-  setVisible,
-  onChange,
-  onDelete,
-  editMode,
-  setEditMode,
-  isReadOnly,
-  setIsReadOnly,
-}) => {
+const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelete, isReadOnly, setIsReadOnly}) => {
   // - VAN 영업 경력 (유/무)"
   const {
     noticeTitle, // 지원한 공지 제목
@@ -67,14 +44,6 @@ const DealerSupportDetailModal = ({
       setIsReadOnly(false)
     }
   }
-  const handleCloseModal = () => {
-    userDetailEditMode()
-    setVisible(false)
-  }
-  const onClose = () => {
-    setVisible(false)
-    setEditMode(true)
-  }
   return (
     <>
       <DetailModalTemplate
@@ -83,7 +52,6 @@ const DealerSupportDetailModal = ({
         setVisible={setVisible}
         btnText={'수정'}
         onDelete={onDelete}
-        setEditMode={setEditMode}
         notEditBtn={true}
       >
         <CRow className='p-2'>

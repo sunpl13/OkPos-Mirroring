@@ -75,9 +75,6 @@ const InActiveUserList = () => {
   useEffect(() => {
     getList()
   }, [])
-  useEffect(() => {
-    console.log(chartData)
-  }, [chartData])
 
   /** Open Modal*/
   const handleShowUserDetailModal = async ({id}) => {
