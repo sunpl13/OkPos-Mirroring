@@ -111,7 +111,8 @@ const FaqList = () => {
         }
         return
       }
-      setSelectedItem(item)
+      await onLoadFaqList()
+      alert(res?.message)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -141,6 +142,7 @@ const FaqList = () => {
         }
         return
       }
+      alert(res?.message)
       setSelectedItem(item)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -214,7 +216,7 @@ const FaqList = () => {
     if (!title) return alert('제목을 입력해주세요.')
     if (title.length > 30) return alert('제목 글자수 초과입니다.')
     if (!content) return alert('본문을 입력해주세요.')
-    if (content.length > 100) return alert('본문 글자수 초과입니다.')
+    if (content.length > 200) return alert('본문 글자수 초과입니다.')
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (faqId) {
@@ -228,7 +230,6 @@ const FaqList = () => {
         onCreateFaq(selectedItem, content)
         setShowModal(false)
       }
-      await onLoadFaqList()
     }
   }
 

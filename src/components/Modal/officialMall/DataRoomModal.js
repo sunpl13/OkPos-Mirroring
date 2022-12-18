@@ -5,12 +5,11 @@ import ModalFilesInput from '../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../forms/inputForm/ModalSelect'
 import {CButton, CForm, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import {dataRoomCategoryOptions} from '../../../utils/categoryOptions/officailMall/categoryOptions'
-import ModalSingleImageInput from '../../forms/inputForm/ModalSingleImageInput'
 import ModalImageInput from '../../forms/inputForm/ModalImageInput'
+import ModalTextOnlyQuillEditor from '../../forms/inputForm/ModalTextOnlyQuillEditor'
 
 const DataRoomModal = ({
   onChange,
-  onChangeImage,
   item,
   visible,
   setVisible,
@@ -20,13 +19,15 @@ const DataRoomModal = ({
   setFileList,
   imageList,
   setImageList,
+  content,
+  setContent,
   setIsUpdate,
   isUpdate,
   setIsReadOnly,
   isReadOnly,
 }) => {
   // Local state 선언
-  const {category, dataRoomId, title, content, image, files, createdAt} = item
+  const {category, dataRoomId, title, images, files, createdAt} = item
 
   // modal Title 세팅
   let modalTitle = '자료 추가'
@@ -88,28 +89,41 @@ const DataRoomModal = ({
               isRequired
             />
           </CRow>
+          {(isReadOnly || isUpdate) && (
+            <CRow className={'p-2'}>
+              <ModalInput
+                id={'createdAt'}
+                placeholder={'작성일'}
+                label={'작성일'}
+                value={createdAt}
+                readOnly
+                disabled
+              />
+            </CRow>
+          )}
           <CRow className={'p-2'}>
             <ModalImageInput
               id='image'
               label='이미지 첨부'
               fileList={imageList}
               setFileList={setImageList}
-              images={image}
+              images={images}
               imgPath='mall/dataRroom_images'
-              readOnly={isReadOnly}
-            />
-          </CRow>{' '}
-          <CRow className={'p-2'}>
-            <ModalTextArrayInput
-              id='content'
-              label={'본문'}
-              value={content}
-              onChange={onChange}
-              rows={9}
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
           </CRow>
+          <CRow className={'p-2'}>
+            <ModalTextOnlyQuillEditor
+              id='content'
+              value={content || ''}
+              isRequired={true}
+              readOnly={isReadOnly}
+              setValue={setContent}
+              label='본문'
+            />
+          </CRow>
+          <br />
           <CRow className={'p-2'}>
             <ModalFilesInput
               id={'fileList'}
