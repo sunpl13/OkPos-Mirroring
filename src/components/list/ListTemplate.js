@@ -254,11 +254,14 @@ const ListTemplate = ({
         clickableRows
         columnFilter
         //onActivePageChange={selectPage => pageOnChange(selectPage)}
-        //paginationProps={{
-        //  activePage: currentPage,
-        //  align: 'center',
-        //  pages: totalPage,
-        //}}
+        // paginationProps={{
+        //   activePage: currentPage,
+        //   align: 'center',
+        //   pages: totalPage,
+        // }}
+        paginationProps={{
+          limit: 11,
+        }}
         tableHeadProps={{
           color: 'primary',
         }}

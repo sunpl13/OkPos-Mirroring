@@ -62,7 +62,7 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
           <ModalInput
             id={'normalNumber'}
             placeholder={''}
-            label={'일반번호'}
+            label={'일반전화번호'}
             value={order.normalNumber}
             readOnly
             disabled
@@ -100,19 +100,6 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
         </CRow>{' '}
         <CRow className={'p-2'}>
           <ModalInput id={'address'} placeholder={''} label={'주소'} value={order.address} readOnly disabled />
-        </CRow>
-        <CRow className={'p-2'}>
-          <ModalInput
-            id={'invoiceNumber'}
-            placeholder={''}
-            label={'송장번호'}
-            value={order.invoiceNumber}
-            readOnly
-            disabled
-          />
-        </CRow>
-        <CRow className={'p-2'}>
-          <ModalStatus id={'userStatus'} placeholder={''} label={'주문상태'} value={order.status} />
         </CRow>
         <CRow className={'p-2'}>
           <ModalInput
