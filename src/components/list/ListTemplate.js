@@ -260,7 +260,7 @@ const ListTemplate = ({
         //   pages: totalPage,
         // }}
         paginationProps={{
-          limit: 11,
+          limit: 10,
         }}
         tableHeadProps={{
           color: 'primary',
