@@ -20,6 +20,7 @@ const DataRoomList = () => {
   const [showModal, setShowModal] = useState(false)
   const [fileList, setFileList] = useState([])
   const [imageList, setImageList] = useState([])
+  const [content, setContent] = useState('')
 
   // API 통신
 
@@ -65,6 +66,7 @@ const DataRoomList = () => {
 
       res.result.dataRoomId = dataRoomId
       setSelectedItem(res.result)
+      setContent(res.result.content)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -72,6 +74,7 @@ const DataRoomList = () => {
 
   // 자료 추가
   const onCreateMallDataRoom = async item => {
+    console.log(item)
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.POST,
@@ -80,7 +83,7 @@ const DataRoomList = () => {
           category: item.category,
           title: item.title,
           content: item.content,
-          images: item.image,
+          images: item.images,
           files: item.files,
         },
       })
@@ -94,6 +97,7 @@ const DataRoomList = () => {
         return
       }
       alert(res?.message)
+      setShowModal(false)
       setSelectedItem(setInitItem)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -163,7 +167,7 @@ const DataRoomList = () => {
       content: '',
       category: '',
       content: '',
-      image: '',
+      images: [],
       files: [],
     }
   }
@@ -171,7 +175,9 @@ const DataRoomList = () => {
   // 자료 추가 Modal Open 함수
   const handleShowFaqItemAddModal = () => {
     setSelectedItem(setInitItem)
+    setImageList([])
     setFileList([])
+    setContent('')
     setIsReadOnly(false)
     setIsUpdate(false)
     setShowModal(!showModal)
@@ -192,13 +198,6 @@ const DataRoomList = () => {
     })
   }
 
-  const handleDataRoomImageOnChange = url => {
-    setSelectedItem({
-      ...selectedItem,
-      image: url,
-    })
-  }
-
   // 객체 to key value
   const handleMultiFileUrl = array => {
     const tempFiles = array.reduce((accumulator, value) => {
@@ -208,17 +207,18 @@ const DataRoomList = () => {
   }
 
   const handleDetailModalUpdate = async () => {
-    const {dataRoomId, title, content, category} = selectedItem
+    const {dataRoomId, title, category} = selectedItem
 
     // validation
     if (!title) return alert('제목을 입력해주세요')
     if (!category) return alert('카테고리를 선택해주세요')
     if (!content) return alert('본문을 입력해주세요')
-    if (!imageList) return alert('이미지를 등록해주세요')
-    if (!fileList) return alert('자료를 등록해주세요')
+    if (imageList.length < 1) return alert('이미지를 등록해주세요')
+    if (fileList.length < 1) return alert('자료를 등록해주세요')
 
-    selectedItem.files = handleMultiFileUrl(fileList)
-    selectedItem.image = sendImageUrlFormat(imageList)
+    selectedItem.files = await handleMultiFileUrl(fileList)
+    selectedItem.images = await sendImageUrlFormat(imageList)
+    selectedItem.content = content
 
     console.log(selectedItem)
 
@@ -232,9 +232,7 @@ const DataRoomList = () => {
       } else {
         // create
         await onCreateMallDataRoom(selectedItem)
-        setShowModal(false)
       }
-      await setFileList([])
       await onLoadMallDataRoomList()
     }
   }
@@ -265,7 +263,6 @@ const DataRoomList = () => {
               onClick={handleShowDataRoomDetailModal}
               columns={dataRoomListColumns}
               className={'dataRoomList'}
-              datePickerHidden={false}
             />
           </CCardBody>
         </CCard>
@@ -275,13 +272,14 @@ const DataRoomList = () => {
         onUpdate={handleDetailModalUpdate}
         onDelete={handleDetailModalDelete}
         onChange={handleDataRoomItemModalOnChange}
-        onChangeImage={handleDataRoomImageOnChange}
         visible={showModal}
         setVisible={setShowModal}
         fileList={fileList}
         setFileList={setFileList}
         imageList={imageList}
         setImageList={setImageList}
+        content={content}
+        setContent={setContent}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
         isUpdate={isUpdate}
