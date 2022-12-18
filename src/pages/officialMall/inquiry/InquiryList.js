@@ -113,6 +113,7 @@ const InquiryList = () => {
 
   // 1:1 문의 답변 수정
   const onUpdateInquiryAnswer = async (inquiryReplyId, inquiryReplyContent) => {
+    console.log(inquiryReplyId, inquiryReplyContent)
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
@@ -194,14 +195,13 @@ const InquiryList = () => {
 
     // validation
     if (!inquiryId) return alert('번호를 찾을 수 없습니다.')
-    if (!inquiryReplyId) return alert('번호를 찾을 수 없습니다.')
     if (!inquiryReplyContent) return alert('답변을 입력해주세요.')
-    if (inquiryReplyContent.length > 300) return alert('답변 글자 수를 초과했습니다.')
+    if (inquiryReplyContent.length > 450) return alert('답변 글자 수를 초과했습니다.')
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (inquiryReplyId) {
         // 수정
-        await onUpdateInquiryAnswer(inquiryReplyId, inquiryReplyContent)
+        await onUpdateInquiryAnswer(inquiryId, inquiryReplyContent)
       } else {
         // 생성
         await onCreateMallInquiryAnswer(inquiryId, inquiryReplyContent)

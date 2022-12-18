@@ -35,11 +35,18 @@ const InquiryDetailModal = ({
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
-          <ModalInput id={'id'} placeholder={'inquiryId'} label={'No'} value={value.inquiryId} readOnly disabled />
-          <ModalInput id={'name'} placeholder={'이름'} label={'이름'} value={value.name} readOnly disabled />
+          <ModalInput id={'id'} placeholder={'inquiryId'} label={'No'} value={value.inquiryId} readOnly disabled />{' '}
+          <ModalInput
+            id={'category'}
+            placeholder={'문의 유형'}
+            label={'문의 유형'}
+            value={value.category}
+            readOnly
+            disabled
+          />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalInput id={'email'} placeholder={'이메일'} label={'이메일'} value={value.email} readOnly disabled />
+          <ModalInput id={'name'} placeholder={'이름'} label={'이름'} value={value.name} readOnly disabled />
           <ModalInput
             id={'phoneNumber'}
             placeholder={'휴대전화번호'}
@@ -51,14 +58,7 @@ const InquiryDetailModal = ({
           />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalInput
-            id={'category'}
-            placeholder={'문의 유형'}
-            label={'문의 유형'}
-            value={value.category}
-            readOnly
-            disabled
-          />
+          <ModalInput id={'title'} placeholder={'제목'} label={'제목'} value={value.title} readOnly disabled />
         </CRow>
         <CRow className={'p-2'}>
           <BasicFileDownloadForm
