@@ -51,6 +51,8 @@ const InquiryDetailModal = ({upDate, setValue, value, visible, setVisible, onDel
       <CRow className={'p-2'}>
         <ModalQuillEditor id='content' label={'문의 답변'} value={editor} setValue={setValue} />
       </CRow>
+      <br />
+      <br />
     </DetailModalTemplate>
   )
 }

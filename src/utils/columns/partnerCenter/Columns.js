@@ -113,6 +113,7 @@ export const userInquiryListColumns = [
   {
     key: 'createdAt',
     label: '문의 등록일',
+    filter: false,
     _props: {color: 'primary', className: 'createdAt'},
   },
 ]

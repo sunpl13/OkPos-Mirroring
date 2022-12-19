@@ -33,7 +33,7 @@ const NoticeDetailModal = ({
       setEditMode(false)
     }
   }, [value])
-
+  console.log(noticeFiles)
   return (
     <DetailModalEditModeTemplate
       visible={visible}
