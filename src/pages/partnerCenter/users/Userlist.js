@@ -20,7 +20,7 @@ const Userlist = () => {
         data: {result, isSuccess, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_USERS}?page=${1}`,
+        url: EndPoint.GET_PARTNER_USERS,
       })
       if (!isSuccess || isEmpty(result)) {
         return
@@ -43,17 +43,19 @@ const Userlist = () => {
   const handleShowUserDetailModal = async ({id}) => {
     setShowModal(!showModal)
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {result, isSuccess, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
         url: `${EndPoint.GET_PARTNER_USERS}/${id}`,
       })
-      if (!data.isSuccess || isEmpty(data?.result)) {
+      if (!isSuccess || isEmpty(result)) {
         return
       }
-      if (data?.code === 1000) {
-        setSelectedItem(data.result)
+      if (code === 1000) {
+        setSelectedItem(result)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)

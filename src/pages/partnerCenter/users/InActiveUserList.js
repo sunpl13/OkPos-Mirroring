@@ -39,13 +39,13 @@ const InActiveUserList = () => {
   }
 
   // 탈퇴회원 API
-  const getUsers = async () => {
+  const getList = async () => {
     try {
       const {
         data: {isSuccess, result, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_INACTIVE_USERS}?page=${1}`,
+        url: `${EndPoint.GET_PARTNER_INACTIVE_USERS}`,
       })
       if (!isSuccess || isEmpty(result)) {
         return
@@ -54,9 +54,9 @@ const InActiveUserList = () => {
       } else {
         alert(message)
       }
-      setItems(result.inActiveUserInfoPartnerDTOs)
+      setItems(result?.inActiveUserInfoPartnerDTOs)
       setChartData([])
-      for (const [key, value] of Object.entries(result.inActiveUserWithdrawalCategoryStatistics)) {
+      for (const [key, value] of Object.entries(result?.inActiveUserWithdrawalCategoryStatistics)) {
         setChartData(chartData => [
           ...chartData,
           {
@@ -73,11 +73,8 @@ const InActiveUserList = () => {
     }
   }
   useEffect(() => {
-    getUsers()
+    getList()
   }, [])
-  useEffect(() => {
-    console.log(chartData)
-  }, [chartData])
 
   /** Open Modal*/
   const handleShowUserDetailModal = async ({id}) => {

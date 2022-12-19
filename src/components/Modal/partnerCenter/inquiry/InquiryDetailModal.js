@@ -15,7 +15,7 @@ const InquiryDetailModal = ({upDate, setValue, value, visible, setVisible, onDel
       title={'문의 상세 보기'}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={inquiryReplies.length !== 0 ? '수정' : '답변등록'}
+      btnText={inquiryReplies?.length !== 0 ? '수정' : '답변등록'}
       onDelete={onDelete}
     >
       <CRow className={'p-2'}>
@@ -51,6 +51,8 @@ const InquiryDetailModal = ({upDate, setValue, value, visible, setVisible, onDel
       <CRow className={'p-2'}>
         <ModalQuillEditor id='content' label={'문의 답변'} value={editor} setValue={setValue} />
       </CRow>
+      <br />
+      <br />
     </DetailModalTemplate>
   )
 }

@@ -20,7 +20,7 @@ const DetailModalTemplate = ({visible, title, children, setVisible, upDate, onDe
           </CButton>
         )}
         <CButton color='secondary' onClick={() => setVisible(false)}>
-          취소
+          닫기
         </CButton>
       </CModalFooter>
     </CModal>
