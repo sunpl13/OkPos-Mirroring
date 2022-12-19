@@ -7,20 +7,14 @@ import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import DetailModalTemplate from '../DetailModalTemplate'
 
-const category = [
-  {key: 'DEALER', value: '딜러'},
-  {key: 'AGENCY', value: '대리점'},
-]
+const category = {
+  DEALER: {key: 'DEALER', value: '딜러'},
+  AGENCY: {
+    key: 'AGENCY',
+    value: '대리점',
+  },
+}
 
-const career = [
-  {key: 1, value: '신입'},
-  {key: 2, value: '1년'},
-  {key: 3, value: '2년'},
-  {key: 4, value: '3년'},
-  {key: 5, value: '4년'},
-  {key: 6, value: '5년'},
-  {key: 7, value: '6년 이상'},
-]
 const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelete, isReadOnly, setIsReadOnly}) => {
   // - VAN 영업 경력 (유/무)"
   const {
@@ -34,8 +28,6 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelet
     isExperiences, // 경력 유무
   } = value
 
-  const [showDeleteModal, setShowDeleteModal] = useState(false)
-
   const userDetailEditMode = () => {
     if (!isReadOnly) {
       setIsReadOnly(true)
@@ -48,9 +40,8 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelet
     <>
       <DetailModalTemplate
         visible={visible}
-        title={'딜러 지원 상세' || ''}
+        title={'딜러 지원 상세'}
         setVisible={setVisible}
-        btnText={'수정'}
         onDelete={onDelete}
         notEditBtn={true}
       >
@@ -65,24 +56,16 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelet
           />
         </CRow>
         <CRow className='p-2'>
-          <ModalSelect
+          <ModalInput readOnly size='sm' value={category[supportArea]?.value || ''} label='지원 분야' />
+          <ModalInput
+            id='phoneNum'
+            placeholder='VAN 영업 경력'
+            label='VAN 영업 경력'
+            value={isExperiences ? '유' : '무'}
             readOnly
-            size='sm'
-            value={supportArea}
-            options={category}
-            placeholder='선택해주세요'
-            label='지원 분야'
-          />
-          <ModalSelect
-            options={career}
-            readOnly
-            size='sm'
-            value={value.career}
-            placeholder='선택해주세요'
-            label='경력 유무'
           />
         </CRow>
-
+        <br />
         <CRow className='p-2'>
           <ModalTextArrayInput
             id='noticeContent'

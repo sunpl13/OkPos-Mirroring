@@ -14,55 +14,23 @@ const MaterialList = () => {
   const [editCheck, setEditCheck] = useState({})
   const [showModal, setShowModal] = useState(false)
 
-  /** Open Modal*/
-  const handleShowMaterialDetailModal = async item => {
-    if (!item.id) {
-      setShowModal(!showModal)
-      setSelectedItem({
-        id: 0,
-        title: '',
-        content: '',
-        files: '',
-        createdAt: '',
-      })
-    } else {
-      setShowModal(!showModal)
-      try {
-        const {data} = await ApiConfig.request({
-          method: HttpMethod.GET,
-          url: `${EndPoint.GET_PARTNER_DATAROOMS}/${item.id}`,
-        })
-        console.log(data)
-        if (!data.isSuccess || isEmpty(data?.result)) {
-          return
-        }
-        if (data?.code === 1000) {
-          setSelectedItem(data.result)
-          setEditCheck(data.result)
-        } else {
-          alert(data?.message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
-
   // 자료실 API
-  const getDataList = async () => {
+  const getList = async () => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {isSuccess, result, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_DATAROOMS}?page=${1}`,
+        url: EndPoint.GET_PARTNER_DATAROOMS,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
+      console.log(result)
+      if (!isSuccess || isEmpty(result)) {
         return
       }
-      if (data?.code === 1000) {
-        setItems(data.result?.adminDataRoomPartnerDTOs)
+      if (code === 1000) {
+        setItems(result?.adminDataRoomPartnerDTOs)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
@@ -70,23 +38,57 @@ const MaterialList = () => {
   }
 
   useEffect(() => {
-    getDataList()
+    getList()
   }, [])
+
+  /** Open Modal*/
+  const handleShowMaterialDetailModal = async ({id}) => {
+    console.log(id)
+    if (id) {
+      try {
+        const {
+          data: {isSuccess, result, code, message},
+        } = await ApiConfig.request({
+          method: HttpMethod.GET,
+          url: `${EndPoint.GET_PARTNER_DATAROOMS}/${id}`,
+        })
+        console.log(result)
+        if (!isSuccess || isEmpty(result)) {
+          return
+        }
+        if (code === 1000) {
+          setSelectedItem({
+            id: id,
+            ...result,
+          })
+          setEditCheck(result)
+        } else {
+          alert(message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setSelectedItem({})
+      setEditCheck({})
+    }
+    setShowModal(!showModal)
+  }
 
   const handleDetailModalUpDate = () => {
     const {id, title, content, files, category} = selectedItem
-    if (id !== 0) {
+    if (id) {
       if (
         editCheck.title !== title ||
         editCheck.content !== content ||
         editCheck.files !== files ||
         editCheck.category !== category
       ) {
-        if (window.confirm('Edit ?')) {
-          if (!title) return alert('Not Title')
-          //if (!files) return alert('Not File')
-          if (!category) return alert('Not Selected Category')
-          if (!content) return alert('Not Content')
+        if (window.confirm('수정하시겠습니까?')) {
+          if (!title) return alert('제목을 입력해 주세요.')
+          //if (!files) return alert('파일을 등록해 주세요')
+          if (!category) return alert('카테고리를 선택해 주세요')
+          if (!content) return alert('본문을 입력해 주세요.')
           setItems(items.map(value => (value.id === id ? selectedItem : value)))
           setShowModal(false)
         }
@@ -95,11 +97,11 @@ const MaterialList = () => {
       }
     } else {
       if (title || content || files || category) {
-        if (window.confirm('Add ?')) {
-          if (!title) return alert('Not Title')
-          //if (!files) return alert('Not File')
-          if (!category) return alert('Not Selected Category')
-          if (!content) return alert('Not Content')
+        if (window.confirm('등록하시겠습니까?')) {
+          if (!title) return alert('제목을 입력해 주세요.')
+          //if (!files) return alert('파일을 등록해 주세요')
+          if (!category) return alert('카테고리를 선택해 주세요')
+          if (!content) return alert('본문을 입력해 주세요.')
           setItems([
             ...items,
             {

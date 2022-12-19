@@ -1,15 +1,13 @@
-import {CCol, CFormLabel, CRow} from '@coreui/react'
+import {CCol, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
-import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
-import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
-import ModalFilesView from '../../../forms/inputForm/ModalFilesView'
-import BasicFileDownloadForm from '../../../forms/downloadForm/BasicFileDownloadForm'
 import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
+import {inquiryTypes} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
+import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 
 const NoticeDetailModal = ({
   value,
@@ -23,17 +21,14 @@ const NoticeDetailModal = ({
   editMode,
   setEditMode,
 }) => {
-  const {id, title, content, noticeFiles, noticeImages, category} = value
-  const noticeOptions = [
-    {key: 'DEALER', value: '딜러'},
-    {key: 'AGENCY', value: '대리점'},
-  ]
+  const {id, title, noticeFiles, noticeImages, category} = value
+
   useEffect(() => {
     if (!id) {
       setEditMode(false)
     }
   }, [value])
-  console.log(noticeFiles)
+  console.log(value)
   return (
     <DetailModalEditModeTemplate
       visible={visible}
@@ -59,7 +54,7 @@ const NoticeDetailModal = ({
           id={'category'}
           placeholder={'카테고리를 선택해 주세요'}
           label={'카테고리'}
-          options={noticeOptions}
+          options={inquiryTypes}
           value={category || ''}
           onChange={onChange}
           readOnly={id && editMode}
@@ -93,6 +88,9 @@ const NoticeDetailModal = ({
           />
         </CCol>
       )}
+      <CRow className={'p-2'}>
+        <ModalImageInput label={'이미지'} readOnly={id && editMode} fileList={noticeImages} />
+      </CRow>
       <CRow className={'p-2'}>
         <ModalQuillEditor
           id='content'

@@ -29,6 +29,7 @@ const NoticeList = () => {
         return alert(message)
       }
       if (code === 1000) {
+        console.log(result)
         setItems(result?.adminNoticePartnerDTOs)
       } else {
         alert(message)

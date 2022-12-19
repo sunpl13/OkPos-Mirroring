@@ -21,14 +21,14 @@ const MeterialDetailModal = ({onChange, value, visible, setVisible, upDate}) => 
     if (visible) {
     }
   }, [visible])
-
+  console.log(value)
   return (
     <DetailModalEditModeTemplate
-      title={id !== 0 ? '자료 상세' : '자료 추가'}
+      title={id ? '자료 상세' : '자료 추가'}
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={id !== 0 ? '수정' : '추가'}
+      btnText={id ? '수정' : '추가'}
     >
       <CRow className={'p-2'}>
         <ModalInput
