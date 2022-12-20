@@ -3,6 +3,9 @@ import ModalInput from '../../../forms/inputForm/ModalInput'
 import React from 'react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import DetailModalTemplate from '../DetailModalTemplate'
+import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
+import BasicFileDownloadForm from '../../../forms/downloadForm/BasicFileDownloadForm'
+import ObjectFilesDownloadForm from '../../../forms/downloadForm/ObjectFilesDownloadForm'
 
 const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
   const {
@@ -34,7 +37,7 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'사업자 번호'}
             value={certificateNum}
             onChange={onChange}
-            readOnly={true}
+            readOnly
           />
         </CRow>
         <CRow className={'pb-4'}>
@@ -44,7 +47,6 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'계정 등록일'}
             value={createdAt}
             onChange={onChange}
-            disabled
             readOnly
           />
           <ModalInput
@@ -65,6 +67,7 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             onChange={onChange}
             readOnly={true}
           />
+          <br />
           <ModalInput
             id={'businessName'}
             placeholder={'상호명'}
@@ -75,7 +78,6 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
           />
         </CRow>
         <CRow className={'pb-2'}>
-          <br />
           <ModalInput
             id={'address'}
             placeholder={'사업장 주소'}
@@ -85,8 +87,9 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             readOnly={true}
           />
         </CRow>
-        <CRow>
-          <ModalFilesInput id={'files'} label={'사업자 등록증'} value={certificateFile} />
+        <br />
+        <CRow className={'pb-2'}>
+          <BasicFileDownloadForm id={'files'} label={'사업자 등록증'} value={certificateFile} />
         </CRow>
       </CModalBody>
     </DetailModalTemplate>

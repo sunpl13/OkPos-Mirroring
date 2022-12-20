@@ -59,6 +59,8 @@ export const withdrawalUsersColumns = [
     key: 'deletedAt',
     label: '계정 삭제일',
     _props: {color: 'primary', className: 'deletedAt'},
+    sorter: false,
+    filter: false,
   },
   {
     key: 'phoneNum',
@@ -111,6 +113,7 @@ export const userInquiryListColumns = [
   {
     key: 'createdAt',
     label: '문의 등록일',
+    filter: false,
     _props: {color: 'primary', className: 'createdAt'},
   },
 ]
@@ -220,7 +223,7 @@ export const orderList = [
   },
   {
     key: 'representativeName',
-    label: '대표자  명',
+    label: '대표자 명',
     _props: {className: 'RepresentativeName'},
   },
 
@@ -241,38 +244,31 @@ export const orderList = [
 
 export const maintenanceApplicationList = [
   {
-    key: 'no',
-    _props: {color: 'primary', className: 'no'},
-  },
-  {
     key: 'maintenanceApplicationNo',
+    label: '유지보수 신청 번호',
     _props: {color: 'primary', className: 'maintenanceApplicationNo'},
   },
   {
     key: 'businessName',
+    label: '상호명',
     _props: {color: 'primary', className: 'BusinessName'},
   },
   {
     key: 'businessNumber',
+    label: '사업자 등록번호',
     _props: {color: 'primary', className: 'businessNumber'},
   },
   {
     key: 'representativeName',
+    label: '대표자 명',
     _props: {color: 'primary', className: 'RepresentativeName'},
   },
 
   {
     key: 'createdAt',
-    label: 'Order Date',
+    label: '신청 일자',
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
-  },
-  {
-    key: 'deleteBtn',
-    label: ' ',
-    _props: {color: 'primary', className: 'deleteBtn'},
-    filter: false,
-    sorter: false,
   },
 ]
 
@@ -453,26 +449,21 @@ export const educationApplicationListDetailColumns = [
     key: 'id',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
-    filter: false,
-    sorter: false,
   },
   {
     key: 'name',
     label: '이름',
     _props: {color: 'primary', className: 'distributorName'},
-    sorter: false,
   },
 
   {
     key: 'email',
     label: '이메일',
     _props: {color: 'primary', className: 'distributorContact'},
-    sorter: false,
   },
   {
     key: 'mobilePhoneNum',
     label: '연락처',
     _props: {color: 'primary', className: 'phoneNumber'},
-    sorter: false,
   },
 ]

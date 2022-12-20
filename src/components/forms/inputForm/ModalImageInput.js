@@ -130,7 +130,7 @@ const ModalImageInput = ({
         customRequest={reqData => customReq(reqData)}
         disabled={readOnly}
       >
-        {fileList?.length >= 8 ? null : uploadButton}
+        {fileList?.length >= 8 ? null : !readOnly && uploadButton}
       </Upload>
 
       {previewImage && (

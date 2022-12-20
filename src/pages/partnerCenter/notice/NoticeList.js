@@ -17,26 +17,28 @@ const NoticeList = () => {
   const [editMode, setEditMode] = useState(true)
 
   // 공지사항 API
-  const getNoticeList = async (selectedPage = 1) => {
+  const getList = async () => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {isSuccess, result, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_NOTICES}?page=${selectedPage}`,
+        url: EndPoint.GET_PARTNER_NOTICES,
       })
-      if (!data.isSuccess || isEmpty(data?.result)) {
-        return
+      if (!isSuccess || isEmpty(result)) {
+        return alert(message)
       }
-      if (data?.code === 1000) {
+      if (code === 1000) {
+        setItems(result?.adminNoticePartnerDTOs)
       } else {
-        alert(data?.message)
+        alert(message)
       }
-      setItems(data.result.adminNoticePartnerDTOs)
     } catch (error) {
       console.log(error)
     }
   }
   useEffect(() => {
-    getNoticeList()
+    getList()
   }, [])
 
   /** Open Modal*/
@@ -44,24 +46,24 @@ const NoticeList = () => {
     setShowModal(!showModal)
     if (id) {
       try {
-        const {data} = await ApiConfig.request({
+        const {
+          data: {isSuccess, result, code, message},
+        } = await ApiConfig.request({
           method: HttpMethod.GET,
           url: `${EndPoint.GET_PARTNER_NOTICES}/${id}`,
         })
-        console.log(data)
-        if (!data.isSuccess || isEmpty(data?.result)) {
+        if (!isSuccess || isEmpty(result)) {
           return
         }
-        if (data?.code === 1000) {
-          console.log(data)
+        if (code === 1000) {
           setSelectedItem({
             id: id,
-            ...data.result,
+            ...result,
           })
-          setEditCheck(data.result)
-          setEditor(data.result.content)
+          setEditCheck(result)
+          setEditor(result.content)
         } else {
-          alert(data?.message)
+          alert(message)
         }
       } catch (error) {
         console.log(error)
@@ -106,18 +108,19 @@ const NoticeList = () => {
         if (!editor) return alert('공지사항 본문을 작성해 주세요.')
         if (!category) return alert('카테고리를 선택해 주세요.')
         try {
-          const {data} = await ApiConfig.request({
+          const {
+            data: {isSuccess, result, code, message},
+          } = await ApiConfig.request({
             method: HttpMethod.PUT,
             url: `${EndPoint.GET_PARTNER_NOTICES}/${id}`,
             data: json,
           })
-          console.log(data)
-          if (!data.isSuccess || isEmpty(data?.result)) {
+          if (!isSuccess || isEmpty(result)) {
             return
           }
-          if (data?.code === 1000) {
+          if (code === 1000) {
             setShowModal(false)
-            return alert(data.message)
+            return alert(message)
           }
         } catch (error) {
           console.log(error)
@@ -130,22 +133,22 @@ const NoticeList = () => {
         if (!title) return alert('공지사항 제목을 입력해 주세요.')
         if (!category) return alert('카테고리를 선택해 주세요.')
         if (!editor) return alert('공지사항 본문을 입력해 주세요.')
-        console.log(json)
         try {
-          const {data} = await ApiConfig.request({
+          const {
+            data: {isSuccess, result, code, message},
+          } = await ApiConfig.request({
             method: HttpMethod.POST,
             url: EndPoint.GET_PARTNER_NOTICES,
             data: json,
           })
-          console.log(data)
-          if (!data.isSuccess || isEmpty(data?.result)) {
-            return alert(data?.message)
+          if (!isSuccess || isEmpty(result)) {
+            return alert(message)
           }
-          if (data?.code === 1000) {
-            alert(data.message)
-            window.reload()
+          if (code === 1000) {
+            alert(message)
+            window.location.reload()
           } else {
-            alert(data?.message)
+            alert(message)
           }
         } catch (error) {
           return alert(error)
@@ -160,19 +163,20 @@ const NoticeList = () => {
     const {id} = selectedItem
     if (window.confirm('해당 공지사항을 삭제하시겠습니까?')) {
       try {
-        const {data} = await ApiConfig.request({
+        const {
+          data: {isSuccess, result, code, message},
+        } = await ApiConfig.request({
           method: HttpMethod.PATCH,
           url: `${EndPoint.GET_PARTNER_NOTICES}/${id}`,
         })
-        console.log(data)
-        if (!data.isSuccess || isEmpty(data?.result)) {
+        if (!isSuccess || isEmpty(result)) {
           return
         }
-        if (data?.code === 1000) {
-          alert(data.message)
+        if (code === 1000) {
+          alert(message)
           window.location.reload()
         } else {
-          alert(data?.message)
+          alert(message)
         }
       } catch (error) {
         console.log(error)
@@ -186,6 +190,7 @@ const NoticeList = () => {
       setEditMode(true)
     }
   }, [showModal])
+
   return (
     <CRow>
       <PageHeader title='공지사항 리스트' />
@@ -201,13 +206,7 @@ const NoticeList = () => {
             </CForm>
           </CCardHeader>
           <CCardBody>
-            <ListTemplate
-              items={items}
-              onClick={handleShowModal}
-              columns={noticeList}
-              className={'userList'}
-              onDelete={handleNoticeDeleteBtnOnClick}
-            />
+            <ListTemplate items={items} onClick={handleShowModal} columns={noticeList} className={'userList'} />
           </CCardBody>
         </CCard>
       </CCol>

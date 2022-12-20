@@ -10,34 +10,27 @@ import {isEmpty} from '../../../utils/utility'
 
 const InquiryList = () => {
   const [items, setItems] = useState([])
-  const [selectedItem, setSelectedItem] = useState({
-    content: '',
-    id: 0,
-    inquiryCategory: '',
-    inquiryFiles: [],
-    inquiryReplies: [],
-    userName: '',
-    userPhoneNum: '',
-  })
+  const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [editor, setEditor] = useState('')
 
   // 1:1 문의 리스트 API
-  const getInquiry = async () => {
+  const getList = async () => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {result, isSuccess, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_INQUIRIES}?page=${1}`,
+        url: EndPoint.GET_PARTNER_INQUIRIES,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
-        return
+      if (!isSuccess || isEmpty(result)) {
+        return alert(message)
       }
-      if (data?.code === 1000) {
-        setItems(data.result.inquiryPartnerDTOs)
+      if (code === 1000) {
+        setItems(result.inquiryPartnerDTOs)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
@@ -45,30 +38,30 @@ const InquiryList = () => {
   }
 
   useEffect(() => {
-    getInquiry()
+    getList()
   }, [])
 
   /** Open Modal*/
   const handleShowModal = async ({id}) => {
     setShowModal(!showModal)
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {result, isSuccess, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
         url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}`,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
-        return
+      if (!isSuccess || isEmpty(result)) {
+        return alert(message)
       }
-      if (data?.code === 1000) {
-        const {result} = data
+      if (code === 1000) {
         setSelectedItem(result)
         setEditCheck(result.inquiryReplies)
         if (result.inquiryReplies.length !== 0) {
           setEditor(result.inquiryReplies[result.inquiryReplies.length - 1].content)
         }
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
@@ -80,22 +73,20 @@ const InquiryList = () => {
     const {id} = selectedItem
     if (window.confirm('정말 삭제하시겠습니까?')) {
       try {
-        const {data} = await ApiConfig.request({
-          method: HttpMethod.GET,
-          url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}`,
+        const {
+          data: {result, isSuccess, code, message},
+        } = await ApiConfig.request({
+          method: HttpMethod.PATCH,
+          url: `${EndPoint.GET_PARTNER_INQUIRIES}/reply/${id}`,
         })
-        console.log(data)
-        if (!data.isSuccess || isEmpty(data?.result)) {
-          return
+        if (!isSuccess || isEmpty(result)) {
+          return alert(message)
         }
-        if (data?.code === 1000) {
-          setSelectedItem({
-            ...selectedItem,
-            ...data.result,
-          })
-          setEditCheck(data.result.inquiryReplies)
+        if (code === 1000) {
+          alert(message)
+          window.location.reload()
         } else {
-          alert(data?.message)
+          alert(message)
         }
       } catch (error) {
         console.log(error)
@@ -108,32 +99,30 @@ const InquiryList = () => {
     setEditor(htmlTagValue)
   }
 
-  // Modal UPDate
+  // 1 : 1 문이 업데이트
   const handleInquiryModalUpdate = async () => {
     const {id} = selectedItem
-    const json = JSON.stringify({
-      content: editor,
-    })
     if (editCheck.length !== 0) {
       if (window.confirm('답변을 수정하시겠습니까?')) {
-        if (!editor) return alert('답벼을 작성해 주세요.')
+        if (!editor) return alert('답변을 작성해 주세요.')
         try {
-          const {data} = await ApiConfig.request({
+          const {
+            data: {result, isSuccess, code, message},
+          } = await ApiConfig.request({
             method: HttpMethod.PUT,
             url: `${EndPoint.GET_PARTNER_INQUIRIES}/reply/${id}`,
             data: {
-              json,
+              content: editor,
             },
           })
-          console.log(data)
-          if (!data.isSuccess || isEmpty(data?.result)) {
-            return
+          if (!isSuccess || isEmpty(result)) {
+            return alert(message)
           }
-          if (data?.code === 1000) {
+          if (code === 1000) {
             setShowModal(false)
-            return alert(data?.message)
+            return alert(message)
           } else {
-            alert(data?.message)
+            alert(message)
           }
         } catch (error) {
           console.log(error)
@@ -142,22 +131,23 @@ const InquiryList = () => {
     } else if (window.confirm('답변을 등록하시겠습니까?')) {
       if (!editor) return alert('답변을 작성해 주세요.')
       try {
-        const {data} = await ApiConfig.request({
+        const {
+          data: {result, isSuccess, code, message},
+        } = await ApiConfig.request({
           method: HttpMethod.POST,
           url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}/reply`,
           data: {
-            json,
+            content: editor,
           },
         })
-        console.log(data)
-        if (!data.isSuccess || isEmpty(data?.result)) {
-          return
+        if (!isSuccess || isEmpty(result)) {
+          return alert(message)
         }
-        if (data?.code === 1000) {
+        if (code === 1000) {
           setShowModal(false)
-          return alert(data?.message)
+          return alert(message)
         } else {
-          alert(data?.message)
+          alert(message)
         }
       } catch (error) {
         console.log(error)

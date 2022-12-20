@@ -66,6 +66,7 @@ const EducationScheduleList = () => {
         if (data?.code === 1000) {
           setSelectedItem(data.result)
           setEditCheck(data.result)
+          setEditor(data.result.content)
           setShowModal(!showModal)
         } else {
           alert(data?.message)
