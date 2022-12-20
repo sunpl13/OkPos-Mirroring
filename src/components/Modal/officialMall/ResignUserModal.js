@@ -1,4 +1,4 @@
-import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import {CButton, CFormTextarea, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import {useNavigate} from 'react-router-dom'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import {useEffect, useState} from 'react'
@@ -106,14 +106,6 @@ const UserDetailModal = ({value, visible, setVisible}) => {
         </CRow>
         <CRow className={'p-2'}>
           <ModalInput
-            id={'resignReason'}
-            placeholder={'탈퇴사유'}
-            label={'탈퇴사유'}
-            value={resignUser.resignReason}
-            readOnly
-            disabled
-          />
-          <ModalInput
             id={'updatedAt'}
             placeholder={'계정탈퇴일'}
             label={'계정탈퇴일'}
@@ -121,8 +113,6 @@ const UserDetailModal = ({value, visible, setVisible}) => {
             readOnly
             disabled
           />
-        </CRow>
-        <CRow className={'p-2'}>
           <ModalInput
             id={'businessNumber'}
             placeholder={'사업자등록번호'}
@@ -149,6 +139,29 @@ const UserDetailModal = ({value, visible, setVisible}) => {
             label={'사업자등록증'}
             value={resignUser.businessRegistration}
           />
+        </CRow>
+
+        <CRow className={'p-2'}>
+          {resignUser?.resignReason.length < 20 ? (
+            <ModalInput
+              id={'resignReason'}
+              placeholder={'탈퇴사유'}
+              label={'탈퇴사유'}
+              value={resignUser.resignReason}
+              readOnly
+              disabled
+            />
+          ) : (
+            <CFormTextarea
+              id={'resignReason'}
+              placeholder={'탈퇴사유'}
+              label={'탈퇴사유'}
+              value={resignUser.resignReason}
+              rows='4'
+              readOnly
+              disabled
+            />
+          )}
         </CRow>
         <CRow className={'p-2'}>
           <ModalStatus id={'userStatus'} placeholder={'상태'} label={'상태'} value={resignUser.status} />
