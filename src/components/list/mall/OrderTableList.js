@@ -19,6 +19,7 @@ const OrderTableList = ({
   checkBoxInputHidden = false, // 체크박스 출력 유무
   func, //보낼 함수
   setSelectedProduct, // radioButton 함수
+  onLoadMallorderList,
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
@@ -105,12 +106,35 @@ const OrderTableList = ({
     }
   }, [endDate])
 
+  // 주문 상태 값 저장
+  const orderStatusChange = e => {
+    const {value} = e.target
+    if (value) {
+      setFilterItems(
+        listItems.filter(order => {
+          for (let i = 0; i < order.subInfos.length; i++)
+            if (order.subInfos[i].orderStatus === value) {
+              console.log(order.subInfos[i].orderStatus)
+              return true
+            }
+        }),
+      )
+    } else {
+      setFilterItems(listItems)
+    }
+  }
+
   return (
     <>
       {datePickerHidden && (
         <CRow className={'d-md-flex justify-content-md-end pt-2 pb-2'}>
-          <CFormSelect className='me-md-2 orderStatusForm' size='sm'>
-            <option>주문 상태 선택</option>
+          <CFormSelect className='me-md-2 orderStatusForm' size='sm' onChange={orderStatusChange}>
+            <option value=''>전체보기</option>
+            <option value='결제 대기'>결제 대기</option>
+            <option value='결제 완료'>결제 완료</option>
+            <option value='배송 준비중'>배송 준비중</option>
+            <option value='배송중'>배송중</option>
+            <option value='배송 완료'>배송 완료</option>
           </CFormSelect>
           <CButton className='me-md-2 dateSearchBtn' color='secondary' variant='outline' size='sm'>
             1개월
@@ -131,6 +155,7 @@ const OrderTableList = ({
         columns={columns || null}
         columnSorter
         pagination
+        columnFilter
         paginationProps={{
           limit: 10,
         }}

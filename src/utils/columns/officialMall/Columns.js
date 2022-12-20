@@ -51,7 +51,7 @@ export const orderListColumns = [
   {key: 'orderNumber', label: '주문번호', sorter: false, _props: {className: 'orderNumber'}},
   {key: 'receiver', label: '수취인', _props: {className: 'receiver'}},
   {key: 'phoneNumber', label: '휴대전화번호', _props: {className: 'phoneNumber'}},
-  {key: 'totalPrice', label: '주문총액', _props: {className: 'totalPrice'}},
+  {key: 'totalPrice', label: '주문총액', filter: false, _props: {className: 'totalPrice'}},
   {key: 'orderDate', label: '주문일', sorter: false, filter: false, _props: {className: 'orderDate'}},
 ]
 

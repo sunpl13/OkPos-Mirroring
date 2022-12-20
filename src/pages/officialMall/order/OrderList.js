@@ -75,6 +75,7 @@ const OrderList = () => {
               onClick={handleShowUserDetailModal}
               columns={orderListColumns}
               className={'orderList'}
+              onLoadMallorderList={onLoadMallorderList}
             />
           </CCardBody>
         </CCard>
