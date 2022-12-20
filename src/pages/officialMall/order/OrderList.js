@@ -1,17 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import {
-  CCard,
-  CCardBody,
-  CCol,
-  CDropdown,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
-  CFormLabel,
-  CFormSelect,
-  CRow,
-} from '@coreui/react'
+import {CCard, CCardBody, CCol, CFormLabel, CFormSelect, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import OrderModal from '../../../components/Modal/officialMall/OrderModal'
 import PageHeader from '../../../components/common/PageHeader'
@@ -19,6 +8,7 @@ import {orderListColumns} from '../../../utils/columns/officialMall/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import OrderTableList from '../../../components/list/mall/OrderTableList'
 
 const OrderList = () => {
   // 모듈 선언
@@ -65,6 +55,7 @@ const OrderList = () => {
 
   // Open Modal
   const handleShowUserDetailModal = item => {
+    console.log('modal on')
     setSelectedItem(item)
     setShowModal(!showModal)
   }
@@ -79,15 +70,7 @@ const OrderList = () => {
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
-            <CFormLabel htmlFor='staticEmail' className='col-sm-2 col-form-label'>
-              주문상태
-            </CFormLabel>
-
-            <CFormSelect onChange={handleOrderStatus}>
-              <option>결제 대기</option>
-            </CFormSelect>
-
-            <ListTemplate
+            <OrderTableList
               items={orderList}
               onClick={handleShowUserDetailModal}
               columns={orderListColumns}

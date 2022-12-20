@@ -52,12 +52,14 @@ export const orderListColumns = [
   {key: 'receiver', label: '수취인', _props: {className: 'receiver'}},
   {key: 'phoneNumber', label: '휴대전화번호', _props: {className: 'phoneNumber'}},
   {key: 'totalPrice', label: '주문총액', _props: {className: 'totalPrice'}},
-  {key: 'createdAt', label: '주문일', sorter: false, filter: false, _props: {className: 'createdAt'}},
+  {key: 'orderDate', label: '주문일', sorter: false, filter: false, _props: {className: 'orderDate'}},
 ]
 
 // 제품 관리
 export const productListColumns = [
+  {key: 'radioButton', label: '', sorter: false, filter: false, _props: {className: 'radioButton'}},
   {key: 'itemName', label: '제품명', sorter: false, filter: false, _props: {className: 'itemName'}},
+  {key: 'orderItemCount', sorter: false, filter: false, label: '제품수량', _props: {className: 'orderItemCount'}},
   {key: 'orderItemPrice', sorter: false, filter: false, label: '제품가격', _props: {className: 'orderItemPrice'}},
   {key: 'orderStatus', label: '제품상태', sorter: false, filter: false, _props: {className: 'orderStatus'}},
   {key: 'invoiceNumber', sorter: false, filter: false, label: '송장번호', _props: {className: 'invoiceNumber'}},
