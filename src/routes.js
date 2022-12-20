@@ -29,7 +29,7 @@ const OfficialMallFaqList = React.lazy(() => import('./pages/officialMall/faq/Fa
 // 자료실 관리
 const OfficialMallDataRoom = React.lazy(() => import('./pages/officialMall/dataRoom/DataRoomList'))
 // 주문 현황
-const OfficialMallOrderList = React.lazy(() => import('./pages/officialMall/orders/OrderList'))
+const OfficialMallOrderList = React.lazy(() => import('./pages/officialMall/order/OrderList'))
 // 배너 관리
 const OfficialMallBannerList = React.lazy(() => import('./pages/officialMall/banner/BannerList'))
 

@@ -14,7 +14,17 @@ const getBase64 = file =>
     reader.onerror = error => reject(error)
   })
 
-const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, readOnly, oneSheet = false}) => {
+const ModalImageInput = ({
+  images,
+  id,
+  label,
+  fileList,
+  setFileList,
+  imgPath,
+  isRequired,
+  readOnly,
+  oneSheet = false,
+}) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -108,8 +118,8 @@ const ModalImageInput = ({images, id, label, fileList, setFileList, imgPath, rea
   )
   return (
     <>
-      <CFormLabel htmlFor={`${id}Static`} className='col-sm-4 col-form-label'>
-        <span>{label || ' * '}</span>
+      <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
+        <span className={isRequired && 'required'}>{label || ' * '}</span>
       </CFormLabel>
       <Upload
         listType='picture-card'

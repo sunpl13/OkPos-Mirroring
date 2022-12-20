@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCol, CFormLabel, CFormSelect, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import OrderModal from '../../../components/Modal/officialMall/OrderModal'
 import PageHeader from '../../../components/common/PageHeader'
@@ -8,6 +8,7 @@ import {orderListColumns} from '../../../utils/columns/officialMall/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import OrderTableList from '../../../components/list/mall/OrderTableList'
 
 const OrderList = () => {
   // 모듈 선언
@@ -19,11 +20,14 @@ const OrderList = () => {
   const [showModal, setShowModal] = useState(false)
 
   // API 통신 함수
-  const onLoadMallorderList = async () => {
+  const onLoadMallorderList = async orderStatus => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
         url: EndPoint.GET_MALL_ORDERS,
+        query: {
+          orderStatus: orderStatus || '',
+        },
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
@@ -51,8 +55,13 @@ const OrderList = () => {
 
   // Open Modal
   const handleShowUserDetailModal = item => {
+    console.log('modal on')
     setSelectedItem(item)
     setShowModal(!showModal)
+  }
+
+  const handleOrderStatus = id => {
+    //onLoadMallorderList(status)
   }
 
   return (
@@ -61,11 +70,12 @@ const OrderList = () => {
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
-            <ListTemplate
+            <OrderTableList
               items={orderList}
               onClick={handleShowUserDetailModal}
               columns={orderListColumns}
               className={'orderList'}
+              onLoadMallorderList={onLoadMallorderList}
             />
           </CCardBody>
         </CCard>

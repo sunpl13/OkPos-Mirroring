@@ -1,11 +1,13 @@
-import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import {CButton, CFormSelect, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import {useNavigate} from 'react-router-dom'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import {useEffect, useState} from 'react'
 import ModalStatus from '../../forms/ModalStatus'
 import {isPrice} from '../../../utils/utility'
-import ListTemplate from '../../../components/list/ListTemplate'
 import {productListColumns} from '../../../utils/columns/officialMall/Columns'
+import ProductList from '../../list/mall/ProductList'
+import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
+import {EndPoint} from '../../../dataManager/apiMapper'
 
 const OrderModal = ({value, visible, setVisible, onChange}) => {
   // 모듈 선언
@@ -18,6 +20,7 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
     name: '',
     paymentMethod: '',
     totalPrice: 0,
+    orderDate: '',
     payDate: '',
     receiver: '',
     address: '',
@@ -27,6 +30,9 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
     subInfos: [],
   })
 
+  const [orderStatus, setOrderStatus] = useState('')
+  const [selectedProduct, setSelectedProduct] = useState('')
+
   // Life Cycle 선언
   useEffect(() => {
     if (visible) {
@@ -35,10 +41,61 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
   }, [visible])
 
   const closeModal = () => {
+    setOrderStatus('')
+    setSelectedProduct('')
     setVisible(false)
   }
+
+  // 함수 선언
+  // Update OrderStatus
+  const onUpdateOrderStatus = async () => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.PATCH,
+        url: EndPoint.PATCH_MALL_ORDERS_STATUS,
+        path: {
+          orderItemId: selectedProduct.orderItemId,
+        },
+        data: {
+          orderStatus: orderStatus,
+        },
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+      alert(res?.message)
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // 주문 상태 값 저장
+  const orderStatusChange = e => {
+    const {value} = e.target
+    setOrderStatus(value)
+  }
+  // 주문상태 값 저장
+  const handleSelectedProduct = item => {
+    setSelectedProduct(item)
+  }
+
+  const handleOrderStatus = () => {
+    if (!orderStatus) return alert('주문상태를 선택해주세요.')
+
+    if (window.confirm('주문 상태를 변경 하시겠습니까?')) {
+      onUpdateOrderStatus()
+    }
+  }
+
   return (
-    <CModal size='lg' visible={visible} onClose={closeModal}>
+    <CModal size='xl' visible={visible} onClose={closeModal}>
+      {console.log(orderStatus, selectedProduct)}
       <CModalHeader>
         <CModalTitle>주문 상세정보</CModalTitle>
       </CModalHeader>
@@ -62,7 +119,7 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
           <ModalInput
             id={'normalNumber'}
             placeholder={''}
-            label={'일반번호'}
+            label={'일반전화번호'}
             value={order.normalNumber}
             readOnly
             disabled
@@ -78,10 +135,10 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
         </CRow>
         <CRow className={'p-2'}>
           <ModalInput
-            id={'paymentMethod'}
+            id={'totalCount'}
             placeholder={''}
-            label={'결제수단'}
-            value={order.paymentMethod}
+            label={'주문제품수량'}
+            value={order.totalCount}
             readOnly
             disabled
           />
@@ -95,44 +152,46 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
           />
         </CRow>
         <CRow className={'p-2'}>
-          <ModalInput id={'createdAt'} placeholder={''} label={'주문일'} value={order.createdAt} readOnly disabled />
+          <ModalInput id={'orderDate'} placeholder={''} label={'주문일'} value={order.orderDate} readOnly disabled />
           <ModalInput id={'payDate'} placeholder={''} label={'결제일'} value={order.payDate} readOnly disabled />
-        </CRow>{' '}
+        </CRow>
+        <CRow className={'p-2'}>
+          <ModalInput
+            id={'paymentMethod'}
+            placeholder={''}
+            label={'결제수단'}
+            value={order.paymentMethod}
+            readOnly
+            disabled
+          />
+        </CRow>
         <CRow className={'p-2'}>
           <ModalInput id={'address'} placeholder={''} label={'주소'} value={order.address} readOnly disabled />
         </CRow>
-        <CRow className={'p-2'}>
-          <ModalInput
-            id={'invoiceNumber'}
-            placeholder={''}
-            label={'송장번호'}
-            value={order.invoiceNumber}
-            readOnly
-            disabled
-          />
-        </CRow>
-        <CRow className={'p-2'}>
-          <ModalStatus id={'userStatus'} placeholder={''} label={'주문상태'} value={order.status} />
-        </CRow>
-        <CRow className={'p-2'}>
-          <ModalInput
-            id={'totalCount'}
-            placeholder={''}
-            label={'주문제품 수'}
-            value={order.totalCount}
-            readOnly
-            disabled
-          />
-        </CRow>
-        <CRow className={'p-2'}>
-          <ListTemplate
-            items={order.subInfos}
-            columns={productListColumns}
-            searchInputHidden={false}
-            datePickerHidden={false}
-            className={'subInfos'}
-          />
-        </CRow>
+        <div className={'p-2 d-md-flex justify-content-md-end'}>
+          <CFormSelect value={orderStatus} className='me-md-2 orderStatusForm' size='sm' onChange={orderStatusChange}>
+            <option>주문상태</option>
+            <option value='결제 대기'>결제 대기</option>
+            <option value='결제 완료'>결제 완료</option>
+            <option value='배송 준비중'>배송 준비중</option>
+            <option value='배송중'>배송중</option>
+            <option value='배송 완료'>배송 완료</option>
+          </CFormSelect>
+          <CButton className='me-md-2' color='success' size='sm' onClick={handleOrderStatus}>
+            주문상태 변경
+          </CButton>
+          <CButton color='warning' size='sm'>
+            송장조회
+          </CButton>
+        </div>
+        <ProductList
+          items={order.subInfos}
+          columns={productListColumns}
+          searchInputHidden={false}
+          datePickerHidden={false}
+          setSelectedProduct={handleSelectedProduct}
+          className={'subInfos'}
+        />
       </CModalBody>
       <CModalFooter>
         <CButton color='secondary' onClick={closeModal}>
