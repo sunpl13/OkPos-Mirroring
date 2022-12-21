@@ -105,6 +105,14 @@ const ProductList = ({
     }
   }, [endDate])
 
+  const onClickRadioButton = item => {
+    console.log(item)
+  }
+
+  const onClickStop = e => {
+    e.stopPropagation()
+  }
+
   return (
     <>
       {datePickerHidden && (
@@ -128,7 +136,8 @@ const ProductList = ({
         tableHeadProps={{
           color: 'primary',
         }}
-        onRowClick={onClick}
+        clickableRows
+        onRowClick={onClickRadioButton}
         tableProps={{
           hover: true,
           responsive: true,
@@ -144,7 +153,7 @@ const ProductList = ({
           ),
 
           invoiceNumber: (item, index) => (
-            <td className='d-md-flex justify-content-md-end'>
+            <td className='d-md-flex justify-content-md-end' onClick={onClickStop}>
               <CFormInput id={`${index}`} className='me-md-2' size='sm' onClick={() => setSelectedProduct(item)} />
               <CButton id={`${index}`} className='invoiceNumberBtn' color='warning' size='sm'>
                 등록

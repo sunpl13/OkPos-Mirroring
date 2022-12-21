@@ -1,15 +1,24 @@
-import {CButton, CFormSelect, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
+import {
+  CButton,
+  CFormSelect,
+  CFormTextarea,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
+  CRow,
+} from '@coreui/react'
 import {useNavigate} from 'react-router-dom'
 import ModalInput from '../../forms/inputForm/ModalInput'
 import {useEffect, useState} from 'react'
-import ModalStatus from '../../forms/ModalStatus'
 import {isPrice} from '../../../utils/utility'
 import {productListColumns} from '../../../utils/columns/officialMall/Columns'
 import ProductList from '../../list/mall/ProductList'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 
-const OrderModal = ({value, visible, setVisible, onChange}) => {
+const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
   // 모듈 선언
   const navigate = useNavigate()
 
@@ -31,6 +40,7 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
   })
 
   const [orderStatus, setOrderStatus] = useState('')
+  const [reason, setReason] = useState('')
   const [selectedProduct, setSelectedProduct] = useState('')
 
   // Life Cycle 선언
@@ -48,15 +58,15 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
 
   // 함수 선언
   // Update OrderStatus
-  const onUpdateOrderStatus = async () => {
+  const onUpdateOrderStatus = async (orderItemId, orderStatus) => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
         url: EndPoint.PATCH_MALL_ORDERS_STATUS,
         path: {
-          orderItemId: selectedProduct.orderItemId,
+          orderItemId: orderItemId,
         },
-        data: {
+        query: {
           orderStatus: orderStatus,
         },
       })
@@ -69,10 +79,56 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
         }
         return
       }
+
+      const findIndex = order.subInfos.findIndex(product => product.orderItemId === orderItemId)
+      let tempSubInfos = order.subInfos
+      tempSubInfos[findIndex].orderStatus = orderStatus
+      setOrder(order => ({...order, subInfos: tempSubInfos}))
+
       alert(res?.message)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
+  }
+
+  const onUpdateOrderStatusReason = async (orderItemId, orderStatus, reason) => {
+    console.log(orderItemId, orderStatus, reason)
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.POST,
+        url: EndPoint.POST_MALL_ORDERS_STATUS,
+        path: {
+          orderItemId: orderItemId,
+        },
+        data: {
+          orderStatus: orderStatus,
+          reason: reason,
+        },
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+
+      const findIndex = order.subInfos.findIndex(product => product.orderItemId === orderItemId)
+      let tempSubInfos = order.subInfos
+      tempSubInfos[findIndex].orderStatus = orderStatus
+      setOrder(order => ({...order, subInfos: tempSubInfos}))
+
+      alert(res?.message)
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  const onChangeReason = e => {
+    const {value} = e.target
+    setReason = value
   }
 
   // 주문 상태 값 저장
@@ -87,15 +143,21 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
 
   const handleOrderStatus = () => {
     if (!orderStatus) return alert('주문상태를 선택해주세요.')
+    if (!selectedProduct.orderItemId) return alert('주문상품을 선택해주세요.')
 
     if (window.confirm('주문 상태를 변경 하시겠습니까?')) {
-      onUpdateOrderStatus()
+      if (orderStatus === '취소 요청' || orderStatus === '교환 요청') {
+        onUpdateOrderStatusReason(selectedProduct.orderItemId, orderStatus, reason)
+      } else {
+        onUpdateOrderStatus(selectedProduct.orderItemId, orderStatus)
+      }
     }
+    setOrderStatus('')
+    setReason('')
   }
 
   return (
     <CModal size='xl' visible={visible} onClose={closeModal}>
-      {console.log(orderStatus, selectedProduct)}
       <CModalHeader>
         <CModalTitle>주문 상세정보</CModalTitle>
       </CModalHeader>
@@ -168,22 +230,7 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
         <CRow className={'p-2'}>
           <ModalInput id={'address'} placeholder={''} label={'주소'} value={order.address} readOnly disabled />
         </CRow>
-        <div className={'p-2 d-md-flex justify-content-md-end'}>
-          <CFormSelect value={orderStatus} className='me-md-2 orderStatusForm' size='sm' onChange={orderStatusChange}>
-            <option>주문상태</option>
-            <option value='결제 대기'>결제 대기</option>
-            <option value='결제 완료'>결제 완료</option>
-            <option value='배송 준비중'>배송 준비중</option>
-            <option value='배송중'>배송중</option>
-            <option value='배송 완료'>배송 완료</option>
-          </CFormSelect>
-          <CButton className='me-md-2' color='success' size='sm' onClick={handleOrderStatus}>
-            주문상태 변경
-          </CButton>
-          <CButton color='warning' size='sm'>
-            송장조회
-          </CButton>
-        </div>
+        <br />
         <ProductList
           items={order.subInfos}
           columns={productListColumns}
@@ -192,6 +239,33 @@ const OrderModal = ({value, visible, setVisible, onChange}) => {
           setSelectedProduct={handleSelectedProduct}
           className={'subInfos'}
         />
+        <div className={'pb-2 d-md-flex justify-content-md-end'}>
+          <CFormSelect value={orderStatus} className='me-md-2 orderStatusForm' size='sm' onChange={orderStatusChange}>
+            <option>주문상태 선택</option>
+            <option value='결제 대기'>결제 대기</option>
+            <option value='결제 완료'>결제 완료</option>
+            <option value='배송 준비중'>배송 준비중</option>
+            <option value='배송중'>배송중</option>
+            <option value='배송 완료'>배송 완료</option>
+            <option value='취소 요청'>취소 요청</option>
+            <option value='교환 요청'>교환 요청</option>
+          </CFormSelect>
+          <CButton className='me-md-2' color='success' size='sm' onClick={handleOrderStatus}>
+            주문상태 변경
+          </CButton>
+          <CButton color='warning' size='sm'>
+            송장조회
+          </CButton>
+        </div>
+        {orderStatus === ('취소 요청' || '교환 요청') && (
+          <CFormTextarea
+            id='reason'
+            placeholder={'취소/교환 사유를 입력해 주세요'}
+            rows='3'
+            value={reason}
+            onChange={onChangeReason}
+          />
+        )}
       </CModalBody>
       <CModalFooter>
         <CButton color='secondary' onClick={closeModal}>
