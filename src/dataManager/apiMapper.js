@@ -16,16 +16,16 @@ export const EndPoint = {
   ENGLISH_BANNER: `${API}/admin/english/banner`,
 
   // ------ 파트너 센터 페이지
-  GET_PARTNER_USERS: `${API}/admin/partner/users`, // 유저 리스트
-  GET_PARTNER_INACTIVE_USERS: `${API}/admin/partner/users/inactive`, // 탈퇴 유저 리스트
-  GET_PARTNER_INQUIRIES: `${API}/admin/partner/inquiries`, // 1:1 문의 리스트
-  GET_PARTNER_NOTICES: `${API}/admin/partner/notices`, // 공지사항 리스트
-  GET_PARTNER_AGENCYAPPLICANT: `${API}/admin/partner/notices/agencyApplicant`, // 영업점 딜러 지원 리스트
-  GET_PARTNER_DATAROOMS: `${API}/admin/partner/dataRooms`, // 자료실 리스트
-  GET_PARTNER_ORDERS: `${API}/admin/partner/orders`, // 발주신청 리스트
-  GET_PARTNER_MAINTENANCES: `${API}/admin/partner/maintenances`, // 유지보수 신청 리스트
-  GET_PARTNER_SCHEDULES: `${API}/admin/partner/educations/schedules`, // 교육일정 리스트
-  GET_PARTNER_REGISTRAUINS: `${API}/admin/partner/educations/registrations`, // 교육신청 리스트
+  PARTNER_USERS: `${API}/admin/partner/users`, // 유저 리스트
+  PARTNER_INACTIVE_USERS: `${API}/admin/partner/users/inactive`, // 탈퇴 유저 리스트
+  PARTNER_INQUIRIES: `${API}/admin/partner/inquiries`, // 1:1 문의 리스트
+  PARTNER_NOTICES: `${API}/admin/partner/notices`, // 공지사항 리스트
+  PARTNER_AGENCYAPPLICANT: `${API}/admin/partner/notices/agencyApplicant`, // 영업점 딜러 지원 리스트
+  PARTNER_DATAROOMS: `${API}/admin/partner/dataRooms`, // 자료실 리스트
+  PARTNER_ORDERS: `${API}/admin/partner/orders`, // 발주신청 리스트
+  PARTNER_MAINTENANCES: `${API}/admin/partner/maintenances`, // 유지보수 신청 리스트
+  PARTNER_SCHEDULES: `${API}/admin/partner/educations/schedules`, // 교육일정 리스트
+  PARTNER_REGISTRAUINS: `${API}/admin/partner/educations/registrations`, // 교육신청 리스트
 
   // ------ 가맹점 전용 공식몰 페이지
   GET_MALL_USERS: `${API}/admin/mall/users`,
@@ -87,15 +87,15 @@ const ApiMapper = {
     [EndPoint.GET_MALL_EXCHANGE_ORDERS]: {},
 
     // ------ 파트너센터 페이지
-    [EndPoint.GET_PARTNER_USERS]: {},
-    [EndPoint.GET_PARTNER_INACTIVE_USERS]: {},
-    [EndPoint.GET_PARTNER_INQUIRIES]: {},
-    [EndPoint.GET_PARTNER_NOTICES]: {},
-    [EndPoint.GET_PARTNER_AGENCYAPPLICANT]: {},
-    [EndPoint.GET_PARTNER_ORDERS]: {},
-    [EndPoint.GET_PARTNER_MAINTENANCES]: {},
-    [EndPoint.GET_PARTNER_SCHEDULES]: {},
-    [EndPoint.GET_PARTNER_REGISTRAUINS]: {},
+    [EndPoint.PARTNER_USERS]: {},
+    [EndPoint.PARTNER_INACTIVE_USERS]: {},
+    [EndPoint.PARTNER_INQUIRIES]: {},
+    [EndPoint.PARTNER_NOTICES]: {},
+    [EndPoint.PARTNER_AGENCYAPPLICANT]: {},
+    [EndPoint.PARTNER_ORDERS]: {},
+    [EndPoint.PARTNER_MAINTENANCES]: {},
+    [EndPoint.PARTNER_SCHEDULES]: {},
+    [EndPoint.PARTNER_REGISTRAUINS]: {},
   },
   post: {
     [EndPoint.POST_LOGIN]: {},

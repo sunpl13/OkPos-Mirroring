@@ -8,11 +8,14 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 
-const MaterialList = () => {
+const DataRoom = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
   const [showModal, setShowModal] = useState(false)
+  const [editMode, setEditMode] = useState(true)
+
+  const [editor, setEditor] = useState('')
 
   // 자료실 API
   const getList = async () => {
@@ -21,7 +24,7 @@ const MaterialList = () => {
         data: {isSuccess, result, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_PARTNER_DATAROOMS,
+        url: EndPoint.PARTNER_DATAROOMS,
       })
       console.log(result)
       if (!isSuccess || isEmpty(result)) {
@@ -43,14 +46,13 @@ const MaterialList = () => {
 
   /** Open Modal*/
   const handleShowMaterialDetailModal = async ({id}) => {
-    console.log(id)
     if (id) {
       try {
         const {
           data: {isSuccess, result, code, message},
         } = await ApiConfig.request({
           method: HttpMethod.GET,
-          url: `${EndPoint.GET_PARTNER_DATAROOMS}/${id}`,
+          url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
         })
         console.log(result)
         if (!isSuccess || isEmpty(result)) {
@@ -61,6 +63,7 @@ const MaterialList = () => {
             id: id,
             ...result,
           })
+          setEditor(result?.content)
           setEditCheck(result)
         } else {
           alert(message)
@@ -75,31 +78,28 @@ const MaterialList = () => {
     setShowModal(!showModal)
   }
 
+  // Modal UpDate
   const handleDetailModalUpDate = () => {
-    const {id, title, content, files, category} = selectedItem
+    const {id, title, content, dataRoomFiles, dataRoomImages, category} = selectedItem
     if (id) {
-      if (
-        editCheck.title !== title ||
-        editCheck.content !== content ||
-        editCheck.files !== files ||
-        editCheck.category !== category
-      ) {
+      if (editCheck.title !== title || editCheck.content !== editor || editCheck.category !== category) {
         if (window.confirm('수정하시겠습니까?')) {
           if (!title) return alert('제목을 입력해 주세요.')
-          //if (!files) return alert('파일을 등록해 주세요')
+          if (dataRoomFiles.length === 0) return alert('파일을 등록해 주세요')
+          if (dataRoomImages.length === 0) return alert('이미지를 등록해 주세요')
           if (!category) return alert('카테고리를 선택해 주세요')
           if (!content) return alert('본문을 입력해 주세요.')
           setItems(items.map(value => (value.id === id ? selectedItem : value)))
           setShowModal(false)
         }
       } else {
-        setShowModal(false)
+        setEditMode(!editMode)
       }
     } else {
-      if (title || content || files || category) {
+      if (title || editor || dataRoomFiles || category) {
         if (window.confirm('등록하시겠습니까?')) {
           if (!title) return alert('제목을 입력해 주세요.')
-          //if (!files) return alert('파일을 등록해 주세요')
+          //if (!dataRoomFiles) return alert('파일을 등록해 주세요')
           if (!category) return alert('카테고리를 선택해 주세요')
           if (!content) return alert('본문을 입력해 주세요.')
           setItems([
@@ -124,11 +124,32 @@ const MaterialList = () => {
     })
   }
 
-  const handleMaterialModalOnDelete = ({id}) => {
-    if (window.confirm('Delete ?')) {
-      setItems(items.filter(value => value.id !== id))
+  const handleMaterialModalOnDelete = async () => {
+    const {id} = selectedItem
+    if (window.confirm('정말로 삭제 하시겠습니까?')) {
+      try {
+        const {
+          data: {isSuccess, result, code, message},
+        } = await ApiConfig.request({
+          method: HttpMethod.PATCH,
+          url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
+        })
+        console.log(result)
+        if (!isSuccess || isEmpty(result)) {
+          return
+        }
+        if (code === 1000) {
+          alert(message)
+          window.location.reload()
+        } else {
+          alert(message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
+
   return (
     <CRow>
       <PageHeader title='자료 리스트' />
@@ -149,7 +170,6 @@ const MaterialList = () => {
               onClick={handleShowMaterialDetailModal}
               columns={materiaList}
               className={'userList'}
-              onDelete={handleMaterialModalOnDelete}
             />
           </CCardBody>
         </CCard>
@@ -160,9 +180,14 @@ const MaterialList = () => {
         setVisible={setShowModal}
         onChange={handleMaterialModalOnChange}
         upDate={handleDetailModalUpDate}
+        onDelete={handleMaterialModalOnDelete}
+        editor={editor}
+        setEditor={setEditor}
+        editMode={editMode}
+        setEditMode={setEditMode}
       />
     </CRow>
   )
 }
 
-export default MaterialList
+export default DataRoom

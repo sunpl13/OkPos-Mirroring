@@ -19,7 +19,7 @@ const DealerSupportList = () => {
         data: {result, isSuccess, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_PARTNER_AGENCYAPPLICANT,
+        url: EndPoint.PARTNER_AGENCYAPPLICANT,
       })
       if (!isSuccess || isEmpty(result)) {
         return
@@ -47,7 +47,7 @@ const DealerSupportList = () => {
         data: {result, isSuccess, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_AGENCYAPPLICANT}/${id}`,
+        url: `${EndPoint.PARTNER_AGENCYAPPLICANT}/${id}`,
       })
       console.log(result)
       if (!isSuccess || isEmpty(result)) {

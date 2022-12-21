@@ -27,7 +27,7 @@ const OrderList = () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_ORDERS}?page=${1}`,
+        url: `${EndPoint.PARTNER_ORDERS}?page=${1}`,
       })
       console.log(data)
       if (!data.isSuccess || isEmpty(data?.result)) {

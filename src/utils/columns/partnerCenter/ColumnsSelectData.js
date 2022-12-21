@@ -8,3 +8,8 @@ exports.inquiryTypes = [
   {key: 'MANUAL', value: '매뉴얼'},
   {key: 'DRIVE', value: '드라이브'},
 ]
+
+exports.inquiryTypess = [
+  {key: 'MANUAL', value: '매뉴얼'},
+  {key: 'DRIVE', value: '드라이브'},
+]

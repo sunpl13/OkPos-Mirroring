@@ -48,7 +48,7 @@ const NoticeList = React.lazy(() => import('./pages/partnerCenter/notice/NoticeL
 const DealerSupportList = React.lazy(() => import('./pages/partnerCenter/agency/DealerSupportList'))
 
 // 자료실
-const MaterialList = React.lazy(() => import('./pages/partnerCenter/material/MaterialList'))
+const MaterialList = React.lazy(() => import('./pages/partnerCenter/dataRoom/DataRoom'))
 
 // 발주, 유지보수 신청
 const OrderList = React.lazy(() => import('./pages/partnerCenter/order/OrderList'))
@@ -95,7 +95,7 @@ const routes = [
   {path: `/partnerCenter/users/withdrawalUsers`, name: 'WithdrawalUsers', element: WithdrawalUsers},
 
   // materialList
-  {path: `/partnerCenter/material/materialList`, name: 'MaterialList', element: MaterialList},
+  {path: `/partnerCenter/dataRoom/materialList`, name: 'MaterialList', element: MaterialList},
 
   //Notice
   {path: `/partnerCenter/notice/noticeList`, name: 'NoticeList', element: NoticeList},

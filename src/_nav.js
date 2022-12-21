@@ -101,7 +101,7 @@ const _nav = [
       {
         component: CNavItem,
         name: '자료 리스트',
-        to: '/partnerCenter/material/materialList',
+        to: '/partnerCenter/dataRoom/materialList',
       },
     ],
   },

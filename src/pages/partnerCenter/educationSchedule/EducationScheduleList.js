@@ -21,7 +21,7 @@ const EducationScheduleList = () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_SCHEDULES}?page=${1}`,
+        url: `${EndPoint.PARTNER_SCHEDULES}?page=${1}`,
       })
       console.log(data)
       if (!data.isSuccess || isEmpty(data?.result)) {
@@ -57,7 +57,7 @@ const EducationScheduleList = () => {
       try {
         const {data} = await ApiConfig.request({
           method: HttpMethod.GET,
-          url: `${EndPoint.GET_PARTNER_SCHEDULES}/${id}`,
+          url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
         })
         console.log(data)
         if (!data.isSuccess || isEmpty(data?.result)) {

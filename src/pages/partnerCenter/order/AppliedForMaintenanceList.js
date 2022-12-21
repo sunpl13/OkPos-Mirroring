@@ -20,7 +20,7 @@ const AppliedForMaintenanceList = () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_MAINTENANCES}?page=${1}`,
+        url: `${EndPoint.PARTNER_MAINTENANCES}?page=${1}`,
       })
       console.log(data)
       if (!data.isSuccess || isEmpty(data?.result)) {

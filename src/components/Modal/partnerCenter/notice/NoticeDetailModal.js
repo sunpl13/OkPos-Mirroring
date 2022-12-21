@@ -22,7 +22,7 @@ const NoticeDetailModal = ({
   setEditMode,
 }) => {
   const {id, title, noticeFiles, noticeImages, category} = value
-
+  console.log('')
   useEffect(() => {
     if (!id) {
       setEditMode(false)
