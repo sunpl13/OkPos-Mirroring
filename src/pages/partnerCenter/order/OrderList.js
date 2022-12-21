@@ -23,20 +23,22 @@ const OrderList = () => {
     //GET_PARTNER_ORDERS
   }
   // 발주신청 리스트 API
-  const getOrdersList = async () => {
+  const getList = async () => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {isSuccess, result, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_ORDERS}?page=${1}`,
+        url: EndPoint.PARTNER_ORDERS,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
+      console.log(result)
+      if (!isSuccess || isEmpty(result)) {
         return
       }
-      if (data?.code === 1000) {
-        setItems(data.result?.adminOrderPartnerDTOs)
+      if (code === 1000) {
+        setItems(result?.adminOrderPartnerDTOs)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
@@ -44,7 +46,7 @@ const OrderList = () => {
   }
 
   useEffect(() => {
-    getOrdersList()
+    getList()
   }, [])
 
   const handleDetailModalUpDate = () => {

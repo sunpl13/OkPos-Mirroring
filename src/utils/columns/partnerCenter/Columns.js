@@ -208,13 +208,14 @@ export const materiaList = [
 // 발주 신청 리스트
 export const orderList = [
   {
-    key: 'no',
-    _props: {className: 'no'},
+    key: 'id',
+    label: 'No',
+    _props: {className: 'id'},
   },
   {
-    key: 'orderNo',
+    key: 'orderNum',
     label: '발주 신청 식별 번호',
-    _props: {className: 'orderNo'},
+    _props: {className: 'orderNum'},
   },
   {
     key: 'businessName',
@@ -232,13 +233,6 @@ export const orderList = [
     label: '신청 일자',
     _props: {className: 'createdAt'},
     filter: false,
-  },
-  {
-    key: 'deleteBtn',
-    label: ' ',
-    _props: {color: 'primary', className: 'deleteBtn'},
-    filter: false,
-    sorter: false,
   },
 ]
 
