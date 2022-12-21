@@ -5,7 +5,6 @@ import {CFormLabel} from '@coreui/react'
 import AWS from 'aws-sdk'
 import {useEffect} from 'react'
 import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
-import MultiFileDownloadForm from '../downloadForm/MultiFileDownloadForm'
 
 const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath, isRequired}) => {
   // files = 조회를 통해 가져온 데이터가 있는 경우
@@ -17,7 +16,7 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
           uid: index,
           name: file.fileTitle ? file.fileTitle : decodeURI(file.split('/')[file.split('/').length - 1]),
           status: 'done',
-          url: file.file ? antdImageFormat(file.file) : antdImageFormat(file),
+          url: file.file ? file.file : antdImageFormat(file),
         })),
       )
     }

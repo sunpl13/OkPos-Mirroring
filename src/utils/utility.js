@@ -13,5 +13,5 @@ export function isValidPhoneNumber(phoneNumber) {
 }
 
 export function isPrice(price) {
-  return price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',') + ' 원'
+  if (price) return price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',') + ' 원'
 }

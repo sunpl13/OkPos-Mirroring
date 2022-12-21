@@ -11,8 +11,8 @@ const RangeDatePicker = ({setStartDate, setEndDate}) => {
   moment.locale('ko')
   const datePickerOnChange = date => {
     if (date) {
-      setStartDate(moment(date[0]._d).format('YYYY-MM-DD'))
-      setEndDate(moment(date[1]._d).format('YYYY-MM-DD'))
+      setStartDate(moment(date[0].$d).format('YYYY-MM-DD'))
+      setEndDate(moment(date[1].$d).format('YYYY-MM-DD'))
     } else {
       setStartDate('')
       setEndDate('')

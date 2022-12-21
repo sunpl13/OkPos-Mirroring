@@ -35,6 +35,8 @@ const ProductList = ({
 
   const [allSelected, setAllSelected] = useState(false)
 
+  const [selectedItem, setSelectedItem] = useState(false)
+
   // 함수 선언
 
   // 상태값 Color get 함수
@@ -105,6 +107,15 @@ const ProductList = ({
     }
   }, [endDate])
 
+  const onClickRadioButton = item => {
+    setSelectedItem(item)
+    setSelectedProduct(item)
+  }
+
+  const onClickStop = e => {
+    e.stopPropagation()
+  }
+
   return (
     <>
       {datePickerHidden && (
@@ -128,7 +139,8 @@ const ProductList = ({
         tableHeadProps={{
           color: 'primary',
         }}
-        onRowClick={onClick}
+        clickableRows
+        onRowClick={onClickRadioButton}
         tableProps={{
           hover: true,
           responsive: true,
@@ -139,12 +151,18 @@ const ProductList = ({
         scopedColumns={{
           radioButton: (item, index) => (
             <td>
-              <input id={`${index}`} name='select-radio' type='radio' onClick={() => setSelectedProduct(item)} />
+              <input
+                id={`${index}`}
+                name='select-radio'
+                type='radio'
+                checked={item.orderItemId === selectedItem.orderItemId}
+                readOnly
+              />
             </td>
           ),
 
           invoiceNumber: (item, index) => (
-            <td className='d-md-flex justify-content-md-end'>
+            <td className='d-md-flex justify-content-md-end' onClick={onClickStop}>
               <CFormInput id={`${index}`} className='me-md-2' size='sm' onClick={() => setSelectedProduct(item)} />
               <CButton id={`${index}`} className='invoiceNumberBtn' color='warning' size='sm'>
                 등록

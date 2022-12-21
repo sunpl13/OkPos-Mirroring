@@ -55,13 +55,8 @@ const OrderList = () => {
 
   // Open Modal
   const handleShowUserDetailModal = item => {
-    console.log('modal on')
     setSelectedItem(item)
     setShowModal(!showModal)
-  }
-
-  const handleOrderStatus = id => {
-    //onLoadMallorderList(status)
   }
 
   return (
@@ -80,7 +75,13 @@ const OrderList = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <OrderModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
+      <OrderModal
+        value={selectedItem}
+        visible={showModal}
+        setVisible={setShowModal}
+        onLoadMallorderList={onLoadMallorderList}
+        readOnly
+      />
     </CRow>
   )
 }

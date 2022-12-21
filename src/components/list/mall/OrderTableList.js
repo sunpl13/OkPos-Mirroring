@@ -114,7 +114,6 @@ const OrderTableList = ({
         listItems.filter(order => {
           for (let i = 0; i < order.subInfos.length; i++)
             if (order.subInfos[i].orderStatus === value) {
-              console.log(order.subInfos[i].orderStatus)
               return true
             }
         }),
@@ -135,6 +134,8 @@ const OrderTableList = ({
             <option value='배송 준비중'>배송 준비중</option>
             <option value='배송중'>배송중</option>
             <option value='배송 완료'>배송 완료</option>
+            <option value='취소'>취소</option>
+            <option value='교환'>교환</option>
           </CFormSelect>
           <CButton className='me-md-2 dateSearchBtn' color='secondary' variant='outline' size='sm'>
             1개월

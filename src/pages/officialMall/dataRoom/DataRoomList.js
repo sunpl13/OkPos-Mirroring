@@ -74,7 +74,6 @@ const DataRoomList = () => {
 
   // 자료 추가
   const onCreateMallDataRoom = async item => {
-    console.log(item)
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.POST,
@@ -111,8 +110,10 @@ const DataRoomList = () => {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
         url: EndPoint.PATCH_MALL_UPDATE_DATAROOM,
-        data: {
+        path: {
           dataRoomId: item.dataRoomId,
+        },
+        data: {
           category: item.category,
           title: item.title,
           content: item.content,
@@ -220,7 +221,7 @@ const DataRoomList = () => {
     selectedItem.images = await sendImageUrlFormat(imageList)
     selectedItem.content = content
 
-    console.log(selectedItem)
+    //console.log(selectedItem)
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (dataRoomId) {
