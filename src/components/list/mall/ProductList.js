@@ -35,6 +35,8 @@ const ProductList = ({
 
   const [allSelected, setAllSelected] = useState(false)
 
+  const [selectedItem, setSelectedItem] = useState(false)
+
   // 함수 선언
 
   // 상태값 Color get 함수
@@ -106,7 +108,8 @@ const ProductList = ({
   }, [endDate])
 
   const onClickRadioButton = item => {
-    console.log(item)
+    setSelectedItem(item)
+    setSelectedProduct(item)
   }
 
   const onClickStop = e => {
@@ -148,7 +151,13 @@ const ProductList = ({
         scopedColumns={{
           radioButton: (item, index) => (
             <td>
-              <input id={`${index}`} name='select-radio' type='radio' onClick={() => setSelectedProduct(item)} />
+              <input
+                id={`${index}`}
+                name='select-radio'
+                type='radio'
+                checked={item.orderItemId === selectedItem.orderItemId}
+                readOnly
+              />
             </td>
           ),
 
