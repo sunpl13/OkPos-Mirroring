@@ -141,6 +141,7 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
     setSelectedProduct(item)
   }
 
+  // 주문상태 변경 함수
   const handleOrderStatus = () => {
     if (!orderStatus) return alert('주문상태를 선택해주세요.')
     if (!selectedProduct.orderItemId) return alert('주문상품을 선택해주세요.')
@@ -154,6 +155,16 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
     }
     setOrderStatus('')
     setReason('')
+  }
+
+  // 송장조회
+  const handleInvoicCheck = () => {
+    if (selectedProduct?.invoiceNumber) {
+      const {invoiceNumber} = selectedProduct
+      window.open('https://www.ilogen.com/web/personal/tkSearch/' + {invoiceNumber})
+    } else {
+      window.open('https://www.ilogen.com/web/personal/tkSearch')
+    }
   }
 
   return (
@@ -253,7 +264,7 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
           <CButton className='me-md-2' color='success' size='sm' onClick={handleOrderStatus}>
             주문상태 변경
           </CButton>
-          <CButton color='warning' size='sm'>
+          <CButton color='warning' size='sm' onClick={handleInvoicCheck}>
             송장조회
           </CButton>
         </div>
