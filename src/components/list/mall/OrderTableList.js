@@ -11,64 +11,18 @@ const OrderTableList = ({
   onClick, // 리스트 클릭 이벤트 ex) Modal
   columns, // 리스트의 헤더
   className, // 리스트의 클레스 네임
-  onDelete, // 리스트 아이템 삭제
-  selectedOptions, // 리스트의 selectBox 옵션
   datePickerHidden = true, // 기간선택 데이터 피커 출력 유무
-  itemPerPageHidden = true, // 리스트의 페이지마다 출력될 아이템 개수 선택 박스 출력 유무
-  searchInputHidden = true, // 검색창 출력 유무
-  checkBoxInputHidden = false, // 체크박스 출력 유무
-  func, //보낼 함수
   setSelectedProduct, // radioButton 함수
-  onLoadMallorderList,
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
   const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
 
-  const [imgClick, setImgClick] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const [searchOption, setSearchOption] = useState({
-    category: '',
-    value: '',
-  })
-
-  const [allSelected, setAllSelected] = useState(false)
 
   // 함수 선언
-
-  // 상태값 Color get 함수
-  const getBadgeColor = status => {
-    switch (status) {
-      case 'ACTIVE':
-        return 'success'
-      case 'INACTIVE':
-        return 'danger'
-      case true:
-        return 'success'
-      case false:
-        return 'danger'
-      default:
-        return 'primary'
-    }
-  }
-
-  // 상태값 Text get 함수
-  const getBadgeText = status => {
-    switch (status) {
-      case 'ACTIVE':
-        return '활성화'
-      case 'INACTIVE':
-        return '비활성화'
-      case true:
-        return '완료'
-      case false:
-        return '미완료'
-      default:
-        return '기타'
-    }
-  }
 
   const modalOnClick = () => {
     setShowModal(!showModal)
@@ -80,6 +34,7 @@ const OrderTableList = ({
 
   useEffect(() => {
     // data picker 에 선택된 값
+    console.log('filter', startDate, endDate)
     if (endDate) {
       if (listItems[0]?.orderDate) {
         setFilterItems(
@@ -104,7 +59,7 @@ const OrderTableList = ({
     } else {
       setFilterItems('')
     }
-  }, [endDate])
+  }, [startDate, endDate])
 
   // 주문 상태 값 저장
   const orderStatusChange = e => {
@@ -123,6 +78,12 @@ const OrderTableList = ({
     }
   }
 
+  const handleDatePicker = month => {
+    moment.locale('ko')
+    setEndDate(moment().format('YYYY-MM-DD'))
+    setStartDate(moment().subtract(month, 'M').format('YYYY-MM-DD'))
+  }
+
   return (
     <>
       {datePickerHidden && (
@@ -134,16 +95,34 @@ const OrderTableList = ({
             <option value='배송 준비중'>배송 준비중</option>
             <option value='배송중'>배송중</option>
             <option value='배송 완료'>배송 완료</option>
-            <option value='취소'>취소</option>
-            <option value='교환'>교환</option>
+            <option value='취소 요청'>취소 요청</option>
+            <option value='교환 요청'>교환 요청</option>
           </CFormSelect>
-          <CButton className='me-md-2 dateSearchBtn' color='secondary' variant='outline' size='sm'>
+          <CButton
+            className='me-md-2 dateSearchBtn'
+            color='secondary'
+            variant='outline'
+            size='sm'
+            onClick={() => handleDatePicker(1)}
+          >
             1개월
           </CButton>
-          <CButton className='me-md-2 dateSearchBtn' color='secondary' variant='outline' size='sm'>
+          <CButton
+            className='me-md-2 dateSearchBtn'
+            color='secondary'
+            variant='outline'
+            size='sm'
+            onClick={() => handleDatePicker(3)}
+          >
             3개월
           </CButton>
-          <CButton className='me-md-2 dateSearchBtn' color='secondary' variant='outline' size='sm'>
+          <CButton
+            className='me-md-2 dateSearchBtn'
+            color='secondary'
+            variant='outline'
+            size='sm'
+            onClick={() => handleDatePicker(6)}
+          >
             6개월
           </CButton>
           <CCol xs={4}>

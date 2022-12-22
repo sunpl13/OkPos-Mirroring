@@ -11,13 +11,7 @@ const ProductList = ({
   onClick, // 리스트 클릭 이벤트 ex) Modal
   columns, // 리스트의 헤더
   className, // 리스트의 클레스 네임
-  onDelete, // 리스트 아이템 삭제
-  selectedOptions, // 리스트의 selectBox 옵션
   datePickerHidden = true, // 기간선택 데이터 피커 출력 유무
-  itemPerPageHidden = true, // 리스트의 페이지마다 출력될 아이템 개수 선택 박스 출력 유무
-  searchInputHidden = true, // 검색창 출력 유무
-  checkBoxInputHidden = false, // 체크박스 출력 유무
-  func, //보낼 함수
   setSelectedProduct, // radioButton 함수
 }) => {
   // Local state 선언
@@ -25,52 +19,12 @@ const ProductList = ({
   const [filterItems, setFilterItems] = useState()
   const [showModal, setShowModal] = useState(false)
 
-  const [imgClick, setImgClick] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const [searchOption, setSearchOption] = useState({
-    category: '',
-    value: '',
-  })
-
-  const [allSelected, setAllSelected] = useState(false)
 
   const [selectedItem, setSelectedItem] = useState(false)
 
   // 함수 선언
-
-  // 상태값 Color get 함수
-  const getBadgeColor = status => {
-    switch (status) {
-      case 'ACTIVE':
-        return 'success'
-      case 'INACTIVE':
-        return 'danger'
-      case true:
-        return 'success'
-      case false:
-        return 'danger'
-      default:
-        return 'primary'
-    }
-  }
-
-  // 상태값 Text get 함수
-  const getBadgeText = status => {
-    switch (status) {
-      case 'ACTIVE':
-        return '활성화'
-      case 'INACTIVE':
-        return '비활성화'
-      case true:
-        return '완료'
-      case false:
-        return '미완료'
-      default:
-        return '기타'
-    }
-  }
-
   const modalOnClick = () => {
     setShowModal(!showModal)
   }
