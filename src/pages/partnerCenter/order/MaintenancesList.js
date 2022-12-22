@@ -8,7 +8,7 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 
-const AppliedForMaintenanceList = () => {
+const MaintenancesList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
@@ -16,20 +16,22 @@ const AppliedForMaintenanceList = () => {
   const [showModal, setShowModal] = useState(false)
 
   // 발주신청 리스트 API
-  const getMaintenanceList = async () => {
+  const getList = async () => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {isSuccess, result, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_MAINTENANCES}?page=${1}`,
+        url: EndPoint.PARTNER_MAINTENANCES,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
+      console.log(result)
+      if (!isSuccess || isEmpty(result)) {
         return
       }
-      if (data?.code === 1000) {
-        setItems(data.result?.adminMaintenanceDTOs)
+      if (code === 1000) {
+        setItems(result?.adminMaintenanceDTOs)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
@@ -37,15 +39,34 @@ const AppliedForMaintenanceList = () => {
   }
 
   useEffect(() => {
-    getMaintenanceList()
+    getList()
   }, [])
 
   /** Open Modal*/
-  const handleShowMaterialDetailModal = item => {
-    setSelectedItem(item)
-    setEditCheck(item)
+  const handleShowMaterialDetailModal = async ({id}) => {
+    try {
+      const {
+        data: {isSuccess, result, code, message},
+      } = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.PARTNER_MAINTENANCES}/${id}`,
+      })
+      console.log(result)
+      if (!isSuccess || isEmpty(result)) {
+        return
+      }
+      if (code === 1000) {
+        setSelectedItem(result)
+        setEditCheck(result)
+      } else {
+        alert(message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
     setShowModal(!showModal)
-  } //GET_PARTNER_MAINTENANCES
+  }
+
   const handleDetailModalUpDate = () => {
     const {
       no,
@@ -139,4 +160,4 @@ const AppliedForMaintenanceList = () => {
   )
 }
 
-export default AppliedForMaintenanceList
+export default MaintenancesList

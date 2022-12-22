@@ -52,7 +52,7 @@ const MaterialList = React.lazy(() => import('./pages/partnerCenter/dataRoom/Dat
 
 // 발주, 유지보수 신청
 const OrderList = React.lazy(() => import('./pages/partnerCenter/order/OrderList'))
-const AppliedForMaintenanceList = React.lazy(() => import('./pages/partnerCenter/order/AppliedForMaintenanceList'))
+const AppliedForMaintenanceList = React.lazy(() => import('./pages/partnerCenter/order/MaintenancesList'))
 
 // 교육 일정, 신청 리스트
 const EducationScheduleList = React.lazy(() => import('./pages/partnerCenter/educationSchedule/EducationScheduleList'))

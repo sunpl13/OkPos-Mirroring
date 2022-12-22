@@ -235,12 +235,66 @@ export const orderList = [
     filter: false,
   },
 ]
-
+// 발주 신청 상세 리스트
+export const orderListColumns = [
+  {
+    key: 'id',
+    label: 'No',
+    _props: {color: 'primary', className: 'no'},
+  },
+  {
+    key: 'category',
+    label: '카테고리',
+    _props: {color: 'primary', className: 'category'},
+  },
+  {
+    key: 'invoiceNum',
+    label: '송장번호',
+    _props: {color: 'primary', className: 'invoiceNum'},
+  },
+  {
+    key: 'itemName',
+    label: '제품명',
+    _props: {color: 'primary', className: 'itemName'},
+  },
+  {
+    key: 'quantity',
+    label: '발주 수량',
+    _props: {color: 'primary', className: 'quantity'},
+  },
+  {
+    key: 'processingStatus',
+    label: '배송 현황',
+    _props: {color: 'primary', className: 'processingStatus'},
+    filter: false,
+  },
+  {
+    key: 'quantity',
+    label: '발주 수량',
+    _props: {color: 'primary', className: 'quantity'},
+  },
+  {
+    key: 'van',
+    _props: {color: 'primary', className: 'van'},
+  },
+  //_props: {color: 'primary', className: 'productImg'},
+]
+//"- No
+// - 유지보수 번호
+// - 상호명
+// - 사업자 번호
+// - 대표자명
+// - 주문 일자 "
 export const maintenanceApplicationList = [
   {
-    key: 'maintenanceApplicationNo',
+    key: 'id',
+    label: 'No',
+    _props: {color: 'primary', className: 'id'},
+  },
+  {
+    key: 'maintenanceNum',
     label: '유지보수 신청 번호',
-    _props: {color: 'primary', className: 'maintenanceApplicationNo'},
+    _props: {color: 'primary', className: 'maintenanceNum'},
   },
   {
     key: 'businessName',
@@ -248,14 +302,14 @@ export const maintenanceApplicationList = [
     _props: {color: 'primary', className: 'BusinessName'},
   },
   {
-    key: 'businessNumber',
+    key: 'certificateNum',
     label: '사업자 등록번호',
-    _props: {color: 'primary', className: 'businessNumber'},
+    _props: {color: 'primary', className: 'certificateNum'},
   },
   {
     key: 'representativeName',
     label: '대표자 명',
-    _props: {color: 'primary', className: 'RepresentativeName'},
+    _props: {color: 'primary', className: 'representativeName'},
   },
 
   {

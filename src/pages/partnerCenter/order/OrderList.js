@@ -15,13 +15,6 @@ const OrderList = () => {
 
   const [showModal, setShowModal] = useState(false)
 
-  /** Open Modal*/
-  const handleShowMaterialDetailModal = item => {
-    setSelectedItem(item)
-    setEditCheck(item)
-    setShowModal(!showModal)
-    //GET_PARTNER_ORDERS
-  }
   // 발주신청 리스트 API
   const getList = async () => {
     try {
@@ -48,6 +41,30 @@ const OrderList = () => {
   useEffect(() => {
     getList()
   }, [])
+
+  /** Open Modal*/
+  const handleShowMaterialDetailModal = async ({id}) => {
+    try {
+      const {
+        data: {isSuccess, result, code, message},
+      } = await ApiConfig.request({
+        method: HttpMethod.GET,
+        url: `${EndPoint.PARTNER_ORDERS}/${id}`,
+      })
+      console.log(result)
+      if (!isSuccess || isEmpty(result)) {
+        return
+      }
+      if (code === 1000) {
+        setSelectedItem(result)
+      } else {
+        alert(message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    setShowModal(!showModal)
+  }
 
   const handleDetailModalUpDate = () => {
     const {

@@ -1,46 +1,38 @@
-import {useEffect} from 'react'
-import ModalInput from '../../../forms/inputForm/ModalInput'
-import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
-import {CRow} from '@coreui/react'
+import {useEffect, useState} from 'react'
+import ApiConfig from '../../../../dataManager/apiConfig'
+import {EndPoint} from '../../../../dataManager/apiMapper'
+import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
+import PageHeader from '../../../common/PageHeader'
 import ListTemplate from '../../../list/ListTemplate'
-import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
+import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
+import ModalInput from '../../../forms/inputForm/ModalInput'
 import {orderListColumns} from '../../../../utils/columns/partnerCenter/Columns'
+import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 
-const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelete}) => {
+const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, onDelete}) => {
   const {
     id,
-    orderNum /** 발주 번호 */,
-    businessName /** 상호명 */,
-    representativeName /** 대표자명*/,
-    createdAt /** 주문일자 */,
-    certificateNum /** 사업자 번호 */,
-    email /** 이메일 */,
-    mobilePhoneNum /** 휴대포 번호 */,
-    phoneNum /** 사업장 전화번호*/,
-    address /** 사업장 주소*/,
-    orderItemPartnerDTOs /** 발주 리스트  */,
-    taxBillEmail /** 세금 고지서 수령 이메일 */,
-    receivingMethod /** 수령 방법 */,
+    address,
+    adminMaintenanceHardwareDTOs,
+    adminMaintenanceSolutionDTOs,
+    adminMaintenanceStoreDTOs,
+    certificateNum,
+    createdAt,
+    email,
+    maintenanceCategory,
+    maintenanceNum,
+    mobilePhoneNum,
+    operationalProcesses,
+    phoneNum,
+    representativeName,
   } = value
-  /*
-  orderItemPartnerDTOs = {
-    category : "POS"
-    compositionPartnerDTOs : [{…}]
-    id:1
-    invoiceNum: "12313123"
-    itemName:"포스"
-    processingStatus : "COMPLETE_PAY"
-    quantity : 1
-    van : "adfaf"
-  }
-  */
   useEffect(() => {
     if (visible) {
     }
   }, [visible])
   return (
     <DetailModalEditModeTemplate
-      title={'유지보수 신청 상세'}
+      title={'발주 상세'}
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
@@ -160,4 +152,4 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
   )
 }
 
-export default OrderDetailModal
+export default MaintenancesDetailModal
