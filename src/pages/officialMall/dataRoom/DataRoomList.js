@@ -105,7 +105,6 @@ const DataRoomList = () => {
 
   // 자료 수정
   const onUpdateMallDataRoom = async item => {
-    console.log(item)
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
@@ -117,7 +116,7 @@ const DataRoomList = () => {
           category: item.category,
           title: item.title,
           content: item.content,
-          image: item.image,
+          images: item.images,
           files: item.files,
         },
       })
@@ -220,8 +219,6 @@ const DataRoomList = () => {
     selectedItem.files = await handleMultiFileUrl(fileList)
     selectedItem.images = await sendImageUrlFormat(imageList)
     selectedItem.content = content
-
-    //console.log(selectedItem)
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (dataRoomId) {
