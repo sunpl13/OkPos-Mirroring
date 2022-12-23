@@ -108,6 +108,7 @@ const DataRoomModal = ({
               fileList={imageList}
               setFileList={setImageList}
               images={images}
+              isRequired={true}
               imgPath='mall/dataRroom_images'
               readOnly={isReadOnly}
               disabled={isReadOnly}

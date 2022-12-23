@@ -158,13 +158,25 @@ const ListTemplate = ({
   useEffect(() => {
     // data picker 에 선택된 값
     if (endDate) {
-      setFilterItems(
-        listItems.filter(
-          value =>
-            moment(value.createdAt, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') >= startDate &&
-            moment(value.createdAt, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
-        ),
-      )
+      if (listItems[0]?.orderDate) {
+        setFilterItems(
+          listItems.filter(
+            value =>
+              moment(value.orderDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') >= startDate &&
+              moment(value.orderDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
+          ),
+        )
+      } else {
+        // default 는 createdAt 그 외 하고 싶은 값은 위에 작성
+        setFilterItems(
+          listItems.filter(
+            value =>
+              moment(value.createdAt, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') >= startDate &&
+              moment(value.createdAt, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
+          ),
+        )
+      }
+
       // 생성일로 필터
     } else {
       setFilterItems('')
@@ -231,11 +243,14 @@ const ListTemplate = ({
         clickableRows
         columnFilter
         //onActivePageChange={selectPage => pageOnChange(selectPage)}
-        //paginationProps={{
-        //  activePage: currentPage,
-        //  align: 'center',
-        //  pages: totalPage,
-        //}}
+        // paginationProps={{
+        //   activePage: currentPage,
+        //   align: 'center',
+        //   pages: totalPage,
+        // }}
+        paginationProps={{
+          limit: 10,
+        }}
         tableHeadProps={{
           color: 'primary',
         }}
@@ -305,12 +320,16 @@ const ListTemplate = ({
             </td>
           ),
           totalPrice: ({totalPrice}) => <td className='totalPrice'>{isPrice(totalPrice)}</td>,
+          orderItemPrice: ({orderItemPrice}) => <td className='orderItemPrice'>{isPrice(orderItemPrice)}</td>,
 
+          // 날짜 변수
           startedAt: ({startedAt}) => <td>{moment(startedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           closedAt: ({closedAt}) => <td>{moment(closedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           createdAt: ({createdAt}) => <td>{moment(createdAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           deletedAt: ({deletedAt}) => <td>{moment(deletedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           updatedAt: ({updatedAt}) => <td>{moment(updatedAt, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          orderDate: ({orderDate}) => <td>{moment(orderDate, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          payDate: ({payDate}) => <td>{moment(payDate, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           noticeFiles: ({noticeFiles}) => <td>{noticeFiles?.length} 개</td>,
           imageUrls: ({imageUrls}) => (
             <td

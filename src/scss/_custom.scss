@@ -9,6 +9,7 @@ table {
     text-align: center;
   }
   th {
+    &.radioButton,
     &.deleteBtn,
     &.files,
     &.checkBox {
@@ -21,7 +22,8 @@ table {
     &.no,
     &.id,
     &.trainingPersonnel,
-    &.noticeFiles {
+    &.noticeFiles,
+    &.orderItemCount {
       width: 10%;
       max-width: 90px;
       min-width: 80px;
@@ -35,6 +37,8 @@ table {
       max-width: 110px;
       min-width: 90px;
     }
+    &.orderStatus,
+    &.payDate,
     &.createdAt,
     &.updatedAt,
     &.category,
@@ -46,6 +50,7 @@ table {
       max-width: 200px;
       min-width: 130px;
     }
+    &.orderItemPrice,
     &.phoneNumber,
     &.businessName {
       min-width: 160px;
@@ -56,11 +61,23 @@ table {
     &.distributorName {
       min-width: 180px;
     }
-
+    &.itemName,
     &.announcementTitle,
     &.title {
       width: 100%;
       min-width: 200px;
+    }
+    &.invoiceNumber {
+      width: 100%;
+      min-width: 250px;
+    }
+  }
+  td {
+    &.totalPrice,
+    &.orderItemPrice {
+      text-align: right;
+      max-width: 110px;
+      min-width: 90px;
     }
   }
 }
@@ -68,9 +85,6 @@ table {
 td {
   cursor: pointer;
   border: 1px solid #d8dbe0;
-}
-.totalPrice {
-  text-align: right;
 }
 
 th.small {
@@ -104,9 +118,22 @@ th.large {
   }
 }
 
-// 차트 크기
-
+// 탈퇴 회원 차트 크기
 .mallChart {
   width: 600px;
   height: 300px;
+}
+
+.orderStatusForm {
+  width: 200px;
+}
+
+.invoiceNumberBtn {
+  width: 100%;
+  max-width: 50px;
+}
+
+.dateSearchBtn {
+  max-width: 60px;
+  min-width: 60px;
 }

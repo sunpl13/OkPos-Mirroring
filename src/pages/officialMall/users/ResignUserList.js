@@ -106,7 +106,6 @@ const ResignUserList = () => {
                   <MallDoughnutChartTemplate title={'탈퇴 사유'} labels={chartLabels} data={chartData} />
                 </CCardBody>
               </CCol>
-
               <CCol xs={8}>
                 <CCardBody>
                   <MallBarChartTemplate title={'탈퇴 사유'} labels={chartLabels} data={chartData} />

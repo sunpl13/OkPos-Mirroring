@@ -319,31 +319,6 @@ const _nav = [
   },
 
   /*
-  대리점 전용 파트너센터 코드 작성
-  */
-  {
-    component: CNavTitle,
-    name: '대리점 전용 파트너센터',
-  },
-  {
-    component: CNavGroup,
-    name: '파트너센터 회원 관리',
-    icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
-    items: [
-      {
-        component: CNavItem,
-        name: '회원 리스트',
-        to: '/users/userList',
-      },
-      {
-        component: CNavItem,
-        name: '탈퇴 회원 리스트',
-        to: '/users/withdrawalUsers',
-      },
-    ],
-  },
-
-  /*
   영문 홈페이지
   */
   {

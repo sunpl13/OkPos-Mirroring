@@ -113,7 +113,6 @@ const InquiryList = () => {
 
   // 1:1 문의 답변 수정
   const onUpdateInquiryAnswer = async (inquiryReplyId, inquiryReplyContent) => {
-    console.log(inquiryReplyId, inquiryReplyContent)
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
@@ -201,7 +200,7 @@ const InquiryList = () => {
     if (window.confirm('저장 하시겠습니까?')) {
       if (inquiryReplyId) {
         // 수정
-        await onUpdateInquiryAnswer(inquiryId, inquiryReplyContent)
+        await onUpdateInquiryAnswer(inquiryReplyId, inquiryReplyContent)
       } else {
         // 생성
         await onCreateMallInquiryAnswer(inquiryId, inquiryReplyContent)
