@@ -102,7 +102,7 @@ const NoticeList = () => {
       title: title,
       content: editor,
       category: '기타',
-      isApplicationNotice: isApplicationNotice,
+      isApplicationNotice: !!isApplicationNotice,
       files: {},
       images: [],
     })
@@ -139,8 +139,9 @@ const NoticeList = () => {
     } else if (!id && (title || editor || category)) {
       if (window.confirm('공지사항을 등록하시겠습니까?')) {
         if (!title) return alert('공지사항 제목을 입력해 주세요.')
-        if (!category) return alert('카테고리를 선택해 주세요.')
+        //if (!category) return alert('카테고리를 선택해 주세요.')
         if (!editor) return alert('공지사항 본문을 입력해 주세요.')
+        console.log(json)
         try {
           const {
             data: {isSuccess, result, code, message},
