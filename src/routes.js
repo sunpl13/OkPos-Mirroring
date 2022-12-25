@@ -30,6 +30,7 @@ const OfficialMallFaqList = React.lazy(() => import('./pages/officialMall/faq/Fa
 const OfficialMallDataRoom = React.lazy(() => import('./pages/officialMall/dataRoom/DataRoomList'))
 // 주문 현황
 const OfficialMallOrderList = React.lazy(() => import('./pages/officialMall/order/OrderList'))
+const OfficialMallCancelList = React.lazy(() => import('./pages/officialMall/order/CancelList'))
 // 배너 관리
 const OfficialMallBannerList = React.lazy(() => import('./pages/officialMall/banner/BannerList'))
 
@@ -86,6 +87,7 @@ const routes = [
   {path: `/mall/faq`, name: 'FAQ 관리', element: OfficialMallFaqList},
   {path: `/mall/dataroom`, name: '자료실 관리', element: OfficialMallDataRoom},
   {path: `/mall/order`, name: '주문 관리', element: OfficialMallOrderList},
+  {path: `/mall/cancel`, name: '취소 요청 관리', element: OfficialMallCancelList},
   {path: `/mall/banner`, name: '배너 관리', element: OfficialMallBannerList},
 
   // ------ 대리점 전용 파트너 센터

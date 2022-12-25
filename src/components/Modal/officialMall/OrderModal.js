@@ -128,7 +128,7 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
 
   const onChangeReason = e => {
     const {value} = e.target
-    setReason = value
+    setReason(value)
   }
 
   // 주문 상태 값 저장
@@ -268,10 +268,19 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
             송장조회
           </CButton>
         </div>
-        {orderStatus === ('취소 요청' || '교환 요청') && (
+        {orderStatus === '취소 요청' && (
           <CFormTextarea
             id='reason'
-            placeholder={'취소/교환 사유를 입력해 주세요'}
+            placeholder={'취소 사유를 입력해 주세요'}
+            rows='3'
+            value={reason}
+            onChange={onChangeReason}
+          />
+        )}
+        {orderStatus === '교환 요청' && (
+          <CFormTextarea
+            id='reason'
+            placeholder={'취소 사유를 입력해 주세요'}
             rows='3'
             value={reason}
             onChange={onChangeReason}

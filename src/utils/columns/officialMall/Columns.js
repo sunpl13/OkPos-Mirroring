@@ -49,7 +49,7 @@ export const dataRoomListColumns = [
 export const orderListColumns = [
   {key: 'orderId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'orderNumber', label: '주문번호', sorter: false, _props: {className: 'orderNumber'}},
-  {key: 'receiver', label: '수취인', _props: {className: 'receiver'}},
+  {key: 'name', label: '이름', _props: {className: 'name'}},
   {key: 'phoneNumber', label: '휴대전화번호', _props: {className: 'phoneNumber'}},
   {key: 'totalPrice', label: '주문총액', filter: false, _props: {className: 'totalPrice'}},
   {key: 'orderDate', label: '주문일', sorter: false, filter: false, _props: {className: 'orderDate'}},
@@ -63,6 +63,16 @@ export const productListColumns = [
   {key: 'orderItemPrice', sorter: false, filter: false, label: '제품가격', _props: {className: 'orderItemPrice'}},
   {key: 'orderStatus', label: '제품상태', sorter: false, filter: false, _props: {className: 'orderStatus'}},
   {key: 'invoiceNumber', sorter: false, filter: false, label: '송장번호', _props: {className: 'invoiceNumber'}},
+]
+
+// 주문 현황 관리
+export const cancelListColumns = [
+  {key: 'orderCancelId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'orderNumber', label: '주문번호', sorter: false, _props: {className: 'orderNumber'}},
+  {key: 'itemName', label: '제품명', sorter: false, _props: {className: 'itemName'}},
+  {key: 'name', label: '이름', _props: {className: 'name'}},
+  {key: 'cancelPrice', label: '취소금액', filter: false, _props: {className: 'cancelPrice'}},
+  {key: 'orderDate', label: '주문일', sorter: false, filter: false, _props: {className: 'orderDate'}},
 ]
 
 // 배너 관리

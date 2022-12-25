@@ -307,13 +307,13 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: '교환 현황',
-        to: '/mall/order',
+        name: '취소 현황',
+        to: '/mall/cancel',
       },
       {
         component: CNavItem,
-        name: '취소 현황',
-        to: '/mall/order',
+        name: '교환 현황',
+        to: '/mall/exchange',
       },
     ],
   },
