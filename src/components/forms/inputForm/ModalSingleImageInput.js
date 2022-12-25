@@ -76,16 +76,13 @@ const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, fileP
     <div
       style={{
         border: '1px solid #d8dbe0',
+        verticalAlign: 'middle',
         textAlign: 'center',
-        width: 30,
+        width: 32,
+        height: 32,
       }}
     >
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      ></div>
     </div>
   )
 
