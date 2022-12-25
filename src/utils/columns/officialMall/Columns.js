@@ -1,4 +1,4 @@
-// 회원 리스트
+import {CFormSelect} from '@coreui/react' // 회원 리스트
 export const userListColumns = [
   {key: 'userId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'name', label: '이름', _props: {className: 'name'}},
@@ -49,8 +49,8 @@ export const dataRoomListColumns = [
 export const orderListColumns = [
   {key: 'orderId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'orderNumber', label: '주문번호', sorter: false, _props: {className: 'orderNumber'}},
-  {key: 'name', label: '이름', _props: {className: 'name'}},
-  {key: 'phoneNumber', label: '휴대전화번호', _props: {className: 'phoneNumber'}},
+  {key: 'receiver', label: '수취인', sorter: false, _props: {className: 'receiver'}},
+  {key: 'phoneNumber', label: '휴대전화번호', sorter: false, _props: {className: 'phoneNumber'}},
   {key: 'totalPrice', label: '주문총액', filter: false, _props: {className: 'totalPrice'}},
   {key: 'orderDate', label: '주문일', sorter: false, filter: false, _props: {className: 'orderDate'}},
 ]
@@ -65,14 +65,34 @@ export const productListColumns = [
   {key: 'invoiceNumber', sorter: false, filter: false, label: '송장번호', _props: {className: 'invoiceNumber'}},
 ]
 
-// 주문 현황 관리
+// 취소 현황 관리
 export const cancelListColumns = [
   {key: 'orderCancelId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'orderNumber', label: '주문번호', sorter: false, _props: {className: 'orderNumber'}},
   {key: 'itemName', label: '제품명', sorter: false, _props: {className: 'itemName'}},
-  {key: 'name', label: '이름', _props: {className: 'name'}},
+  {key: 'receiver', label: '수취인', sorter: false, _props: {className: 'receiver'}},
   {key: 'cancelPrice', label: '취소금액', filter: false, _props: {className: 'cancelPrice'}},
-  {key: 'orderDate', label: '주문일', sorter: false, filter: false, _props: {className: 'orderDate'}},
+  {key: 'cancelDate', label: '취소 요청일', sorter: false, filter: false, _props: {className: 'cancelDate'}},
+  {
+    key: 'orderStatus',
+    label: '주문상태',
+    sorter: false,
+    filter: () => {
+      return (
+        <CFormSelect size='sm'>
+          <option>주문상태 선택</option>
+          <option value='결제 대기'>결제 대기</option>
+          <option value='결제 완료'>결제 완료</option>
+          <option value='배송 준비중'>배송 준비중</option>
+          <option value='배송중'>배송중</option>
+          <option value='배송 완료'>배송 완료</option>
+          <option value='취소 처리중'>취소 처리중</option>
+          <option value='취소 완료'>취소 완료</option>
+        </CFormSelect>
+      )
+    },
+    _props: {className: 'orderStatus'},
+  },
 ]
 
 // 배너 관리

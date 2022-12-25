@@ -43,6 +43,7 @@ table {
     &.updatedAt,
     &.category,
     &.userName,
+    &.receiver,
     &.orderDate,
     &.region,
     &.remark,
@@ -68,13 +69,13 @@ table {
       min-width: 200px;
     }
     &.invoiceNumber {
-      width: 100%;
-      min-width: 250px;
+      min-width: 180px;
     }
   }
   td {
     &.totalPrice,
-    &.orderItemPrice {
+    &.orderItemPrice,
+    &.cancelPrice {
       text-align: right;
       max-width: 110px;
       min-width: 90px;
@@ -133,6 +134,11 @@ th.large {
 .invoiceNumberBtn {
   width: 100%;
   max-width: 50px;
+}
+
+.invoiceSearchBtn {
+  width: 100%;
+  width: 80px;
 }
 
 .dateSearchBtn {

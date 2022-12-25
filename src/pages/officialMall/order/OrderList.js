@@ -71,6 +71,8 @@ const OrderList = () => {
               columns={orderListColumns}
               className={'orderList'}
               onLoadMallorderList={onLoadMallorderList}
+              datePicker
+              dataSearch
             />
           </CCardBody>
         </CCard>

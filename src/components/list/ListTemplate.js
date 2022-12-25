@@ -276,7 +276,9 @@ const ListTemplate = ({
           // 상태
           status: ({status}) => (
             <td>
-              <CBadge color={getBadgeColor(status)}>{getBadgeText(status)}</CBadge>
+              <CBadge size='sm' color={getBadgeColor(status)}>
+                {getBadgeText(status)}
+              </CBadge>
             </td>
           ),
           // 1:1 문의 답변 상태

@@ -19,7 +19,7 @@ import ProductList from '../../list/mall/ProductList'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 
-const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
+const OrderModal = ({value, visible, setVisible}) => {
   // 모듈 선언
   const navigate = useNavigate()
 
@@ -260,23 +260,12 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
           <ModalInput
             id={'totalCount'}
             placeholder={''}
-            label={'주문제품수량'}
+            label={'주문 총수량'}
             value={order.totalCount}
             readOnly
             disabled
           />
-          <ModalInput
-            id={'totalPrice'}
-            placeholder={''}
-            label={'총 결제금액'}
-            value={isPrice(order.totalPrice)}
-            readOnly
-            disabled
-          />
-        </CRow>
-        <CRow className={'p-2'}>
           <ModalInput id={'orderDate'} placeholder={''} label={'주문일'} value={order.orderDate} readOnly disabled />
-          <ModalInput id={'payDate'} placeholder={''} label={'결제일'} value={order.payDate} readOnly disabled />
         </CRow>
         <CRow className={'p-2'}>
           <ModalInput
@@ -284,6 +273,17 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
             placeholder={''}
             label={'결제수단'}
             value={order.paymentMethod}
+            readOnly
+            disabled
+          />
+          <ModalInput id={'payDate'} placeholder={''} label={'결제일'} value={order.payDate} readOnly disabled />
+        </CRow>
+        <CRow className={'p-2'}>
+          <ModalInput
+            id={'totalPrice'}
+            placeholder={''}
+            label={'총 결제금액'}
+            value={isPrice(order.totalPrice)}
             readOnly
             disabled
           />
@@ -335,7 +335,7 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
         {orderStatus === '교환 요청' && (
           <CFormTextarea
             id='reason'
-            placeholder={'취소 사유를 입력해 주세요'}
+            placeholder={'교환 사유를 입력해 주세요'}
             rows='3'
             value={reason}
             onChange={onChangeReason}

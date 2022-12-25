@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import {CSmartTable} from '../../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
-import {CButton, CCol, CFormInput, CFormLabel, CFormSelect, CRow} from '@coreui/react'
+import {CBadge, CButton, CCol, CFormInput, CFormLabel, CFormSelect, CRow} from '@coreui/react'
 import RangeDatePicker from '../../common/RangeDatePicker'
 import moment from 'moment'
 import {isPrice} from '../../../utils/utility'
+import {getMallBadgeColor} from '../../../utils/badge/officalMall/Badge'
 
 const OrderTableList = ({
   items, // 리스트 아이템
   onClick, // 리스트 클릭 이벤트 ex) Modal
   columns, // 리스트의 헤더
   className, // 리스트의 클레스 네임
-  datePickerHidden = true, // 기간선택 데이터 피커 출력 유무
+  datePicker, // 기간선택 데이터 피커 출력 유무
+  dataSearch,
   setSelectedProduct, // radioButton 함수
 }) => {
   // Local state 선언
@@ -36,7 +38,15 @@ const OrderTableList = ({
     // data picker 에 선택된 값
     // console.log('filter', startDate, endDate)
     if (endDate) {
-      if (listItems[0]?.orderDate) {
+      if (listItems[0]?.cancelDate) {
+        setFilterItems(
+          listItems.filter(
+            value =>
+              moment(value.cancelDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') >= startDate &&
+              moment(value.cancelDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
+          ),
+        )
+      } else if (listItems[0]?.orderDate) {
         setFilterItems(
           listItems.filter(
             value =>
@@ -86,8 +96,8 @@ const OrderTableList = ({
 
   return (
     <>
-      {datePickerHidden && (
-        <CRow className={'d-md-flex justify-content-md-end pt-2 pb-2'}>
+      <CRow className={'d-md-flex justify-content-md-end pt-2 pb-2'}>
+        {dataSearch && (
           <CFormSelect className='me-md-2 orderStatusForm' size='sm' onChange={orderStatusChange}>
             <option value=''>전체보기</option>
             <option value='결제 대기'>결제 대기</option>
@@ -98,38 +108,44 @@ const OrderTableList = ({
             <option value='취소 요청'>취소 요청</option>
             <option value='교환 요청'>교환 요청</option>
           </CFormSelect>
-          <CButton
-            className='me-md-2 dateSearchBtn'
-            color='secondary'
-            variant='outline'
-            size='sm'
-            onClick={() => handleDatePicker(1)}
-          >
-            1개월
-          </CButton>
-          <CButton
-            className='me-md-2 dateSearchBtn'
-            color='secondary'
-            variant='outline'
-            size='sm'
-            onClick={() => handleDatePicker(3)}
-          >
-            3개월
-          </CButton>
-          <CButton
-            className='me-md-2 dateSearchBtn'
-            color='secondary'
-            variant='outline'
-            size='sm'
-            onClick={() => handleDatePicker(6)}
-          >
-            6개월
-          </CButton>
-          <CCol xs={4}>
-            <RangeDatePicker className='me-md-2' setStartDate={setStartDate} setEndDate={setEndDate} />
-          </CCol>
-        </CRow>
-      )}
+        )}
+
+        {datePicker && (
+          <>
+            <CButton
+              className='me-md-2 dateSearchBtn'
+              color='secondary'
+              variant='outline'
+              size='sm'
+              onClick={() => handleDatePicker(1)}
+            >
+              1개월
+            </CButton>
+            <CButton
+              className='me-md-2 dateSearchBtn'
+              color='secondary'
+              variant='outline'
+              size='sm'
+              onClick={() => handleDatePicker(3)}
+            >
+              3개월
+            </CButton>
+            <CButton
+              className='me-md-2 dateSearchBtn'
+              color='secondary'
+              variant='outline'
+              size='sm'
+              onClick={() => handleDatePicker(6)}
+            >
+              6개월
+            </CButton>
+            <CCol xs={4}>
+              <RangeDatePicker className='me-md-2' setStartDate={setStartDate} setEndDate={setEndDate} />
+            </CCol>
+          </>
+        )}
+      </CRow>
+
       <CSmartTable
         items={filterItems || listItems}
         columns={columns || null}
@@ -157,19 +173,20 @@ const OrderTableList = ({
               <input id={`${index}`} name='select-radio' type='radio' onClick={() => setSelectedProduct(item)} />
             </td>
           ),
-
-          invoiceNumber: (item, index) => (
-            <td className='d-md-flex justify-content-md-end'>
-              <CFormInput id={`${index}`} className='me-md-2' size='sm' onClick={() => setSelectedProduct(item)} />
-              <CButton id={`${index}`} className='invoiceNumberBtn' color='warning' size='sm'>
-                등록
-              </CButton>
+          // 상태
+          orderStatus: ({orderStatus}) => (
+            <td>
+              <CBadge size='sm' color={getMallBadgeColor(orderStatus)}>
+                {orderStatus}
+              </CBadge>
             </td>
           ),
           orderItemPrice: ({orderItemPrice}) => <td className='orderItemPrice'>{isPrice(orderItemPrice)}</td>,
+          cancelPrice: ({cancelPrice}) => <td className='cancelPrice'>{isPrice(cancelPrice)}</td>,
           totalPrice: ({totalPrice}) => <td className='totalPrice'>{isPrice(totalPrice)}</td>,
           orderDate: ({orderDate}) => <td>{moment(orderDate, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           payDate: ({payDate}) => <td>{moment(payDate, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          cancelDate: ({cancelDate}) => <td>{moment(cancelDate, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
         }}
         noItemsLabel={'데이터가 없습니다.'}
         itemsPerPage={20}
