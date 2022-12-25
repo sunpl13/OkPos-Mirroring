@@ -107,8 +107,10 @@ const BannerList = () => {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
         url: EndPoint.PATCH_MALL_UPDATE_BANNER,
-        data: {
+        path: {
           bannerId: item.bannerId,
+        },
+        data: {
           title: item.title,
           subTitle: item.subTitle,
           image: item.image,
@@ -200,8 +202,9 @@ const BannerList = () => {
     const {bannerId, title, subTitle, image} = selectedItem
     // validation
     if (!title) return alert('배너 타이틀을 입력해주세요.')
-    if (title.length > 30) return alert('배너 타이틀을 글자수 초과입니다.')
+    if (title.length > 30) return alert('배너 타이틀을 글자수 초과입니다.(30자)')
     if (!subTitle) return alert('서브 타이틀을 입력해주세요.')
+    if (subTitle > 15) return alert('서브 타이틀 글자수 초과입니다.(15자)')
     if (!image) return alert('이미지를 등록해주세요.')
 
     if (window.confirm('저장 하시겠습니까?')) {

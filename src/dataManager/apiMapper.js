@@ -54,8 +54,8 @@ export const EndPoint = {
   GET_MALL_BANNERS: `${API}/admin/mall/banners`,
   GET_MALL_BANNER: `${API}/admin/mall/banners/:bannerId`,
   POST_MALL_BANNER: `${API}/admin/mall/banners`,
-  PATCH_MALL_UPDATE_BANNER: `${API}/admin/mall/banners`,
-  PATCH_MALL_DELETE_BANNER: `${API}/admin/mall/banners/:bannerId`,
+  PATCH_MALL_UPDATE_BANNER: `${API}/admin/mall/banners/:bannerId`,
+  PATCH_MALL_DELETE_BANNER: `${API}/admin/mall/banners/:bannerId/status`,
 
   GET_MALL_ORDERS: `${API}/admin/mall/orders`,
   GET_MALL_CANCEL_ORDERS: `${API}/admin/mall/orders/cancel`,
