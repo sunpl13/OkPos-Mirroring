@@ -1,5 +1,6 @@
 import {
   CButton,
+  CFormInput,
   CFormSelect,
   CFormTextarea,
   CModal,
@@ -41,6 +42,7 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
 
   const [orderStatus, setOrderStatus] = useState('')
   const [reason, setReason] = useState('')
+  const [invoice, setInvoice] = useState('')
   const [selectedProduct, setSelectedProduct] = useState('')
 
   // Life Cycle 선언
@@ -91,8 +93,8 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
     }
   }
 
+  // 제품 상태 변경 API
   const onUpdateOrderStatusReason = async (orderItemId, orderStatus, reason) => {
-    console.log(orderItemId, orderStatus, reason)
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.POST,
@@ -126,19 +128,59 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
     }
   }
 
+  // 제품 송장번호 등록
+  const onUpdateInvoice = async (orderItemId, invoiceNumber) => {
+    try {
+      const {data: res} = await ApiConfig.request({
+        method: HttpMethod.PATCH,
+        url: EndPoint.PATCH_MALL_ORDERS_INVOICE,
+        path: {
+          orderItemId: orderItemId,
+        },
+        data: {
+          invoiceNumber: invoiceNumber,
+        },
+      })
+
+      if (!res?.isSuccess) {
+        if (res?.code === 2014) {
+          navigate('/login')
+        } else {
+          alert(res?.message)
+        }
+        return
+      }
+
+      const findIndex = order.subInfos.findIndex(product => product.orderItemId === orderItemId)
+      let tempSubInfos = order.subInfos
+      tempSubInfos[findIndex].invoiceNumber = invoiceNumber
+      setOrder(order => ({...order, subInfos: tempSubInfos}))
+      setSelectedProduct(tempSubInfos[findIndex])
+
+      alert(res?.message)
+    } catch (error) {
+      alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
+    }
+  }
+
+  // 취소 사유 값 저장
   const onChangeReason = e => {
     const {value} = e.target
     setReason(value)
   }
-
   // 주문 상태 값 저장
   const orderStatusChange = e => {
     const {value} = e.target
     setOrderStatus(value)
   }
-  // 주문상태 값 저장
+  // 주문 상품 row 저장
   const handleSelectedProduct = item => {
     setSelectedProduct(item)
+  }
+  // 주문 상태 값 저장
+  const invoiceChange = e => {
+    const {value} = e.target
+    setInvoice(value)
   }
 
   // 주문상태 변경 함수
@@ -156,12 +198,20 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
     setOrderStatus('')
     setReason('')
   }
+  // 주문 상태 값 저장
+  const handleOrderInvoice = () => {
+    if (!invoice) return alert('송장번호를 입력해주세요.')
+    if (invoice.length != 11) return alert('송장번호를 확인해주세요.(11자리)')
+    if (!selectedProduct.orderItemId) return alert('주문상품을 선택해주세요.')
+
+    onUpdateInvoice(selectedProduct.orderItemId, invoice)
+  }
 
   // 송장조회
   const handleInvoicCheck = () => {
     if (selectedProduct?.invoiceNumber) {
       const {invoiceNumber} = selectedProduct
-      window.open('https://www.ilogen.com/web/personal/tkSearch/' + {invoiceNumber})
+      window.open('https://www.ilogen.com/web/personal/trace/' + invoiceNumber)
     } else {
       window.open('https://www.ilogen.com/web/personal/tkSearch')
     }
@@ -248,6 +298,7 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
           searchInputHidden={false}
           datePickerHidden={false}
           setSelectedProduct={handleSelectedProduct}
+          onUpdateInvoice={onUpdateInvoice}
           className={'subInfos'}
         />
         <div className={'pb-2 d-md-flex justify-content-md-end'}>
@@ -263,6 +314,10 @@ const OrderModal = ({value, visible, setVisible, onLoadMallorderList}) => {
           </CFormSelect>
           <CButton className='me-md-2' color='success' size='sm' onClick={handleOrderStatus}>
             주문상태 변경
+          </CButton>
+          <CFormInput className='me-md-2 orderInvoiceForm' size='sm' onChange={invoiceChange} />
+          <CButton className='me-md-2' color='warning' size='sm' onClick={handleOrderInvoice}>
+            송장등록
           </CButton>
           <CButton color='warning' size='sm' onClick={handleInvoicCheck}>
             송장조회

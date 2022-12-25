@@ -34,7 +34,7 @@ const OrderTableList = ({
 
   useEffect(() => {
     // data picker 에 선택된 값
-    console.log('filter', startDate, endDate)
+    // console.log('filter', startDate, endDate)
     if (endDate) {
       if (listItems[0]?.orderDate) {
         setFilterItems(

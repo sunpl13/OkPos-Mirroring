@@ -13,6 +13,7 @@ const ProductList = ({
   className, // 리스트의 클레스 네임
   datePickerHidden = true, // 기간선택 데이터 피커 출력 유무
   setSelectedProduct, // radioButton 함수
+  onUpdateInvoice, // 송장번호 등록
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
@@ -114,13 +115,13 @@ const ProductList = ({
               />
             </td>
           ),
-
-          invoiceNumber: (item, index) => (
-            <td className='d-md-flex justify-content-md-end' onClick={onClickStop}>
-              <CFormInput id={`${index}`} className='me-md-2' size='sm' onClick={() => setSelectedProduct(item)} />
-              <CButton id={`${index}`} className='invoiceNumberBtn' color='warning' size='sm'>
+          invoiceNumber: item => (
+            <td>
+              {/* <CFormInput id={`${index}`} className='me-md-2' size='sm' onClick={e => setSelectedProduct(e, item)} />
+              <CButton id={`${index}`} className='invoiceNumberBtn' color='warning' size='sm' onClick={onUpdateInvoice}>
                 등록
-              </CButton>
+              </CButton> */}
+              {item.invoiceNumber}
             </td>
           ),
           orderItemPrice: ({orderItemPrice}) => <td className='orderItemPrice'>{isPrice(orderItemPrice)}</td>,

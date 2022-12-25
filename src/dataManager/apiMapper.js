@@ -62,6 +62,7 @@ export const EndPoint = {
   GET_MALL_EXCHANGE_ORDERS: `${API}/admin/mall/orders/exchange`,
   PATCH_MALL_ORDERS_STATUS: `${API}/admin/mall/orders/:orderItemId`,
   POST_MALL_ORDERS_STATUS: `${API}/admin/mall/orders/:orderItemId`,
+  PATCH_MALL_ORDERS_INVOICE: `${API}/admin/mall/orders/:orderItemId/invoice`,
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
@@ -121,6 +122,7 @@ const ApiMapper = {
     [EndPoint.PATCH_MALL_UPDATE_BANNER]: {},
     [EndPoint.PATCH_MALL_DELETE_BANNER]: {},
     [EndPoint.PATCH_MALL_ORDERS_STATUS]: {},
+    [EndPoint.PATCH_MALL_ORDERS_INVOICE]: {},
   },
   put: {},
   delete: {},
