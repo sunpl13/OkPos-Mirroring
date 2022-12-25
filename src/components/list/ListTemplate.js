@@ -276,13 +276,17 @@ const ListTemplate = ({
           // 상태
           status: ({status}) => (
             <td>
-              <CBadge color={getBadgeColor(status)}>{getBadgeText(status)}</CBadge>
+              <CBadge size='sm' color={getBadgeColor(status)}>
+                {getBadgeText(status)}
+              </CBadge>
             </td>
           ),
           // 1:1 문의 답변 상태
           reply: ({reply}) => (
             <td>
-              <CBadge color={getBadgeColor(reply)}>{getBadgeText(reply)}</CBadge>
+              <CBadge size='sm' color={getBadgeColor(reply)}>
+                {getBadgeText(reply)}
+              </CBadge>
             </td>
           ),
           // 단일 이미지

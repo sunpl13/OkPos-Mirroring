@@ -1,37 +1,33 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import {CCard, CCardBody, CCol, CFormLabel, CFormSelect, CRow} from '@coreui/react'
-import ListTemplate from '../../../components/list/ListTemplate'
-import OrderModal from '../../../components/Modal/officialMall/OrderModal'
+import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import PageHeader from '../../../components/common/PageHeader'
-import {orderListColumns} from '../../../utils/columns/officialMall/Columns'
+import {cancelListColumns} from '../../../utils/columns/officialMall/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import OrderTableList from '../../../components/list/mall/OrderTableList'
+import CancelModal from '../../../components/Modal/officialMall/CancelModal'
 
-const OrderList = () => {
+const CancelList = () => {
   // 모듈 선언
   const navigate = useNavigate()
 
   // Local state 선언
-  const [orderList, setOrderList] = useState([])
+  const [cancelList, setCanelList] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [showModal, setShowModal] = useState(false)
 
   // API 통신 함수
-  const onLoadMallorderList = async orderStatus => {
+  const onLoadMallCancelList = async () => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_MALL_ORDERS,
-        query: {
-          orderStatus: orderStatus || '',
-        },
+        url: EndPoint.GET_MALL_CANCEL_ORDERS,
       })
 
       if (!res?.isSuccess || isEmpty(res?.result)) {
-        console.log('loadMallorderList error')
+        console.log('loadMallCancelList error')
         if (res?.code === 2014) {
           navigate('/login')
         } else {
@@ -39,7 +35,7 @@ const OrderList = () => {
         }
         return
       }
-      setOrderList(res.result.responses)
+      setCanelList(res.result.responses)
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -48,7 +44,7 @@ const OrderList = () => {
 
   // Life Cycle 선언
   useEffect(() => {
-    onLoadMallorderList()
+    onLoadMallCancelList()
   }, [])
 
   // 함수 선언
@@ -61,31 +57,30 @@ const OrderList = () => {
 
   return (
     <CRow>
-      <PageHeader title='주문 관리' />
+      <PageHeader title='취소 요청 관리' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
             <OrderTableList
-              items={orderList}
+              items={cancelList}
               onClick={handleShowUserDetailModal}
-              columns={orderListColumns}
-              className={'orderList'}
-              onLoadMallorderList={onLoadMallorderList}
+              columns={cancelListColumns}
+              className={'cancelList'}
               datePicker
-              dataSearch
             />
           </CCardBody>
         </CCard>
       </CCol>
-      <OrderModal
+      <CancelModal
         value={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
-        onLoadMallorderList={onLoadMallorderList}
+        cancelList={cancelList}
+        setCanelList={setCanelList}
         readOnly
       />
     </CRow>
   )
 }
 
-export default OrderList
+export default CancelList

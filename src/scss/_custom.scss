@@ -19,14 +19,16 @@ table {
     }
     &.userId,
     &.status,
+    &.reply,
+    &.orderStatus,
     &.no,
     &.id,
     &.trainingPersonnel,
     &.noticeFiles,
     &.orderItemCount {
       width: 10%;
-      max-width: 90px;
-      min-width: 80px;
+      max-width: 100px;
+      min-width: 90px;
     }
     &.deliveryStatus,
     &.CAT,
@@ -37,12 +39,12 @@ table {
       max-width: 110px;
       min-width: 90px;
     }
-    &.orderStatus,
     &.payDate,
     &.createdAt,
     &.updatedAt,
     &.category,
     &.userName,
+    &.receiver,
     &.orderDate,
     &.region,
     &.remark,
@@ -67,14 +69,16 @@ table {
       width: 100%;
       min-width: 200px;
     }
-    &.invoiceNumber {
-      width: 100%;
-      min-width: 250px;
+    &.invoiceNumber,
+    &.orderNumber {
+      min-width: 200px;
     }
   }
   td {
     &.totalPrice,
-    &.orderItemPrice {
+    &.orderItemPrice,
+    &.cancelPrice,
+    &.exchangePrice {
       text-align: right;
       max-width: 110px;
       min-width: 90px;
@@ -124,13 +128,20 @@ th.large {
   height: 300px;
 }
 
-.orderStatusForm {
+// 공식몰 주문상태
+.orderStatusForm,
+.orderInvoiceForm {
   width: 200px;
 }
 
 .invoiceNumberBtn {
   width: 100%;
   max-width: 50px;
+}
+
+.invoiceSearchBtn {
+  width: 100%;
+  width: 80px;
 }
 
 .dateSearchBtn {
