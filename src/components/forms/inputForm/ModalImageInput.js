@@ -118,7 +118,7 @@ const ModalImageInput = ({
   )
   return (
     <>
-      <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
+      <CFormLabel htmlFor={`${id}Static`} className='col-form-label'>
         <span className={isRequired && 'required'}>{label || ' * '}</span>
       </CFormLabel>
       <Upload

@@ -54,7 +54,6 @@ export default ModalTextOnlyQuillEditor
 
 const EditorStyle = styled(ReactQuill)`
   background-color: ${({readOnly}) => (readOnly ? '#d8dbe0' : 'transparent')};
-
   .ql-toolbar {
     display: ${({readOnly}) => (readOnly ? 'none' : 'block')};
   }

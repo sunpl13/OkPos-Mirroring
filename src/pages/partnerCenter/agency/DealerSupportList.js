@@ -11,6 +11,7 @@ import {isEmpty} from '../../../utils/utility'
 const DealerSupportList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
+  const [editor, setEditor] = useState('')
 
   // 딜러 지원 리스트 API
   const getList = async () => {
@@ -25,7 +26,8 @@ const DealerSupportList = () => {
         return
       }
       if (code === 1000) {
-        setItems(result.adminAgencyApplicantDTOs)
+        setItems(result?.adminAgencyApplicantDTOs)
+        setEditor(result?.noticeContent)
       } else {
         alert(message)
       }
@@ -95,6 +97,7 @@ const DealerSupportList = () => {
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
+        editor={editor}
       />
     </main>
   )

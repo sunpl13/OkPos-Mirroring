@@ -6,6 +6,8 @@ import PropTypes from 'prop-types'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import DetailModalTemplate from '../DetailModalTemplate'
+import ModalTextOnlyQuillEditor from '../../../forms/inputForm/ModalTextOnlyQuillEditor'
+import ModalReadOnlyQuillEditor from '../../../forms/inputForm/ModalReadOnlyQuillEditor'
 
 const category = {
   DEALER: {key: 'DEALER', value: '딜러'},
@@ -65,21 +67,12 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelet
             readOnly
           />
         </CRow>
-        <br />
-        <CRow className='p-2'>
-          <ModalTextArrayInput
-            id='noticeContent'
-            value={noticeContent}
-            rows={6}
-            label='지원 공고 본문'
-            onChange={onChange}
-            readOnly
-          />
+        <CRow className={'p-2 pb-2'}>
+          <ModalReadOnlyQuillEditor id='noticeContent' value={noticeContent} label='지원 공고 본문' readOnly />
         </CRow>
         <CRow className='p-2'>
           <ModalImageInput fileList={noticeImages || []} id={'images'} label={'지원 공고 이미지'} readOnly />
         </CRow>
-        <br />
         <CRow className='p-2'>
           <ModalInput
             onChange={onChange}

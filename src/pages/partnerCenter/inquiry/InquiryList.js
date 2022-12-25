@@ -51,14 +51,15 @@ const InquiryList = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.PARTNER_INQUIRIES}/${id}`,
       })
+      console.log(result)
       if (!isSuccess || isEmpty(result)) {
         return alert(message)
       }
       if (code === 1000) {
         setSelectedItem(result)
-        setEditCheck(result.inquiryReplies)
-        if (result.inquiryReplies.length !== 0) {
-          setEditor(result.inquiryReplies[result.inquiryReplies.length - 1].content)
+        setEditCheck(result?.inquiryReplies)
+        if (result?.inquiryReplies.length !== 0) {
+          setEditor(result?.inquiryReplies[0].content)
         }
       } else {
         alert(message)

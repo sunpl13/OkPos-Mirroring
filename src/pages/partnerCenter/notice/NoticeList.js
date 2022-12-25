@@ -179,8 +179,10 @@ const NoticeList = () => {
           url: `${EndPoint.PARTNER_NOTICES}/${id}`,
         })
         if (!isSuccess || isEmpty(result)) {
-          return
+          window.location.reload()
+          return alert(message)
         }
+
         if (code === 1000) {
           alert(message)
           window.location.reload()
