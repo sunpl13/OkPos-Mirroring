@@ -16,7 +16,7 @@ import {isPrice} from '../../../utils/utility'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 
-const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => {
+const ExchangeModal = ({value, visible, setVisible, exchangeList, setExchangeList}) => {
   // 모듈 선언
   const navigate = useNavigate()
 
@@ -27,16 +27,15 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => 
     name: '',
     paymentMethod: '',
     totalPrice: 0,
-    cancelPrice: 0,
+    exchangePrice: 0,
     orderDate: '',
     payDate: '',
-    cancelDate: '',
+    exchangeDate: '',
     receiver: '',
     address: '',
     normalNumber: '',
     phoneNumber: '',
     totalCount: '',
-    subInfos: [],
   })
 
   const [orderStatus, setOrderStatus] = useState('')
@@ -55,13 +54,13 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => 
 
   // 함수 선언
   // Update OrderStatus
-  const onUpdateOrderStatus = async (orderCancelId, orderStatus) => {
+  const onUpdateOrderStatus = async (orderExchangeId, orderStatus) => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.PATCH,
-        url: EndPoint.PATCH_MALL_CANCEL_ORDERS_STATUS,
+        url: EndPoint.PATCH_MALL_EXCHANGE_ORDERS_STATUS,
         path: {
-          orderCancelId: orderCancelId,
+          orderExchangeId: orderExchangeId,
         },
         query: {
           orderStatus: orderStatus,
@@ -79,9 +78,9 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => 
 
       setOrder(order => ({...order, orderStatus: orderStatus}))
 
-      const findIndex = cancelList.findIndex(product => product.orderCancelId === orderCancelId)
-      cancelList[findIndex].orderStatus = orderStatus
-      setCanelList(cancelList => [...cancelList])
+      const findIndex = exchangeList.findIndex(product => product.orderExchangeId === orderExchangeId)
+      exchangeList[findIndex].orderStatus = orderStatus
+      setExchangeList(exchangeList => [...exchangeList])
 
       alert(res?.message)
     } catch (error) {
@@ -99,7 +98,7 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => 
   const handleOrderStatus = () => {
     if (!orderStatus) return alert('주문상태를 선택해주세요.')
 
-    onUpdateOrderStatus(order.orderCancelId, orderStatus)
+    onUpdateOrderStatus(order.orderExchangeId, orderStatus)
     setOrderStatus('')
   }
 
@@ -116,15 +115,15 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => 
   return (
     <CModal size='lg' visible={visible} onClose={closeModal}>
       <CModalHeader>
-        <CModalTitle>취소 상세정보</CModalTitle>
+        <CModalTitle>교환 상세정보</CModalTitle>
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
           <ModalInput
-            id={'orderCancelId'}
-            placeholder={'orderCancelId'}
+            id={'orderExchangeId'}
+            placeholder={'orderExchangeId'}
             label={'No'}
-            value={order.orderCancelId}
+            value={order.orderExchangeId}
             readOnly
             disabled
           />
@@ -183,20 +182,20 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => 
             disabled
           />
           <ModalInput
-            id={'cancelDate'}
+            id={'exchangeDate'}
             placeholder={''}
-            label={'취소 요청일'}
-            value={order.cancelDate}
+            label={'교환 요청일'}
+            value={order.exchangeDate}
             readOnly
             disabled
           />
         </CRow>
         <CRow className={'p-2'}>
           <ModalInput
-            id={'cancelPrice'}
+            id={'exchangePrice'}
             placeholder={''}
-            label={'취소금액'}
-            value={isPrice(order.cancelPrice)}
+            label={'교환금액'}
+            value={isPrice(order.exchangePrice)}
             readOnly
             disabled
           />
@@ -224,11 +223,11 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => 
         </CRow>
         <CRow className={'p-2'}>
           <CFormTextarea
-            id='cancelReason'
-            placeholder={'취소 사유'}
-            label='취소사유'
+            id='exchangeReason'
+            placeholder={'교환사유'}
+            label='교환사유'
             rows='3'
-            value={order.cancelReason}
+            value={order.exchangeReason}
             readOnly
             disabled
           />
@@ -241,8 +240,8 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => 
             <option value='배송 준비중'>배송 준비중</option>
             <option value='배송중'>배송중</option>
             <option value='배송 완료'>배송 완료</option>
-            <option value='취소 처리중'>취소 처리중</option>
-            <option value='취소 완료'>취소 완료</option>
+            <option value='교환 처리중'>교환 처리중</option>
+            <option value='교환 완료'>교환 완료</option>
           </CFormSelect>
           <CButton className='me-md-2' color='success' size='sm' onClick={handleOrderStatus}>
             주문상태 변경
@@ -258,4 +257,4 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => 
   )
 }
 
-export default CancelModal
+export default ExchangeModal

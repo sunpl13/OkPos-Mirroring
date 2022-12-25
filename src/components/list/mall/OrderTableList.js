@@ -46,6 +46,14 @@ const OrderTableList = ({
               moment(value.cancelDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
           ),
         )
+      } else if (listItems[0]?.exchangeDate) {
+        setFilterItems(
+          listItems.filter(
+            value =>
+              moment(value.exchangeDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') >= startDate &&
+              moment(value.exchangeDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
+          ),
+        )
       } else if (listItems[0]?.orderDate) {
         setFilterItems(
           listItems.filter(
@@ -183,10 +191,12 @@ const OrderTableList = ({
           ),
           orderItemPrice: ({orderItemPrice}) => <td className='orderItemPrice'>{isPrice(orderItemPrice)}</td>,
           cancelPrice: ({cancelPrice}) => <td className='cancelPrice'>{isPrice(cancelPrice)}</td>,
+          exchangePrice: ({exchangePrice}) => <td className='exchangePrice'>{isPrice(exchangePrice)}</td>,
           totalPrice: ({totalPrice}) => <td className='totalPrice'>{isPrice(totalPrice)}</td>,
           orderDate: ({orderDate}) => <td>{moment(orderDate, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           payDate: ({payDate}) => <td>{moment(payDate, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
           cancelDate: ({cancelDate}) => <td>{moment(cancelDate, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
+          exchangeDate: ({exchangeDate}) => <td>{moment(exchangeDate, 'YYYYMMDDHHmmss').format('YYYY. MM. DD')}</td>,
         }}
         noItemsLabel={'데이터가 없습니다.'}
         itemsPerPage={20}

@@ -25,6 +25,12 @@ export const getMallBadgeColor = status => {
       return 'warning'
     case '취소 완료':
       return 'danger'
+    case '교환 요청':
+      return 'warning'
+    case '교환 처리중':
+      return 'warning'
+    case '교환 완료':
+      return 'success'
     case '배송 완료':
       return 'success'
     default:

@@ -284,7 +284,9 @@ const ListTemplate = ({
           // 1:1 문의 답변 상태
           reply: ({reply}) => (
             <td>
-              <CBadge color={getBadgeColor(reply)}>{getBadgeText(reply)}</CBadge>
+              <CBadge size='sm' color={getBadgeColor(reply)}>
+                {getBadgeText(reply)}
+              </CBadge>
             </td>
           ),
           // 단일 이미지

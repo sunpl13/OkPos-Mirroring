@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {CSmartTable} from '../../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
-import {CButton, CCol, CFormInput, CRow} from '@coreui/react'
+import {CBadge, CButton, CCol, CFormInput, CRow} from '@coreui/react'
 import RangeDatePicker from '../../common/RangeDatePicker'
 import moment from 'moment'
 import {isPrice} from '../../../utils/utility'
+import {getMallBadgeColor} from '../../../utils/badge/officalMall/Badge'
 
 const ProductList = ({
   items, // 리스트 아이템
@@ -113,6 +114,13 @@ const ProductList = ({
                 checked={item.orderItemId === selectedItem.orderItemId}
                 readOnly
               />
+            </td>
+          ),
+          orderStatus: ({orderStatus}) => (
+            <td>
+              <CBadge size='sm' color={getMallBadgeColor(orderStatus)}>
+                {orderStatus}
+              </CBadge>
             </td>
           ),
           invoiceNumber: item => (

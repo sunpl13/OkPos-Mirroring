@@ -23,8 +23,8 @@ export const resignUserListColumns = [
 // 1:1 문의 리스트
 export const inquiryListColumns = [
   {key: 'inquiryId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'category', label: '카테고리', _props: {className: 'category'}},
   {key: 'title', label: '제목', _props: {className: 'title'}},
-  {key: 'category', label: '문의 유형', _props: {className: 'category'}},
   {key: 'name', label: '이름', _props: {className: 'name'}},
   {key: 'phoneNumber', label: '휴대전화번호', _props: {className: 'phoneNumber'}},
   {key: 'reply', label: '답변', sorter: false, filter: false, _props: {className: 'reply'}},
@@ -94,10 +94,25 @@ export const cancelListColumns = [
     _props: {className: 'orderStatus'},
   },
 ]
+// 취소 현황 관리
+export const exchangeListColumns = [
+  {key: 'orderExchangeId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'orderNumber', label: '주문번호', sorter: false, _props: {className: 'orderNumber'}},
+  {key: 'itemName', label: '제품명', sorter: false, _props: {className: 'itemName'}},
+  {key: 'receiver', label: '수취인', sorter: false, _props: {className: 'receiver'}},
+  {key: 'exchangePrice', label: '교환금액', filter: false, _props: {className: 'exchangePrice'}},
+  {key: 'exchangeDate', label: '교환 요청일', sorter: false, filter: false, _props: {className: 'exchangeDate'}},
+  {
+    key: 'orderStatus',
+    label: '주문상태',
+    sorter: false,
+    _props: {className: 'orderStatus'},
+  },
+]
 
 // 배너 관리
 export const bannerListColumns = [
   {key: 'bannerId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
-  {key: 'image', label: '이미지', _props: {className: 'image'}},
-  {key: 'title', label: '배너 타이틀', _props: {className: 'title'}},
+  {key: 'image', label: '이미지', sorter: false, filter: false, _props: {className: 'image'}},
+  {key: 'title', label: '배너 타이틀', sorter: false, _props: {className: 'title'}},
 ]

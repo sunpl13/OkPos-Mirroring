@@ -19,14 +19,16 @@ table {
     }
     &.userId,
     &.status,
+    &.reply,
+    &.orderStatus,
     &.no,
     &.id,
     &.trainingPersonnel,
     &.noticeFiles,
     &.orderItemCount {
       width: 10%;
-      max-width: 90px;
-      min-width: 80px;
+      max-width: 100px;
+      min-width: 90px;
     }
     &.deliveryStatus,
     &.CAT,
@@ -37,7 +39,6 @@ table {
       max-width: 110px;
       min-width: 90px;
     }
-    &.orderStatus,
     &.payDate,
     &.createdAt,
     &.updatedAt,
@@ -68,14 +69,16 @@ table {
       width: 100%;
       min-width: 200px;
     }
-    &.invoiceNumber {
-      min-width: 180px;
+    &.invoiceNumber,
+    &.orderNumber {
+      min-width: 200px;
     }
   }
   td {
     &.totalPrice,
     &.orderItemPrice,
-    &.cancelPrice {
+    &.cancelPrice,
+    &.exchangePrice {
       text-align: right;
       max-width: 110px;
       min-width: 90px;

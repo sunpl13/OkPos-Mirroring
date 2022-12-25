@@ -64,6 +64,7 @@ export const EndPoint = {
   POST_MALL_ORDERS_STATUS: `${API}/admin/mall/orders/:orderItemId`,
   PATCH_MALL_ORDERS_INVOICE: `${API}/admin/mall/orders/:orderItemId/invoice`,
   PATCH_MALL_CANCEL_ORDERS_STATUS: `${API}/admin/mall/orders/:orderCancelId/cancel`,
+  PATCH_MALL_EXCHANGE_ORDERS_STATUS: `${API}/admin/mall/orders/:orderExchangeId/exchange`,
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
@@ -125,6 +126,7 @@ const ApiMapper = {
     [EndPoint.PATCH_MALL_ORDERS_STATUS]: {},
     [EndPoint.PATCH_MALL_ORDERS_INVOICE]: {},
     [EndPoint.PATCH_MALL_CANCEL_ORDERS_STATUS]: {},
+    [EndPoint.PATCH_MALL_EXCHANGE_ORDERS_STATUS]: {},
   },
   put: {},
   delete: {},
