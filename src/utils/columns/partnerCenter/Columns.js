@@ -180,7 +180,7 @@ export const dealerSupportList = [
 ]
 
 // 자료 리스트
-export const materiaList = [
+export const dataRoomList = [
   {
     key: 'id',
     label: 'No',

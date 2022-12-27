@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
-import {materiaList} from '../../../utils/columns/partnerCenter/Columns'
+import {dataRoomList} from '../../../utils/columns/partnerCenter/Columns'
 import MeterialDetailModal from '../../../components/Modal/partnerCenter/DataRoom/DataRoomDetailModal'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
@@ -45,7 +45,7 @@ const DataRoom = () => {
   }, [])
 
   /** Open Modal*/
-  const handleShowMaterialDetailModal = async ({id}) => {
+  const handleShowDataRoomDetailModal = async ({id}) => {
     if (id) {
       try {
         const {
@@ -114,6 +114,7 @@ const DataRoom = () => {
             return alert(message)
           }
           if (code === 1000) {
+            getList()
             setShowModal(false)
             return alert(message)
           }
@@ -135,11 +136,11 @@ const DataRoom = () => {
             url: EndPoint.PARTNER_DATAROOMS,
             data: json,
           })
-          console.log(message, result)
           if (!isSuccess || isEmpty(result)) {
             return alert(message)
           }
           if (code === 1000) {
+            getList()
             setShowModal(false)
             return alert(message)
           }
@@ -151,14 +152,14 @@ const DataRoom = () => {
     }
   }
 
-  const handleMaterialModalOnChange = ({target: {id, value}}) => {
+  const handleDataRoomModalOnChange = ({target: {id, value}}) => {
     setSelectedItem({
       ...selectedItem,
       [id]: value,
     })
   }
 
-  const handleMaterialModalOnDelete = async () => {
+  const handleDataRoomModalOnDelete = async () => {
     const {id} = selectedItem
     if (window.confirm('정말로 삭제 하시겠습니까?')) {
       try {
@@ -168,13 +169,14 @@ const DataRoom = () => {
           method: HttpMethod.PATCH,
           url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
         })
-        console.log(result)
-        if (!isSuccess || isEmpty(result)) {
-          return
+        if (!isSuccess) {
+          return alert(message)
         }
         if (code === 1000) {
           alert(message)
-          window.location.reload()
+          //window.location.reload()
+          getList()
+          setShowModal(false)
         } else {
           alert(message)
         }
@@ -192,7 +194,7 @@ const DataRoom = () => {
           <CCardHeader>
             <CForm className='row g-3'>
               <CCol xs={1}>
-                <CButton color='primary' onClick={handleShowMaterialDetailModal}>
+                <CButton color='primary' onClick={handleShowDataRoomDetailModal}>
                   추가
                 </CButton>
               </CCol>
@@ -201,8 +203,8 @@ const DataRoom = () => {
           <CCardBody>
             <ListTemplate
               items={items}
-              onClick={handleShowMaterialDetailModal}
-              columns={materiaList}
+              onClick={handleShowDataRoomDetailModal}
+              columns={dataRoomList}
               className={'userList'}
             />
           </CCardBody>
@@ -212,9 +214,9 @@ const DataRoom = () => {
         value={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
-        onChange={handleMaterialModalOnChange}
+        onChange={handleDataRoomModalOnChange}
         upDate={handleDetailModalUpDate}
-        onDelete={handleMaterialModalOnDelete}
+        onDelete={handleDataRoomModalOnDelete}
         editor={editor}
         setEditor={setEditor}
         editMode={editMode}

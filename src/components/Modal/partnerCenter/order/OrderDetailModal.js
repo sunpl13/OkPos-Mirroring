@@ -10,7 +10,7 @@ import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import {isEmpty} from '../../../../utils/utility'
 
-const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelete}) => {
+const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
   const {
     id,
     orderNum /** 발주 번호 */,
@@ -29,6 +29,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
   const [invoiceEditModal, setInvoiceEditModal] = useState(false)
   const [mousePos, setMousePos] = useState({})
   const [selectedItem, setSelectedItem] = useState({})
+  const [orderItemList, setOrderItemList] = useState([])
 
   const handleInvoiceOnChange = ({target: {id, value}}) => {
     console.log(id, value, selectedItem)
@@ -44,28 +45,36 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
     setInvoiceEditModal(!invoiceEditModal)
   }
   const handleInvoiceEditModalUpDate = async () => {
-    try {
-      const {
-        data: {isSuccess, result, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.PUT,
-        url: `${EndPoint.PARTNER_ORDERS}/${id}`,
-      })
-      if (!isSuccess || isEmpty(result)) {
-        return
+    const json = JSON.stringify({
+      invoiceNum: selectedItem?.invoiceNum,
+    })
+    if (window.confirm('운송장 번호를 등록하시겠습니까?')) {
+      try {
+        const {
+          data: {isSuccess, result, code, message},
+        } = await ApiConfig.request({
+          method: HttpMethod.PATCH,
+          url: `${EndPoint.PARTNER_ORDERS}/${selectedItem.id}`,
+          data: json,
+        })
+        if (!isSuccess || isEmpty(result)) {
+          return
+        }
+        if (code === 1000) {
+          setOrderItemList(orderItemList.map(item => (item.id === selectedItem.id ? selectedItem : item)))
+          setInvoiceEditModal(false)
+          alert(message)
+        } else {
+          alert(message)
+        }
+      } catch (error) {
+        console.log(error)
       }
-      if (code === 1000) {
-        alert(message)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
     }
-    setInvoiceEditModal(false)
   }
 
   useEffect(() => {
+    setOrderItemList(orderItemPartnerDTOs)
     if (visible) {
     }
   }, [visible])
@@ -173,10 +182,9 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
       </CRow>
       <CRow className={'p-2'}>
         <ListTemplate
-          items={orderItemPartnerDTOs || []}
+          items={orderItemList || []}
           columns={orderListColumns}
           className={'userList'}
-          onDelete={onDelete}
           datePickerHidden={false}
           selectedOptions={deliveryStatusOptions}
           itemPerPageHidden={false}

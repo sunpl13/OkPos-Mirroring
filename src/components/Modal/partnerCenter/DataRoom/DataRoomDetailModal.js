@@ -30,11 +30,6 @@ const DataRoomDetailModal = ({
     {key: 'TECHNIC_ARTICLE', value: '기술자료'},
     {key: 'OTHER', value: '기타'},
   ]
-  useEffect(() => {
-    if (visible) {
-    }
-  }, [visible])
-  console.log(value)
   return (
     <DetailModalEditModeTemplate
       title={id ? '자료 상세' : '자료 추가'}
