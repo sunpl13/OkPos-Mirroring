@@ -32,7 +32,7 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
   }, [visible])
   return (
     <DetailModalEditModeTemplate
-      title={'발주 상세'}
+      title={'유지보수 신청 상세'}
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
@@ -44,7 +44,7 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           id={'orderNum'}
           placeholder={'발주 번호'}
           label={'발주 번호'}
-          value={orderNum}
+          //value={orderNum}
           onChange={onChange}
           readOnly
           disabled
@@ -55,14 +55,14 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           id={'representativeName'}
           placeholder={'대표자명'}
           label={'대표자명'}
-          value={representativeName}
+          //          value={representativeName}
           onChange={onChange}
         />
         <ModalInput
           id={'businessName'}
           placeholder={'상호명'}
           label={'상호명'}
-          value={businessName}
+          //          value={businessName}
           onChange={onChange}
         />
       </CRow>
@@ -71,14 +71,14 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           id={'businessNumber'}
           placeholder={'사업자 번호'}
           label={'사업자 번호'}
-          value={certificateNum}
+          //          value={certificateNum}
           onChange={onChange}
         />
         <ModalInput
           id={'businessAddress'}
           placeholder={'사업장 주소'}
           label={'사업장 주소'}
-          value={address}
+          //          value={address}
           onChange={onChange}
         />
       </CRow>
@@ -87,14 +87,14 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           id={'orderDate'}
           placeholder={'주문 일자'}
           label={'주문 일자'}
-          value={createdAt}
+          //          value={createdAt}
           onChange={onChange}
         />
         <ModalInput
           id={'phoneNumber'}
           placeholder={'휴대전화'}
           label={'휴대전화'}
-          value={mobilePhoneNum}
+          //          value={mobilePhoneNum}
           onChange={onChange}
         />
       </CRow>
@@ -103,7 +103,7 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           id={'phoneNum'}
           placeholder={'사업장 전화번호'}
           label={'사업장 전화번호'}
-          value={phoneNum}
+          //          value={phoneNum}
           onChange={onChange}
         />
         <ModalInput id={'email'} placeholder={'이메일'} label={'이메일'} value={email} onChange={onChange} />
@@ -113,7 +113,7 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           id={'receivingMethod'}
           placeholder={'수령 방법'}
           label={'수령 방법'}
-          value={receivingMethod}
+          //value={receivingMethod}
           onChange={onChange}
         />
         <ModalInput
@@ -121,13 +121,13 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           type={'email'}
           placeholder={'세금계산서 수령 이메일'}
           label={'세금계산서 수령 이메일'}
-          value={taxBillEmail}
+          //value={taxBillEmail}
           onChange={onChange}
         />
       </CRow>
       <CRow className={'p-2'}>
         <ListTemplate
-          items={orderItemPartnerDTOs || []}
+          //items={orderItemPartnerDTOs || []}
           //onClick={handleShowMaterialDetailModal}
           columns={orderListColumns}
           className={'userList'}

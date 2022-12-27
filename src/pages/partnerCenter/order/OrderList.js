@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {orderList} from '../../../utils/columns/partnerCenter/Columns'
-import OrderDetailModal from '../../../components/Modal/partnerCenter/order/OrderDetailModal'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import OrderDetailModal from '../../../components/Modal/partnerCenter/order/OrderDetailModal'
 
 const OrderList = () => {
   const [items, setItems] = useState([])

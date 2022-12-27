@@ -22,12 +22,12 @@ const DataRoomDetailModal = ({
   editor,
   setEditor,
 }) => {
-  const {id, title, category, content, dataRoomFiles, dataRoomImages, createdAt} = value
+  const {id, title, category, dataRoomFiles, dataRoomImages, createdAt} = value
   const dataOptions = [
     {key: 'DRIVER', value: '드라이버'},
     {key: 'MANUAL', value: '메뉴얼'},
     {key: 'FIRMWARE', value: '펌웨어'},
-    {key: 'TEC', value: '기술자료'},
+    {key: 'TECHNIC_ARTICLE', value: '기술자료'},
     {key: 'OTHER', value: '기타'},
   ]
   useEffect(() => {
@@ -44,49 +44,71 @@ const DataRoomDetailModal = ({
       btnText={id ? '수정' : '추가'}
       editMode={editMode}
       setEditMode={setEditMode}
-      onDelete={onDelete}
+      onDelete={id && onDelete}
     >
       <CRow className={'p-2'}>
-        <ModalInput
-          id={'createdAt'}
-          placeholder={'등록일'}
-          label={'등록일'}
-          value={createdAt}
-          onChange={onChange}
-          readOnly
-          disabled
-        />
+        {id ? (
+          <ModalInput
+            id={'createdAt'}
+            placeholder={'등록일'}
+            label={'등록일'}
+            value={createdAt}
+            onChange={onChange}
+            readOnly
+            disabled
+          />
+        ) : (
+          <ModalInput
+            id={'title'}
+            placeholder={'제목'}
+            label={'제목'}
+            value={title}
+            onChange={onChange}
+            readOnly={id && editMode}
+            disabled={id && editMode}
+          />
+        )}
         <ModalSelect
           id={'category'}
           label={'카테고리'}
           options={dataOptions || []}
           value={category}
           readOnly={editMode}
-          disabled={editMode}
+          disabled={id && editMode}
           onChange={onChange}
+          placeholder={'카테고리를 선택해주세요.'}
           size={'sm'}
         />
       </CRow>
+      {id && (
+        <CRow className={'p-2'}>
+          <ModalInput
+            id={'title'}
+            placeholder={'제목'}
+            label={'제목'}
+            value={title}
+            onChange={onChange}
+            readOnly={id && editMode}
+            disabled={id && editMode}
+          />
+        </CRow>
+      )}
       <CRow className={'p-2'}>
-        <ModalInput
-          id={'title'}
-          placeholder={'제목'}
-          label={'제목'}
-          value={title}
-          onChange={onChange}
-          readOnly={editMode}
-          disabled={editMode}
+        <ModalQuillEditor
+          id='content'
+          label={'본문'}
+          value={editor}
+          setValue={setEditor}
+          readOnly={id && editMode}
+          disabled={id && editMode}
         />
-      </CRow>
-      <CRow className={'p-2'}>
-        <ModalQuillEditor id='content' label={'본문'} value={editor} setValue={setEditor} readOnly={editMode} />
       </CRow>
       <br />
       <CRow className={'p-2'}>
-        <ModalImageInput label={'이미지'} value={dataRoomImages} readOnly={editMode} />
+        <ModalImageInput label={'이미지'} value={dataRoomImages} readOnly={id && editMode} disabled={id && editMode} />
       </CRow>
       <CRow className={'p-2'}>
-        {editMode ? (
+        {id && editMode ? (
           <MultiFileDownloadForm
             id={'files'}
             type={'file'}
@@ -102,8 +124,8 @@ const DataRoomDetailModal = ({
             id={'files'}
             value={dataRoomFiles}
             label={'첨부파일'}
-            readOnly={editMode}
-            disabled={editMode}
+            readOnly={id && editMode}
+            disabled={id && editMode}
           />
         )}
       </CRow>

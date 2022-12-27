@@ -3,7 +3,7 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {materiaList} from '../../../utils/columns/partnerCenter/Columns'
-import MeterialDetailModal from '../../../components/Modal/partnerCenter/material/MeterialDetailModal'
+import MeterialDetailModal from '../../../components/Modal/partnerCenter/DataRoom/DataRoomDetailModal'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
@@ -74,44 +74,78 @@ const DataRoom = () => {
     } else {
       setSelectedItem({})
       setEditCheck({})
+      setEditor('')
     }
     setShowModal(!showModal)
   }
 
   // Modal UpDate
-  const handleDetailModalUpDate = () => {
+  const handleDetailModalUpDate = async () => {
     const {id, title, content, dataRoomFiles, dataRoomImages, category} = selectedItem
+    const dataOptions = {
+      DRIVER: '드라이버',
+      MANUAL: '매뉴얼',
+      FIRMWARE: '펌웨어',
+      TECHNIC_ARTICLE: '기술자료',
+      OTHER: '기타',
+    }
+    const json = JSON.stringify({
+      title: title,
+      content: editor,
+      category: dataOptions[category],
+      files: {},
+      images: [],
+    })
     if (id) {
-      if (editCheck.title !== title || editCheck.content !== editor || editCheck.category !== category) {
-        if (window.confirm('수정하시겠습니까?')) {
-          if (!title) return alert('제목을 입력해 주세요.')
-          if (dataRoomFiles.length === 0) return alert('파일을 등록해 주세요')
-          if (dataRoomImages.length === 0) return alert('이미지를 등록해 주세요')
-          if (!category) return alert('카테고리를 선택해 주세요')
-          if (!content) return alert('본문을 입력해 주세요.')
-          setItems(items.map(value => (value.id === id ? selectedItem : value)))
-          setShowModal(false)
+      if (window.confirm('수정하시겠습니까?')) {
+        if (!title) return alert('제목을 입력해 주세요.')
+        if (!category) return alert('카테고리를 선택해 주세요')
+        if (!editor) return alert('본문을 입력해 주세요.')
+        try {
+          const {
+            data: {isSuccess, result, code, message},
+          } = await ApiConfig.request({
+            method: HttpMethod.PUT,
+            url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
+            data: json,
+          })
+          console.log(message, result)
+          if (!isSuccess || isEmpty(result)) {
+            return alert(message)
+          }
+          if (code === 1000) {
+            setShowModal(false)
+            return alert(message)
+          }
+        } catch (error) {
+          console.log(error)
         }
-      } else {
-        setEditMode(!editMode)
       }
     } else {
-      if (title || editor || dataRoomFiles || category) {
-        if (window.confirm('등록하시겠습니까?')) {
-          if (!title) return alert('제목을 입력해 주세요.')
-          //if (!dataRoomFiles) return alert('파일을 등록해 주세요')
-          if (!category) return alert('카테고리를 선택해 주세요')
-          if (!content) return alert('본문을 입력해 주세요.')
-          setItems([
-            ...items,
-            {
-              ...selectedItem,
-              id: items.length + 1,
-            },
-          ])
-          setShowModal(false)
+      if (window.confirm('등록하시겠습니까?')) {
+        if (!title) return alert('제목을 입력해 주세요.')
+        //if (!dataRoomFiles) return alert('파일을 등록해 주세요')
+        if (!category) return alert('카테고리를 선택해 주세요')
+        if (!editor) return alert('본문을 입력해 주세요.')
+        try {
+          const {
+            data: {isSuccess, result, code, message},
+          } = await ApiConfig.request({
+            method: HttpMethod.POST,
+            url: EndPoint.PARTNER_DATAROOMS,
+            data: json,
+          })
+          console.log(message, result)
+          if (!isSuccess || isEmpty(result)) {
+            return alert(message)
+          }
+          if (code === 1000) {
+            setShowModal(false)
+            return alert(message)
+          }
+        } catch (error) {
+          console.log(error)
         }
-      } else {
         setShowModal(false)
       }
     }

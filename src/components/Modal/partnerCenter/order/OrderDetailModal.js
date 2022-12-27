@@ -1,10 +1,14 @@
-import {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
-import {CRow} from '@coreui/react'
+import {CCol, CFormInput, CRow} from '@coreui/react'
 import ListTemplate from '../../../list/ListTemplate'
 import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 import {orderListColumns} from '../../../../utils/columns/partnerCenter/Columns'
+import DetailModalTemplate from '../DetailModalTemplate'
+import InvoiceEditModal from './InvoiceEditModal'
+import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
+import {EndPoint} from '../../../../dataManager/apiMapper'
+import {isEmpty} from '../../../../utils/utility'
 
 const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelete}) => {
   const {
@@ -22,29 +26,56 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
     taxBillEmail /** 세금 고지서 수령 이메일 */,
     receivingMethod /** 수령 방법 */,
   } = value
-  /*
-  orderItemPartnerDTOs = {
-    category : "POS"
-    compositionPartnerDTOs : [{…}]
-    id:1
-    invoiceNum: "12313123"
-    itemName:"포스"
-    processingStatus : "COMPLETE_PAY"
-    quantity : 1
-    van : "adfaf"
+  const [invoiceEditModal, setInvoiceEditModal] = useState(false)
+  const [mousePos, setMousePos] = useState({})
+  const [selectedItem, setSelectedItem] = useState({})
+
+  const handleInvoiceOnChange = ({target: {id, value}}) => {
+    console.log(id, value, selectedItem)
+    setSelectedItem({
+      ...selectedItem,
+      [id]: value,
+    })
   }
-  */
+
+  const handleShowInvoiceEditModal = (item, {clientX, clientY}) => {
+    setSelectedItem(item)
+    setMousePos({x: clientX, y: clientY})
+    setInvoiceEditModal(!invoiceEditModal)
+  }
+  const handleInvoiceEditModalUpDate = async () => {
+    try {
+      const {
+        data: {isSuccess, result, code, message},
+      } = await ApiConfig.request({
+        method: HttpMethod.PUT,
+        url: `${EndPoint.PARTNER_ORDERS}/${id}`,
+      })
+      if (!isSuccess || isEmpty(result)) {
+        return
+      }
+      if (code === 1000) {
+        alert(message)
+      } else {
+        alert(message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    setInvoiceEditModal(false)
+  }
+
   useEffect(() => {
     if (visible) {
     }
   }, [visible])
   return (
-    <DetailModalEditModeTemplate
-      title={'유지보수 신청 상세'}
+    <DetailModalTemplate
+      title={'발주 신청 상세'}
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={'수정'}
+      notEditBtn={true}
     >
       <CRow className={'p-2'}>
         <ModalInput id={'no'} placeholder={'No'} label={'No'} value={id} onChange={onChange} readOnly disabled />
@@ -55,7 +86,6 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           value={orderNum}
           onChange={onChange}
           readOnly
-          disabled
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -65,6 +95,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           label={'대표자명'}
           value={representativeName}
           onChange={onChange}
+          readOnly
         />
         <ModalInput
           id={'businessName'}
@@ -72,6 +103,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           label={'상호명'}
           value={businessName}
           onChange={onChange}
+          readOnly
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -81,6 +113,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           label={'사업자 번호'}
           value={certificateNum}
           onChange={onChange}
+          readOnly
         />
         <ModalInput
           id={'businessAddress'}
@@ -88,6 +121,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           label={'사업장 주소'}
           value={address}
           onChange={onChange}
+          readOnly
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -97,6 +131,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           label={'주문 일자'}
           value={createdAt}
           onChange={onChange}
+          readOnly
         />
         <ModalInput
           id={'phoneNumber'}
@@ -104,6 +139,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           label={'휴대전화'}
           value={mobilePhoneNum}
           onChange={onChange}
+          readOnly
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -113,6 +149,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           label={'사업장 전화번호'}
           value={phoneNum}
           onChange={onChange}
+          readOnly
         />
         <ModalInput id={'email'} placeholder={'이메일'} label={'이메일'} value={email} onChange={onChange} />
       </CRow>
@@ -131,20 +168,43 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
           label={'세금계산서 수령 이메일'}
           value={taxBillEmail}
           onChange={onChange}
+          readOnly
         />
       </CRow>
       <CRow className={'p-2'}>
         <ListTemplate
           items={orderItemPartnerDTOs || []}
-          //onClick={handleShowMaterialDetailModal}
           columns={orderListColumns}
           className={'userList'}
           onDelete={onDelete}
           datePickerHidden={false}
           selectedOptions={deliveryStatusOptions}
           itemPerPageHidden={false}
+          func={handleShowInvoiceEditModal}
         />
       </CRow>
+      {invoiceEditModal && (
+        <InvoiceEditModal
+          tabindex={2}
+          title={'운송장 번호'}
+          visible={invoiceEditModal}
+          setVisible={setInvoiceEditModal}
+          mousePos={mousePos}
+          btnText={'등록'}
+          upDate={handleInvoiceEditModalUpDate}
+        >
+          <CCol className='align-items-center' xs={'xs'} style={{display: 'flex'}}>
+            <CFormInput
+              id={'invoiceNum'}
+              type={'text'}
+              placeholder={'운송장 번호를 등록해 주세요.'}
+              value={selectedItem?.invoiceNum || ''}
+              onChange={handleInvoiceOnChange}
+            />
+          </CCol>
+        </InvoiceEditModal>
+      )}
+
       {/*
       <CRow className={'p-2'}>
         <NumberOfStoresList className={'userList'} columns={generalListApplicationColumns} items={GeneralList} />
@@ -156,7 +216,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, onDelet
         <ManagementTarget className={'userList'} columns={managementTargetColumns} items={SolutionList} />
       </CRow>
       */}
-    </DetailModalEditModeTemplate>
+    </DetailModalTemplate>
   )
 }
 

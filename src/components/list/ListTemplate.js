@@ -350,6 +350,7 @@ const ListTemplate = ({
               )}
             </td>
           ),
+          invoiceNum: row => <td onClick={event => func(row, event)}>{row.invoiceNum}</td>,
           // 변수명 겹침
           // image: ({image}) => (
           //   <td onClick={event => (image.length !== 0 && image[0] !== '.' ? testOnClick(event, image[0]) : onClick)}>
