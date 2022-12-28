@@ -96,8 +96,20 @@ export default ModalQuillEditor
 
 const EditorStyle = styled(ReactQuill)`
   background-color: ${({readOnly}) => (readOnly ? '#d8dbe0' : 'transparent')};
-
+  border-radius: 0.375rem;
+  border: none;
+  .ql-container {
+    border-radius: ${({readOnly}) => (readOnly ? '0.375rem' : '0')};
+    border-bottom-left-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+  }
+  .ql-editor {
+    border-radius: ${({readOnly}) => (readOnly ? '0.375rem' : '0')};
+  }
   .ql-toolbar {
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
     display: ${({readOnly}) => (readOnly ? 'none' : 'block')};
   }
 `
+//border-top: ${({readOnly}) => (readOnly ? '1px solid #b1b7c1' : 'none')};

@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react'
-import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
-import {orderList} from '../../../utils/columns/partnerCenter/Columns'
+import {maintenanceApplicationList} from '../../../utils/columns/partnerCenter/Columns'
+import OrderDetailModal from '../../../components/Modal/partnerCenter/order/OrderDetailModal'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
-import OrderDetailModal from '../../../components/Modal/partnerCenter/order/OrderDetailModal'
+import MaintenancesDetailModal from '../../../components/Modal/partnerCenter/order/MaintenancesDetailModal'
 
-const OrderList = () => {
+const MaintenancesList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
+  const [editCheck, setEditCheck] = useState({})
+
   const [showModal, setShowModal] = useState(false)
 
   // 발주신청 리스트 API
@@ -20,13 +23,14 @@ const OrderList = () => {
         data: {isSuccess, result, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.PARTNER_ORDERS,
+        url: EndPoint.PARTNER_MAINTENANCES,
       })
+      console.log(result)
       if (!isSuccess || isEmpty(result)) {
-        return alert(message)
+        return
       }
       if (code === 1000) {
-        setItems(result?.adminOrderPartnerDTOs)
+        setItems(result?.adminMaintenanceDTOs)
       } else {
         alert(message)
       }
@@ -46,13 +50,15 @@ const OrderList = () => {
         data: {isSuccess, result, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_ORDERS}/${id}`,
+        url: `${EndPoint.PARTNER_MAINTENANCES}/${id}`,
       })
+      console.log(result)
       if (!isSuccess || isEmpty(result)) {
-        return alert(message)
+        return
       }
       if (code === 1000) {
         setSelectedItem(result)
+        setEditCheck(result)
       } else {
         alert(message)
       }
@@ -68,31 +74,44 @@ const OrderList = () => {
       [id]: value,
     })
   }
-
+  const handleOrderListOnDelete = ({no}) => {
+    if (window.confirm('Delete ?')) {
+      setItems(items.filter(value => value.no !== no))
+    }
+  }
+  const handleOrderOnDelete = ({productId}) => {
+    if (window.confirm('Delete ?')) {
+      setSelectedItem({
+        ...selectedItem,
+        orderList: selectedItem.orderList.filter(value => value.productId !== productId),
+      })
+    }
+  }
   return (
     <CRow>
-      <PageHeader title='발주 신청 리스트' />
+      <PageHeader title='유지보수 신청 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
             <ListTemplate
               items={items}
               onClick={handleShowMaterialDetailModal}
-              columns={orderList}
+              columns={maintenanceApplicationList}
               className={'userList'}
+              onDelete={handleOrderListOnDelete}
             />
           </CCardBody>
         </CCard>
       </CCol>
-      <OrderDetailModal
+      <MaintenancesDetailModal
         value={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
         onChange={handleOrderModalOnChange}
-        upDate={handleShowMaterialDetailModal}
+        onDelete={handleOrderOnDelete}
       />
     </CRow>
   )
 }
 
-export default OrderList
+export default MaintenancesList

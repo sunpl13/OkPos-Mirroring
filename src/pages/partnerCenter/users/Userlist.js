@@ -20,7 +20,7 @@ const Userlist = () => {
         data: {result, isSuccess, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_PARTNER_USERS,
+        url: EndPoint.PARTNER_USERS,
       })
       if (!isSuccess || isEmpty(result)) {
         return
@@ -47,7 +47,7 @@ const Userlist = () => {
         data: {result, isSuccess, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_USERS}/${id}`,
+        url: `${EndPoint.PARTNER_USERS}/${id}`,
       })
       if (!isSuccess || isEmpty(result)) {
         return

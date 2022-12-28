@@ -22,13 +22,13 @@ const InquiryList = () => {
         data: {result, isSuccess, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_PARTNER_INQUIRIES,
+        url: EndPoint.PARTNER_INQUIRIES,
       })
       if (!isSuccess || isEmpty(result)) {
         return alert(message)
       }
       if (code === 1000) {
-        setItems(result.inquiryPartnerDTOs)
+        setItems(result?.inquiryPartnerDTOs)
       } else {
         alert(message)
       }
@@ -49,16 +49,17 @@ const InquiryList = () => {
         data: {result, isSuccess, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}`,
+        url: `${EndPoint.PARTNER_INQUIRIES}/${id}`,
       })
+      console.log(result)
       if (!isSuccess || isEmpty(result)) {
         return alert(message)
       }
       if (code === 1000) {
         setSelectedItem(result)
-        setEditCheck(result.inquiryReplies)
-        if (result.inquiryReplies.length !== 0) {
-          setEditor(result.inquiryReplies[result.inquiryReplies.length - 1].content)
+        setEditCheck(result?.inquiryReplies)
+        if (result?.inquiryReplies.length !== 0) {
+          setEditor(result?.inquiryReplies[0].content)
         }
       } else {
         alert(message)
@@ -77,7 +78,7 @@ const InquiryList = () => {
           data: {result, isSuccess, code, message},
         } = await ApiConfig.request({
           method: HttpMethod.PATCH,
-          url: `${EndPoint.GET_PARTNER_INQUIRIES}/reply/${id}`,
+          url: `${EndPoint.PARTNER_INQUIRIES}/reply/${id}`,
         })
         if (!isSuccess || isEmpty(result)) {
           return alert(message)
@@ -110,7 +111,7 @@ const InquiryList = () => {
             data: {result, isSuccess, code, message},
           } = await ApiConfig.request({
             method: HttpMethod.PUT,
-            url: `${EndPoint.GET_PARTNER_INQUIRIES}/reply/${id}`,
+            url: `${EndPoint.PARTNER_INQUIRIES}/reply/${id}`,
             data: {
               content: editor,
             },
@@ -135,7 +136,7 @@ const InquiryList = () => {
           data: {result, isSuccess, code, message},
         } = await ApiConfig.request({
           method: HttpMethod.POST,
-          url: `${EndPoint.GET_PARTNER_INQUIRIES}/${id}/reply`,
+          url: `${EndPoint.PARTNER_INQUIRIES}/${id}/reply`,
           data: {
             content: editor,
           },

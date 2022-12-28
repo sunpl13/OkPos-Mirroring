@@ -1,35 +1,37 @@
 import React, {useEffect, useState} from 'react'
-import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
-import {educationScheduleListColumns} from '../../../utils/columns/partnerCenter/Columns'
-import EducationScheduleDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationScheduleDetailModal'
+import {dataRoomList} from '../../../utils/columns/partnerCenter/Columns'
+import MeterialDetailModal from '../../../components/Modal/partnerCenter/DataRoom/DataRoomDetailModal'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 
-const EducationScheduleList = () => {
+const DataRoom = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
+
   const [editor, setEditor] = useState('')
 
-  // 교육 일정 리스트 API
+  // 자료실 API
   const getList = async () => {
     try {
       const {
         data: {isSuccess, result, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.PARTNER_SCHEDULES,
+        url: EndPoint.PARTNER_DATAROOMS,
       })
+      console.log(result)
       if (!isSuccess || isEmpty(result)) {
-        return alert(message)
+        return
       }
       if (code === 1000) {
-        setItems(result?.adminEducationScheduleDTOs)
+        setItems(result?.adminDataRoomPartnerDTOs)
       } else {
         alert(message)
       }
@@ -43,29 +45,138 @@ const EducationScheduleList = () => {
   }, [])
 
   /** Open Modal*/
-  const handleShowMaterialDetailModal = async ({id}) => {
-    if (!id) {
-      setShowModal(!showModal)
-      setSelectedItem({})
-    } else {
+  const handleShowDataRoomDetailModal = async ({id}) => {
+    if (id) {
       try {
         const {
           data: {isSuccess, result, code, message},
         } = await ApiConfig.request({
           method: HttpMethod.GET,
-          url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
+          url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
         })
+        console.log(result)
         if (!isSuccess || isEmpty(result)) {
           return
         }
         if (code === 1000) {
           setSelectedItem({
-            ...result,
             id: id,
+            ...result,
           })
+          setEditor(result?.content)
           setEditCheck(result)
-          setEditor(result.content)
-          setShowModal(!showModal)
+        } else {
+          alert(message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setSelectedItem({})
+      setEditCheck({})
+      setEditor('')
+    }
+    setShowModal(!showModal)
+  }
+
+  // Modal UpDate
+  const handleDetailModalUpDate = async () => {
+    const {id, title, content, dataRoomFiles, dataRoomImages, category} = selectedItem
+    const dataOptions = {
+      DRIVER: '드라이버',
+      MANUAL: '매뉴얼',
+      FIRMWARE: '펌웨어',
+      TECHNIC_ARTICLE: '기술자료',
+      OTHER: '기타',
+    }
+    const json = JSON.stringify({
+      title: title,
+      content: editor,
+      category: dataOptions[category],
+      files: {},
+      images: [],
+    })
+    if (id) {
+      if (window.confirm('수정하시겠습니까?')) {
+        if (!title) return alert('제목을 입력해 주세요.')
+        if (!category) return alert('카테고리를 선택해 주세요')
+        if (!editor) return alert('본문을 입력해 주세요.')
+        try {
+          const {
+            data: {isSuccess, result, code, message},
+          } = await ApiConfig.request({
+            method: HttpMethod.PUT,
+            url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
+            data: json,
+          })
+          console.log(message, result)
+          if (!isSuccess || isEmpty(result)) {
+            return alert(message)
+          }
+          if (code === 1000) {
+            getList()
+            setShowModal(false)
+            return alert(message)
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    } else {
+      if (window.confirm('등록하시겠습니까?')) {
+        if (!title) return alert('제목을 입력해 주세요.')
+        //if (!dataRoomFiles) return alert('파일을 등록해 주세요')
+        if (!category) return alert('카테고리를 선택해 주세요')
+        if (!editor) return alert('본문을 입력해 주세요.')
+        try {
+          const {
+            data: {isSuccess, result, code, message},
+          } = await ApiConfig.request({
+            method: HttpMethod.POST,
+            url: EndPoint.PARTNER_DATAROOMS,
+            data: json,
+          })
+          if (!isSuccess || isEmpty(result)) {
+            return alert(message)
+          }
+          if (code === 1000) {
+            getList()
+            setShowModal(false)
+            return alert(message)
+          }
+        } catch (error) {
+          console.log(error)
+        }
+        setShowModal(false)
+      }
+    }
+  }
+
+  const handleDataRoomModalOnChange = ({target: {id, value}}) => {
+    setSelectedItem({
+      ...selectedItem,
+      [id]: value,
+    })
+  }
+
+  const handleDataRoomModalOnDelete = async () => {
+    const {id} = selectedItem
+    if (window.confirm('정말로 삭제 하시겠습니까?')) {
+      try {
+        const {
+          data: {isSuccess, result, code, message},
+        } = await ApiConfig.request({
+          method: HttpMethod.PATCH,
+          url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
+        })
+        if (!isSuccess) {
+          return alert(message)
+        }
+        if (code === 1000) {
+          alert(message)
+          //window.location.reload()
+          getList()
+          setShowModal(false)
         } else {
           alert(message)
         }
@@ -75,104 +186,15 @@ const EducationScheduleList = () => {
     }
   }
 
-  const handleDetailModalUpDate = async () => {
-    const {id, title, content, files, images} = selectedItem
-    const json = JSON.stringify({
-      title: title,
-      content: editor,
-      files: {},
-      images: [],
-    })
-    console.log(editor)
-    if (id) {
-      if (window.confirm('수정하시겠습니까?')) {
-        if (!title) return alert('제목을 입력해 주세요.')
-        //if (!files) return alert('Not File')
-        //if (!images) return alert('Not Image')
-        if (!editor) return alert('본문을 입력해 주세요.')
-        try {
-          const {
-            data: {isSuccess, result, code, message},
-          } = await ApiConfig.request({
-            method: HttpMethod.PUT,
-            url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
-            data: json,
-          })
-          console.log(isSuccess, result, code, message)
-          if (!isSuccess || isEmpty(result)) {
-            return
-          }
-          if (code === 1000) {
-            setSelectedItem({
-              ...result,
-              id: id,
-            })
-            setEditCheck(result)
-            setEditor(result.content)
-            setShowModal(!showModal)
-          } else {
-            alert(message)
-          }
-        } catch (error) {
-          console.log(error)
-        }
-        setShowModal(false)
-      }
-    } else {
-      if (window.confirm('등록하시겠습니까?')) {
-        if (!title) return alert('제목을 입력해 주세요.')
-        //if (!files) return alert('Not File')
-        //if (!images) return alert('Not Image')
-        if (!editor) return alert('본문을 입력해 주세요.')
-        setItems([
-          ...items,
-          {
-            ...selectedItem,
-            id: items.length + 1,
-          },
-        ])
-        setShowModal(false)
-      }
-    }
-  }
-
-  const handleOrderModalOnChange = ({target: {id, value}}) => {
-    console.log(id, value)
-    setSelectedItem({
-      ...selectedItem,
-      [id]: value,
-    })
-  }
-  const handleOrderListOnDelete = ({no}) => {
-    if (window.confirm('Delete ?')) {
-      setItems(items.filter(value => value.no !== no))
-    }
-  }
-  const handleOrderOnDelete = ({productId}) => {
-    if (window.confirm('Delete ?')) {
-      setSelectedItem({
-        ...selectedItem,
-        orderList: selectedItem.orderList.filter(value => value.productId !== productId),
-      })
-    }
-  }
-
-  useEffect(() => {
-    if (!showModal) {
-      setEditor('')
-      setEditMode(true)
-    }
-  }, [showModal])
-
   return (
     <CRow>
-      <PageHeader title='교육 일정 리스트' />
+      <PageHeader title='자료 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardHeader>
             <CForm className='row g-3'>
               <CCol xs={1}>
-                <CButton color='primary' onClick={handleShowMaterialDetailModal}>
+                <CButton color='primary' onClick={handleShowDataRoomDetailModal}>
                   추가
                 </CButton>
               </CCol>
@@ -181,28 +203,27 @@ const EducationScheduleList = () => {
           <CCardBody>
             <ListTemplate
               items={items}
-              onClick={handleShowMaterialDetailModal}
-              columns={educationScheduleListColumns}
+              onClick={handleShowDataRoomDetailModal}
+              columns={dataRoomList}
               className={'userList'}
-              onDelete={handleOrderListOnDelete}
             />
           </CCardBody>
         </CCard>
       </CCol>
-      <EducationScheduleDetailModal
+      <MeterialDetailModal
         value={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
-        onChange={handleOrderModalOnChange}
+        onChange={handleDataRoomModalOnChange}
         upDate={handleDetailModalUpDate}
-        onDelete={handleOrderOnDelete}
-        editMode={editMode}
-        setEditMode={setEditMode}
+        onDelete={handleDataRoomModalOnDelete}
         editor={editor}
         setEditor={setEditor}
+        editMode={editMode}
+        setEditMode={setEditMode}
       />
     </CRow>
   )
 }
 
-export default EducationScheduleList
+export default DataRoom

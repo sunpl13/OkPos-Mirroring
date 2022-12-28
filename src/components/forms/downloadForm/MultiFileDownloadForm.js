@@ -1,6 +1,7 @@
-import {CCol, CFormLabel} from '@coreui/react'
+import {CCol, CFormInput, CFormLabel} from '@coreui/react'
 import styled from 'styled-components'
 import {antdImageFormat} from '../../../utils/awsCustom'
+import React from 'react'
 
 const MultiFileDownloadForm = ({id, files, label, isRequired}) => {
   const downloadFile = (url, fileName) => {
@@ -54,7 +55,7 @@ const MultiFileDownloadForm = ({id, files, label, isRequired}) => {
             )
           })
         ) : (
-          <div className='col-form-label'>등록된 파일이 없습니다.</div>
+          <CFormInput type={'text'} id={id || ''} placeholder='등록된 파일이 없습니다.' disabled />
         )}
       </CCol>
     </>

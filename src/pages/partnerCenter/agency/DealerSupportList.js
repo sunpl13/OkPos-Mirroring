@@ -11,6 +11,7 @@ import {isEmpty} from '../../../utils/utility'
 const DealerSupportList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
+  const [editor, setEditor] = useState('')
 
   // 딜러 지원 리스트 API
   const getList = async () => {
@@ -19,13 +20,14 @@ const DealerSupportList = () => {
         data: {result, isSuccess, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: EndPoint.GET_PARTNER_AGENCYAPPLICANT,
+        url: EndPoint.PARTNER_AGENCYAPPLICANT,
       })
       if (!isSuccess || isEmpty(result)) {
         return
       }
       if (code === 1000) {
-        setItems(result.adminAgencyApplicantDTOs)
+        setItems(result?.adminAgencyApplicantDTOs)
+        setEditor(result?.noticeContent)
       } else {
         alert(message)
       }
@@ -47,7 +49,7 @@ const DealerSupportList = () => {
         data: {result, isSuccess, code, message},
       } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_AGENCYAPPLICANT}/${id}`,
+        url: `${EndPoint.PARTNER_AGENCYAPPLICANT}/${id}`,
       })
       console.log(result)
       if (!isSuccess || isEmpty(result)) {
@@ -95,6 +97,7 @@ const DealerSupportList = () => {
         setVisible={setShowModal}
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
+        editor={editor}
       />
     </main>
   )

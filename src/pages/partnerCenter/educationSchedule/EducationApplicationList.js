@@ -19,7 +19,7 @@ const EducationApplicationList = () => {
     try {
       const {data} = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.GET_PARTNER_REGISTRAUINS}?page=${1}`,
+        url: `${EndPoint.PARTNER_REGISTRAUINS}?page=${1}`,
       })
       console.log(data)
       if (!data.isSuccess || isEmpty(data?.result)) {
@@ -46,7 +46,7 @@ const EducationApplicationList = () => {
       try {
         const {data} = await ApiConfig.request({
           method: HttpMethod.GET,
-          url: `${EndPoint.GET_PARTNER_REGISTRAUINS}/${id}`,
+          url: `${EndPoint.PARTNER_REGISTRAUINS}/${id}`,
         })
         console.log(data)
         if (!data.isSuccess || isEmpty(data?.result)) {

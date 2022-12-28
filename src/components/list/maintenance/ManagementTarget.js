@@ -15,6 +15,7 @@ import styled from 'styled-components'
 
 const ManagementTarget = ({items, onClick, columns, className}) => {
   const [listItems, setListItems] = useState([])
+  console.log(items)
   useEffect(() => {
     setListItems(items)
   }, [items])
@@ -86,9 +87,9 @@ const CustomCTable = styled(CTable)`
   & tbody td {
     padding: 0;
     & .col {
-    padding 0.5rem;
+    padding: 0.5rem;
     &.col:not(:last-child) {
-      border-bottom 1px solid #D8DBE0;
+      border-bottom: 1px solid #D8DBE0;
     }
   }
 `
