@@ -11,8 +11,6 @@ import OrderDetailModal from '../../../components/Modal/partnerCenter/order/Orde
 const OrderList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
-  const [editCheck, setEditCheck] = useState({})
-
   const [showModal, setShowModal] = useState(false)
 
   // 발주신청 리스트 API
@@ -25,7 +23,7 @@ const OrderList = () => {
         url: EndPoint.PARTNER_ORDERS,
       })
       if (!isSuccess || isEmpty(result)) {
-        return
+        return alert(message)
       }
       if (code === 1000) {
         setItems(result?.adminOrderPartnerDTOs)
@@ -54,7 +52,6 @@ const OrderList = () => {
         return alert(message)
       }
       if (code === 1000) {
-        console.log(result)
         setSelectedItem(result)
       } else {
         alert(message)

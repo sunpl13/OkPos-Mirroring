@@ -277,14 +277,7 @@ export const orderListColumns = [
     key: 'van',
     _props: {color: 'primary', className: 'van'},
   },
-  //_props: {color: 'primary', className: 'productImg'},
 ]
-//"- No
-// - 유지보수 번호
-// - 상호명
-// - 사업자 번호
-// - 대표자명
-// - 주문 일자 "
 export const maintenanceApplicationList = [
   {
     key: 'id',
@@ -334,32 +327,33 @@ export const generalListApplicationColumns = [
   },
   {
     title: 'CAT',
-    dataIndex: 'cat',
+    dataIndex: 'catcount',
     width: '10%',
   },
   {
     title: 'POS',
-    dataIndex: 'pos',
+    dataIndex: 'poscount',
     width: '10%',
   },
   {
     title: 'KIOSK',
-    dataIndex: 'kiosk',
+    dataIndex: 'kioskcount',
     width: '10%',
   },
   {
     title: 'SUM',
     dataIndex: 'sum',
     width: '10%',
-    render: (value, row) => {
-      if (value) {
-        return row.pos + row.cat + row.kiosk
-      }
-    },
+    //render: (value, row) => {
+    //       if (value) {
+    //         console.log(value)
+    //         return row.poscount + row.catcount + row.kioskcount
+    //       }
+    //     },
   },
   {
     title: '비고',
-    dataIndex: 'remark',
+    dataIndex: 'note',
     width: '10%',
   },
 ]
@@ -367,12 +361,12 @@ export const generalListApplicationColumns = [
 export const solutionListColumns = [
   {
     title: 'No.',
-    dataIndex: 'no',
+    dataIndex: 'id',
     width: '5%',
   },
   {
     title: '구분',
-    dataIndex: 'division',
+    dataIndex: 'category',
     width: '20%',
     render: (value, row) => {
       console.log(value)
@@ -381,7 +375,7 @@ export const solutionListColumns = [
           <CFormSelect
             aria-label='Default select example'
             options={[
-              'Open this select menu',
+              '선택',
               {label: 'One', value: '1'},
               {label: 'Two', value: '2'},
               {label: 'Three', value: '3', disabled: true},
@@ -393,17 +387,17 @@ export const solutionListColumns = [
   },
   {
     title: '솔루션명',
-    dataIndex: 'solution',
+    dataIndex: 'name',
     width: '20%',
   },
   {
     title: 'No.',
-    dataIndex: 'no',
+    dataIndex: 'id',
     width: '5%',
   },
   {
     title: '주력 VAN사',
-    dataIndex: 'flagshipCompany',
+    dataIndex: 'van',
     width: '20%',
     render: (value, row) => {
       if (value) {
@@ -411,7 +405,7 @@ export const solutionListColumns = [
           <CFormSelect
             aria-label='Default select example'
             options={[
-              'Open this select menu',
+              '선택',
               {label: 'One', value: '1'},
               {label: 'Two', value: '2'},
               {label: 'Three', value: '3', disabled: true},
@@ -441,17 +435,19 @@ export const educationScheduleListColumns = [
   {
     key: 'id',
     label: 'No',
+    filter: false,
     _props: {color: 'primary', className: 'no'},
   },
   {
     key: 'title',
     label: '제목',
+    filter: false,
     _props: {color: 'primary', className: 'title'},
   },
 
   {
     key: 'createdAt',
-    label: '신청일',
+    label: '등록일',
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },

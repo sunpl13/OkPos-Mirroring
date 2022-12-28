@@ -6,7 +6,6 @@ const {Text} = Typography
 
 const NumberOfStoresList = ({items, onClick, columns, className}) => {
   const [listItems, setListItems] = useState([])
-
   useEffect(() => {
     setListItems(items)
   }, [items])
@@ -15,7 +14,7 @@ const NumberOfStoresList = ({items, onClick, columns, className}) => {
     <>
       <AntDesignListForm
         listIndex={1}
-        title={'신청 가맹점 수'}
+        title={'유지보수 신청 가맹점 수'}
         columns={columns}
         items={listItems}
         className={className}
@@ -24,10 +23,10 @@ const NumberOfStoresList = ({items, onClick, columns, className}) => {
           let totalPos = 0
           let totalKiosk = 0
           let totalSum = 0
-          pageData.forEach(({cat, pos, kiosk, sum}) => {
-            totalCat += cat
-            totalPos += pos
-            totalKiosk += kiosk
+          pageData.forEach(({catcount, poscount, kioskcount, sum}) => {
+            totalCat += catcount
+            totalPos += poscount
+            totalKiosk += kioskcount
             totalSum += sum
           })
           return (
@@ -35,16 +34,16 @@ const NumberOfStoresList = ({items, onClick, columns, className}) => {
               <Table.Summary.Row>
                 <Table.Summary.Cell index={0}>Total</Table.Summary.Cell>
                 <Table.Summary.Cell index={1}>
-                  <Text>{totalCat}</Text>
+                  <Text>{Number(totalCat)}</Text>
                 </Table.Summary.Cell>
                 <Table.Summary.Cell index={2}>
-                  <Text>{totalPos}</Text>
+                  <Text>{Number(totalPos)}</Text>
                 </Table.Summary.Cell>
                 <Table.Summary.Cell index={2}>
-                  <Text>{totalKiosk}</Text>
+                  <Text>{Number(totalKiosk)}</Text>
                 </Table.Summary.Cell>
                 <Table.Summary.Cell index={2}>
-                  <Text>{totalSum}</Text>
+                  <Text>{Number(totalSum)}</Text>
                 </Table.Summary.Cell>
                 <Table.Summary.Cell index={2}>
                   <Text>{'  '}</Text>

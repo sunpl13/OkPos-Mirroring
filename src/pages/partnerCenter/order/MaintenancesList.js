@@ -7,6 +7,7 @@ import OrderDetailModal from '../../../components/Modal/partnerCenter/order/Orde
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import MaintenancesDetailModal from '../../../components/Modal/partnerCenter/order/MaintenancesDetailModal'
 
 const MaintenancesList = () => {
   const [items, setItems] = useState([])
@@ -67,52 +68,6 @@ const MaintenancesList = () => {
     setShowModal(!showModal)
   }
 
-  const handleDetailModalUpDate = () => {
-    const {
-      no,
-      businessName /** 상호명 */,
-      representativeName /** 대표자명*/,
-      businessNumber /** 사업자 번호 */,
-      email /** 이메일 */,
-      phoneNumber /** 휴대포 번호 */,
-      homePhoneNumber /** 사업장 전화번호*/,
-      businessAddress /** 사업장 주소*/,
-      receive /** 수령 방법 */,
-      orderList /** 발주 리스트  */,
-      taxInvoiceEmail /** 세금 고지서 수령 이메일 */,
-    } = selectedItem
-    if (
-      editCheck.businessName !== businessName ||
-      editCheck.representativeName !== representativeName ||
-      editCheck.businessNumber !== businessNumber ||
-      editCheck.email !== email ||
-      editCheck.phoneNumber !== phoneNumber ||
-      editCheck.homePhoneNumber !== homePhoneNumber ||
-      editCheck.businessAddress !== businessAddress ||
-      editCheck.orderList !== orderList ||
-      editCheck.receive !== receive ||
-      editCheck.taxInvoiceEmail !== taxInvoiceEmail
-    ) {
-      if (window.confirm('Edit ?')) {
-        if (!representativeName) return alert('Not Representative Name')
-        if (!businessName) return alert('Not businessName')
-        if (!representativeName) return alert('Not representativeName')
-        if (!businessNumber) return alert('Not businessNumber')
-        if (!email) return alert('Not email')
-        if (!phoneNumber) return alert('Not phoneNumber')
-        if (!homePhoneNumber) return alert('Not homePhoneNumber')
-        if (!businessAddress) return alert('Not businessAddress')
-        if (!receive) return alert('Not receive')
-        if (orderList.length === 0) return alert('Not orderList')
-        if (!taxInvoiceEmail) return alert('Not taxInvoiceEmail')
-        setItems(items.map(value => (value.no === no ? selectedItem : value)))
-        setShowModal(false)
-      }
-    } else {
-      setShowModal(false)
-    }
-  }
-
   const handleOrderModalOnChange = ({target: {id, value}}) => {
     setSelectedItem({
       ...selectedItem,
@@ -148,12 +103,11 @@ const MaintenancesList = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <OrderDetailModal
+      <MaintenancesDetailModal
         value={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
         onChange={handleOrderModalOnChange}
-        upDate={handleDetailModalUpDate}
         onDelete={handleOrderOnDelete}
       />
     </CRow>

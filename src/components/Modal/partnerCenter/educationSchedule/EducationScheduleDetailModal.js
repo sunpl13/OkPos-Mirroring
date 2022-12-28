@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import {CRow} from '@coreui/react'
@@ -6,6 +6,7 @@ import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
+import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
 
 const EducationScheduleDetailModal = ({
   onChange,
@@ -18,15 +19,15 @@ const EducationScheduleDetailModal = ({
   editor,
   setEditor,
 }) => {
-  const {no, title, createdAt, files, content, educationScheduleFiles, educationScheduleImages} = value
+  const {id, title, createdAt, files, content, educationScheduleFiles, educationScheduleImages} = value
   console.log(editor)
   return (
     <DetailModalEditModeTemplate
-      title={no !== 0 ? '교육 일정 상세' : '교육 일정 추가'}
+      title={id ? '교육 일정 상세' : '교육 일정 추가'}
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={no !== 0 ? '수정' : '추가'}
+      btnText={id ? '수정' : '추가'}
       editMode={editMode}
       setEditMode={setEditMode}
     >
@@ -37,20 +38,39 @@ const EducationScheduleDetailModal = ({
           label={'공고 제목'}
           value={title}
           onChange={onChange}
-          readOnly={no !== 0 && editMode}
-          disabled={no !== 0 && editMode}
+          readOnly={id && editMode}
+          disabled={id && editMode}
         />
       </CRow>
       <CRow className={'p-2'}>
-        <ModalFilesInput label={'첨부 파일'} id={'files'} readOnly={editMode} disabled={editMode} />
+        {id && editMode ? (
+          <MultiFileDownloadForm
+            id={'files'}
+            type={'file'}
+            placeholder={'첨부 파일'}
+            label={'첨부 파일'}
+            value={[]}
+            onChange={onChange}
+            readOnly={id && editMode}
+            disabled={id && editMode}
+          />
+        ) : (
+          <ModalFilesInput
+            id={'files'}
+            value={files}
+            label={'첨부파일'}
+            readOnly={id && editMode}
+            disabled={id && editMode}
+          />
+        )}
       </CRow>
       <CRow className={'p-2'}>
         <ModalImageInput
           id={'imageInput'}
-          label={'이미지 리스트'}
+          label={'이미지'}
           value={educationScheduleImages}
-          readOnly={no !== 0 && editMode}
-          disabled={no !== 0 && editMode}
+          readOnly={id && editMode}
+          disabled={id && editMode}
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -59,10 +79,11 @@ const EducationScheduleDetailModal = ({
           label={'본문'}
           value={editor}
           setValue={setEditor}
-          readOnly={no !== 0 && editMode}
-          disabled={no !== 0 && editMode}
+          readOnly={id && editMode}
+          disabled={id && editMode}
         />
       </CRow>
+      <br />
     </DetailModalEditModeTemplate>
   )
 }

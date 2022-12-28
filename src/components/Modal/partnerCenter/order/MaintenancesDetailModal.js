@@ -1,68 +1,68 @@
 import {useEffect, useState} from 'react'
-import ApiConfig from '../../../../dataManager/apiConfig'
-import {EndPoint} from '../../../../dataManager/apiMapper'
 import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
-import PageHeader from '../../../common/PageHeader'
 import ListTemplate from '../../../list/ListTemplate'
-import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import {orderListColumns} from '../../../../utils/columns/partnerCenter/Columns'
 import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
+import DetailModalTemplate from '../DetailModalTemplate'
+import NumberOfStoresList from '../../../list/maintenance/NumberOfStoresList'
+import {
+  generalListApplicationColumns,
+  managementTargetColumns,
+  solutionListColumns,
+} from '../../../../utils/columns/partnerCenter/Columns'
+import FlagshipSolutionList from '../../../list/maintenance/FlagshipSolutionList'
+import ManagementTarget from '../../../list/maintenance/ManagementTarget'
 
 const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, onDelete}) => {
   const {
-    id,
-    address,
-    adminMaintenanceHardwareDTOs,
-    adminMaintenanceSolutionDTOs,
-    adminMaintenanceStoreDTOs,
-    certificateNum,
-    createdAt,
-    email,
-    maintenanceCategory,
-    maintenanceNum,
-    mobilePhoneNum,
-    operationalProcesses,
-    phoneNum,
-    representativeName,
+    id, // 리스트 id
+    maintenanceNum, // 발주 번호
+    certificateNum, // 사업자 번호
+    representativeName, // 대표자 명
+    createdAt, // 주문일자
+    mobilePhoneNum, // 휴대전화 번호
+    phoneNum, // 전화번호
+    email, // 이메일
+    address, // 사업장 주소
+    maintenanceCategory, // 유지보수 신청 유형 (원격 서비스 / 방문 서비스 A / 방문 서비스 B / 방문 서비스 C / 통합 서비스)
+    adminMaintenanceHardwareDTOs, // H/W 현황 리스트
+    adminMaintenanceSolutionDTOs, // 주력 솔루션 및 VAN사 리스트
+    adminMaintenanceStoreDTOs, // 유지보수 신청 가맹점 수
+    operationalProcesses, // 현장 운영중인 엄무 프로세스
   } = value
+
+  //"- 발주 번호
+  // - 상호명
+  // - 사업자 번호
+  // - 대표자 명
+  // - 주문 일자
+  // - 휴대전화 번호
+  // - 전화번호
+  // - 이메일
+  // - 사업장 주소
+  // - 유지보수 신청 유형 (원격 서비스 / 방문 서비스 A / 방문 서비스 B / 방문 서비스 C / 통합 서비스)
+  // - 유지보수 신청 정보 리스트"
+
   useEffect(() => {
     if (visible) {
     }
   }, [visible])
   return (
-    <DetailModalEditModeTemplate
-      title={'유지보수 신청 상세'}
-      visible={visible}
-      setVisible={setVisible}
-      upDate={upDate}
-      btnText={'수정'}
-    >
+    <DetailModalTemplate title={'유지보수 신청 상세'} visible={visible} setVisible={setVisible} notEditBtn>
       <CRow className={'p-2'}>
-        <ModalInput id={'no'} placeholder={'No'} label={'No'} value={id} onChange={onChange} readOnly disabled />
         <ModalInput
           id={'orderNum'}
           placeholder={'발주 번호'}
           label={'발주 번호'}
-          //value={orderNum}
+          value={maintenanceNum}
           onChange={onChange}
           readOnly
-          disabled
-        />
-      </CRow>
-      <CRow className={'p-2'}>
-        <ModalInput
-          id={'representativeName'}
-          placeholder={'대표자명'}
-          label={'대표자명'}
-          //          value={representativeName}
-          onChange={onChange}
         />
         <ModalInput
           id={'businessName'}
           placeholder={'상호명'}
           label={'상호명'}
-          //          value={businessName}
+          //value={businessName}
           onChange={onChange}
         />
       </CRow>
@@ -71,14 +71,14 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           id={'businessNumber'}
           placeholder={'사업자 번호'}
           label={'사업자 번호'}
-          //          value={certificateNum}
+          value={certificateNum}
           onChange={onChange}
         />
         <ModalInput
-          id={'businessAddress'}
-          placeholder={'사업장 주소'}
-          label={'사업장 주소'}
-          //          value={address}
+          id={'representativeName'}
+          placeholder={'대표자 명'}
+          label={'대표자 명'}
+          value={representativeName}
           onChange={onChange}
         />
       </CRow>
@@ -87,68 +87,66 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           id={'orderDate'}
           placeholder={'주문 일자'}
           label={'주문 일자'}
-          //          value={createdAt}
+          value={createdAt}
           onChange={onChange}
         />
         <ModalInput
           id={'phoneNumber'}
-          placeholder={'휴대전화'}
-          label={'휴대전화'}
-          //          value={mobilePhoneNum}
+          placeholder={'휴대전화 번호'}
+          label={'휴대전화 번호'}
+          value={mobilePhoneNum}
           onChange={onChange}
         />
       </CRow>
+
       <CRow className={'p-2'}>
         <ModalInput
           id={'phoneNum'}
           placeholder={'사업장 전화번호'}
           label={'사업장 전화번호'}
-          //          value={phoneNum}
+          value={phoneNum}
           onChange={onChange}
         />
         <ModalInput id={'email'} placeholder={'이메일'} label={'이메일'} value={email} onChange={onChange} />
       </CRow>
       <CRow className={'p-2'}>
         <ModalInput
-          id={'receivingMethod'}
-          placeholder={'수령 방법'}
-          label={'수령 방법'}
-          //value={receivingMethod}
+          id={'businessAddress'}
+          placeholder={'사업장 주소'}
+          label={'사업장 주소'}
+          value={address}
           onChange={onChange}
         />
         <ModalInput
-          id={'taxInvoiceEmail'}
-          type={'email'}
-          placeholder={'세금계산서 수령 이메일'}
-          label={'세금계산서 수령 이메일'}
-          //value={taxBillEmail}
+          id={'maintenanceCategory'}
+          placeholder={'유지보수 신청 유형'}
+          label={'유지보수 신청 유형'}
+          value={maintenanceCategory}
           onChange={onChange}
         />
       </CRow>
       <CRow className={'p-2'}>
-        <ListTemplate
-          //items={orderItemPartnerDTOs || []}
-          //onClick={handleShowMaterialDetailModal}
-          columns={orderListColumns}
+        <NumberOfStoresList
           className={'userList'}
-          onDelete={onDelete}
-          datePickerHidden={false}
-          selectedOptions={deliveryStatusOptions}
-          itemPerPageHidden={false}
+          columns={generalListApplicationColumns}
+          items={adminMaintenanceStoreDTOs}
         />
       </CRow>
-      {/*
       <CRow className={'p-2'}>
-        <NumberOfStoresList className={'userList'} columns={generalListApplicationColumns} items={GeneralList} />
+        <FlagshipSolutionList
+          className={'userList solutionList'}
+          columns={solutionListColumns}
+          items={adminMaintenanceSolutionDTOs}
+        />
       </CRow>
       <CRow className={'p-2'}>
-        <FlagshipSolutionList className={'userList solutionList'} columns={solutionListColumns} items={SolutionList} />
+        <ManagementTarget
+          className={'userList'}
+          columns={managementTargetColumns}
+          items={adminMaintenanceHardwareDTOs}
+        />
       </CRow>
-      <CRow className={'p-2'}>
-        <ManagementTarget className={'userList'} columns={managementTargetColumns} items={SolutionList} />
-      </CRow>
-      */}
-    </DetailModalEditModeTemplate>
+    </DetailModalTemplate>
   )
 }
 

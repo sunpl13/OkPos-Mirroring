@@ -17,20 +17,21 @@ const EducationScheduleList = () => {
   const [editor, setEditor] = useState('')
 
   // 교육 일정 리스트 API
-  const getSchedules = async () => {
+  const getList = async () => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {isSuccess, result, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_SCHEDULES}?page=${1}`,
+        url: EndPoint.PARTNER_SCHEDULES,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
-        return
+      if (!isSuccess || isEmpty(result)) {
+        return alert(message)
       }
-      if (data?.code === 1000) {
-        setItems(data.result?.adminEducationScheduleDTOs)
+      if (code === 1000) {
+        setItems(result?.adminEducationScheduleDTOs)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
@@ -38,38 +39,35 @@ const EducationScheduleList = () => {
   }
 
   useEffect(() => {
-    getSchedules()
+    getList()
   }, [])
 
   /** Open Modal*/
   const handleShowMaterialDetailModal = async ({id}) => {
-    console.log(id)
     if (!id) {
       setShowModal(!showModal)
-      setSelectedItem({
-        no: 0,
-        title: '',
-        content: '',
-        files: '',
-        images: '',
-      })
+      setSelectedItem({})
     } else {
       try {
-        const {data} = await ApiConfig.request({
+        const {
+          data: {isSuccess, result, code, message},
+        } = await ApiConfig.request({
           method: HttpMethod.GET,
           url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
         })
-        console.log(data)
-        if (!data.isSuccess || isEmpty(data?.result)) {
+        if (!isSuccess || isEmpty(result)) {
           return
         }
-        if (data?.code === 1000) {
-          setSelectedItem(data.result)
-          setEditCheck(data.result)
-          setEditor(data.result.content)
+        if (code === 1000) {
+          setSelectedItem({
+            ...result,
+            id: id,
+          })
+          setEditCheck(result)
+          setEditor(result.content)
           setShowModal(!showModal)
         } else {
-          alert(data?.message)
+          alert(message)
         }
       } catch (error) {
         console.log(error)
@@ -77,42 +75,65 @@ const EducationScheduleList = () => {
     }
   }
 
-  const handleDetailModalUpDate = () => {
-    const {no, title, content, files, images} = selectedItem
-    if (no !== 0) {
-      if (editCheck.title !== title || editCheck.content !== content) {
-        if (window.confirm('Edit ?')) {
-          if (!title) return alert('Not Title')
-          //if (!files) return alert('Not File')
-          //if (!images) return alert('Not image')
-          if (!content) return alert('Not Content')
-          setItems(items.map(value => (value.no === no ? selectedItem : value)))
-          setShowModal(false)
+  const handleDetailModalUpDate = async () => {
+    const {id, title, content, files, images} = selectedItem
+    const json = JSON.stringify({
+      title: title,
+      content: editor,
+      files: {},
+      images: [],
+    })
+    console.log(editor)
+    if (id) {
+      if (window.confirm('수정하시겠습니까?')) {
+        if (!title) return alert('제목을 입력해 주세요.')
+        //if (!files) return alert('Not File')
+        //if (!images) return alert('Not Image')
+        if (!editor) return alert('본문을 입력해 주세요.')
+        try {
+          const {
+            data: {isSuccess, result, code, message},
+          } = await ApiConfig.request({
+            method: HttpMethod.PUT,
+            url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
+            data: json,
+          })
+          console.log(isSuccess, result, code, message)
+          if (!isSuccess || isEmpty(result)) {
+            return
+          }
+          if (code === 1000) {
+            setSelectedItem({
+              ...result,
+              id: id,
+            })
+            setEditCheck(result)
+            setEditor(result.content)
+            setShowModal(!showModal)
+          } else {
+            alert(message)
+          }
+        } catch (error) {
+          console.log(error)
         }
-      } else {
         setShowModal(false)
       }
     } else {
-      if (title || content || files) {
-        if (window.confirm('Add ?')) {
-          if (!title) return alert('Not Title')
-          //if (!files) return alert('Not File')
-          //if (!images) return alert('Not Image')
-          if (!content) return alert('Not Content')
-          setItems([
-            ...items,
-            {
-              ...selectedItem,
-              no: items.length + 1,
-            },
-          ])
-          setShowModal(false)
-        }
-      } else {
+      if (window.confirm('등록하시겠습니까?')) {
+        if (!title) return alert('제목을 입력해 주세요.')
+        //if (!files) return alert('Not File')
+        //if (!images) return alert('Not Image')
+        if (!editor) return alert('본문을 입력해 주세요.')
+        setItems([
+          ...items,
+          {
+            ...selectedItem,
+            id: items.length + 1,
+          },
+        ])
         setShowModal(false)
       }
     }
-    setShowModal(false)
   }
 
   const handleOrderModalOnChange = ({target: {id, value}}) => {
@@ -151,7 +172,7 @@ const EducationScheduleList = () => {
           <CCardHeader>
             <CForm className='row g-3'>
               <CCol xs={1}>
-                <CButton color='primary' onClick={() => handleShowMaterialDetailModal()}>
+                <CButton color='primary' onClick={handleShowMaterialDetailModal}>
                   추가
                 </CButton>
               </CCol>

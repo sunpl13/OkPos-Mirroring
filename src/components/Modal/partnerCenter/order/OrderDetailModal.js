@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import {CCol, CFormInput, CRow} from '@coreui/react'
+import {CCol, CFormInput, CFormLabel, CRow} from '@coreui/react'
 import ListTemplate from '../../../list/ListTemplate'
 import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 import {orderListColumns} from '../../../../utils/columns/partnerCenter/Columns'
@@ -31,6 +31,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
   const [selectedItem, setSelectedItem] = useState({})
   const [orderItemList, setOrderItemList] = useState([])
 
+  // 운송장 번호 수정 함수
   const handleInvoiceOnChange = ({target: {id, value}}) => {
     console.log(id, value, selectedItem)
     setSelectedItem({
@@ -39,11 +40,14 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
     })
   }
 
+  // 운송장 번호 수정모달
   const handleShowInvoiceEditModal = (item, {clientX, clientY}) => {
     setSelectedItem(item)
     setMousePos({x: clientX, y: clientY})
     setInvoiceEditModal(!invoiceEditModal)
   }
+
+  // 운송장 번호 수정 API
   const handleInvoiceEditModalUpDate = async () => {
     const json = JSON.stringify({
       invoiceNum: selectedItem?.invoiceNum,
@@ -58,9 +62,10 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
           data: json,
         })
         if (!isSuccess || isEmpty(result)) {
-          return
+          return alert(message)
         }
         if (code === 1000) {
+          upDate(selectedItem, true)
           setOrderItemList(orderItemList.map(item => (item.id === selectedItem.id ? selectedItem : item)))
           setInvoiceEditModal(false)
           alert(message)
@@ -75,9 +80,11 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
 
   useEffect(() => {
     setOrderItemList(orderItemPartnerDTOs)
-    if (visible) {
+    if (!visible) {
+      setSelectedItem({})
     }
   }, [visible])
+
   return (
     <DetailModalTemplate
       title={'발주 신청 상세'}
@@ -87,7 +94,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
       notEditBtn={true}
     >
       <CRow className={'p-2'}>
-        <ModalInput id={'no'} placeholder={'No'} label={'No'} value={id} onChange={onChange} readOnly disabled />
+        <ModalInput id={'no'} placeholder={'No'} label={'No'} value={id} onChange={onChange} readOnly />
         <ModalInput
           id={'orderNum'}
           placeholder={'발주 번호'}
@@ -181,6 +188,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
         />
       </CRow>
       <CRow className={'p-2'}>
+        <CFormLabel>발주 신청 리스트</CFormLabel>
         <ListTemplate
           items={orderItemList || []}
           columns={orderListColumns}
