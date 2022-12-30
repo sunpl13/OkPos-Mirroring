@@ -49,7 +49,7 @@ const DataRoomDetail = ({
   }
 
   const validateCheck = () => {
-    if (isEmpty(value.category)) {
+    if (isEmpty(value.categoryEnglish)) {
       alert('제목을 입력해주세요.')
       return false
     }
@@ -314,8 +314,8 @@ const DataRoomDetail = ({
               </CButton>
             </>
           )}
-          <CButton color='primary' onClick={onCloseCheck}>
-            Cancel
+          <CButton color='secondary' onClick={onCloseCheck}>
+            취소
           </CButton>
         </CModalFooter>
       </CModal>

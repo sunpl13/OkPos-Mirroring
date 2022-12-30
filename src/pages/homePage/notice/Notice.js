@@ -98,11 +98,6 @@ const Notice = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={onLoadNoticeList}>
-                    조회하기
-                  </CButton>
-                </CCol>
-                <CCol xs={1}>
                   <CButton color='primary' onClick={handleNoticeAddModal}>
                     추가
                   </CButton>
