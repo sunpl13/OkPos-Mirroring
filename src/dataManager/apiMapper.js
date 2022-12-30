@@ -26,6 +26,7 @@ export const EndPoint = {
   PARTNER_MAINTENANCES: `${API}/admin/partner/maintenances`, // 유지보수 신청 리스트
   PARTNER_SCHEDULES: `${API}/admin/partner/educations/schedules`, // 교육일정 리스트
   PARTNER_REGISTRAUINS: `${API}/admin/partner/educations/registrations`, // 교육신청 리스트
+  PARTNER_REGISTRAUINS_NOTICES: `${API}/admin/partner/educations/registrations/notices`, // 교육신청 공고 리스트
 
   // ------ 가맹점 전용 공식몰 페이지
   GET_MALL_USERS: `${API}/admin/mall/users`,
@@ -101,6 +102,7 @@ const ApiMapper = {
     [EndPoint.PARTNER_MAINTENANCES]: {},
     [EndPoint.PARTNER_SCHEDULES]: {},
     [EndPoint.PARTNER_REGISTRAUINS]: {},
+    [EndPoint.PARTNER_REGISTRAUINS_NOTICIES]: {},
   },
   post: {
     [EndPoint.POST_LOGIN]: {},

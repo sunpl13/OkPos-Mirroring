@@ -453,7 +453,7 @@ export const educationScheduleListColumns = [
   },
 ]
 
-// 교육 일정 / 교육 신청 리스트
+// 교육 일정 / 교육 신청서 리스트
 export const educationApplicationListColumns = [
   {
     key: 'id',
@@ -462,25 +462,26 @@ export const educationApplicationListColumns = [
   },
   {
     key: 'agencyName',
-    label: '대리점',
+    label: '대리점 명',
     _props: {color: 'primary', className: 'agencyName'},
   },
   {
-    key: 'educationDate',
-    label: '교육 신청일',
-    _props: {color: 'primary', className: 'educationDate'},
-    filter: false,
-  },
-  {
     key: 'phoneNum',
-    label: '연락처',
+    label: '대리점 연락처',
     _props: {color: 'primary', className: 'phoneNum'},
     filter: false,
     sorter: false,
   },
   {
+    key: 'educationDate',
+    label: '신청 교육 일자',
+    _props: {color: 'primary', className: 'educationDate'},
+    filter: false,
+  },
+
+  {
     key: 'applicantNum',
-    label: '교육 신청 인원',
+    label: '신청 인원',
     _props: {color: 'primary', className: 'applicantNum'},
     filter: false,
     sorter: false,
@@ -509,5 +510,39 @@ export const educationApplicationListDetailColumns = [
     key: 'mobilePhoneNum',
     label: '연락처',
     _props: {color: 'primary', className: 'phoneNumber'},
+  },
+]
+// 교육 일정 / 교육 신청 리스트
+export const educationRegistrationsList = [
+  {
+    key: 'title',
+    label: '공고 제목',
+    _props: {color: 'primary', className: 'title'},
+  },
+  {
+    key: 'createdAt',
+    label: '등록일',
+    _props: {color: 'primary', className: 'createdAt'},
+  },
+
+  {
+    key: 'start',
+    label: '접수기간',
+    _props: {color: 'primary', className: 'createdAt'},
+  },
+  {
+    key: 'deadline',
+    label: '교육 일자',
+    _props: {color: 'primary', className: 'createdAt'},
+  },
+  {
+    key: 'place',
+    label: '교육 장소',
+    _props: {color: 'primary', className: 'place'},
+  },
+  {
+    key: 'applicantsCap',
+    label: '참여 가능 인원',
+    _props: {color: 'primary', className: 'id'},
   },
 ]

@@ -1,5 +1,5 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 const DetailModalEditModeTemplate = ({
   visible,
@@ -22,6 +22,7 @@ const DetailModalEditModeTemplate = ({
     setVisible(false)
     //event.stopPropagation()
   }
+
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>

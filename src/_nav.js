@@ -136,8 +136,13 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: '교육 신청 리스트',
+        name: '교육 신청서 리스트',
         to: '/partnerCenter/education/educationApplicationList',
+      },
+      {
+        component: CNavItem,
+        name: '교육 신청 리스트',
+        to: '/partnerCenter/education/registrationsList',
       },
     ],
   },

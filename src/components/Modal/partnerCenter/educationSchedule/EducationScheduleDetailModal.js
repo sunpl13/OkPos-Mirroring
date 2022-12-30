@@ -20,8 +20,7 @@ const EducationScheduleDetailModal = ({
   editor,
   setEditor,
 }) => {
-  const {id, title, createdAt, files, content, educationScheduleFiles, educationScheduleImages} = value
-  console.log(editor)
+  const {id, title, files, content, educationScheduleFiles, educationScheduleImages} = value
   return (
     <DetailModalEditModeTemplate
       title={id ? '교육 일정 상세' : '교육 일정 추가'}

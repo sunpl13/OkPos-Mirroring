@@ -13,22 +13,26 @@ const EducationApplicationList = () => {
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
   const [showModal, setShowModal] = useState(false)
+  const [editMode, setEditMode] = useState(false)
 
   // 교육 신청 리스트 API
-  const getRegistrauins = async () => {
+  const getList = async () => {
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {result, code, message, isSuccess},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_REGISTRAUINS}?page=${1}`,
+        url: EndPoint.PARTNER_REGISTRAUINS,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
+
+      console.log(result)
+      if (!isSuccess || isEmpty(result)) {
         return
       }
-      if (data?.code === 1000) {
-        setItems(data.result?.adminEducationRegistrationDTOs)
+      if (code === 1000) {
+        setItems(result?.adminEducationRegistrationDTOs)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
@@ -36,44 +40,35 @@ const EducationApplicationList = () => {
   }
 
   useEffect(() => {
-    getRegistrauins()
+    getList()
   }, [])
 
   /** Open Modal*/
-  const handleShowDetailModal = async item => {
-    if (item) {
-      const {id} = item
+  const handleShowDetailModal = async ({id}) => {
+    if (id) {
       try {
-        const {data} = await ApiConfig.request({
+        const {
+          data: {result, code, message, isSuccess},
+        } = await ApiConfig.request({
           method: HttpMethod.GET,
           url: `${EndPoint.PARTNER_REGISTRAUINS}/${id}`,
         })
-        console.log(data)
-        if (!data.isSuccess || isEmpty(data?.result)) {
-          return
+        console.log(result)
+        if (!isSuccess || isEmpty(result)) {
+          return alert(message)
         }
-        if (data?.code === 1000) {
-          console.log(data)
-          setSelectedItem(data.result)
-          setEditCheck(data.result)
+        if (code === 1000) {
+          setSelectedItem(result)
           setShowModal(!showModal)
         } else {
-          alert(data?.message)
+          alert(message)
         }
       } catch (error) {
         console.log(error)
       }
     } else {
       setShowModal(!showModal)
-      setSelectedItem({
-        no: 0,
-        distributorName: '',
-        distributorContact: '',
-        distributorAddress: '',
-        trainingDate: '',
-        trainingPersonnel: '',
-        applicantInformationList: [],
-      })
+      setSelectedItem({})
     }
   }
 
@@ -166,9 +161,10 @@ const EducationApplicationList = () => {
   }
   return (
     <CRow>
-      <PageHeader title='교육 신청 리스트' />
+      <PageHeader title='교육 신청서 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
+          {/*
           <CCardHeader>
             <CForm className='row g-3'>
               <CCol xs={1}>
@@ -178,6 +174,7 @@ const EducationApplicationList = () => {
               </CCol>
             </CForm>
           </CCardHeader>
+          */}
           <CCardBody>
             <ListTemplate
               items={items}
@@ -197,6 +194,8 @@ const EducationApplicationList = () => {
         upDate={handleDetailModalUpDate}
         onDelete={handleOrderOnDelete}
         searchInputHidden={false}
+        editMode={editMode}
+        setEditMode={setEditMode}
       />
     </CRow>
   )

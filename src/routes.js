@@ -56,10 +56,13 @@ const MaterialList = React.lazy(() => import('./pages/partnerCenter/dataRoom/Dat
 const OrderList = React.lazy(() => import('./pages/partnerCenter/order/OrderList'))
 const AppliedForMaintenanceList = React.lazy(() => import('./pages/partnerCenter/order/MaintenancesList'))
 
-// 교육 일정, 신청 리스트
+// 교육 일정, 교육 신청서, 교육 신청 리스트
 const EducationScheduleList = React.lazy(() => import('./pages/partnerCenter/educationSchedule/EducationScheduleList'))
 const EducationApplicationList = React.lazy(() =>
   import('./pages/partnerCenter/educationSchedule/EducationApplicationList'),
+)
+const EducationRegistrationsList = React.lazy(() =>
+  import('./pages/partnerCenter/educationSchedule/EducationRegistrationsList'),
 )
 
 const routes = [
@@ -128,6 +131,11 @@ const routes = [
     path: `/partnerCenter/education/educationApplicationList`,
     name: 'educationApplicationList',
     element: EducationApplicationList,
+  },
+  {
+    path: `/partnerCenter/education/registrationsList`,
+    name: 'educationApplicationList',
+    element: EducationRegistrationsList,
   },
 ]
 
