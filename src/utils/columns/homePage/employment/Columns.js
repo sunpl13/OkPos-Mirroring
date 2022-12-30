@@ -2,6 +2,7 @@ export const employmentColumns = [
   {
     key: 'number',
     _props: {color: 'primary', className: 'number'},
+    filter: false,
   },
   {
     key: 'categoryKorean',
@@ -17,15 +18,18 @@ export const employmentColumns = [
     key: 'startedAt',
     label: '공고 시작일',
     _props: {color: 'primary', className: 'startedAt'},
+    filter: false,
   },
   {
     key: 'closedAt',
     label: '공고 종료일',
     _props: {color: 'primary', className: 'employEndDate'},
+    filter: false,
   },
   {
     key: 'proceed',
     label: '진행 상태',
     _props: {color: 'primary', className: 'proceed'},
+    filter: false,
   },
 ]

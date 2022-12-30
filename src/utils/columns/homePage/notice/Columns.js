@@ -3,6 +3,7 @@ export const homePageNoticeColumns = [
     key: 'no',
     label: 'No',
     _props: {color: 'primary', className: 'no'},
+    filter: false,
   },
   {
     key: 'title',
@@ -13,5 +14,6 @@ export const homePageNoticeColumns = [
     key: 'createdAt',
     label: '등록일',
     _props: {color: 'primary', className: 'createdAt'},
+    filter: false,
   },
 ]

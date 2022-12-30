@@ -3,6 +3,7 @@ export const talentRetentionColumns = [
     key: 'number',
     label: 'No',
     _props: {color: 'primary', className: 'number'},
+    filter: false,
   },
   {
     key: 'name',
@@ -13,11 +14,13 @@ export const talentRetentionColumns = [
     key: 'phoneNumber',
     label: '휴대전화번호',
     _props: {color: 'primary', className: 'phoneNumber'},
+    sorter: false,
   },
   {
     key: 'email',
     label: '이메일',
     _props: {color: 'primary', className: 'email'},
+    sorter: false,
   },
   {
     key: 'positionKorean',
