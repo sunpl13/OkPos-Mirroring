@@ -31,7 +31,7 @@ const _nav = [
     name: '회원관리',
     to: '/member',
     icon: <CIcon icon={cilUser} customClassName='nav-icon' />,
-    accessauthority: 'HOME',
+    accessauthority: 'ALL',
   },
   {
     component: CNavItem,
