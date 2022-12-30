@@ -1,35 +1,21 @@
+import React from 'react'
 import {ConfigProvider, DatePicker, Space} from 'antd'
-import locale from 'antd/lib/locale/ko_KR'
-//import 'antd/dist/antd.min.css'
+import dayjs from 'dayjs'
 import moment from 'moment'
 import 'moment/locale/ko'
-import {CCol, CFormLabel} from '@coreui/react'
+import locale from 'antd/lib/locale/ko_KR'
+import {CCol, CFormLabel, CRow} from '@coreui/react'
 import styled from 'styled-components'
-import dayjs from 'dayjs'
-import React from 'react'
 
-const ModalRangeDatePicker = ({
-  setStartDate,
-  setEndDate,
-  startDate,
-  endDate,
-  id,
-  label,
-  isRequired,
-  readOnly,
-  disabled,
-}) => {
+const ModalSingleDatePicker = ({id, label, isRequired, readOnly, value, setValue, placeholder}) => {
   const {RangePicker} = DatePicker
-  const dateFormat = 'YYYY.MM.DD'
   moment.locale('ko')
+  const dateFormat = 'YYYY.MM.DD'
   const datePickerOnChange = date => {
     if (date) {
-      console.log(date)
-      setStartDate(moment(date[0].$d).format('YYYY.MM.DD'))
-      setEndDate(moment(date[1].$d).format('YYYY.MM.DD'))
+      setValue(moment(date?.$d).format('YYYY.MM.DD'))
     } else {
-      setStartDate('')
-      setEndDate('')
+      setValue('')
     }
   }
   return (
@@ -39,11 +25,13 @@ const ModalRangeDatePicker = ({
       </CFormLabel>
       <PickerCCol>
         <ConfigProvider locale={locale}>
-          <Space direction='vertical'>
-            <RangePicker
+          <Space direction='vertical' size={12}>
+            <DatePicker
               allowClear={true}
+              defaultValue={value && dayjs(value, dateFormat)}
+              format={dateFormat}
+              placeholder={placeholder}
               onChange={datePickerOnChange}
-              defaultValue={startDate && endDate && [dayjs(startDate, dateFormat), dayjs(endDate, dateFormat)]}
               disabled={readOnly}
             />
           </Space>
@@ -53,8 +41,7 @@ const ModalRangeDatePicker = ({
   )
 }
 
-export default ModalRangeDatePicker
-
+export default ModalSingleDatePicker
 const PickerCCol = styled(CCol)`
   display: flex;
   flex-direction: row;
@@ -62,9 +49,6 @@ const PickerCCol = styled(CCol)`
   justify-content: end;
   height: 100%;
   width: 100%;
-  & div {
-    height: 100%;
-  }
   & .ant-space-item {
     width: 100%;
   }

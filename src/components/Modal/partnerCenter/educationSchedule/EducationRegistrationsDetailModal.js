@@ -9,6 +9,7 @@ import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
 import RangeDatePicker from '../../../common/RangeDatePicker'
 import ModalRangeDatePicker from '../../../forms/inputForm/ModalRangeDatePicker'
+import ModalSingleDatePicker from '../../../forms/inputForm/ModalSingleDatePicker'
 
 const EducationRegistrationsDetailModal = ({
   onChange,
@@ -25,11 +26,11 @@ const EducationRegistrationsDetailModal = ({
   setEndDate,
   startDate,
   endDate,
+  singleDate,
+  setSingleDate,
 }) => {
   const {
     applicantsCap, // 교육 신청 제한 인원
-    deadline, // 교육신청 마감일
-    educationDate, // 교육 일정
     educationRegistrationNoticeFiles, // 교육신청 공고 파일 리스트
     educationRegistrationNoticeImages, // 교육신청 공고 이미지 리스트
     id, // 교육신청 고고 ID
@@ -37,7 +38,6 @@ const EducationRegistrationsDetailModal = ({
     start, // 교육신청 시작일
     title, // 교육신청 공고 제목
   } = value
-
   //"- 공고 제목
   // - 등록일
   // - 첨부파일
@@ -69,36 +69,18 @@ const EducationRegistrationsDetailModal = ({
           disabled={id && editMode}
         />
       </CRow>
-      {id && (
-        <ModalInput
-          id={'title'}
-          placeholder={'등록일'}
-          label={'공고 등록일'}
-          value={start}
-          onChange={onChange}
-          readOnly={id && editMode}
-          disabled={id && editMode}
-        />
-      )}
       <CRow className={'p-2'}>
-        <ModalInput
-          id={'title'}
-          placeholder={'접수 기간'}
+        <ModalRangeDatePicker
+          id={'datePicker'}
           label={'접수 기간'}
-          value={start}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          startDate={startDate}
+          endDate={endDate}
           onChange={onChange}
           readOnly={id && editMode}
           disabled={id && editMode}
         />
-        <CCol xs={4}>
-          <ModalRangeDatePicker
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-            startDate={startDate}
-            endDate={endDate}
-            onChange={onChange}
-          />
-        </CCol>
         {id ? (
           <ModalInput
             id={'title'}
@@ -106,12 +88,12 @@ const EducationRegistrationsDetailModal = ({
             label={'공고 등록일'}
             value={start}
             onChange={onChange}
-            readOnly={id && editMode}
-            disabled={id && editMode}
+            readOnly
+            disabled
           />
         ) : (
           <ModalInput
-            id={'title'}
+            id={'applicantsCap'}
             placeholder={'교육 인원'}
             label={'교육 인원'}
             value={applicantsCap}
@@ -122,11 +104,12 @@ const EducationRegistrationsDetailModal = ({
         )}
       </CRow>
       <CRow className={'p-2'}>
-        <ModalInput
-          id={'title'}
-          placeholder={'교육 일자'}
+        <ModalSingleDatePicker
+          id={'educationDate'}
+          placeholder={'날짜를 선택해 주세요.'}
           label={'교육 일자'}
-          value={start}
+          value={singleDate}
+          setValue={setSingleDate}
           onChange={onChange}
           readOnly={id && editMode}
           disabled={id && editMode}

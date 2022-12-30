@@ -8,6 +8,7 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import EducationRegistrationsDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationRegistrationsDetailModal'
+import ModalSingleDatePicker from '../../../components/forms/inputForm/ModalSingleDatePicker'
 
 const EducationRegistrationsList = () => {
   const [items, setItems] = useState([])
@@ -18,7 +19,7 @@ const EducationRegistrationsList = () => {
   const [editor, setEditor] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-
+  const [singleDate, setSingleDate] = useState('')
   // 교육 신청 리스트 API
   const getList = async () => {
     try {
@@ -57,16 +58,15 @@ const EducationRegistrationsList = () => {
           method: HttpMethod.GET,
           url: `${EndPoint.PARTNER_REGISTRAUINS_NOTICES}/${id}`,
         })
-        console.log(result)
         if (!isSuccess || isEmpty(result)) {
           return alert(message)
         }
         if (code === 1000) {
-          console.log(result?.start, result?.deadline)
           setSelectedItem(result)
           setEditor(result?.content)
           setStartDate(result?.start)
           setEndDate(result?.deadline)
+          setSingleDate(result?.educationDate)
           setShowModal(!showModal)
         } else {
           alert(message)
@@ -84,7 +84,6 @@ const EducationRegistrationsList = () => {
     const {
       id, // 교육 신청 공고 ID
       applicantsCap, // 교육신청 제한 인원
-      educationDate, // 교육 일정
       educationRegistrationNoticeFiles, // 교육 신청 공고 파일
       educationRegistrationNoticeImages, // 교육 신청 공고 이미지
       place, // 교육 장소
@@ -96,7 +95,7 @@ const EducationRegistrationsList = () => {
       content: editor,
       start: startDate,
       deadline: endDate,
-      educationDate: educationDate,
+      educationDate: singleDate,
       place: place,
       applicantsCap: applicantsCap,
       files: {},
@@ -108,7 +107,7 @@ const EducationRegistrationsList = () => {
         if (!title) return alert('제목을 입력해 주세요.')
         if (!editor) return alert('본문을 입력해 주세요.')
         if (!endDate || !startDate) return alert('접기기간을 입력해 주세요.')
-        if (!educationDate) return alert('교육 일정을 입력해주세요.')
+        if (!singleDate) return alert('교육 일정을 입력해주세요.')
         if (!place) return alert('교육 장소를 입력해주세요.')
         if (!applicantsCap) return alert('교육 인원을 입력해주세요.')
         try {
@@ -123,6 +122,7 @@ const EducationRegistrationsList = () => {
             return alert(message)
           }
           if (code === 1000) {
+            getList()
             return alert(message)
           } else {
             alert(message)
@@ -136,7 +136,7 @@ const EducationRegistrationsList = () => {
         if (!title) return alert('제목을 입력해 주세요.')
         if (!editor) return alert('본문을 입력해 주세요.')
         if (!endDate || !startDate) return alert('접기기간을 입력해 주세요.')
-        if (!educationDate) return alert('교육 일정을 입력해주세요.')
+        if (!singleDate) return alert('교육 일정을 입력해주세요.')
         if (!place) return alert('교육 장소를 입력해주세요.')
         if (!applicantsCap) return alert('교육 인원을 입력해주세요.')
         try {
@@ -147,11 +147,12 @@ const EducationRegistrationsList = () => {
             url: EndPoint.PARTNER_REGISTRAUINS_NOTICES,
             data: json,
           })
-          console.log(result)
           if (!isSuccess || isEmpty(result)) {
             return alert(message)
           }
           if (code === 1000) {
+            getList()
+            setShowModal(false)
             return alert(message)
           } else {
             alert(message)
@@ -160,9 +161,7 @@ const EducationRegistrationsList = () => {
           console.log(error)
         }
       }
-      setShowModal(false)
     }
-    setShowModal(false)
   }
 
   const handleOrderModalOnChange = ({target: {id, value}}) => {
@@ -205,6 +204,9 @@ const EducationRegistrationsList = () => {
     if (!showModal) {
       setEditor('')
       setEditMode(true)
+      setEndDate('')
+      setStartDate('')
+      setSingleDate('')
     }
   }, [showModal])
 
@@ -248,6 +250,8 @@ const EducationRegistrationsList = () => {
         setEndDate={setEndDate}
         startDate={startDate}
         endDate={endDate}
+        singleDate={singleDate}
+        setSingleDate={setSingleDate}
       />
     </CRow>
   )

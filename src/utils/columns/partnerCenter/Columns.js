@@ -522,6 +522,7 @@ export const educationRegistrationsList = [
   {
     key: 'createdAt',
     label: '등록일',
+    filter: false,
     _props: {color: 'primary', className: 'createdAt'},
   },
 
