@@ -143,8 +143,8 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
             삭제
           </CButton>
 
-          <CButton color='primary' onClick={onCloseCheck}>
-            Cancel
+          <CButton color='secondary' onClick={onCloseCheck}>
+            취소
           </CButton>
         </CModalFooter>
       </CModal>

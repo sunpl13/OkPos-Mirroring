@@ -8,6 +8,7 @@ import {category} from '../../../utils/columns/homePage/employment/ColumnsSelect
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import TalentPoolList from '../../../components/list/homepage/talentTetention/TalentPoolList'
+import ListTemplate from '../../../components/list/ListTemplate'
 const TalentRetention = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -53,8 +54,11 @@ const TalentRetention = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.TALENTPOOL}/:id`,
       })
-
+      if (!data.isSuccess) {
+        return alert(data.message)
+      }
       setSelectedItem(data.result)
+      setShowModal(!showModal)
     } catch (error) {
       alert(error)
     }
@@ -70,7 +74,6 @@ const TalentRetention = () => {
 
   const handleShowTalentPoolDetailModal = async item => {
     onLoadDetail(item.talentPoolId)
-    setShowModal(!showModal)
   }
 
   const handleTalentPoolAddModal = () => {
@@ -108,11 +111,6 @@ const TalentRetention = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={onLoadTalentPoolList}>
-                    조회하기
-                  </CButton>
-                </CCol>
-                <CCol xs={1}>
                   <CButton color='primary' onClick={handleTalentPoolAddModal}>
                     추가
                   </CButton>
@@ -120,11 +118,10 @@ const TalentRetention = () => {
               </CForm>
             </CCardHeader>
             <CCardBody>
-              <TalentPoolList
+              <ListTemplate
                 items={items}
                 onClick={handleShowTalentPoolDetailModal}
                 columns={talentRetentionColumns}
-                selectedOptions={category}
                 className='talentPoolList'
                 datePickerHidden={false}
               />

@@ -77,15 +77,6 @@ const EnglishInquiry = () => {
       <CRow>
         <CCol xs={12}>
           <CCard className='mb-4'>
-            <CCardHeader>
-              <CForm className='row g-3'>
-                <CCol xs={1}>
-                  <CButton color='primary' onClick={onLoadInquiryList}>
-                    조회하기
-                  </CButton>
-                </CCol>
-              </CForm>
-            </CCardHeader>
             <CCardBody>
               <ListTemplate
                 items={items}

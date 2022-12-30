@@ -61,8 +61,11 @@ const Employment = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.RECRUITMENT}/:recruitmentId`,
       })
-
+      if (!data.isSuccess) {
+        return alert(data.message)
+      }
       setSelectedItem(data.result)
+      setShowModal(!showModal)
     } catch (error) {
       alert(error)
     }
@@ -74,7 +77,6 @@ const Employment = () => {
 
   const handleShowEmploymentDetailModal = async item => {
     onLoadDetail(item.recruitmentId)
-    setShowModal(!showModal)
   }
 
   const handleEmploymentAddModal = () => {
@@ -118,11 +120,6 @@ const Employment = () => {
           <CCard className='mb-4'>
             <CCardHeader>
               <CForm className='row g-3'>
-                <CCol xs={1}>
-                  <CButton color='primary' onClick={onLoadEmploymentList}>
-                    조회하기
-                  </CButton>
-                </CCol>
                 <CCol xs={1}>
                   <CButton color='primary' onClick={handleEmploymentAddModal}>
                     추가
