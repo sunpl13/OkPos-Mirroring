@@ -3,6 +3,7 @@ export const rollingBannerColumns = [
     key: 'no',
     label: 'No',
     _props: {color: 'primary', className: 'no'},
+    filter: false,
   },
   {
     key: 'title',
@@ -13,5 +14,7 @@ export const rollingBannerColumns = [
     key: 'image',
     label: '배너 이미지',
     _props: {color: 'primary', className: 'image'},
+    filter: false,
+    sorter: false,
   },
 ]
