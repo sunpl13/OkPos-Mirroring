@@ -57,6 +57,7 @@ const EducationRegistrationsDetailModal = ({
           onChange={onChange}
           readOnly={id && editMode}
           disabled={id && editMode}
+          isRequired
         />
       </CRow>
       {id ? (
@@ -72,6 +73,7 @@ const EducationRegistrationsDetailModal = ({
               onChange={onChange}
               readOnly={id && editMode}
               disabled={id && editMode}
+              isRequired
             />
             <ModalSingleDatePicker
               id={'educationDate'}
@@ -82,6 +84,7 @@ const EducationRegistrationsDetailModal = ({
               onChange={onChange}
               readOnly={id && editMode}
               disabled={id && editMode}
+              isRequired
             />
           </CRow>
           <CRow className={'p-2'}>
@@ -102,6 +105,7 @@ const EducationRegistrationsDetailModal = ({
               onChange={onChange}
               readOnly={id && editMode}
               disabled={id && editMode}
+              isRequired
             />
           </CRow>
           <CRow className={'p-2'}>
@@ -113,6 +117,7 @@ const EducationRegistrationsDetailModal = ({
               onChange={onChange}
               readOnly={id && editMode}
               disabled={id && editMode}
+              isRequired
             />
           </CRow>
         </>
@@ -129,6 +134,7 @@ const EducationRegistrationsDetailModal = ({
               onChange={onChange}
               readOnly={id && editMode}
               disabled={id && editMode}
+              isRequired
             />
             <ModalSingleDatePicker
               id={'educationDate'}
@@ -139,6 +145,7 @@ const EducationRegistrationsDetailModal = ({
               onChange={onChange}
               readOnly={id && editMode}
               disabled={id && editMode}
+              isRequired
             />
           </CRow>
           <CRow className={'p-2'}>
@@ -150,6 +157,7 @@ const EducationRegistrationsDetailModal = ({
               onChange={onChange}
               readOnly={id && editMode}
               disabled={id && editMode}
+              isRequired
             />
           </CRow>
           <CRow className={'p-2'}>
@@ -161,6 +169,7 @@ const EducationRegistrationsDetailModal = ({
               onChange={onChange}
               readOnly={id && editMode}
               disabled={id && editMode}
+              isRequired
             />
           </CRow>
         </>
@@ -200,6 +209,7 @@ const EducationRegistrationsDetailModal = ({
         <ModalQuillEditor
           id='content'
           label={'본문'}
+          isRequired
           value={editor}
           setValue={setEditor}
           readOnly={id && editMode}

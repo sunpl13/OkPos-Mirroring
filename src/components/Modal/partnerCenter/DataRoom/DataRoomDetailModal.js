@@ -56,6 +56,7 @@ const DataRoomDetailModal = ({
             onChange={onChange}
             readOnly={id && editMode}
             disabled={id && editMode}
+            isRequired
           />
         )}
         <ModalSelect
@@ -65,6 +66,7 @@ const DataRoomDetailModal = ({
           value={category}
           readOnly={editMode}
           disabled={id && editMode}
+          isRequired
           onChange={onChange}
           placeholder={'카테고리를 선택해주세요.'}
           size={'sm'}
@@ -80,6 +82,7 @@ const DataRoomDetailModal = ({
             onChange={onChange}
             readOnly={id && editMode}
             disabled={id && editMode}
+            isRequired
           />
         </CRow>
       )}
@@ -91,6 +94,7 @@ const DataRoomDetailModal = ({
           setValue={setEditor}
           readOnly={id && editMode}
           disabled={id && editMode}
+          isRequired
         />
       </CRow>
       <br />

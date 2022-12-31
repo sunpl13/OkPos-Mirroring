@@ -24,7 +24,6 @@ const ModalRangeDatePicker = ({
   moment.locale('ko')
   const datePickerOnChange = date => {
     if (date) {
-      console.log(date)
       setStartDate(moment(date[0].$d).format('YYYY.MM.DD'))
       setEndDate(moment(date[1].$d).format('YYYY.MM.DD'))
     } else {

@@ -41,6 +41,7 @@ const EducationScheduleDetailModal = ({
           onChange={onChange}
           readOnly={id && editMode}
           disabled={id && editMode}
+          isRequired
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -74,7 +75,7 @@ const EducationScheduleDetailModal = ({
           disabled={id && editMode}
         />
       </CRow>
-      <CRow className={'p-2'}>
+      <CRow className={'p-2 pb-3'}>
         <ModalQuillEditor
           id='content'
           label={'본문'}
@@ -82,6 +83,7 @@ const EducationScheduleDetailModal = ({
           setValue={setEditor}
           readOnly={id && editMode}
           disabled={id && editMode}
+          isRequired
         />
       </CRow>
       <br />

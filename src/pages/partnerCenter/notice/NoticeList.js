@@ -16,6 +16,7 @@ const NoticeList = () => {
   const [editor, setEditor] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
+  const [imageList, setImageList] = useState([])
 
   // 공지사항 API
   const getList = async () => {
@@ -57,12 +58,11 @@ const NoticeList = () => {
           return alert(message)
         }
         if (code === 1000) {
-          setSelectedItem({
-            id: id,
-            ...result,
-          })
+          console.log(result)
+          setSelectedItem(result)
           setEditCheck(result)
           setEditor(result.content)
+          setImageList(result.noticeImages)
         } else {
           alert(message)
         }
@@ -94,6 +94,7 @@ const NoticeList = () => {
       files: {},
       images: [],
     })
+    console.log(imageList)
     if (id) {
       if (window.confirm('공지사항을 수정하시겠습니까?')) {
         if (!title) return alert('공지사항 제목을 입력해 주세요.')
@@ -209,6 +210,8 @@ const NoticeList = () => {
         onDelete={handleNoticeDeleteBtnOnClick}
         editMode={editMode}
         setEditMode={setEditMode}
+        images={imageList}
+        setimages={setImageList}
       />
     </CRow>
   )

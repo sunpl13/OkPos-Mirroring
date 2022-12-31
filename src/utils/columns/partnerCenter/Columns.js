@@ -19,18 +19,18 @@ export const userListColumns = [
   },
   {
     key: 'phoneNum',
-    lebel: '휴대폰 번호',
+    label: '휴대전화 번호',
     _props: {color: 'primary', className: 'phoneNum'},
   },
   {
     key: 'createdAt',
-    lebel: '계정 생성일',
+    label: '계정 생성일',
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },
   {
     key: 'status',
-    lebel: '계정 상태',
+    label: '계정 상태',
     _props: {color: 'primary', className: 'status'},
     sorter: false,
     filter: false,
@@ -69,7 +69,7 @@ export const withdrawalUsersColumns = [
   },
   {
     key: 'phoneNum',
-    label: '휴대폰 번호',
+    label: '휴대전화 번호',
     _props: {color: 'primary', className: 'phoneNum'},
   },
   {
@@ -516,6 +516,11 @@ export const educationApplicationListDetailColumns = [
 ]
 // 교육 일정 / 교육 신청 리스트
 export const educationRegistrationsList = [
+  {
+    key: 'id',
+    label: 'No',
+    _props: {color: 'primary', className: 'id'},
+  },
   {
     key: 'title',
     label: '공고 제목',

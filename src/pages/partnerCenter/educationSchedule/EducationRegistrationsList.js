@@ -26,8 +26,6 @@ const EducationRegistrationsList = () => {
         method: HttpMethod.GET,
         url: EndPoint.PARTNER_REGISTRAUINS_NOTICES,
       })
-
-      console.log(result)
       if (!isSuccess || isEmpty(result)) {
         return alert(message)
       }
@@ -86,7 +84,6 @@ const EducationRegistrationsList = () => {
       place, // 교육 장소
       title,
     } = selectedItem
-    console.log(selectedItem)
     const json = JSON.stringify({
       title: title,
       content: editor,
@@ -98,13 +95,12 @@ const EducationRegistrationsList = () => {
       files: {},
       images: [],
     })
-    console.log(json)
     if (id) {
       if (window.confirm('수정하시겠습니까?')) {
         if (!title) return alert('제목을 입력해 주세요.')
         if (!editor) return alert('본문을 입력해 주세요.')
-        if (!endDate || !startDate) return alert('접기기간을 입력해 주세요.')
-        if (!singleDate) return alert('교육 일정을 입력해주세요.')
+        if (!endDate || !startDate) return alert('접수기간을 입력해 주세요.')
+        if (!singleDate) return alert('교육 일자를 입력해주세요.')
         if (!place) return alert('교육 장소를 입력해주세요.')
         if (!applicantsCap) return alert('교육 인원을 입력해주세요.')
         try {
@@ -178,7 +174,6 @@ const EducationRegistrationsList = () => {
           url: `${EndPoint.PARTNER_REGISTRAUINS_NOTICES}/${id}`,
         })
 
-        console.log(result)
         if (!isSuccess) {
           return alert(message)
         }
@@ -194,9 +189,7 @@ const EducationRegistrationsList = () => {
       }
     }
   }
-  const handlePersonnelOnDelete = () => {
-    console.log('sdf')
-  }
+
   useEffect(() => {
     if (!showModal) {
       setEditor('')
@@ -237,7 +230,6 @@ const EducationRegistrationsList = () => {
         onChange={handleOrderModalOnChange}
         upDate={handleDetailModalUpDate}
         onDelete={handleOrderOnDelete}
-        searchInputHidden={false}
         editMode={editMode}
         setEditMode={setEditMode}
         editor={editor}

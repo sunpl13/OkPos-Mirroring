@@ -20,6 +20,8 @@ const NoticeDetailModal = ({
   onDelete,
   editMode,
   setEditMode,
+  images,
+  setImages,
 }) => {
   const {id, title, noticeFiles, noticeImages, category} = value
 
@@ -42,6 +44,7 @@ const NoticeDetailModal = ({
           onChange={onChange}
           readOnly={id && editMode}
           disabled={id && editMode}
+          isRequired
         />
         <ModalSelect
           id={'category'}
@@ -52,6 +55,7 @@ const NoticeDetailModal = ({
           onChange={onChange}
           readOnly={id && editMode}
           disabled={id && editMode}
+          isRequired
         />
       </CRow>
       {!editMode ? (
@@ -68,21 +72,29 @@ const NoticeDetailModal = ({
           />
         </CRow>
       ) : (
-        <CCol className={'p-2'}>
+        <CRow className={'p-2'}>
           <MultiFileDownloadForm
             id={'files'}
             type={'file'}
             placeholder={'첨부 파일'}
             label={'첨부 파일'}
-            value={noticeFiles}
+            value={[]}
             onChange={onChange}
             readOnly={id && editMode}
             disabled={id && editMode}
           />
-        </CCol>
+        </CRow>
       )}
       <CRow className={'p-2'}>
-        <ModalImageInput label={'이미지'} readOnly={id && editMode} fileList={noticeImages} />
+        <ModalImageInput
+          label={'이미지 첨부'}
+          id='image'
+          fileList={images}
+          setFileList={setImages}
+          images={value.imageUrls}
+          imgPath='notice_images'
+          readOnly={id && editMode}
+        />
       </CRow>
       <CRow className={'p-2'}>
         <ModalQuillEditor
@@ -92,6 +104,7 @@ const NoticeDetailModal = ({
           setValue={setEditor}
           readOnly={id && editMode}
           disabled={id && editMode}
+          isRequired
         />
       </CRow>
       <br />

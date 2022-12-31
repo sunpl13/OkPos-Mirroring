@@ -59,7 +59,14 @@ const InquiryDetailModal = ({
       </CRow>
       <br />
       <CRow className={'p-2'}>
-        <ModalQuillEditor id='content' label={'문의 답변'} value={editor} setValue={setEditor} readOnly={editMode} />
+        <ModalQuillEditor
+          id='content'
+          label={'문의 답변'}
+          value={editor}
+          setValue={setEditor}
+          readOnly={editMode}
+          isRequired
+        />
       </CRow>
       <br />
       <br />
