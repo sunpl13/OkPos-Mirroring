@@ -77,8 +77,8 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: '공지사항 리스트',
-        to: '/partnerCenter/notice/noticeList',
+        name: '1 : 1 문의 리스트',
+        to: '/partnerCenter/inquiry/userInquiryList',
       },
     ],
   },
@@ -90,8 +90,8 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: '1 : 1 문의 리스트',
-        to: '/partnerCenter/inquiry/userInquiryList',
+        name: '공지사항 리스트',
+        to: '/partnerCenter/notice/noticeList',
       },
     ],
   },

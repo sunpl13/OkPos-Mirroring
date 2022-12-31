@@ -1,13 +1,10 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {CRow} from '@coreui/react'
-import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import PropTypes from 'prop-types'
-import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import DetailModalTemplate from '../DetailModalTemplate'
-import ModalTextOnlyQuillEditor from '../../../forms/inputForm/ModalTextOnlyQuillEditor'
-import ModalReadOnlyQuillEditor from '../../../forms/inputForm/ModalReadOnlyQuillEditor'
+import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 
 const category = {
   DEALER: {key: 'DEALER', value: '딜러'},
@@ -54,24 +51,26 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelet
             placeholder='지원 공고'
             label='지원 공고'
             readOnly
+            disabled
             value={noticeTitle || ''}
           />
         </CRow>
         <CRow className='p-2'>
-          <ModalInput readOnly size='sm' value={category[supportArea]?.value || ''} label='지원 분야' />
+          <ModalInput readOnly disabled size='sm' value={supportArea} label='지원 분야' />
           <ModalInput
             id='phoneNum'
             placeholder='VAN 영업 경력'
             label='VAN 영업 경력'
             value={isExperiences ? '유' : '무'}
             readOnly
+            disabled
           />
         </CRow>
         <CRow className={'p-2 pb-2'}>
-          <ModalReadOnlyQuillEditor id='noticeContent' value={noticeContent} label='지원 공고 본문' readOnly />
+          <ModalQuillEditor id='noticeContent' value={noticeContent} label='지원 공고 본문' readOnly disabled />
         </CRow>
         <CRow className='p-2'>
-          <ModalImageInput fileList={noticeImages || []} id={'images'} label={'지원 공고 이미지'} readOnly />
+          <ModalImageInput fileList={noticeImages || []} id={'images'} label={'지원 공고 이미지'} readOnly disabled />
         </CRow>
         <CRow className='p-2'>
           <ModalInput
@@ -81,6 +80,7 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelet
             label='지원자 이름'
             value={name}
             readOnly
+            disabled
           />
         </CRow>
         <CRow className='p-2'>
@@ -91,6 +91,7 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelet
             label='지원자 이메일'
             value={email}
             readOnly
+            disabled
           />
         </CRow>
         <CRow className='p-2'>
@@ -101,6 +102,7 @@ const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelet
             label='지원자 전화번호'
             value={phoneNum}
             readOnly
+            disabled
           />
         </CRow>
       </DetailModalTemplate>

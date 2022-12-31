@@ -23,7 +23,7 @@ const DealerSupportList = () => {
         url: EndPoint.PARTNER_AGENCYAPPLICANT,
       })
       if (!isSuccess || isEmpty(result)) {
-        return
+        return alert(message)
       }
       if (code === 1000) {
         setItems(result?.adminAgencyApplicantDTOs)
@@ -51,7 +51,6 @@ const DealerSupportList = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.PARTNER_AGENCYAPPLICANT}/${id}`,
       })
-      console.log(result)
       if (!isSuccess || isEmpty(result)) {
         return
       }

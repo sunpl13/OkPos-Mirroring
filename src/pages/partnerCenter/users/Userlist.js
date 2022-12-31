@@ -23,7 +23,7 @@ const Userlist = () => {
         url: EndPoint.PARTNER_USERS,
       })
       if (!isSuccess || isEmpty(result)) {
-        return
+        return alert(message)
       }
       if (code === 1000) {
         setItems(result?.adminUserInfoPartnerDTOs)

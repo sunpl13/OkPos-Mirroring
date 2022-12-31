@@ -163,9 +163,9 @@ export const dealerSupportList = [
   },
 
   {
-    key: 'userName',
+    key: 'name',
     label: '이름',
-    _props: {className: 'userName'},
+    _props: {className: 'name'},
   },
   {
     key: 'phoneNum',

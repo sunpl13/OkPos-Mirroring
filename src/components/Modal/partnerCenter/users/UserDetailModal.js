@@ -7,7 +7,7 @@ import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownload
 import BasicFileDownloadForm from '../../../forms/downloadForm/BasicFileDownloadForm'
 import ObjectFilesDownloadForm from '../../../forms/downloadForm/ObjectFilesDownloadForm'
 
-const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
+const UserDetailModal = ({value, visible, setVisible, onChange, readOnly}) => {
   const {
     address, // 사업장 주소
     businessName, // 상호명
@@ -29,7 +29,8 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'회원 이름'}
             value={userName}
             onChange={onChange}
-            readOnly={true}
+            readOnly={readOnly}
+            disabled={readOnly}
           />
           <ModalInput
             id={'certificateNum'}
@@ -37,7 +38,8 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'사업자 번호'}
             value={certificateNum}
             onChange={onChange}
-            readOnly
+            readOnly={readOnly}
+            disabled={readOnly}
           />
         </CRow>
         <CRow className={'pb-4'}>
@@ -47,7 +49,8 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'계정 등록일'}
             value={createdAt}
             onChange={onChange}
-            readOnly
+            readOnly={readOnly}
+            disabled={readOnly}
           />
           <ModalInput
             id={'status'}
@@ -55,7 +58,8 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'계정 상태'}
             value={status}
             onChange={onChange}
-            readOnly={true}
+            readOnly={readOnly}
+            disabled={readOnly}
           />
         </CRow>
         <CRow className={'pb-4'}>
@@ -65,7 +69,8 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'휴대전화번호'}
             value={phoneNum}
             onChange={onChange}
-            readOnly={true}
+            readOnly={readOnly}
+            disabled={readOnly}
           />
           <br />
           <ModalInput
@@ -74,7 +79,8 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'상호명'}
             value={businessName}
             onChange={onChange}
-            readOnly={true}
+            readOnly={readOnly}
+            disabled={readOnly}
           />
         </CRow>
         <CRow className={'pb-2'}>
@@ -84,12 +90,19 @@ const UserDetailModal = ({value, visible, setVisible, upDate, onChange}) => {
             label={'사업장 주소'}
             value={address}
             onChange={onChange}
-            readOnly={true}
+            readOnly={readOnly}
+            disabled={readOnly}
           />
         </CRow>
         <br />
         <CRow className={'pb-2'}>
-          <BasicFileDownloadForm id={'files'} label={'사업자 등록증'} value={certificateFile} />
+          <BasicFileDownloadForm
+            id={'files'}
+            label={'사업자 등록증'}
+            value={certificateFile}
+            readOnly={readOnly}
+            disabled={readOnly}
+          />
         </CRow>
       </CModalBody>
     </DetailModalTemplate>
