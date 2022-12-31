@@ -39,6 +39,11 @@ export const userListColumns = [
 // 탈퇴 회원 리스트
 export const withdrawalUsersColumns = [
   {
+    key: 'id',
+    label: 'No',
+    _props: {color: 'primary', className: 'id'},
+  },
+  {
     key: 'userName',
     label: '회원 이름',
     _props: {color: 'primary', className: 'userName'},
@@ -88,9 +93,9 @@ export const withdrawalUsersColumns = [
     _props: {color: 'primary', className: 'address'},
   },
   {
-    key: 'withdrawalReason',
+    key: 'withdrawalCategory',
     label: '탈퇴 사유',
-    _props: {color: 'primary', className: 'withdrawalReason'},
+    _props: {color: 'primary', className: 'withdrawalCategory'},
   },
 ]
 // 1:1 문의 리스트

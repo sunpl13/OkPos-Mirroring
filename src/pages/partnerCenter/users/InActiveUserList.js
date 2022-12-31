@@ -47,8 +47,9 @@ const InActiveUserList = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.PARTNER_INACTIVE_USERS}`,
       })
+      console.log(result)
       if (!isSuccess || isEmpty(result)) {
-        return
+        return alert(message)
       }
       if (code === 1000) {
       } else {
@@ -80,26 +81,23 @@ const InActiveUserList = () => {
   const handleShowUserDetailModal = async ({id}) => {
     setShowModal(!showModal)
     try {
-      const {data} = await ApiConfig.request({
+      const {
+        data: {isSuccess, result, code, message},
+      } = await ApiConfig.request({
         method: HttpMethod.GET,
-        // userId
         url: `${EndPoint.PARTNER_INACTIVE_USERS}/${id}`,
       })
-      console.log(data)
-      if (!data.isSuccess || isEmpty(data?.result)) {
-        return
+      if (!isSuccess || isEmpty(result)) {
+        return alert(message)
       }
-      if (data?.code === 1000) {
-        setSelectedItem(data.result)
+      if (code === 1000) {
+        setSelectedItem(result)
       } else {
-        alert(data?.message)
+        alert(message)
       }
     } catch (error) {
       console.log(error)
     }
-  }
-  const handleUserDetailModalUpdateData = data => {
-    setItems(items.map(value => (value.id === data.id ? data : value)))
   }
 
   return (
@@ -118,13 +116,7 @@ const InActiveUserList = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <UserDetailModal
-        value={selectedItem}
-        visible={showModal}
-        setVisible={setShowModal}
-        upDate={handleUserDetailModalUpdateData}
-        readOnly
-      />
+      <UserDetailModal value={selectedItem} visible={showModal} setVisible={setShowModal} readOnly />
     </CRow>
   )
 }

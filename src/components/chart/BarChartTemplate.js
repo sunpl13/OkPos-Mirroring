@@ -3,7 +3,6 @@ import {CChart} from '@coreui/react-chartjs'
 import PropTypes, {object} from 'prop-types'
 
 const BarChartTemplate = ({title, data}) => {
-  console.log(data)
   return (
     <CChart
       type='bar'
