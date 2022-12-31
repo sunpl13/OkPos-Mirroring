@@ -10,6 +10,7 @@ const DetailModalEditModeTemplate = ({
   onDelete,
   editMode,
   setEditMode,
+  addModal,
 }) => {
   const handleEditModeToggle = () => {
     setEditMode(!editMode)
@@ -17,7 +18,6 @@ const DetailModalEditModeTemplate = ({
       upDate()
     }
   }
-
   useEffect(() => {
     if (!visible) {
       setEditMode(true)
@@ -37,9 +37,9 @@ const DetailModalEditModeTemplate = ({
           }}
           color={editMode ? 'primary' : 'success'}
         >
-          {editMode ? '수정' : '저장'}
+          {addModal ? '추가' : editMode ? '수정' : '저장'}
         </CButton>
-        {onDelete && (
+        {onDelete && !addModal && (
           <CButton onClick={() => onDelete()} color={'danger'}>
             삭제
           </CButton>

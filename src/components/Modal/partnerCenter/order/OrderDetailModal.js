@@ -10,7 +10,7 @@ import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import {isEmpty} from '../../../../utils/utility'
 
-const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
+const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnly}) => {
   const {
     id,
     orderNum /** 발주 번호 */,
@@ -94,14 +94,23 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
       notEditBtn={true}
     >
       <CRow className={'p-2'}>
-        <ModalInput id={'no'} placeholder={'No'} label={'No'} value={id} onChange={onChange} readOnly />
+        <ModalInput
+          id={'no'}
+          placeholder={'No'}
+          label={'No'}
+          value={id}
+          onChange={onChange}
+          readOnly={readOnly}
+          disabled={readOnly}
+        />
         <ModalInput
           id={'orderNum'}
           placeholder={'발주 번호'}
           label={'발주 번호'}
           value={orderNum}
           onChange={onChange}
-          readOnly
+          readOnly={readOnly}
+          disabled={readOnly}
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -111,7 +120,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
           label={'대표자명'}
           value={representativeName}
           onChange={onChange}
-          readOnly
+          readOnly={readOnly}
+          disabled={readOnly}
         />
         <ModalInput
           id={'businessName'}
@@ -119,7 +129,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
           label={'상호명'}
           value={businessName}
           onChange={onChange}
-          readOnly
+          readOnly={readOnly}
+          disabled={readOnly}
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -129,7 +140,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
           label={'사업자 번호'}
           value={certificateNum}
           onChange={onChange}
-          readOnly
+          readOnly={readOnly}
+          disabled={readOnly}
         />
         <ModalInput
           id={'businessAddress'}
@@ -137,7 +149,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
           label={'사업장 주소'}
           value={address}
           onChange={onChange}
-          readOnly
+          readOnly={readOnly}
+          disabled={readOnly}
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -147,7 +160,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
           label={'주문 일자'}
           value={createdAt}
           onChange={onChange}
-          readOnly
+          readOnly={readOnly}
+          disabled={readOnly}
         />
         <ModalInput
           id={'phoneNumber'}
@@ -155,7 +169,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
           label={'휴대전화'}
           value={mobilePhoneNum}
           onChange={onChange}
-          readOnly
+          readOnly={readOnly}
+          disabled={readOnly}
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -165,9 +180,18 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
           label={'사업장 전화번호'}
           value={phoneNum}
           onChange={onChange}
-          readOnly
+          readOnly={readOnly}
+          disabled={readOnly}
         />
-        <ModalInput id={'email'} placeholder={'이메일'} label={'이메일'} value={email} onChange={onChange} />
+        <ModalInput
+          id={'email'}
+          placeholder={'이메일'}
+          label={'이메일'}
+          value={email}
+          onChange={onChange}
+          readOnly={readOnly}
+          disabled={readOnly}
+        />
       </CRow>
       <CRow className={'p-2'}>
         <ModalInput
@@ -176,6 +200,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
           label={'수령 방법'}
           value={receivingMethod}
           onChange={onChange}
+          readOnly={readOnly}
+          disabled={readOnly}
         />
         <ModalInput
           id={'taxInvoiceEmail'}
@@ -184,7 +210,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate}) => {
           label={'세금계산서 수령 이메일'}
           value={taxBillEmail}
           onChange={onChange}
-          readOnly
+          readOnly={readOnly}
+          disabled={readOnly}
         />
       </CRow>
       <CRow className={'p-2'}>

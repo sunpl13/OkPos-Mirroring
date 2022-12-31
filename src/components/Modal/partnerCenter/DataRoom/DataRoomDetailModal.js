@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
+import {noticeOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 
 const DataRoomDetailModal = ({
   onChange,
@@ -23,23 +24,17 @@ const DataRoomDetailModal = ({
   setEditor,
 }) => {
   const {id, title, category, dataRoomFiles, dataRoomImages, createdAt} = value
-  const dataOptions = [
-    {key: 'DRIVER', value: '드라이버'},
-    {key: 'MANUAL', value: '메뉴얼'},
-    {key: 'FIRMWARE', value: '펌웨어'},
-    {key: 'TECHNIC_ARTICLE', value: '기술자료'},
-    {key: 'OTHER', value: '기타'},
-  ]
+
   return (
     <DetailModalEditModeTemplate
       title={id ? '자료 상세' : '자료 추가'}
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={id ? '수정' : '추가'}
-      editMode={editMode}
+      editMode={id && editMode}
       setEditMode={setEditMode}
       onDelete={id && onDelete}
+      addModal={!id}
     >
       <CRow className={'p-2'}>
         {id ? (
@@ -66,7 +61,7 @@ const DataRoomDetailModal = ({
         <ModalSelect
           id={'category'}
           label={'카테고리'}
-          options={dataOptions || []}
+          options={noticeOptions || []}
           value={category}
           readOnly={editMode}
           disabled={id && editMode}
@@ -96,7 +91,6 @@ const DataRoomDetailModal = ({
           setValue={setEditor}
           readOnly={id && editMode}
           disabled={id && editMode}
-          maxLength={30}
         />
       </CRow>
       <br />

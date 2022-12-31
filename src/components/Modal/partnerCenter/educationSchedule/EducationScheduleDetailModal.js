@@ -27,10 +27,10 @@ const EducationScheduleDetailModal = ({
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={id ? '수정' : '추가'}
       editMode={id && editMode}
-      setEditMode={id && setEditMode}
-      onDelete={id && onDelete}
+      setEditMode={setEditMode}
+      onDelete={onDelete}
+      addModal={!id}
     >
       <CRow className={'p-2'}>
         <ModalInput

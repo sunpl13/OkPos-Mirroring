@@ -1,13 +1,13 @@
 import {CCol, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import React, {useEffect} from 'react'
+import React from 'react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
-import {inquiryTypes} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
+import {noticeOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 
 const NoticeDetailModal = ({
   value,
@@ -47,7 +47,7 @@ const NoticeDetailModal = ({
           id={'category'}
           placeholder={'카테고리를 선택해 주세요'}
           label={'카테고리'}
-          options={inquiryTypes}
+          options={noticeOptions}
           value={category || ''}
           onChange={onChange}
           readOnly={id && editMode}

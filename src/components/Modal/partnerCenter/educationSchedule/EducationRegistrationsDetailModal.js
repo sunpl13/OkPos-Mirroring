@@ -1,13 +1,11 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
-import {CCol, CRow} from '@coreui/react'
+import {CRow} from '@coreui/react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
-import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
-import RangeDatePicker from '../../../common/RangeDatePicker'
 import ModalRangeDatePicker from '../../../forms/inputForm/ModalRangeDatePicker'
 import ModalSingleDatePicker from '../../../forms/inputForm/ModalSingleDatePicker'
 
@@ -38,25 +36,17 @@ const EducationRegistrationsDetailModal = ({
     start, // 교육신청 시작일
     title, // 교육신청 공고 제목
   } = value
-  //"- 공고 제목
-  // - 등록일
-  // - 첨부파일
-  // - 접수 기간
-  // - 교육 일자
-  // - 교육 장소
-  // - 참여 가능 인원
-  // - 본문
-  // - 이미지"
+
   return (
     <DetailModalEditModeTemplate
       title={id ? '교육 신청 상세' : '교육 신청 추가'}
       visible={visible}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={id ? '수정' : '추가'}
       editMode={id && editMode}
-      setEditMode={id && setEditMode}
+      setEditMode={setEditMode}
       onDelete={id && onDelete}
+      addModal={!id}
     >
       <CRow className={'p-2'}>
         <ModalInput
@@ -69,61 +59,112 @@ const EducationRegistrationsDetailModal = ({
           disabled={id && editMode}
         />
       </CRow>
-      <CRow className={'p-2'}>
-        <ModalRangeDatePicker
-          id={'datePicker'}
-          label={'접수 기간'}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-          startDate={startDate}
-          endDate={endDate}
-          onChange={onChange}
-          readOnly={id && editMode}
-          disabled={id && editMode}
-        />
-        {id ? (
-          <ModalInput
-            id={'title'}
-            placeholder={'등록일'}
-            label={'공고 등록일'}
-            value={start}
-            onChange={onChange}
-            readOnly
-            disabled
-          />
-        ) : (
-          <ModalInput
-            id={'applicantsCap'}
-            placeholder={'교육 인원'}
-            label={'교육 인원'}
-            value={applicantsCap}
-            onChange={onChange}
-            readOnly={id && editMode}
-            disabled={id && editMode}
-          />
-        )}
-      </CRow>
-      <CRow className={'p-2'}>
-        <ModalSingleDatePicker
-          id={'educationDate'}
-          placeholder={'날짜를 선택해 주세요.'}
-          label={'교육 일자'}
-          value={singleDate}
-          setValue={setSingleDate}
-          onChange={onChange}
-          readOnly={id && editMode}
-          disabled={id && editMode}
-        />
-        <ModalInput
-          id={'place'}
-          placeholder={'교육 장소'}
-          label={'교육 장소'}
-          value={place}
-          onChange={onChange}
-          readOnly={id && editMode}
-          disabled={id && editMode}
-        />
-      </CRow>
+      {id ? (
+        <>
+          <CRow className={'p-2'}>
+            <ModalRangeDatePicker
+              id={'datePicker'}
+              label={'접수 기간'}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+              startDate={startDate}
+              endDate={endDate}
+              onChange={onChange}
+              readOnly={id && editMode}
+              disabled={id && editMode}
+            />
+            <ModalSingleDatePicker
+              id={'educationDate'}
+              placeholder={'날짜를 선택해 주세요.'}
+              label={'교육 일자'}
+              value={singleDate}
+              setValue={setSingleDate}
+              onChange={onChange}
+              readOnly={id && editMode}
+              disabled={id && editMode}
+            />
+          </CRow>
+          <CRow className={'p-2'}>
+            <ModalInput
+              id={'start'}
+              placeholder={'등록일'}
+              label={'공고 등록일'}
+              value={start}
+              onChange={onChange}
+              readOnly
+              disabled
+            />
+            <ModalInput
+              id={'applicantsCap'}
+              placeholder={'참여 가능 인원'}
+              label={'참여 가능 인원'}
+              value={applicantsCap}
+              onChange={onChange}
+              readOnly={id && editMode}
+              disabled={id && editMode}
+            />
+          </CRow>
+          <CRow className={'p-2'}>
+            <ModalInput
+              id={'place'}
+              placeholder={'교육 장소'}
+              label={'교육 장소'}
+              value={place}
+              onChange={onChange}
+              readOnly={id && editMode}
+              disabled={id && editMode}
+            />
+          </CRow>
+        </>
+      ) : (
+        <>
+          <CRow className={'p-2'}>
+            <ModalRangeDatePicker
+              id={'datePicker'}
+              label={'접수 기간'}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+              startDate={startDate}
+              endDate={endDate}
+              onChange={onChange}
+              readOnly={id && editMode}
+              disabled={id && editMode}
+            />
+            <ModalSingleDatePicker
+              id={'educationDate'}
+              placeholder={'날짜를 선택해 주세요.'}
+              label={'교육 일자'}
+              value={singleDate}
+              setValue={setSingleDate}
+              onChange={onChange}
+              readOnly={id && editMode}
+              disabled={id && editMode}
+            />
+          </CRow>
+          <CRow className={'p-2'}>
+            <ModalInput
+              id={'applicantsCap'}
+              placeholder={'참여 가능 인원'}
+              label={'참여 가능 인원'}
+              value={applicantsCap}
+              onChange={onChange}
+              readOnly={id && editMode}
+              disabled={id && editMode}
+            />
+          </CRow>
+          <CRow className={'p-2'}>
+            <ModalInput
+              id={'place'}
+              placeholder={'교육 장소'}
+              label={'교육 장소'}
+              value={place}
+              onChange={onChange}
+              readOnly={id && editMode}
+              disabled={id && editMode}
+            />
+          </CRow>
+        </>
+      )}
       <CRow className={'p-2'}>
         {id && editMode ? (
           <MultiFileDownloadForm
@@ -155,7 +196,7 @@ const EducationRegistrationsDetailModal = ({
           disabled={id && editMode}
         />
       </CRow>
-      <CRow className={'p-2'}>
+      <CRow className={'p-2 mb-3'}>
         <ModalQuillEditor
           id='content'
           label={'본문'}

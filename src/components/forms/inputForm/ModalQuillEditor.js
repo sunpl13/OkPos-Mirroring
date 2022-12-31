@@ -80,8 +80,6 @@ const ModalQuillEditor = ({
   }, [])
 
   const handleEditorOnChange = item => {
-    console.log(value)
-    console.log(item)
     if (maxLength) {
       const textReplace = item.replace(/<[^>]*>?| /g, '').length
       if (maxLength >= textReplace) {

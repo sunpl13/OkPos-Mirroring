@@ -473,7 +473,6 @@ export const educationApplicationListColumns = [
     key: 'phoneNum',
     label: '대리점 연락처',
     _props: {color: 'primary', className: 'phoneNum'},
-    filter: false,
     sorter: false,
   },
   {
@@ -487,7 +486,6 @@ export const educationApplicationListColumns = [
     key: 'applicantNum',
     label: '신청 인원',
     _props: {color: 'primary', className: 'applicantNum'},
-    filter: false,
     sorter: false,
   },
 ]

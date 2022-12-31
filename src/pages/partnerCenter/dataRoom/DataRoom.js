@@ -79,18 +79,12 @@ const DataRoom = () => {
 
   // Modal UpDate
   const handleDetailModalUpDate = async () => {
-    const {id, title, content, dataRoomFiles, dataRoomImages, category} = selectedItem
-    const dataOptions = {
-      DRIVER: '드라이버',
-      MANUAL: '매뉴얼',
-      FIRMWARE: '펌웨어',
-      TECHNIC_ARTICLE: '기술자료',
-      OTHER: '기타',
-    }
+    const {id, title, dataRoomFiles, dataRoomImages, category} = selectedItem
+
     const json = JSON.stringify({
       title: title,
       content: editor,
-      category: dataOptions[category],
+      category: category.replace(/<[^>]*>?| /g, ''),
       files: {},
       images: [],
     })

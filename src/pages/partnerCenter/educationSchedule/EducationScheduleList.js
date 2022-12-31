@@ -195,7 +195,6 @@ const EducationScheduleList = () => {
   useEffect(() => {
     if (!showModal) {
       setEditor('')
-      setEditMode(true)
     }
   }, [showModal])
 

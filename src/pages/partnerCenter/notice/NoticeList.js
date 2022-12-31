@@ -89,13 +89,12 @@ const NoticeList = () => {
     const json = JSON.stringify({
       title: title,
       content: editor,
-      category: category,
+      category: category.replace(/<[^>]*>?| /g, ''),
       isApplicationNotice: !!isApplicationNotice,
       files: {},
       images: [],
     })
     if (id) {
-      console.log(editor)
       if (window.confirm('공지사항을 수정하시겠습니까?')) {
         if (!title) return alert('공지사항 제목을 입력해 주세요.')
         //if (noticeFiles.length === 0) return alert('파일을 등록해 주세요.')
@@ -114,8 +113,9 @@ const NoticeList = () => {
             return alert(message)
           }
           if (code === 1000) {
-            setShowModal(false)
-            return alert(message)
+            getList()
+            alert(message)
+            return setShowModal(false)
           }
         } catch (error) {
           console.log(error)
@@ -126,9 +126,8 @@ const NoticeList = () => {
     } else {
       if (window.confirm('공지사항을 등록하시겠습니까?')) {
         if (!title) return alert('공지사항 제목을 입력해 주세요.')
-        //if (!category) return alert('카테고리를 선택해 주세요.')
+        if (!category) return alert('카테고리를 선택해 주세요.')
         if (!editor) return alert('공지사항 본문을 입력해 주세요.')
-        console.log(json)
         try {
           const {
             data: {isSuccess, result, code, message},
@@ -141,8 +140,8 @@ const NoticeList = () => {
             return alert(message)
           }
           if (code === 1000) {
-            alert(message)
             getList()
+            alert(message)
             return setShowModal(false)
           } else {
             alert(message)

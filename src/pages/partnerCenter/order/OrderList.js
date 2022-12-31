@@ -90,6 +90,7 @@ const OrderList = () => {
         setVisible={setShowModal}
         onChange={handleOrderModalOnChange}
         upDate={handleShowMaterialDetailModal}
+        readOnly
       />
     </CRow>
   )

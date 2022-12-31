@@ -200,7 +200,6 @@ const EducationRegistrationsList = () => {
   useEffect(() => {
     if (!showModal) {
       setEditor('')
-      setEditMode(true)
       setEndDate('')
       setStartDate('')
       setSingleDate('')
