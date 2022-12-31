@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import {CCol, CFormLabel, CRow} from '@coreui/react'
 import styled from 'styled-components'
+import quill from 'quill'
 
 const ModalQuillEditor = ({
   id, // Tag ID
@@ -11,16 +12,11 @@ const ModalQuillEditor = ({
   isRequired, // isRequired
   readOnly = false,
   setValue, // onChange function
-  maxLength,
+  maxLength, // 문자 길이 int ex) 400
   editorHeight = 300,
 }) => {
   const QuillRef = useRef()
   const [textLengthCheck, setTextLengthCheck] = useState(false)
-  const [editor, setEditor] = useState('')
-
-  useEffect(() => {
-    setEditor(value)
-  }, [])
 
   // 이미지를 업로드 하기 위한 함수
   const imageHandler = () => {
@@ -83,18 +79,13 @@ const ModalQuillEditor = ({
       },
     }
   }, [])
-
-  const handleEditorOnChange = (item, asd, fa) => {
-    const textReplace = item.replace(/<[^>]*>?| /g, '')
+  const handleEditorOnChange = item => {
+    const textReplace = item.replace(/<[^>]*>?| /g, '').length
     if (maxLength) {
-      if (maxLength >= textReplace.length) {
+      if (maxLength >= textReplace) {
         setValue(item)
-        setEditor(item)
         setTextLengthCheck(false)
-        console.log(textReplace.length, maxLength)
       } else {
-        console.log(value)
-        setValue(() => editor)
         setTextLengthCheck(true)
       }
     }
@@ -115,8 +106,9 @@ const ModalQuillEditor = ({
             QuillRef.current = element
           }
         }}
-        value={editor}
-        onChange={(value, asd, fa) => handleEditorOnChange(value, asd, fa)}
+        value={value}
+        defaultValue={value}
+        onChange={item => (!textLengthCheck ? handleEditorOnChange(item) : handleEditorOnChange(value))}
         modules={modules}
         readOnly={readOnly}
         theme='snow'
@@ -150,6 +142,6 @@ const EditorStyle = styled(ReactQuill)`
 const MaxTextMsg = styled.span`
   font-size: 12px;
   padding-left: 10px;
-  color: ${({textLengthCheck}) => textLengthCheck && 'red'};
+  //color: ${({textLengthCheck}) => textLengthCheck && 'red'};
 `
 //border-top: ${({readOnly}) => (readOnly ? '1px solid #b1b7c1' : 'none')};
