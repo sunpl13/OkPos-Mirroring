@@ -1,10 +1,7 @@
-import {CForm, CFormLabel, CFormTextarea, CRow} from '@coreui/react'
+import {CFormLabel, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
-import DetailModalTemplate from '../DetailModalTemplate'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import ModalFilesView from '../../../forms/inputForm/ModalFilesView'
-import ModalTextarea from '../../../forms/inputForm/ModalTextarea'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 
@@ -62,7 +59,7 @@ const InquiryDetailModal = ({
       </CRow>
       <br />
       <CRow className={'p-2'}>
-        <ModalQuillEditor id='content' label={'문의 답변'} value={editor} setEditor={setEditor} readOnly={editMode} />
+        <ModalQuillEditor id='content' label={'문의 답변'} value={editor} setValue={setEditor} readOnly={editMode} />
       </CRow>
       <br />
       <br />

@@ -2,18 +2,15 @@ import React, {useEffect, useState} from 'react'
 import {CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
-import {educationApplicationListColumns, educationRegistrationsList} from '../../../utils/columns/partnerCenter/Columns'
-import EducationApplicationDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationApplicationDetailModal'
+import {educationRegistrationsList} from '../../../utils/columns/partnerCenter/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import EducationRegistrationsDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationRegistrationsDetailModal'
-import ModalSingleDatePicker from '../../../components/forms/inputForm/ModalSingleDatePicker'
 
 const EducationRegistrationsList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
-  const [editCheck, setEditCheck] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
   const [editor, setEditor] = useState('')

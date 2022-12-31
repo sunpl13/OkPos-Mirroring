@@ -3,7 +3,6 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import {CCol, CFormLabel, CRow} from '@coreui/react'
 import styled from 'styled-components'
-import quill from 'quill'
 
 const ModalQuillEditor = ({
   id, // Tag ID
@@ -79,15 +78,20 @@ const ModalQuillEditor = ({
       },
     }
   }, [])
+
   const handleEditorOnChange = item => {
-    const textReplace = item.replace(/<[^>]*>?| /g, '').length
+    console.log(value)
+    console.log(item)
     if (maxLength) {
+      const textReplace = item.replace(/<[^>]*>?| /g, '').length
       if (maxLength >= textReplace) {
         setValue(item)
         setTextLengthCheck(false)
       } else {
         setTextLengthCheck(true)
       }
+    } else if (!maxLength) {
+      setValue(item)
     }
   }
 

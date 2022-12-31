@@ -22,23 +22,16 @@ const NoticeDetailModal = ({
   setEditMode,
 }) => {
   const {id, title, noticeFiles, noticeImages, category} = value
-  console.log('')
-  useEffect(() => {
-    if (!id) {
-      setEditMode(false)
-    }
-  }, [value])
-  console.log(value)
+
   return (
     <DetailModalEditModeTemplate
       visible={visible}
       title={id ? '공지사항' : '공지사항 등록'}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={id ? '수정' : '등록'}
       onDelete={id && onDelete}
-      editMode={id && editMode}
-      setEditMode={id && setEditMode}
+      editMode={editMode}
+      setEditMode={setEditMode}
     >
       <CRow className={'p-2'}>
         <ModalInput
