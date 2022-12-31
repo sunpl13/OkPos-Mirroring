@@ -1,8 +1,9 @@
-import React, {useMemo, useRef} from 'react'
+import React, {useEffect, useMemo, useRef, useState} from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import {CCol, CFormLabel} from '@coreui/react'
+import {CCol, CFormLabel, CRow} from '@coreui/react'
 import styled from 'styled-components'
+import quill from 'quill'
 
 const ModalQuillEditor = ({
   id, // Tag ID
@@ -11,8 +12,11 @@ const ModalQuillEditor = ({
   isRequired, // isRequired
   readOnly = false,
   setValue, // onChange function
+  maxLength, // 문자 길이 int ex) 400
+  editorHeight = 300,
 }) => {
   const QuillRef = useRef()
+  const [textLengthCheck, setTextLengthCheck] = useState(false)
 
   // 이미지를 업로드 하기 위한 함수
   const imageHandler = () => {
@@ -56,22 +60,44 @@ const ModalQuillEditor = ({
     return {
       toolbar: {
         container: [
-          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-          [{size: ['small', false, 'large', 'huge']}, {color: []}],
-          [{list: 'ordered'}, {list: 'bullet'}, {indent: '-1'}, {indent: '+1'}, {align: []}],
-          ['image', 'video'],
+          ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+          ['blockquote'],
+          [{list: 'ordered'}, {list: 'bullet'}], // 리스트
+          [{script: 'sub'}, {script: 'super'}], // superscript/subscript
+          [{indent: '-1'}, {indent: '+1'}], // Text 좌우 이동
+          [{direction: 'rtl'}], // Text 좌우 끝으로 이동
+          [{header: [1, 2, 3, 4, 5, 6, false]}], // Text 제목 크기
+          [{color: []}, {background: []}], // Text 색상
+          [{font: []}], // Text 폰트
+          [{align: []}], // Text 정렬
+          ['clean'], // Text 설정 초기화
+          //['image', 'video'],
         ],
-        handlers: {
-          image: imageHandler,
-        },
+        //handlers: {
+        //           image: imageHandler,
+        //         },
       },
     }
   }, [])
+  const handleEditorOnChange = item => {
+    const textReplace = item.replace(/<[^>]*>?| /g, '').length
+    if (maxLength) {
+      if (maxLength >= textReplace) {
+        setValue(item)
+        setTextLengthCheck(false)
+      } else {
+        setTextLengthCheck(true)
+      }
+    }
+  }
 
   return (
-    <CCol style={{height: '300px'}} className={'pb-5'}>
-      <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
+    <CCol style={{height: `${editorHeight}px`, marginBottom: '20px'}} className={'pb-5'}>
+      <CFormLabel htmlFor={`${id}Static`} className='col-form-label'>
         <span className={isRequired && 'required'}>{label || ' * '}</span>
+        <MaxTextMsg className={'px-lg-2'} textLengthCheck={textLengthCheck}>
+          {maxLength ? `* ${maxLength}자 까지 입력 가능합니다.` : '  '}
+        </MaxTextMsg>
       </CFormLabel>
       <EditorStyle
         id={id || ''}
@@ -81,7 +107,8 @@ const ModalQuillEditor = ({
           }
         }}
         value={value}
-        onChange={setValue}
+        defaultValue={value}
+        onChange={item => (!textLengthCheck ? handleEditorOnChange(item) : handleEditorOnChange(value))}
         modules={modules}
         readOnly={readOnly}
         theme='snow'
@@ -111,5 +138,10 @@ const EditorStyle = styled(ReactQuill)`
     border-top-right-radius: 0.375rem;
     display: ${({readOnly}) => (readOnly ? 'none' : 'block')};
   }
+`
+const MaxTextMsg = styled.span`
+  font-size: 12px;
+  padding-left: 10px;
+  //color: ${({textLengthCheck}) => textLengthCheck && 'red'};
 `
 //border-top: ${({readOnly}) => (readOnly ? '1px solid #b1b7c1' : 'none')};

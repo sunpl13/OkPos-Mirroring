@@ -26,7 +26,6 @@ const DataRoom = () => {
         method: HttpMethod.GET,
         url: EndPoint.PARTNER_DATAROOMS,
       })
-      console.log(result)
       if (!isSuccess || isEmpty(result)) {
         return
       }
@@ -54,7 +53,6 @@ const DataRoom = () => {
           method: HttpMethod.GET,
           url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
         })
-        console.log(result)
         if (!isSuccess || isEmpty(result)) {
           return
         }
@@ -109,7 +107,6 @@ const DataRoom = () => {
             url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
             data: json,
           })
-          console.log(message, result)
           if (!isSuccess || isEmpty(result)) {
             return alert(message)
           }
