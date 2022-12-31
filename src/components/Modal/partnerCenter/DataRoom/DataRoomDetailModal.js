@@ -96,6 +96,7 @@ const DataRoomDetailModal = ({
           setValue={setEditor}
           readOnly={id && editMode}
           disabled={id && editMode}
+          maxLength={30}
         />
       </CRow>
       <br />

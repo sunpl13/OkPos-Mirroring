@@ -67,15 +67,31 @@ const _nav = [
         name: '탈퇴 회원 리스트',
         to: '/partnerCenter/users/withdrawalUsers',
       },
-      {
-        component: CNavItem,
-        name: '1 : 1 문의 리스트',
-        to: '/partnerCenter/inquiry/userInquiryList',
-      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: '1:1 문의 관리',
+    icon: <CIcon icon={cilChatBubble} customClassName='nav-icon' />,
+    accessauthority: 'PARTNER',
+    items: [
       {
         component: CNavItem,
         name: '공지사항 리스트',
         to: '/partnerCenter/notice/noticeList',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: '공지사항 관리',
+    icon: <CIcon icon={cilNotes} customClassName='nav-icon' />,
+    accessauthority: 'PARTNER',
+    items: [
+      {
+        component: CNavItem,
+        name: '1 : 1 문의 리스트',
+        to: '/partnerCenter/inquiry/userInquiryList',
       },
     ],
   },
