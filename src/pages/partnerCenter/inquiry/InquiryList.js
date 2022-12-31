@@ -14,6 +14,7 @@ const InquiryList = () => {
   const [editCheck, setEditCheck] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [editor, setEditor] = useState('')
+  const [editMode, setEditMode] = useState(true)
 
   // 1:1 문의 리스트 API
   const getList = async () => {
@@ -51,7 +52,6 @@ const InquiryList = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.PARTNER_INQUIRIES}/${id}`,
       })
-      console.log(result)
       if (!isSuccess || isEmpty(result)) {
         return alert(message)
       }
@@ -85,7 +85,7 @@ const InquiryList = () => {
         }
         if (code === 1000) {
           alert(message)
-          window.location.reload()
+          getList()
         } else {
           alert(message)
         }
@@ -145,6 +145,7 @@ const InquiryList = () => {
           return alert(message)
         }
         if (code === 1000) {
+          getList()
           setShowModal(false)
           return alert(message)
         } else {
@@ -172,6 +173,7 @@ const InquiryList = () => {
               onClick={handleShowModal}
               columns={userInquiryListColumns}
               className={'userList'}
+              datePickerHidden={false}
             />
           </CCardBody>
         </CCard>
@@ -184,7 +186,9 @@ const InquiryList = () => {
         upDate={handleInquiryModalUpdate}
         onDelete={handleInquiryModalOnDelete}
         editor={editor}
-        setValue={setEditor}
+        setEditor={setEditor}
+        editMode={editMode}
+        setEditMode={setEditMode}
       />
     </CRow>
   )

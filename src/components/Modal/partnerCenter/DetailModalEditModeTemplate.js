@@ -1,5 +1,5 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 
 const DetailModalEditModeTemplate = ({
   visible,
@@ -8,7 +8,6 @@ const DetailModalEditModeTemplate = ({
   setVisible,
   upDate,
   onDelete,
-  btnText,
   editMode,
   setEditMode,
 }) => {
@@ -18,10 +17,12 @@ const DetailModalEditModeTemplate = ({
       upDate()
     }
   }
-  const cancel = event => {
-    setVisible(false)
-    //event.stopPropagation()
-  }
+
+  useEffect(() => {
+    if (!visible) {
+      setEditMode(true)
+    }
+  }, [visible])
 
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
@@ -34,16 +35,16 @@ const DetailModalEditModeTemplate = ({
           onClick={() => {
             setEditMode ? handleEditModeToggle() : upDate()
           }}
-          color={editMode ? 'success' : 'primary'}
+          color={editMode ? 'primary' : 'success'}
         >
-          {btnText || 'Not Btn Title'}
+          {editMode ? '수정' : '저장'}
         </CButton>
         {onDelete && (
           <CButton onClick={() => onDelete()} color={'danger'}>
             삭제
           </CButton>
         )}
-        <CButton color='secondary' onClick={cancel}>
+        <CButton color='secondary' onClick={() => setVisible(false)}>
           닫기
         </CButton>
       </CModalFooter>

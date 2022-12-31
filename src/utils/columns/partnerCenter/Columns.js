@@ -4,8 +4,8 @@ import React from 'react'
 export const userListColumns = [
   {
     key: 'id',
-    label: '번호',
-    _props: {color: 'primary', className: 'userId'},
+    label: 'No',
+    _props: {color: 'primary', className: 'id'},
   },
   {
     key: 'userName',
@@ -101,6 +101,11 @@ export const withdrawalUsersColumns = [
 // 1:1 문의 리스트
 export const userInquiryListColumns = [
   {
+    key: 'id',
+    label: 'No',
+    _props: {color: 'primary', className: 'id'},
+  },
+  {
     key: 'inquiryCategory',
     label: '문의 유형',
     _props: {color: 'primary', className: 'inquiryCategory'},
@@ -112,14 +117,8 @@ export const userInquiryListColumns = [
   },
   {
     key: 'userPhoneNum',
-    label: '회원 휴대폰 번호',
+    label: '전화번호',
     _props: {color: 'primary', className: 'userPhoneNum'},
-  },
-  {
-    key: 'createdAt',
-    label: '문의 등록일',
-    filter: false,
-    _props: {color: 'primary', className: 'createdAt'},
   },
 ]
 // 공지사항 리스트

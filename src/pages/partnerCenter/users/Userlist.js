@@ -50,7 +50,7 @@ const Userlist = () => {
         url: `${EndPoint.PARTNER_USERS}/${id}`,
       })
       if (!isSuccess || isEmpty(result)) {
-        return
+        return alert(message)
       }
       if (code === 1000) {
         setSelectedItem(result)

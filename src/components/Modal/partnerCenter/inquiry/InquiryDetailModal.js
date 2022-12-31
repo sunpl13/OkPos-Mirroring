@@ -6,17 +6,30 @@ import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import ModalFilesView from '../../../forms/inputForm/ModalFilesView'
 import ModalTextarea from '../../../forms/inputForm/ModalTextarea'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
+import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 
-const InquiryDetailModal = ({upDate, setValue, value, visible, setVisible, onDelete, editor}) => {
+const InquiryDetailModal = ({
+  upDate,
+  setEditor,
+  value,
+  visible,
+  setVisible,
+  onDelete,
+  editor,
+  editMode,
+  setEditMode,
+}) => {
   const {id, userName, userPhoneNum, content, inquiryCategory, inquiryFiles, inquiryReplies} = value
   return (
-    <DetailModalTemplate
+    <DetailModalEditModeTemplate
       visible={visible}
       title={'문의 상세 보기'}
       setVisible={setVisible}
       upDate={upDate}
       btnText={inquiryReplies?.length !== 0 ? '수정' : '답변등록'}
       onDelete={onDelete}
+      editMode={editMode}
+      setEditMode={setEditMode}
     >
       <CRow className={'p-2'}>
         <ModalInput id={'id'} placeholder={'문의 번호'} label={'문의 번호'} value={id} readOnly disabled />
@@ -49,11 +62,11 @@ const InquiryDetailModal = ({upDate, setValue, value, visible, setVisible, onDel
       </CRow>
       <br />
       <CRow className={'p-2'}>
-        <ModalQuillEditor id='content' label={'문의 답변'} value={editor} setValue={setValue} />
+        <ModalQuillEditor id='content' label={'문의 답변'} value={editor} setEditor={setEditor} readOnly={editMode} />
       </CRow>
       <br />
       <br />
-    </DetailModalTemplate>
+    </DetailModalEditModeTemplate>
   )
 }
 

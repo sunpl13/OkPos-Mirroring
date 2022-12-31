@@ -47,7 +47,6 @@ const InActiveUserList = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.PARTNER_INACTIVE_USERS}`,
       })
-      console.log(result)
       if (!isSuccess || isEmpty(result)) {
         return alert(message)
       }
