@@ -61,7 +61,6 @@ const EducationScheduleList = () => {
           return
         }
         if (code === 1000) {
-          console.log(result)
           setSelectedItem({
             ...result,
             id: id,

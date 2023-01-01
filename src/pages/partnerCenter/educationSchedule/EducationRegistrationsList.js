@@ -17,6 +17,9 @@ const EducationRegistrationsList = () => {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [singleDate, setSingleDate] = useState('')
+  const [images, setImages] = useState([])
+  const [files, setFiles] = useState([])
+
   // 교육 신청 리스트 API
   const getList = async () => {
     try {
@@ -63,6 +66,13 @@ const EducationRegistrationsList = () => {
           setEndDate(result?.deadline)
           setSingleDate(result?.educationDate)
           setShowModal(!showModal)
+          setImages(result?.educationRegistrationNoticeImages)
+          setFiles(
+            result?.educationRegistrationNoticeFiles.map(value => ({
+              ...value,
+              name: value.title,
+            })),
+          )
         } else {
           alert(message)
         }
@@ -84,6 +94,14 @@ const EducationRegistrationsList = () => {
       place, // 교육 장소
       title,
     } = selectedItem
+
+    let obj = {}
+    if (files.length !== 0) {
+      files.forEach(value => {
+        obj[value?.name] = value.url
+      })
+    }
+
     const json = JSON.stringify({
       title: title,
       content: editor,
@@ -92,8 +110,8 @@ const EducationRegistrationsList = () => {
       educationDate: singleDate,
       place: place,
       applicantsCap: applicantsCap,
-      files: {},
-      images: [],
+      files: obj,
+      images: images.length !== 0 ? images.map(img => img.url) : [],
     })
     if (id) {
       if (window.confirm('수정하시겠습니까?')) {
@@ -240,6 +258,10 @@ const EducationRegistrationsList = () => {
         endDate={endDate}
         singleDate={singleDate}
         setSingleDate={setSingleDate}
+        images={images}
+        setImages={setImages}
+        files={files}
+        setFiles={setFiles}
       />
     </CRow>
   )
