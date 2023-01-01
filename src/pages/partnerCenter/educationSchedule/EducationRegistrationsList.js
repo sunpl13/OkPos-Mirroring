@@ -82,6 +82,10 @@ const EducationRegistrationsList = () => {
     } else {
       setShowModal(!showModal)
       setSelectedItem({})
+      setEditor('')
+      setEndDate('')
+      setStartDate('')
+      setSingleDate('')
     }
   }
 
@@ -89,10 +93,8 @@ const EducationRegistrationsList = () => {
     const {
       id, // 교육 신청 공고 ID
       applicantsCap, // 교육신청 제한 인원
-      educationRegistrationNoticeFiles, // 교육 신청 공고 파일
-      educationRegistrationNoticeImages, // 교육 신청 공고 이미지
       place, // 교육 장소
-      title,
+      title, // 공고 제목
     } = selectedItem
 
     let obj = {}
@@ -134,6 +136,7 @@ const EducationRegistrationsList = () => {
           }
           if (code === 1000) {
             getList()
+            setShowModal(false)
             return alert(message)
           } else {
             alert(message)
@@ -207,15 +210,6 @@ const EducationRegistrationsList = () => {
       }
     }
   }
-
-  useEffect(() => {
-    if (!showModal) {
-      setEditor('')
-      setEndDate('')
-      setStartDate('')
-      setSingleDate('')
-    }
-  }, [showModal])
 
   return (
     <CRow>

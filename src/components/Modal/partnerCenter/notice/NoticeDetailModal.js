@@ -33,9 +33,10 @@ const NoticeDetailModal = ({
       title={id ? '공지사항' : '공지사항 등록'}
       setVisible={setVisible}
       upDate={upDate}
-      onDelete={id && onDelete}
-      editMode={editMode}
+      editMode={id && editMode}
       setEditMode={setEditMode}
+      onDelete={id && onDelete}
+      addModal={!id}
     >
       <CRow className={'p-2'}>
         <ModalInput
@@ -68,7 +69,7 @@ const NoticeDetailModal = ({
           disabled={id && editMode}
           fileList={files}
           setFileList={setFiles}
-          filePath='notice_files'
+          filePath='dataRoom_files'
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -80,6 +81,7 @@ const NoticeDetailModal = ({
           disabled={id && editMode}
         />
       </CRow>
+
       <CRow className={'p-2'}>
         <ModalQuillEditor
           id='content'

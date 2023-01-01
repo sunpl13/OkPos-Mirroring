@@ -183,7 +183,8 @@ const NoticeList = () => {
         }
         if (code === 1000) {
           getList()
-          return alert(message)
+          alert(message)
+          return setShowModal(false)
         } else {
           alert(message)
         }
@@ -224,7 +225,7 @@ const NoticeList = () => {
         editMode={editMode}
         setEditMode={setEditMode}
         images={images}
-        setimages={setImages}
+        setImages={setImages}
         files={files}
         setFiles={setFiles}
       />

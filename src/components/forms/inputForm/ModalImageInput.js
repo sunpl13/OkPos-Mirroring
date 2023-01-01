@@ -116,6 +116,9 @@ const ModalImageInput = ({
       <div style={{marginTop: 8}}>Upload</div>
     </div>
   )
+
+  const notFiles = <div>Have No Image.</div>
+
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className='col-form-label'>
@@ -130,9 +133,16 @@ const ModalImageInput = ({
         customRequest={reqData => customReq(reqData)}
         disabled={readOnly}
       >
-        {fileList?.length >= 8 ? null : !readOnly && uploadButton}
+        {fileList?.length >= 8
+          ? null
+          : fileList?.length === 0
+          ? !readOnly
+            ? uploadButton
+            : notFiles
+          : !readOnly
+          ? uploadButton
+          : null}
       </Upload>
-
       {previewImage && (
         <CCol>
           <CFormLabel className='col-form-label'>

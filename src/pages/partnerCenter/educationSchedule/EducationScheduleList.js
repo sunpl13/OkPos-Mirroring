@@ -58,7 +58,7 @@ const EducationScheduleList = () => {
           url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
         })
         if (!isSuccess || isEmpty(result)) {
-          return
+          return alert(message)
         }
         if (code === 1000) {
           setSelectedItem({
@@ -165,7 +165,6 @@ const EducationScheduleList = () => {
   }
 
   const handleOrderModalOnChange = ({target: {id, value}}) => {
-    console.log(id, value)
     setSelectedItem({
       ...selectedItem,
       [id]: value,
