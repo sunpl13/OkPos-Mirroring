@@ -8,6 +8,7 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import Axios from 'axios'
+import {sendImageUrlFormat} from '../../../utils/awsCustom'
 
 const NoticeList = () => {
   const [items, setItems] = useState()
@@ -17,7 +18,7 @@ const NoticeList = () => {
   const [showModal, setShowModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
   const [imageList, setImageList] = useState([])
-
+  const [fileList, setFileList] = useState([])
   // 공지사항 API
   const getList = async () => {
     try {
@@ -58,7 +59,6 @@ const NoticeList = () => {
           return alert(message)
         }
         if (code === 1000) {
-          console.log(result)
           setSelectedItem(result)
           setEditCheck(result)
           setEditor(result.content)
@@ -86,6 +86,9 @@ const NoticeList = () => {
 
   const handleNoticeDetailModalUpdate = async () => {
     const {id, title, noticeFiles, noticeImages, category, isApplicationNotice} = selectedItem
+    const imgUrls = sendImageUrlFormat(imageList)
+    const fileUrls = sendImageUrlFormat(fileList)
+
     const json = JSON.stringify({
       title: title,
       content: editor,

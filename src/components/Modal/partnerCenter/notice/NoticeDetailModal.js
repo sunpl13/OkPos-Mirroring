@@ -8,6 +8,9 @@ import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import {noticeOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
+import {sendImageUrlFormat} from '../../../../utils/awsCustom'
+import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
+import {EndPoint} from '../../../../dataManager/apiMapper'
 
 const NoticeDetailModal = ({
   value,
@@ -22,8 +25,11 @@ const NoticeDetailModal = ({
   setEditMode,
   images,
   setImages,
+  files,
+  setFiles,
 }) => {
   const {id, title, noticeFiles, noticeImages, category} = value
+  console.log(value)
 
   return (
     <DetailModalEditModeTemplate
