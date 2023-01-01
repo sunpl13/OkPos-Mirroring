@@ -16,7 +16,7 @@ const DataRoom = () => {
   const [editMode, setEditMode] = useState(true)
   const [editor, setEditor] = useState('')
   const [images, setImages] = useState([])
-  const [files, setFiles] = useState({})
+  const [files, setFiles] = useState([])
 
   // 자료실 API
   const getList = async () => {
@@ -81,6 +81,8 @@ const DataRoom = () => {
       setSelectedItem({})
       setEditCheck({})
       setEditor('')
+      setImages([])
+      setFiles([])
     }
     setShowModal(!showModal)
   }
@@ -89,9 +91,11 @@ const DataRoom = () => {
   const handleDetailModalUpDate = async () => {
     const {id, title, category} = selectedItem
     let obj = {}
-    files.forEach(element => {
-      obj[element?.name] = element.url
-    })
+    if (files.length !== 0) {
+      files.forEach(value => {
+        obj[value?.name] = value.url
+      })
+    }
 
     const json = JSON.stringify({
       title: title,
@@ -100,7 +104,6 @@ const DataRoom = () => {
       files: obj,
       images: images.length !== 0 ? images.map(img => img.url) : [],
     })
-    console.log(json)
     if (id) {
       if (window.confirm('수정하시겠습니까?')) {
         if (!title) return alert('제목을 입력해 주세요.')
@@ -178,7 +181,6 @@ const DataRoom = () => {
         }
         if (code === 1000) {
           alert(message)
-          //window.location.reload()
           getList()
           setShowModal(false)
         } else {

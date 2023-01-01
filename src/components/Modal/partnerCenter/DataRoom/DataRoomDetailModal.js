@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
-import {CForm, CRow} from '@coreui/react'
+import {CRow} from '@coreui/react'
 import PropTypes from 'prop-types'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
-import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
 import {noticeOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 
 const DataRoomDetailModal = ({
@@ -118,19 +116,27 @@ const DataRoomDetailModal = ({
           disabled={id && editMode}
           fileList={files}
           setFileList={setFiles}
-          filePath='notice_files'
+          filePath='dataRoom_files'
         />
       </CRow>
     </DetailModalEditModeTemplate>
   )
 }
-
 DataRoomDetailModal.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.any,
   visible: PropTypes.bool,
   setVisible: PropTypes.func,
   upDate: PropTypes.func,
+  onDelete: PropTypes.func,
+  editMode: PropTypes.bool,
+  setEditMode: PropTypes.func,
+  editor: PropTypes.string,
+  setEditor: PropTypes.func,
+  images: PropTypes.array,
+  setImages: PropTypes.func,
+  files: PropTypes.array,
+  setFiles: PropTypes.func,
 }
 
 export default DataRoomDetailModal

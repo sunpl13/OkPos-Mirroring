@@ -7,8 +7,6 @@ import {noticeList} from '../../../utils/columns/partnerCenter/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
-import Axios from 'axios'
-import {sendImageUrlFormat} from '../../../utils/awsCustom'
 
 const NoticeList = () => {
   const [items, setItems] = useState()
@@ -17,8 +15,9 @@ const NoticeList = () => {
   const [editor, setEditor] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
-  const [imageList, setImageList] = useState([])
-  const [fileList, setFileList] = useState([])
+  const [images, setImages] = useState([])
+  const [files, setFiles] = useState([])
+
   // 공지사항 API
   const getList = async () => {
     try {
@@ -44,7 +43,7 @@ const NoticeList = () => {
     getList()
   }, [])
 
-  /** Open Modal*/
+  // Open Modal
   const handleShowModal = async ({id}) => {
     setShowModal(!showModal)
     if (id) {
@@ -62,7 +61,13 @@ const NoticeList = () => {
           setSelectedItem(result)
           setEditCheck(result)
           setEditor(result.content)
-          setImageList(result.noticeImages)
+          setImages(result?.noticeImages)
+          setFiles(
+            result?.noticeFiles.map(value => ({
+              ...value,
+              name: value.title,
+            })),
+          )
         } else {
           alert(message)
         }
@@ -73,7 +78,8 @@ const NoticeList = () => {
       setSelectedItem({})
       setEditCheck({})
       setEditor('')
-      setEditMode(false)
+      setImages([])
+      setFiles([])
     }
   }
   // Detail Modal
@@ -85,19 +91,23 @@ const NoticeList = () => {
   }
 
   const handleNoticeDetailModalUpdate = async () => {
-    const {id, title, noticeFiles, noticeImages, category, isApplicationNotice} = selectedItem
-    const imgUrls = sendImageUrlFormat(imageList)
-    const fileUrls = sendImageUrlFormat(fileList)
+    const {id, title, category, isApplicationNotice} = selectedItem
+    let obj = {}
+    if (files.length !== 0) {
+      files.forEach(value => {
+        obj[value?.name] = value.url
+      })
+    }
 
     const json = JSON.stringify({
       title: title,
       content: editor,
       category: category.replace(/<[^>]*>?| /g, ''),
       isApplicationNotice: !!isApplicationNotice,
-      files: {},
-      images: [],
+      files: obj,
+      images: images.length !== 0 ? images.map(img => img.url) : [],
     })
-    console.log(imageList)
+
     if (id) {
       if (window.confirm('공지사항을 수정하시겠습니까?')) {
         if (!title) return alert('공지사항 제목을 입력해 주세요.')
@@ -213,8 +223,10 @@ const NoticeList = () => {
         onDelete={handleNoticeDeleteBtnOnClick}
         editMode={editMode}
         setEditMode={setEditMode}
-        images={imageList}
-        setimages={setImageList}
+        images={images}
+        setimages={setImages}
+        files={files}
+        setFiles={setFiles}
       />
     </CRow>
   )

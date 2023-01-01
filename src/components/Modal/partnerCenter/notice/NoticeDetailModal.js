@@ -1,35 +1,31 @@
-import {CCol, CRow} from '@coreui/react'
-import ModalInput from '../../../forms/inputForm/ModalInput'
 import React from 'react'
+import ModalInput from '../../../forms/inputForm/ModalInput'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
-import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
-import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
+import {CRow} from '@coreui/react'
+import PropTypes from 'prop-types'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
+import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import {noticeOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
-import {sendImageUrlFormat} from '../../../../utils/awsCustom'
-import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
-import {EndPoint} from '../../../../dataManager/apiMapper'
 
 const NoticeDetailModal = ({
+  onChange,
   value,
   visible,
   setVisible,
-  onChange,
   upDate,
-  setEditor,
-  editor,
   onDelete,
   editMode,
   setEditMode,
+  editor,
+  setEditor,
   images,
   setImages,
   files,
   setFiles,
 }) => {
-  const {id, title, noticeFiles, noticeImages, category} = value
-  console.log(value)
+  const {id, title, category} = value
 
   return (
     <DetailModalEditModeTemplate
@@ -64,42 +60,24 @@ const NoticeDetailModal = ({
           isRequired
         />
       </CRow>
-      {!editMode ? (
-        <CRow className={'p-2'}>
-          <ModalFilesInput
-            id={'files'}
-            type={'file'}
-            placeholder={'파일 첨부'}
-            label={'파일 첨부'}
-            value={noticeFiles}
-            onChange={onChange}
-            readOnly={id && editMode}
-            disabled={id && editMode}
-          />
-        </CRow>
-      ) : (
-        <CRow className={'p-2'}>
-          <MultiFileDownloadForm
-            id={'files'}
-            type={'file'}
-            placeholder={'첨부 파일'}
-            label={'첨부 파일'}
-            value={[]}
-            onChange={onChange}
-            readOnly={id && editMode}
-            disabled={id && editMode}
-          />
-        </CRow>
-      )}
+      <CRow className={'p-2'}>
+        <ModalFilesInput
+          id={'files'}
+          label={'파일 첨부'}
+          readOnly={id && editMode}
+          disabled={id && editMode}
+          fileList={files}
+          setFileList={setFiles}
+          filePath='notice_files'
+        />
+      </CRow>
       <CRow className={'p-2'}>
         <ModalImageInput
-          label={'이미지 첨부'}
-          id='image'
+          label={'이미지'}
           fileList={images}
           setFileList={setImages}
-          images={value.imageUrls}
-          imgPath='notice_images'
           readOnly={id && editMode}
+          disabled={id && editMode}
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -119,3 +97,20 @@ const NoticeDetailModal = ({
 }
 
 export default NoticeDetailModal
+
+NoticeDetailModal.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.any,
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+  upDate: PropTypes.func,
+  onDelete: PropTypes.func,
+  editMode: PropTypes.bool,
+  setEditMode: PropTypes.func,
+  editor: PropTypes.string,
+  setEditor: PropTypes.func,
+  images: PropTypes.array,
+  setImages: PropTypes.func,
+  files: PropTypes.array,
+  setFiles: PropTypes.func,
+}

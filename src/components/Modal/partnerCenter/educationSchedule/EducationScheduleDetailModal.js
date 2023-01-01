@@ -19,8 +19,12 @@ const EducationScheduleDetailModal = ({
   setEditMode,
   editor,
   setEditor,
+  images,
+  setImages,
+  files,
+  setFiles,
 }) => {
-  const {id, title, files, content, educationScheduleFiles, educationScheduleImages} = value
+  const {id, title} = value
   return (
     <DetailModalEditModeTemplate
       title={id ? '교육 일정 상세' : '교육 일정 추가'}
@@ -45,36 +49,26 @@ const EducationScheduleDetailModal = ({
         />
       </CRow>
       <CRow className={'p-2'}>
-        {id && editMode ? (
-          <MultiFileDownloadForm
-            id={'files'}
-            type={'file'}
-            placeholder={'첨부 파일'}
-            label={'첨부 파일'}
-            value={[]}
-            onChange={onChange}
-            readOnly={id && editMode}
-            disabled={id && editMode}
-          />
-        ) : (
-          <ModalFilesInput
-            id={'files'}
-            value={files}
-            label={'첨부파일'}
-            readOnly={id && editMode}
-            disabled={id && editMode}
-          />
-        )}
+        <ModalFilesInput
+          id={'files'}
+          label={'파일 첨부'}
+          readOnly={id && editMode}
+          disabled={id && editMode}
+          fileList={files}
+          setFileList={setFiles}
+          filePath='dataRoom_files'
+        />
       </CRow>
       <CRow className={'p-2'}>
         <ModalImageInput
-          id={'imageInput'}
           label={'이미지'}
-          value={educationScheduleImages}
+          fileList={images}
+          setFileList={setImages}
           readOnly={id && editMode}
           disabled={id && editMode}
         />
       </CRow>
+
       <CRow className={'p-2 pb-3'}>
         <ModalQuillEditor
           id='content'

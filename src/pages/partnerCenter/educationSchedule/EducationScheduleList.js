@@ -15,6 +15,8 @@ const EducationScheduleList = () => {
   const [showModal, setShowModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
   const [editor, setEditor] = useState('')
+  const [images, setImages] = useState([])
+  const [files, setFiles] = useState([])
 
   // 교육 일정 리스트 API
   const getList = async () => {
@@ -59,6 +61,7 @@ const EducationScheduleList = () => {
           return
         }
         if (code === 1000) {
+          console.log(result)
           setSelectedItem({
             ...result,
             id: id,
@@ -66,6 +69,13 @@ const EducationScheduleList = () => {
           setEditCheck(result)
           setEditor(result.content)
           setShowModal(!showModal)
+          setImages(result?.educationScheduleImages)
+          setFiles(
+            result?.educationScheduleFiles.map(value => ({
+              ...value,
+              name: value.title,
+            })),
+          )
         } else {
           alert(message)
         }
@@ -76,12 +86,19 @@ const EducationScheduleList = () => {
   }
 
   const handleDetailModalUpDate = async () => {
-    const {id, title, content, files, images} = selectedItem
+    const {id, title} = selectedItem
+    let obj = {}
+    if (files.length !== 0) {
+      files.forEach(value => {
+        obj[value?.name] = value.url
+      })
+    }
+
     const json = JSON.stringify({
       title: title,
       content: editor,
-      files: {},
-      images: [],
+      files: obj,
+      images: images.length !== 0 ? images.map(img => img.url) : [],
     })
     if (id) {
       if (window.confirm('교육 일정을 수정하시겠습니까?')) {
@@ -233,6 +250,10 @@ const EducationScheduleList = () => {
         setEditMode={setEditMode}
         editor={editor}
         setEditor={setEditor}
+        images={images}
+        setImages={setImages}
+        files={files}
+        setFiles={setFiles}
       />
     </CRow>
   )
