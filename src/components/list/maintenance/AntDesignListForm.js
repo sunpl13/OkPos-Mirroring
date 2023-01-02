@@ -39,16 +39,16 @@ const AntDesignListForm = ({items, onClick, columns, className, title, listIndex
       </ListTitleForm>
       {children}
       <AntTable
-        onRow={(record, rowIndex) => {
-          return {
-            onClick: event => {
-              console.log(event, record, rowIndex)
-            }, // click row
-            onDoubleClick: event => {
-              console.log(event, record, rowIndex)
-            }, // double click row
-          }
-        }}
+        //onRow={(record, rowIndex) => {
+        //           return {
+        //             onClick: event => {
+        //               console.log(event, record, rowIndex)
+        //             }, // click row
+        //             onDoubleClick: event => {
+        //               console.log(event, record, rowIndex)
+        //             }, // double click row
+        //           }
+        //         }}
         onCell={{
           cat: item => {
             console.log(item)
@@ -79,23 +79,26 @@ AntDesignListForm.propTypes = {
 export default AntDesignListForm
 
 const AntTable = styled(Table)`
+  * {
+    border-radius: 0;
+  }
   &.userList {
     width: 100%;
     & > div {
     width:100%
   }
   & th {
-    width: 100&;
     min-width: auto;
     background:#d6d2f8;
   }
   & th,
   & td{
-  border: 1px solid #d8dbe0;
+    border: 1px solid #d8dbe0;
     text-align: center;
     padding:0.5rem;
     & select {
      border:none;
+      
     }
   }
   

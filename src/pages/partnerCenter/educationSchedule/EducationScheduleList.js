@@ -63,7 +63,6 @@ const EducationScheduleList = () => {
         if (code === 1000) {
           setSelectedItem({
             ...result,
-            id: id,
           })
           setEditCheck(result)
           setEditor(result.content)

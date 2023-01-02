@@ -5,10 +5,20 @@ import AntDesignListForm from './AntDesignListForm'
 const {Text} = Typography
 
 const NumberOfStoresList = ({items, onClick, columns, className}) => {
-  const [listItems, setListItems] = useState([])
+  const [listItems, setListItems] = useState([
+    {
+      region: '서울',
+      catcount: '6',
+      poscount: '12',
+      kioskcount: '18',
+      sum: '36',
+      note: '-',
+    },
+  ])
   useEffect(() => {
     setListItems(items)
   }, [items])
+  console.log(items)
 
   return (
     <>

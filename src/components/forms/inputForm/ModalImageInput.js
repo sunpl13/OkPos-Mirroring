@@ -149,7 +149,7 @@ const ModalImageInput = ({
             <span>{previewTitle || ''}</span>
           </CFormLabel>
           <PreviewImageBox className={'text-center p-2'}>
-            <CImage rounded alt='example' onClick={() => handleCloseImage()} src={previewImage} height={300} />
+            <CImage rounded alt='example' onClick={() => handleCloseImage()} src={previewImage} />
           </PreviewImageBox>
         </CCol>
       )}
@@ -164,7 +164,10 @@ const PreviewImageBox = styled(CCol)`
   background: #fafafa;
   border: 1px dashed #d9d9d9;
   border-radius: 2px;
+  height: 300px;
   & img {
+    width: auto;
+    max-height: 100%;
     cursor: pointer;
   }
 `
