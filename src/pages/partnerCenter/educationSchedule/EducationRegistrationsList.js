@@ -7,6 +7,7 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import EducationRegistrationsDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationRegistrationsDetailModal'
+import TestRangeDatePicker from '../../../components/common/TestRangeDatePicker'
 
 const EducationRegistrationsList = () => {
   const [items, setItems] = useState([])
@@ -19,6 +20,14 @@ const EducationRegistrationsList = () => {
   const [singleDate, setSingleDate] = useState('')
   const [images, setImages] = useState([])
   const [files, setFiles] = useState([])
+  const [dataPickerOptions, setDataPickerOptions] = useState([
+    {
+      key: 'createdAt',
+      value: '등록일',
+    },
+    {key: 'deadline', value: '접수기간'},
+    {key: 'start', value: '교육일자'},
+  ])
 
   // 교육 신청 리스트 API
   const getList = async () => {
@@ -33,6 +42,7 @@ const EducationRegistrationsList = () => {
         return alert(message)
       }
       if (code === 1000) {
+        console.log(result)
         setItems(result?.adminEducationRegistrationNoticeDTOs)
       } else {
         alert(message)
@@ -210,6 +220,14 @@ const EducationRegistrationsList = () => {
       }
     }
   }
+  const testOptions = [
+    {
+      key: 'createdAt',
+      value: '등록일',
+    },
+    {key: 'start', value: '교육신청 시작일'},
+    {key: 'deadline', value: '교육신청 마감일'},
+  ]
 
   return (
     <CRow>
@@ -231,6 +249,7 @@ const EducationRegistrationsList = () => {
               onClick={handleShowDetailModal}
               columns={educationRegistrationsList}
               className={'userList'}
+              datePickerOptions={testOptions}
             />
           </CCardBody>
         </CCard>

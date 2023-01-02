@@ -7,6 +7,7 @@ import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
 import {isPrice} from '../../utils/utility'
 import {antdImageFormat} from '../../utils/awsCustom'
+import TestRangeDatePicker from '../common/TestRangeDatePicker'
 
 const ListTemplate = ({
   items, // 리스트 아이템
@@ -20,6 +21,7 @@ const ListTemplate = ({
   searchInputHidden = true, // 검색창 출력 유무
   checkBoxInputHidden = false, // 체크박스 출력 유무
   func, //보낼 함수
+  datePickerOptions, // datePicker selected Options,
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
@@ -155,6 +157,19 @@ const ListTemplate = ({
     */
   }, [items])
 
+  const datePickerOnChange = (startDate, endDate, {key}) => {
+    if (endDate) {
+      setFilterItems(
+        listItems.filter(value => {
+          const date = moment(value[key], 'YYYYMMDDHHmmss').format('YYYY-MM-DD') || moment(value[key], 'YYYYMMDDHHmmss')
+          return date >= startDate && date <= endDate
+        }),
+      )
+    } else {
+      setFilterItems('')
+    }
+  }
+
   useEffect(() => {
     // data picker 에 선택된 값
     if (endDate) {
@@ -185,6 +200,7 @@ const ListTemplate = ({
 
   return (
     <>
+      {/*<TestRangeDatePicker datePicker={datePickerOnChange} options={datePickerOptions} />*/}
       <CRow className={'justify-content-end'}>
         {/*
         {searchInputHidden && (
@@ -227,6 +243,7 @@ const ListTemplate = ({
           </CCol>
         )}
         */}
+
         {datePickerHidden && (
           <CCol xs={4}>
             <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />

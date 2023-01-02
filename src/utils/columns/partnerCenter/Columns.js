@@ -535,12 +535,12 @@ export const educationRegistrationsList = [
 
   {
     key: 'start',
-    label: '접수기간',
+    label: '교육신청 시작일',
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
     key: 'deadline',
-    label: '교육 일자',
+    label: '교육신청 마감일',
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
