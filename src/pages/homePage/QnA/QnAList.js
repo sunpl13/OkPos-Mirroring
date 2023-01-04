@@ -11,6 +11,7 @@ const QnAList = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
+  const [content, setContent] = useState('') //quill용 state
   const [selectedItem, setSelectedItem] = useState({
     inquiryId: -1,
     content: '',
@@ -49,6 +50,7 @@ const QnAList = () => {
       })
 
       setSelectedItem(data.result)
+      setContent(data.result.content)
     } catch (error) {
       alert(error)
     }
@@ -97,6 +99,8 @@ const QnAList = () => {
         isReadOnly={isReadOnly}
         setIsReadOnly={setIsReadOnly}
         getList={onLoadInquiryList}
+        content={content}
+        setContent={setContent}
       />
     </main>
   )

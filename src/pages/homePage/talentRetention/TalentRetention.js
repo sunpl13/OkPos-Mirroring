@@ -108,15 +108,6 @@ const TalentRetention = () => {
       <CRow>
         <CCol xs={12}>
           <CCard className='mb-4'>
-            <CCardHeader>
-              <CForm className='row g-3'>
-                <CCol xs={1}>
-                  <CButton color='primary' onClick={handleTalentPoolAddModal}>
-                    추가
-                  </CButton>
-                </CCol>
-              </CForm>
-            </CCardHeader>
             <CCardBody>
               <ListTemplate
                 items={items}
