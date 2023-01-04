@@ -65,7 +65,13 @@ const HomePageRollingBannerDetail = ({
       console.log(data)
       if (data.isSuccess) {
         getList()
-        alert('배너 등록이 완료 되었습니다.')
+        dispatch({
+          type: 'SET_TOAST_STATE',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: '공지가 정상적으로 생성 되었습니다.',
+        })
         onClose()
       } else {
         alert(data.message)
@@ -88,7 +94,13 @@ const HomePageRollingBannerDetail = ({
       })
       if (data.isSuccess) {
         getList()
-        alert(data.result)
+        dispatch({
+          type: 'SET_TOAST_STATE',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: `${data.result}`,
+        })
         onClose()
       } else {
         alert(data.message)
@@ -121,7 +133,14 @@ const HomePageRollingBannerDetail = ({
       if (data.isSuccess) {
         getList()
         onClose()
-        alert(data.result)
+
+        dispatch({
+          type: 'SET_TOAST_STATE',
+          visibleState: true,
+          toastColor: 'success',
+          textColor: 'white',
+          text: `${data.result}`,
+        })
       } else {
         alert(data.message)
       }
@@ -220,7 +239,7 @@ const HomePageRollingBannerDetail = ({
                 삭제
               </CButton>
               <CButton color={isReadOnly ? 'primary' : 'success'} onClick={userDetailEditMode}>
-                {isReadOnly ? '수정' : '저장'}
+                수정
               </CButton>
             </>
           )}
