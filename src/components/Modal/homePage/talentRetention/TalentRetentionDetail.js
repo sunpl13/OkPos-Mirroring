@@ -114,8 +114,8 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
           />
         </CModalBody>
         <CModalFooter>
-          <CButton color='primary' onClick={onCloseCheck}>
-            Cancel
+          <CButton color='secondary' onClick={onCloseCheck}>
+            취소
           </CButton>
         </CModalFooter>
       </CModal>

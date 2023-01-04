@@ -81,7 +81,7 @@ const Register = () => {
         return
       }
 
-      alert(response.result)
+      alert(response.message)
       navigate(`/login`)
     } catch (error) {
       alert(`네트워크 통신 실패. 잠시후 다시 시도해주세요.\n${error.message}`)

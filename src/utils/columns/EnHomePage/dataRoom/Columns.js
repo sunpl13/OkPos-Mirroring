@@ -3,6 +3,7 @@ export const dataRoomColumns = [
     key: 'number',
     label: 'No',
     _props: {color: 'primary', className: 'number'},
+    filter: false,
   },
   {
     key: 'title',

@@ -79,11 +79,6 @@ const PopUpPage = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleRetrieveTestList}>
-                    조회하기
-                  </CButton>
-                </CCol>
-                <CCol xs={1}>
                   <CButton color='primary' onClick={handlePopupAddModal}>
                     추가
                   </CButton>

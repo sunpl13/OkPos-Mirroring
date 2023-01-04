@@ -89,11 +89,6 @@ const RollingBanner = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={onLoadBannerList}>
-                    조회하기
-                  </CButton>
-                </CCol>
-                <CCol xs={1}>
                   <CButton color='primary' onClick={handleBannerAddModal}>
                     추가
                   </CButton>
