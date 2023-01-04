@@ -493,7 +493,7 @@ export const educationApplicationListColumns = [
 // 교육 일정 / 교육 신청 인원 상세정보
 export const educationApplicationListDetailColumns = [
   {
-    key: 'idx',
+    key: 'id',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
