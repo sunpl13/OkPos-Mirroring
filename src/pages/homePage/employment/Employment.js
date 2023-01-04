@@ -30,6 +30,10 @@ const Employment = () => {
     departmentStatus: '',
     otherNote: '',
   })
+  const datePickerOps = [
+    {key: 'startedAt', value: '공고 시작일'},
+    {key: 'closedAt', value: '공고 종료일'},
+  ]
 
   const onLoadEmploymentList = async () => {
     try {
@@ -134,6 +138,7 @@ const Employment = () => {
                 columns={employmentColumns}
                 className={'userList'}
                 selectedOptions={category}
+                datePickerOptions={datePickerOps}
               />
             </CCardBody>
           </CCard>
