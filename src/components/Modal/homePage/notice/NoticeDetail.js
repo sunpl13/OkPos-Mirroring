@@ -1,9 +1,7 @@
 import {useState} from 'react'
 import {CModal, CModalBody, CRow, CModalFooter, CButton} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import DeleteModalTemplate from '../../DeleteModalTemplate'
 import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
-import CloseCheckModal from '../../CloseCheckModal'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
@@ -25,8 +23,6 @@ const NoticeDetail = ({
   isReadOnly,
   setIsReadOnly,
 }) => {
-  const [showDeleteModal, setshowDeleteModal] = useState(false)
-  const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const [iamgeList, setImageList] = useState([])
   const [fileList, setFileList] = useState([])
   const dispatch = useDispatch()
@@ -73,14 +69,7 @@ const NoticeDetail = ({
       console.log(data)
       if (data.isSuccess) {
         getList()
-        setshowDeleteModal(false)
-        dispatch({
-          type: 'SET_TOAST_STATE',
-          visibleState: true,
-          toastColor: 'success',
-          textColor: 'white',
-          text: '공지가 정상적으로 생성 되었습니다.',
-        })
+        alert('공지가 정상적으로 생성 되었습니다.')
         onClose()
       } else {
         alert(data.message)
@@ -103,14 +92,7 @@ const NoticeDetail = ({
       })
       if (data.isSuccess) {
         getList()
-        setshowDeleteModal(false)
-        dispatch({
-          type: 'SET_TOAST_STATE',
-          visibleState: true,
-          toastColor: 'success',
-          textColor: 'white',
-          text: `${data.result}`,
-        })
+        alert(data.result)
         onClose()
       }
     } catch (error) {
@@ -143,14 +125,7 @@ const NoticeDetail = ({
       if (data.isSuccess) {
         getList()
         onClose()
-        setshowDeleteModal(false)
-        dispatch({
-          type: 'SET_TOAST_STATE',
-          visibleState: true,
-          toastColor: 'success',
-          textColor: 'white',
-          text: `${data.result}`,
-        })
+        alert(data.result)
       }
     } catch (error) {
       alert(error)
@@ -159,25 +134,15 @@ const NoticeDetail = ({
 
   const onCloseCheck = () => {
     if (!isReadOnly && value.noticeId !== -1) {
-      setCloseCheckModalState(true)
+      if (window.confirm('정말 페이지에서 나가시겠습니까? \n\n 지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+        onClose()
+      }
     } else {
-      setVisible(false)
-      setIsReadOnly(true)
-      setImageList([])
-      setFileList([])
-      setSelectedItem({
-        noticeId: -1,
-        title: '',
-        createdAt: '',
-        content: '',
-        imageUrls: [],
-        fileUrls: [],
-      })
+      onClose()
     }
   }
 
   const onClose = () => {
-    setCloseCheckModalState(false)
     setImageList([])
     setFileList([])
     setVisible(false)
@@ -192,11 +157,18 @@ const NoticeDetail = ({
       fileUrls: [],
     })
   }
+
+  const onDeleteConfilm = () => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      onDelete()
+    }
+  }
+
   return (
     <>
       <CModal alignment='center' size='lg' visible={visible}>
         <CCustomModalHeader onClick={onCloseCheck}>공지 상세</CCustomModalHeader>
-        <CModalBody>
+        <CModalBody className='modal-scroll'>
           <CRow className='mb-3'>
             <ModalInput
               xs={4}
@@ -261,11 +233,11 @@ const NoticeDetail = ({
             </CButton>
           ) : (
             <>
-              <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
+              <CButton color='danger' onClick={onDeleteConfilm}>
                 삭제
               </CButton>
               <CButton color={isReadOnly ? 'primary' : 'success'} onClick={userDetailEditMode}>
-                수정
+                {isReadOnly ? '수정' : '저장'}
               </CButton>
             </>
           )}
@@ -274,8 +246,6 @@ const NoticeDetail = ({
           </CButton>
         </CModalFooter>
       </CModal>
-      <DeleteModalTemplate onDelete={onDelete} visible={showDeleteModal} setVisible={setshowDeleteModal} />
-      <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
 }
