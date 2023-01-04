@@ -15,6 +15,7 @@ export const talentRetentionColumns = [
     label: '휴대전화번호',
     _props: {color: 'primary', className: 'phoneNumber'},
     sorter: false,
+    filter: false,
   },
   {
     key: 'email',
