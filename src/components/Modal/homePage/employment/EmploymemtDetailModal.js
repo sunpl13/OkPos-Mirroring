@@ -257,7 +257,7 @@ const EmploymemtDetailModal = ({
     <>
       <CModal alignment='center' size='lg' visible={visible}>
         <CCustomModalHeader onClick={onCloseCheck}>채용 상세</CCustomModalHeader>
-        <CModalBody>
+        <CModalBody className='modal-scroll'>
           <CRow className='mb-3'>
             <ModalInput
               onChange={onChange}
