@@ -7,7 +7,7 @@ import {CRow} from '@coreui/react'
 import PropTypes from 'prop-types'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
-import {noticeOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
+import {noticeOptions} from '../../../../utils/columns/partnerCenter/SelectCategoryOptions'
 
 const NoticeDetailModal = ({
   onChange,

@@ -3,7 +3,7 @@ import {CFormSelect} from '@coreui/react'
 import React from 'react'
 export const userListColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -39,7 +39,7 @@ export const userListColumns = [
 // 탈퇴 회원 리스트
 export const withdrawalUsersColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -101,7 +101,7 @@ export const withdrawalUsersColumns = [
 // 1:1 문의 리스트
 export const userInquiryListColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -124,7 +124,7 @@ export const userInquiryListColumns = [
 // 공지사항 리스트
 export const noticeList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'no'},
   },
@@ -151,7 +151,7 @@ export const noticeList = [
 // 영업 대리점/ 딜러 지원 리스트
 export const dealerSupportList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {className: 'no'},
   },
@@ -186,7 +186,7 @@ export const dealerSupportList = [
 // 자료 리스트
 export const dataRoomList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {className: 'id'},
   },
@@ -212,7 +212,7 @@ export const dataRoomList = [
 // 발주 신청 리스트
 export const orderList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {className: 'id'},
   },
@@ -284,7 +284,7 @@ export const orderListColumns = [
 ]
 export const maintenanceApplicationList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -437,7 +437,7 @@ export const managementTargetColumns = [
 // 교육 일정 / 교육 일정 리스트
 export const educationScheduleListColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     filter: false,
     _props: {color: 'primary', className: 'no'},
@@ -460,7 +460,7 @@ export const educationScheduleListColumns = [
 // 교육 일정 / 교육 신청서 리스트
 export const educationApplicationListColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -493,7 +493,7 @@ export const educationApplicationListColumns = [
 // 교육 일정 / 교육 신청 인원 상세정보
 export const educationApplicationListDetailColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -517,7 +517,7 @@ export const educationApplicationListDetailColumns = [
 // 교육 일정 / 교육 신청 리스트
 export const educationRegistrationsList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -536,11 +536,13 @@ export const educationRegistrationsList = [
   {
     key: 'start',
     label: '교육신청 시작일',
+    filter: false,
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
     key: 'deadline',
     label: '교육신청 마감일',
+    filter: false,
     _props: {color: 'primary', className: 'createdAt'},
   },
   {

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import {CCol, CFormInput, CFormLabel, CRow} from '@coreui/react'
 import ListTemplate from '../../../list/ListTemplate'
-import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
+import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/SelectCategoryOptions'
 import {orderListColumns} from '../../../../utils/columns/partnerCenter/Columns'
 import DetailModalTemplate from '../DetailModalTemplate'
 import InvoiceEditModal from './InvoiceEditModal'
@@ -221,7 +221,6 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
           columns={orderListColumns}
           className={'userList'}
           datePickerHidden={false}
-          selectedOptions={deliveryStatusOptions}
           itemPerPageHidden={false}
           func={handleShowInvoiceEditModal}
         />
