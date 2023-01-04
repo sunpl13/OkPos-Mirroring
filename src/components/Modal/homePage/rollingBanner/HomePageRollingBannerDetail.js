@@ -1,10 +1,8 @@
 import {useState} from 'react'
 import {CModal, CButton, CModalBody, CModalFooter, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import DeleteModalTemplate from '../../DeleteModalTemplate'
 import {isEmpty} from '../../../../utils/utility'
 import {useDispatch} from 'react-redux'
-import CloseCheckModal from '../../CloseCheckModal'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import {sendImageUrlFormat} from '../../../../utils/awsCustom'
 import {EndPoint} from '../../../../dataManager/apiMapper'
@@ -23,8 +21,6 @@ const HomePageRollingBannerDetail = ({
   isReadOnly,
   setIsReadOnly,
 }) => {
-  const [showDeleteModal, setshowDeleteModal] = useState(false)
-  const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const [iamgeList, setImageList] = useState([])
 
   const dispatch = useDispatch()
@@ -69,7 +65,6 @@ const HomePageRollingBannerDetail = ({
       console.log(data)
       if (data.isSuccess) {
         getList()
-        setshowDeleteModal(false)
         dispatch({
           type: 'SET_TOAST_STATE',
           visibleState: true,
@@ -99,7 +94,6 @@ const HomePageRollingBannerDetail = ({
       })
       if (data.isSuccess) {
         getList()
-        setshowDeleteModal(false)
         dispatch({
           type: 'SET_TOAST_STATE',
           visibleState: true,
@@ -139,7 +133,7 @@ const HomePageRollingBannerDetail = ({
       if (data.isSuccess) {
         getList()
         onClose()
-        setshowDeleteModal(false)
+
         dispatch({
           type: 'SET_TOAST_STATE',
           visibleState: true,
@@ -157,22 +151,15 @@ const HomePageRollingBannerDetail = ({
 
   const onCloseCheck = () => {
     if (!isReadOnly && value.bannerId !== -1) {
-      setCloseCheckModalState(true)
+      if (window.confirm('정말 페이지에서 나가시겠습니까? \n\n 지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+        onClose()
+      }
     } else {
-      setVisible(false)
-      setIsReadOnly(true)
-      setImageList([])
-      setSelectedItem({
-        bannerId: -1,
-        title: '',
-        content: '',
-        imageUrls: [],
-      })
+      onClose()
     }
   }
 
   const onClose = () => {
-    setCloseCheckModalState(false)
     setImageList([])
     setVisible(false)
     setContent('')
@@ -183,6 +170,12 @@ const HomePageRollingBannerDetail = ({
       content: '',
       imageUrls: [],
     })
+  }
+
+  const onDeleteConfilm = () => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      onDelete()
+    }
   }
 
   return (
@@ -242,7 +235,7 @@ const HomePageRollingBannerDetail = ({
             </CButton>
           ) : (
             <>
-              <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
+              <CButton color='danger' onClick={onDeleteConfilm}>
                 삭제
               </CButton>
               <CButton color={isReadOnly ? 'primary' : 'success'} onClick={userDetailEditMode}>
@@ -255,8 +248,6 @@ const HomePageRollingBannerDetail = ({
           </CButton>
         </CModalFooter>
       </CModal>
-      <DeleteModalTemplate onDelete={onDelete} visible={showDeleteModal} setVisible={setshowDeleteModal} />
-      <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
 }
