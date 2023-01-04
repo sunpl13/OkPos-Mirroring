@@ -18,6 +18,7 @@ import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownload
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import {useDispatch} from 'react-redux'
+import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 const inquiries = [
   {key: 'PRODUCTS', value: '상품'},
   {key: 'ADDITIONAL_SERVICES', value: '부가 서비스'},
@@ -26,7 +27,7 @@ const inquiries = [
   {key: 'ETC', value: '기타'},
 ]
 
-const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
+const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, setIsReadOnly, content, setContent}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
   const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const dispatch = useDispatch()
@@ -123,15 +124,13 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
             />
           </CRow>
           <CRow>
-            <CFormLabel>문의 내용</CFormLabel>
-            <CFormTextarea
-              placeholder='문의 내용'
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-              onChange={onChange}
-              value={value.content}
-              rows={15}
+            <ModalQuillEditor
               id='content'
+              value={content}
+              isRequired={true}
+              readOnly={isReadOnly}
+              setValue={setContent}
+              label='문의 내용'
             />
           </CRow>
           <CRow>
