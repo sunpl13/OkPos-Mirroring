@@ -2,7 +2,7 @@ import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {CImage, CSidebar, CSidebarBrand, CSidebarNav, CSidebarToggler} from '@coreui/react'
 import {AppSidebarNav} from './AppSidebarNav'
-import neordinaryLogo from '../assets/neordinary-logo.svg'
+import okposlogo from '../assets/okpos_logo.png'
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 import {sidebarUnfoldableToggle} from '../store/sidebars'
@@ -27,7 +27,7 @@ const AppSidebar = () => {
       }}
     >
       <CSidebarBrand className='d-none d-md-flex' to='/'>
-        <LogoImage className='sidebar-brand-full' src={neordinaryLogo} onClick={() => navigate('/')} />
+        <LogoImage className='sidebar-brand-full' src={okposlogo} onClick={() => navigate('/')} />
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
