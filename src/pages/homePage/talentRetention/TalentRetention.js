@@ -1,13 +1,10 @@
 import {useState, useEffect} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
-import {testTalentValues} from '../../test/testConstant'
-import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import {talentRetentionColumns} from '../../../utils/columns/homePage/talentRetetion/Columns'
 import TalentRetentionDetail from '../../../components/Modal/homePage/talentRetention/TalentRetentionDetail'
-import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import TalentPoolList from '../../../components/list/homepage/talentTetention/TalentPoolList'
 import ListTemplate from '../../../components/list/ListTemplate'
 const TalentRetention = () => {
   const [items, setItems] = useState([])
@@ -68,30 +65,8 @@ const TalentRetention = () => {
     onLoadTalentPoolList()
   }, [])
 
-  const handleRetrieveTestList = async () => {
-    setItems(testTalentValues)
-  }
-
   const handleShowTalentPoolDetailModal = async item => {
     onLoadDetail(item.talentPoolId)
-  }
-
-  const handleTalentPoolAddModal = () => {
-    setIsReadOnly(false)
-    setSelectedItem({
-      talentPoolId: -1,
-      number: '',
-      name: '',
-      email: '',
-      phoneNumber: '',
-      position: '',
-      registeredAt: new Date(),
-      portfolio: [],
-      otherDocument: [],
-      otherLink: '',
-      resume: [],
-    })
-    setShowModal(!showModal)
   }
 
   const handleTalentPoolDetailOnChange = ({target}) => {
