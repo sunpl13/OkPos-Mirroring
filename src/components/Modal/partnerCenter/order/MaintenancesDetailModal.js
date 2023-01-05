@@ -1,8 +1,5 @@
-import {useEffect, useState} from 'react'
-import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
-import ListTemplate from '../../../list/ListTemplate'
+import {CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 import DetailModalTemplate from '../DetailModalTemplate'
 import NumberOfStoresList from '../../../list/maintenance/NumberOfStoresList'
 import {
@@ -43,10 +40,6 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
   // - 유지보수 신청 유형 (원격 서비스 / 방문 서비스 A / 방문 서비스 B / 방문 서비스 C / 통합 서비스)
   // - 유지보수 신청 정보 리스트"
 
-  useEffect(() => {
-    if (visible) {
-    }
-  }, [visible])
   return (
     <DetailModalTemplate title={'유지보수 신청 상세'} visible={visible} setVisible={setVisible} notEditBtn>
       <CRow className={'p-2'}>

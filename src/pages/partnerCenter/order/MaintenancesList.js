@@ -25,7 +25,6 @@ const MaintenancesList = () => {
         method: HttpMethod.GET,
         url: EndPoint.PARTNER_MAINTENANCES,
       })
-      console.log(result)
       if (!isSuccess || isEmpty(result)) {
         return
       }
@@ -52,9 +51,8 @@ const MaintenancesList = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.PARTNER_MAINTENANCES}/${id}`,
       })
-      console.log(result)
       if (!isSuccess || isEmpty(result)) {
-        return
+        return alert(message)
       }
       if (code === 1000) {
         setSelectedItem(result)

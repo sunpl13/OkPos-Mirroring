@@ -72,17 +72,6 @@ const EducationApplicationList = () => {
       <PageHeader title='교육 신청서 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
-          {/*
-          <CCardHeader>
-            <CForm className='row g-3'>
-              <CCol xs={1}>
-                <CButton color='primary' onClick={() => handleShowDetailModal(undefined)}>
-                  추가
-                </CButton>
-              </CCol>
-            </CForm>
-          </CCardHeader>
-          */}
           <CCardBody>
             <ListTemplate
               items={items}

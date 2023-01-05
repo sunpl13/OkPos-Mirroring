@@ -2,11 +2,9 @@ import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import AntDesignListForm from './AntDesignListForm'
 import {Table} from 'antd'
-import {CFormSelect} from '@coreui/react'
 
 const FlagshipSolutionList = ({items, onClick, columns, className}) => {
   const [listItems, setListItems] = useState([])
-  console.log(items)
   useEffect(() => {
     setListItems(items)
   }, [items])
@@ -18,7 +16,7 @@ const FlagshipSolutionList = ({items, onClick, columns, className}) => {
         className={className}
         title={'주력 솔루션 및 VAN 사'}
         listIndex={2}
-        summary={pageData => {
+        summary={() => {
           return (
             <>
               <Table.Summary.Row>

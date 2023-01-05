@@ -116,6 +116,9 @@ const ModalImageInput = ({
       <div style={{marginTop: 8}}>Upload</div>
     </div>
   )
+
+  const notFiles = <div>Have No Image.</div>
+
   return (
     <>
       <CFormLabel htmlFor={`${id}Static`} className='col-form-label'>
@@ -130,23 +133,23 @@ const ModalImageInput = ({
         customRequest={reqData => customReq(reqData)}
         disabled={readOnly}
       >
-        {fileList?.length >= 8 ? null : !readOnly && uploadButton}
+        {fileList?.length >= 8
+          ? null
+          : fileList?.length === 0
+          ? !readOnly
+            ? uploadButton
+            : notFiles
+          : !readOnly
+          ? uploadButton
+          : null}
       </Upload>
-
       {previewImage && (
         <CCol>
           <CFormLabel className='col-form-label'>
             <span>{previewTitle || ''}</span>
           </CFormLabel>
           <PreviewImageBox className={'text-center p-2'}>
-            <CImage
-              rounded
-              alt='example'
-              onClick={() => handleCloseImage()}
-              src={previewImage}
-              width={300}
-              height={300}
-            />
+            <CImage rounded alt='example' onClick={() => handleCloseImage()} src={previewImage} />
           </PreviewImageBox>
         </CCol>
       )}
@@ -161,7 +164,10 @@ const PreviewImageBox = styled(CCol)`
   background: #fafafa;
   border: 1px dashed #d9d9d9;
   border-radius: 2px;
+  height: 300px;
   & img {
+    width: auto;
+    max-height: 100%;
     cursor: pointer;
   }
 `

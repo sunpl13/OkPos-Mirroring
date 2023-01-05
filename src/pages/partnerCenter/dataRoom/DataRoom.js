@@ -3,10 +3,10 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {dataRoomList} from '../../../utils/columns/partnerCenter/Columns'
-import MeterialDetailModal from '../../../components/Modal/partnerCenter/DataRoom/DataRoomDetailModal'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import DataRoomDetailModal from '../../../components/Modal/partnerCenter/DataRoom/DataRoomDetailModal'
 
 const DataRoom = () => {
   const [items, setItems] = useState([])
@@ -14,8 +14,9 @@ const DataRoom = () => {
   const [editCheck, setEditCheck] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
-
   const [editor, setEditor] = useState('')
+  const [images, setImages] = useState([])
+  const [files, setFiles] = useState([])
 
   // 자료실 API
   const getList = async () => {
@@ -54,7 +55,7 @@ const DataRoom = () => {
           url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
         })
         if (!isSuccess || isEmpty(result)) {
-          return
+          return alert(message)
         }
         if (code === 1000) {
           setSelectedItem({
@@ -63,6 +64,13 @@ const DataRoom = () => {
           })
           setEditor(result?.content)
           setEditCheck(result)
+          setImages(result?.dataRoomImages)
+          setFiles(
+            result?.dataRoomFiles.map(value => ({
+              ...value,
+              name: value.title,
+            })),
+          )
         } else {
           alert(message)
         }
@@ -73,20 +81,28 @@ const DataRoom = () => {
       setSelectedItem({})
       setEditCheck({})
       setEditor('')
+      setImages([])
+      setFiles([])
     }
     setShowModal(!showModal)
   }
 
   // Modal UpDate
   const handleDetailModalUpDate = async () => {
-    const {id, title, dataRoomFiles, dataRoomImages, category} = selectedItem
+    const {id, title, category} = selectedItem
+    let obj = {}
+    if (files.length !== 0) {
+      files.forEach(value => {
+        obj[value?.name] = value.url
+      })
+    }
 
     const json = JSON.stringify({
       title: title,
       content: editor,
       category: category.replace(/<[^>]*>?| /g, ''),
-      files: {},
-      images: [],
+      files: obj,
+      images: images.length !== 0 ? images.map(img => img.url) : [],
     })
     if (id) {
       if (window.confirm('수정하시겠습니까?')) {
@@ -165,7 +181,6 @@ const DataRoom = () => {
         }
         if (code === 1000) {
           alert(message)
-          //window.location.reload()
           getList()
           setShowModal(false)
         } else {
@@ -201,7 +216,7 @@ const DataRoom = () => {
           </CCardBody>
         </CCard>
       </CCol>
-      <MeterialDetailModal
+      <DataRoomDetailModal
         value={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
@@ -212,6 +227,10 @@ const DataRoom = () => {
         setEditor={setEditor}
         editMode={editMode}
         setEditMode={setEditMode}
+        images={images}
+        setImages={setImages}
+        files={files}
+        setFiles={setFiles}
       />
     </CRow>
   )

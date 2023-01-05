@@ -7,6 +7,7 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import EducationRegistrationsDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationRegistrationsDetailModal'
+import TestRangeDatePicker from '../../../components/common/TestRangeDatePicker'
 
 const EducationRegistrationsList = () => {
   const [items, setItems] = useState([])
@@ -17,6 +18,17 @@ const EducationRegistrationsList = () => {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [singleDate, setSingleDate] = useState('')
+  const [images, setImages] = useState([])
+  const [files, setFiles] = useState([])
+  const [dataPickerOptions, setDataPickerOptions] = useState([
+    {
+      key: 'createdAt',
+      value: '등록일',
+    },
+    {key: 'deadline', value: '접수기간'},
+    {key: 'start', value: '교육일자'},
+  ])
+
   // 교육 신청 리스트 API
   const getList = async () => {
     try {
@@ -30,6 +42,7 @@ const EducationRegistrationsList = () => {
         return alert(message)
       }
       if (code === 1000) {
+        console.log(result)
         setItems(result?.adminEducationRegistrationNoticeDTOs)
       } else {
         alert(message)
@@ -63,6 +76,13 @@ const EducationRegistrationsList = () => {
           setEndDate(result?.deadline)
           setSingleDate(result?.educationDate)
           setShowModal(!showModal)
+          setImages(result?.educationRegistrationNoticeImages)
+          setFiles(
+            result?.educationRegistrationNoticeFiles.map(value => ({
+              ...value,
+              name: value.title,
+            })),
+          )
         } else {
           alert(message)
         }
@@ -72,6 +92,10 @@ const EducationRegistrationsList = () => {
     } else {
       setShowModal(!showModal)
       setSelectedItem({})
+      setEditor('')
+      setEndDate('')
+      setStartDate('')
+      setSingleDate('')
     }
   }
 
@@ -79,11 +103,17 @@ const EducationRegistrationsList = () => {
     const {
       id, // 교육 신청 공고 ID
       applicantsCap, // 교육신청 제한 인원
-      educationRegistrationNoticeFiles, // 교육 신청 공고 파일
-      educationRegistrationNoticeImages, // 교육 신청 공고 이미지
       place, // 교육 장소
-      title,
+      title, // 공고 제목
     } = selectedItem
+
+    let obj = {}
+    if (files.length !== 0) {
+      files.forEach(value => {
+        obj[value?.name] = value.url
+      })
+    }
+
     const json = JSON.stringify({
       title: title,
       content: editor,
@@ -92,8 +122,8 @@ const EducationRegistrationsList = () => {
       educationDate: singleDate,
       place: place,
       applicantsCap: applicantsCap,
-      files: {},
-      images: [],
+      files: obj,
+      images: images.length !== 0 ? images.map(img => img.url) : [],
     })
     if (id) {
       if (window.confirm('수정하시겠습니까?')) {
@@ -116,6 +146,7 @@ const EducationRegistrationsList = () => {
           }
           if (code === 1000) {
             getList()
+            setShowModal(false)
             return alert(message)
           } else {
             alert(message)
@@ -189,15 +220,14 @@ const EducationRegistrationsList = () => {
       }
     }
   }
-
-  useEffect(() => {
-    if (!showModal) {
-      setEditor('')
-      setEndDate('')
-      setStartDate('')
-      setSingleDate('')
-    }
-  }, [showModal])
+  const testOptions = [
+    {
+      key: 'createdAt',
+      value: '등록일',
+    },
+    {key: 'start', value: '교육신청 시작일'},
+    {key: 'deadline', value: '교육신청 마감일'},
+  ]
 
   return (
     <CRow>
@@ -219,6 +249,7 @@ const EducationRegistrationsList = () => {
               onClick={handleShowDetailModal}
               columns={educationRegistrationsList}
               className={'userList'}
+              datePickerOptions={testOptions}
             />
           </CCardBody>
         </CCard>
@@ -240,6 +271,10 @@ const EducationRegistrationsList = () => {
         endDate={endDate}
         singleDate={singleDate}
         setSingleDate={setSingleDate}
+        images={images}
+        setImages={setImages}
+        files={files}
+        setFiles={setFiles}
       />
     </CRow>
   )

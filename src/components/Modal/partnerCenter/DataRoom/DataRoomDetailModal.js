@@ -1,14 +1,12 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
-import {CForm, CRow} from '@coreui/react'
+import {CRow} from '@coreui/react'
 import PropTypes from 'prop-types'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
-import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
 import {noticeOptions} from '../../../../utils/columns/partnerCenter/ColumnsSelectData'
 
 const DataRoomDetailModal = ({
@@ -22,9 +20,12 @@ const DataRoomDetailModal = ({
   setEditMode,
   editor,
   setEditor,
+  images,
+  setImages,
+  files,
+  setFiles,
 }) => {
-  const {id, title, category, dataRoomFiles, dataRoomImages, createdAt} = value
-
+  const {id, title, category, createdAt} = value
   return (
     <DetailModalEditModeTemplate
       title={id ? '자료 상세' : '자료 추가'}
@@ -99,29 +100,24 @@ const DataRoomDetailModal = ({
       </CRow>
       <br />
       <CRow className={'p-2'}>
-        <ModalImageInput label={'이미지'} value={dataRoomImages} readOnly={id && editMode} disabled={id && editMode} />
+        <ModalImageInput
+          label={'이미지'}
+          fileList={images}
+          setFileList={setImages}
+          readOnly={id && editMode}
+          disabled={id && editMode}
+        />
       </CRow>
       <CRow className={'p-2'}>
-        {id && editMode ? (
-          <MultiFileDownloadForm
-            id={'files'}
-            type={'file'}
-            placeholder={'첨부 파일'}
-            label={'첨부 파일'}
-            value={[]}
-            onChange={onChange}
-            readOnly={id && editMode}
-            disabled={id && editMode}
-          />
-        ) : (
-          <ModalFilesInput
-            id={'files'}
-            value={dataRoomFiles}
-            label={'첨부파일'}
-            readOnly={id && editMode}
-            disabled={id && editMode}
-          />
-        )}
+        <ModalFilesInput
+          id={'files'}
+          label={'파일 첨부'}
+          readOnly={id && editMode}
+          disabled={id && editMode}
+          fileList={files}
+          setFileList={setFiles}
+          filePath='dataRoom_files'
+        />
       </CRow>
     </DetailModalEditModeTemplate>
   )
@@ -132,6 +128,15 @@ DataRoomDetailModal.propTypes = {
   visible: PropTypes.bool,
   setVisible: PropTypes.func,
   upDate: PropTypes.func,
+  onDelete: PropTypes.func,
+  editMode: PropTypes.bool,
+  setEditMode: PropTypes.func,
+  editor: PropTypes.string,
+  setEditor: PropTypes.func,
+  images: PropTypes.array,
+  setImages: PropTypes.func,
+  files: PropTypes.array,
+  setFiles: PropTypes.func,
 }
 
 export default DataRoomDetailModal

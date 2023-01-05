@@ -21,7 +21,6 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
       )
     }
   }, [files])
-
   const getFileNameFromURL = url => {
     //   "/" 로 전체 url 을 나눈다
     const splitUrl = url.split('/')

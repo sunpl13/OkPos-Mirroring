@@ -345,7 +345,7 @@ export const generalListApplicationColumns = [
     width: '10%',
   },
   {
-    title: 'SUM',
+    title: '합계',
     dataIndex: 'sum',
     width: '10%',
     //render: (value, row) => {
@@ -372,22 +372,22 @@ export const solutionListColumns = [
     title: '구분',
     dataIndex: 'category',
     width: '20%',
-    render: (value, row) => {
-      console.log(value)
-      if (value) {
-        return (
-          <CFormSelect
-            aria-label='Default select example'
-            options={[
-              '선택',
-              {label: 'One', value: '1'},
-              {label: 'Two', value: '2'},
-              {label: 'Three', value: '3', disabled: true},
-            ]}
-          />
-        )
-      }
-    },
+    //render: (value, row) => {
+    //       console.log(value)
+    //       if (value) {
+    //         return (
+    //           <CFormSelect
+    //             aria-label='Default select example'
+    //             options={[
+    //               '선택',
+    //               {label: 'One', value: '1'},
+    //               {label: 'Two', value: '2'},
+    //               {label: 'Three', value: '3', disabled: true},
+    //             ]}
+    //           />
+    //         )
+    //       }
+    //     },
   },
   {
     title: '솔루션명',
@@ -403,21 +403,21 @@ export const solutionListColumns = [
     title: '주력 VAN사',
     dataIndex: 'van',
     width: '20%',
-    render: (value, row) => {
-      if (value) {
-        return (
-          <CFormSelect
-            aria-label='Default select example'
-            options={[
-              '선택',
-              {label: 'One', value: '1'},
-              {label: 'Two', value: '2'},
-              {label: 'Three', value: '3', disabled: true},
-            ]}
-          />
-        )
-      }
-    },
+    //render: (value, row) => {
+    //       if (value) {
+    //         return (
+    //           <CFormSelect
+    //             aria-label='Default select example'
+    //             options={[
+    //               '선택',
+    //               {label: 'One', value: '1'},
+    //               {label: 'Two', value: '2'},
+    //               {label: 'Three', value: '3', disabled: true},
+    //             ]}
+    //           />
+    //         )
+    //       }
+    //     },
   },
 ]
 // 유지보수 신청 정보 / 관리 대상 H/W 현황
@@ -535,12 +535,12 @@ export const educationRegistrationsList = [
 
   {
     key: 'start',
-    label: '접수기간',
+    label: '교육신청 시작일',
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
     key: 'deadline',
-    label: '교육 일자',
+    label: '교육신청 마감일',
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
