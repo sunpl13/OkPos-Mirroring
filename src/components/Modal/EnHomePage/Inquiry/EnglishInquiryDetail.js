@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import {
   CFormLabel,
   CModal,
@@ -11,16 +10,10 @@ import {
   CFormTextarea,
 } from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import CloseCheckModal from '../../CloseCheckModal'
-import DeleteModalTemplate from '../../DeleteModalTemplate'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
-import {useDispatch} from 'react-redux'
 
 const EnglishInquiryDetail = ({getList, value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
-  const [showDeleteModal, setshowDeleteModal] = useState(false)
-  const [closeCheckModalState, setCloseCheckModalState] = useState(false)
-  const dispatch = useDispatch()
   const onDelete = async () => {
     try {
       const {data} = await ApiConfig.request({
@@ -34,17 +27,8 @@ const EnglishInquiryDetail = ({getList, value, visible, setVisible, onChange, is
       })
       if (data.isSuccess) {
         getList()
-        setshowDeleteModal(false)
-        setCloseCheckModalState(false)
-        setIsReadOnly(true)
-        setVisible(false)
-        dispatch({
-          type: 'SET_TOAST_STATE',
-          visibleState: true,
-          toastColor: 'success',
-          textColor: 'white',
-          text: `${data.result}`,
-        })
+        alert(data.result)
+        onClose()
       }
     } catch (error) {
       alert(error)
@@ -53,17 +37,23 @@ const EnglishInquiryDetail = ({getList, value, visible, setVisible, onChange, is
 
   const onCloseCheck = () => {
     if (!isReadOnly && value.No !== -1) {
-      setCloseCheckModalState(true)
+      if (window.confirm('정말 페이지에서 나가시겠습니까? \n\n 지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+        onClose()
+      }
     } else {
-      setVisible(false)
-      setIsReadOnly(true)
+      onClose()
     }
   }
 
   const onClose = () => {
-    setCloseCheckModalState(false)
     setVisible(false)
     setIsReadOnly(true)
+  }
+
+  const onDeleteConfilm = () => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      onDelete()
+    }
   }
   return (
     <>
@@ -149,7 +139,7 @@ const EnglishInquiryDetail = ({getList, value, visible, setVisible, onChange, is
           </CRow>
         </CModalBody>
         <CModalFooter>
-          <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
+          <CButton color='danger' onClick={onDeleteConfilm}>
             삭제
           </CButton>
 
@@ -158,8 +148,6 @@ const EnglishInquiryDetail = ({getList, value, visible, setVisible, onChange, is
           </CButton>
         </CModalFooter>
       </CModal>
-      <DeleteModalTemplate onDelete={onDelete} visible={showDeleteModal} setVisible={setshowDeleteModal} />
-      <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
 }
