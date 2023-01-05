@@ -195,7 +195,7 @@ const InquiryList = () => {
     // validation
     if (!inquiryId) return alert('번호를 찾을 수 없습니다.')
     if (!inquiryReplyContent) return alert('답변을 입력해주세요.')
-    if (inquiryReplyContent.length > 450) return alert('답변 글자 수를 초과했습니다.')
+    if (inquiryReplyContent.replace(/<[^>]*>?| /g, '').length > 450) return alert('답변 글자 수를 초과했습니다.')
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (inquiryReplyId) {
