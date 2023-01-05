@@ -102,7 +102,7 @@ const NoticeList = () => {
     const json = JSON.stringify({
       title: title,
       content: editor,
-      category: category.replace(/<[^>]*>?| /g, ''),
+      category: category?.replace(/<[^>]*>?| /g, ''),
       isApplicationNotice: !!isApplicationNotice,
       files: obj,
       images: images.length !== 0 ? images.map(img => img.url) : [],
@@ -138,7 +138,7 @@ const NoticeList = () => {
         setShowModal(false)
       }
     } else {
-      if (window.confirm('공지사항을 등록하시겠습니까?')) {
+      if (window.confirm('공지사항을 추가하시겠습니까?')) {
         if (!title) return alert('공지사항 제목을 입력해 주세요.')
         if (!category) return alert('카테고리를 선택해 주세요.')
         if (!editor) return alert('공지사항 본문을 입력해 주세요.')

@@ -4,27 +4,17 @@ import {Table, Typography} from 'antd'
 import AntDesignListForm from './AntDesignListForm'
 const {Text} = Typography
 
-const NumberOfStoresList = ({items, onClick, columns, className}) => {
-  const [listItems, setListItems] = useState([
-    {
-      region: '서울',
-      catcount: '6',
-      poscount: '12',
-      kioskcount: '18',
-      sum: '36',
-      note: '-',
-    },
-  ])
+const NumberOfStoresList = ({items, columns, className, label}) => {
+  const [listItems, setListItems] = useState([])
   useEffect(() => {
     setListItems(items)
   }, [items])
-  console.log(items)
 
   return (
     <>
       <AntDesignListForm
         listIndex={1}
-        title={'유지보수 신청 가맹점 수'}
+        label={label || ''}
         columns={columns}
         items={listItems}
         className={className}
@@ -41,7 +31,7 @@ const NumberOfStoresList = ({items, onClick, columns, className}) => {
           })
           return (
             <>
-              <Table.Summary.Row>
+              <Table.Summary.Row style={{background: '#E0FFFF'}}>
                 <Table.Summary.Cell index={0}>Total</Table.Summary.Cell>
                 <Table.Summary.Cell index={1}>
                   <Text>{Number(totalCat)}</Text>
@@ -69,10 +59,9 @@ const NumberOfStoresList = ({items, onClick, columns, className}) => {
 
 NumberOfStoresList.propTypes = {
   items: PropTypes.array,
-  onClick: PropTypes.func,
   columns: PropTypes.array,
+  label: PropTypes.string,
   className: PropTypes.string,
-  onDelete: PropTypes.func,
 }
 
 export default NumberOfStoresList

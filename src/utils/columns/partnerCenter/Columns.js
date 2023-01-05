@@ -141,7 +141,7 @@ export const noticeList = [
   },
   {
     key: 'noticeFiles',
-    label: '파일',
+    label: '첨부 파일',
     _props: {color: 'primary', className: 'noticeFiles'},
     filter: false,
     sorter: false,

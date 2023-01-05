@@ -38,7 +38,6 @@ const EducationRegistrationsDetailModal = ({
     start, // 교육신청 시작일
     title, // 교육신청 공고 제목
   } = value
-
   return (
     <DetailModalEditModeTemplate
       title={id ? '교육 신청 상세' : '교육 신청 추가'}
