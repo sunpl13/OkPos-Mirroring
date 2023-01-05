@@ -7,6 +7,7 @@ import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
 import {isPrice} from '../../utils/utility'
 import {antdImageFormat} from '../../utils/awsCustom'
+import defaultImg from '../../assets/defaultImg.png'
 import TestRangeDatePicker from '../common/TestRangeDatePicker'
 
 const ListTemplate = ({
@@ -309,7 +310,11 @@ const ListTemplate = ({
           // 단일 이미지
           image: ({image}) => (
             <td>
-              <CImage rounded thumbnail src={image} alt='' />
+              {image ? (
+                <CImage rounded thumbnail src={image} alt='' />
+              ) : (
+                <CImage rounded thumbnail src={defaultImg} alt='' />
+              )}
             </td>
           ),
           // 이미지 리스트
