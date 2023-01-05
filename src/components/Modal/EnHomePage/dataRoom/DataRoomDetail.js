@@ -1,9 +1,7 @@
 import {useState} from 'react'
 import {CModal, CModalBody, CRow, CModalFooter, CButton} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import DeleteModalTemplate from '../../DeleteModalTemplate'
 import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
-import CloseCheckModal from '../../CloseCheckModal'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
@@ -35,11 +33,8 @@ const DataRoomDetail = ({
   isReadOnly,
   setIsReadOnly,
 }) => {
-  const [showDeleteModal, setshowDeleteModal] = useState(false)
-  const [closeCheckModalState, setCloseCheckModalState] = useState(false)
   const [iamgeList, setImageList] = useState([])
   const [fileList, setFileList] = useState([])
-  const dispatch = useDispatch()
   const userDetailEditMode = () => {
     if (!isReadOnly) {
       onUpdate()
@@ -49,15 +44,23 @@ const DataRoomDetail = ({
   }
 
   const validateCheck = () => {
-    if (isEmpty(value.categoryEnglish)) {
-      alert('제목을 입력해주세요.')
-      return false
+    if (value.dataRoomEnglishId !== -1) {
+      if (value.category === '선택해주세요') {
+        console.log('hi')
+        alert('카테고리를 선택 해주세요.')
+        return false
+      }
+    } else {
+      if (isEmpty(value.category) || value.category === '선택해주세요') {
+        alert('카테고리를 선택 해주세요.')
+        return false
+      }
     }
     if (isEmpty(value.title)) {
       alert('제목을 입력해주세요.')
       return false
     }
-    if (isEmpty(content)) {
+    if (isEmpty(content) || content === '<p><br></p>') {
       alert('본문을 입력해주세요.')
       return false
     }
@@ -88,14 +91,7 @@ const DataRoomDetail = ({
       console.log(data)
       if (data.isSuccess) {
         getList()
-        setshowDeleteModal(false)
-        dispatch({
-          type: 'SET_TOAST_STATE',
-          visibleState: true,
-          toastColor: 'success',
-          textColor: 'white',
-          text: '공지가 정상적으로 생성 되었습니다.',
-        })
+        alert('정상적으로 자료가 생성 되었습니다.')
         onClose()
       } else {
         alert(data.message)
@@ -118,14 +114,7 @@ const DataRoomDetail = ({
       })
       if (data.isSuccess) {
         getList()
-        setshowDeleteModal(false)
-        dispatch({
-          type: 'SET_TOAST_STATE',
-          visibleState: true,
-          toastColor: 'success',
-          textColor: 'white',
-          text: `${data.result}`,
-        })
+        alert(data.result)
         onClose()
       } else {
         alert(data.message)
@@ -146,7 +135,7 @@ const DataRoomDetail = ({
       const {data} = await ApiConfig.request({
         data: {
           title: value.title,
-          category: value.category,
+          category: value.category ?? value.categoryEnglish,
           post: content,
           imageUrls: imgUrls,
           fileUrls: fileUrls,
@@ -160,15 +149,8 @@ const DataRoomDetail = ({
       })
       if (data.isSuccess) {
         getList()
+        alert(data.result)
         onClose()
-        setshowDeleteModal(false)
-        dispatch({
-          type: 'SET_TOAST_STATE',
-          visibleState: true,
-          toastColor: 'success',
-          textColor: 'white',
-          text: `${data.result}`,
-        })
       } else {
         alert(data.message)
       }
@@ -179,26 +161,15 @@ const DataRoomDetail = ({
 
   const onCloseCheck = () => {
     if (!isReadOnly && value.recruitmentId !== -1) {
-      setCloseCheckModalState(true)
+      if (window.confirm('정말 페이지에서 나가시겠습니까? \n\n 지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+        onClose()
+      }
     } else {
-      setVisible(false)
-      setIsReadOnly(true)
-      setImageList([])
-      setFileList([])
-      setSelectedItem({
-        dataRoomEnglishId: -1,
-        title: '',
-        createdAt: '',
-        category: '',
-        content: '',
-        images: [],
-        files: [],
-      })
+      onClose()
     }
   }
 
   const onClose = () => {
-    setCloseCheckModalState(false)
     setImageList([])
     setFileList([])
     setVisible(false)
@@ -214,6 +185,13 @@ const DataRoomDetail = ({
       files: [],
     })
   }
+
+  const onDeleteConfilm = () => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      onDelete()
+    }
+  }
+
   return (
     <>
       <CModal alignment='center' size='lg' visible={visible}>
@@ -306,11 +284,11 @@ const DataRoomDetail = ({
             </CButton>
           ) : (
             <>
-              <CButton color='danger' onClick={() => setshowDeleteModal(true)}>
+              <CButton color='danger' onClick={onDeleteConfilm}>
                 삭제
               </CButton>
               <CButton color={isReadOnly ? 'primary' : 'success'} onClick={userDetailEditMode}>
-                수정
+                {isReadOnly ? '수정' : '저장'}
               </CButton>
             </>
           )}
@@ -319,8 +297,6 @@ const DataRoomDetail = ({
           </CButton>
         </CModalFooter>
       </CModal>
-      <DeleteModalTemplate onDelete={onDelete} visible={showDeleteModal} setVisible={setshowDeleteModal} />
-      <CloseCheckModal onClick={onClose} visible={closeCheckModalState} setVisible={setCloseCheckModalState} />
     </>
   )
 }
