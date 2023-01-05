@@ -16,7 +16,7 @@ const ModalTextOnlyQuillEditor = ({
 }) => {
   const QuillRef = useRef()
   const [textLengthCheck, setTextLengthCheck] = useState(false)
-  const [nowLength, setNowLength] = useState(0)
+  const [nowLength, setNowLength] = useState(value?.replace(/<[^>]*>?|/g, '').length)
 
   const modules = useMemo(() => {
     return {
@@ -33,7 +33,7 @@ const ModalTextOnlyQuillEditor = ({
   // 텍스트 길이 체크
   const handleEditorOnChange = item => {
     if (maxLength) {
-      const textReplace = item.replace(/<[^>]*>?| /g, '').length
+      const textReplace = item.replace(/<[^>]*>?|/g, '').length
       setNowLength(textReplace)
       if (maxLength >= textReplace) {
         setValue(item)
@@ -51,7 +51,7 @@ const ModalTextOnlyQuillEditor = ({
       <CFormLabel htmlFor={`${id}Static`} className='col-form-label'>
         <span className={isRequired && 'required'}>{label || ' * '}</span>
         <MaxTextMsg className={'px-lg-2'} textLengthCheck={textLengthCheck}>
-          {maxLength && `* ${nowLength}/${maxLength}자 까지 입력 가능합니다.`}
+          {!readOnly && maxLength && `${nowLength}/${maxLength}자 까지 입력 가능합니다.`}
         </MaxTextMsg>
       </CFormLabel>
       <EditorStyle
@@ -77,7 +77,19 @@ export default ModalTextOnlyQuillEditor
 
 const EditorStyle = styled(ReactQuill)`
   background-color: ${({readOnly}) => (readOnly ? '#d8dbe0' : 'transparent')};
+  border-radius: 0.375rem;
+  border: none;
+  .ql-container {
+    border-radius: ${({readOnly}) => (readOnly ? '0.375rem' : '0')};
+    border-bottom-left-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+  }
+  .ql-editor {
+    border-radius: ${({readOnly}) => (readOnly ? '0.375rem' : '0')};
+  }
   .ql-toolbar {
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
     display: ${({readOnly}) => (readOnly ? 'none' : 'block')};
   }
 `
