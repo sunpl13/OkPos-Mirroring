@@ -51,6 +51,14 @@ const ResignUserList = () => {
     },
   }
 
+  const resignUserOptions = [
+    {
+      key: 'createdAt',
+      value: '최초등록일',
+    },
+    {key: 'updatedAt', value: '계정탈퇴일'},
+  ]
+
   // API 통신 함수
   const onLoadMallReginUserList = async () => {
     try {
@@ -123,6 +131,7 @@ const ResignUserList = () => {
               onClick={handleShowUserDetailModal}
               columns={resignUserListColumns}
               className={'userList'}
+              datePickerOptions={resignUserOptions}
             />
           </CCardBody>
         </CCard>
