@@ -9,8 +9,10 @@ import {
 } from '../../../../utils/columns/partnerCenter/Columns'
 import FlagshipSolutionList from '../../../list/maintenance/FlagshipSolutionList'
 import ManagementTarget from '../../../list/maintenance/ManagementTarget'
+import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
+import {useEffect, useState} from 'react'
 
-const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, onDelete}) => {
+const MaintenancesDetailModal = ({value, visible, setVisible}) => {
   const {
     id, // 리스트 id
     maintenanceNum, // 발주 번호
@@ -27,19 +29,7 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
     adminMaintenanceStoreDTOs, // 유지보수 신청 가맹점 수
     operationalProcesses, // 현장 운영중인 엄무 프로세스
   } = value
-
-  //"- 발주 번호
-  // - 상호명
-  // - 사업자 번호
-  // - 대표자 명
-  // - 주문 일자
-  // - 휴대전화 번호
-  // - 전화번호
-  // - 이메일
-  // - 사업장 주소
-  // - 유지보수 신청 유형 (원격 서비스 / 방문 서비스 A / 방문 서비스 B / 방문 서비스 C / 통합 서비스)
-  // - 유지보수 신청 정보 리스트"
-
+  const [editor, setEditor] = useState('')
   return (
     <DetailModalTemplate title={'유지보수 신청 상세'} visible={visible} setVisible={setVisible} notEditBtn>
       <CRow className={'p-2'}>
@@ -48,15 +38,16 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           placeholder={'발주 번호'}
           label={'발주 번호'}
           value={maintenanceNum}
-          onChange={onChange}
           readOnly
+          disabled
         />
         <ModalInput
           id={'businessName'}
           placeholder={'상호명'}
           label={'상호명'}
           //value={businessName}
-          onChange={onChange}
+          readOnly
+          disabled
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -65,14 +56,16 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           placeholder={'사업자 번호'}
           label={'사업자 번호'}
           value={certificateNum}
-          onChange={onChange}
+          readOnly
+          disabled
         />
         <ModalInput
           id={'representativeName'}
           placeholder={'대표자 명'}
           label={'대표자 명'}
           value={representativeName}
-          onChange={onChange}
+          readOnly
+          disabled
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -81,14 +74,16 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           placeholder={'주문 일자'}
           label={'주문 일자'}
           value={createdAt}
-          onChange={onChange}
+          readOnly
+          disabled
         />
         <ModalInput
           id={'phoneNumber'}
           placeholder={'휴대전화 번호'}
           label={'휴대전화 번호'}
           value={mobilePhoneNum}
-          onChange={onChange}
+          readOnly
+          disabled
         />
       </CRow>
 
@@ -98,9 +93,10 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           placeholder={'사업장 전화번호'}
           label={'사업장 전화번호'}
           value={phoneNum}
-          onChange={onChange}
+          readOnly
+          disabled
         />
-        <ModalInput id={'email'} placeholder={'이메일'} label={'이메일'} value={email} onChange={onChange} />
+        <ModalInput id={'email'} placeholder={'이메일'} label={'이메일'} value={email} readOnly disabled />
       </CRow>
       <CRow className={'p-2'}>
         <ModalInput
@@ -108,35 +104,51 @@ const MaintenancesDetailModal = ({onChange, value, visible, setVisible, upDate, 
           placeholder={'사업장 주소'}
           label={'사업장 주소'}
           value={address}
-          onChange={onChange}
+          readOnly
+          disabled
         />
         <ModalInput
           id={'maintenanceCategory'}
           placeholder={'유지보수 신청 유형'}
           label={'유지보수 신청 유형'}
           value={maintenanceCategory}
-          onChange={onChange}
+          readOnly
+          disabled
         />
       </CRow>
       <CRow className={'p-2'}>
         <NumberOfStoresList
+          label={'신청 가맹점 수'}
           className={'userList'}
           columns={generalListApplicationColumns}
           items={adminMaintenanceStoreDTOs}
+          readOnly
+          disabled
         />
       </CRow>
       <CRow className={'p-2'}>
         <FlagshipSolutionList
+          label={'주력 솔루션 및 VAN사'}
           className={'userList solutionList'}
           columns={solutionListColumns}
           items={adminMaintenanceSolutionDTOs}
+          readOnly
+          disabled
         />
       </CRow>
       <CRow className={'p-2'}>
         <ManagementTarget
-          className={'userList'}
+          label={'③ 관리 대상 H/W 현황'}
           columns={managementTargetColumns}
           items={adminMaintenanceHardwareDTOs}
+        />
+      </CRow>
+      <CRow className={'p-2'}>
+        <ModalQuillEditor
+          label={'④ 현장 운영중인 엄무 프로세스'}
+          value={operationalProcesses}
+          setValue={setEditor}
+          readOnly
         />
       </CRow>
     </DetailModalTemplate>

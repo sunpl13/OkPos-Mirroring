@@ -41,7 +41,6 @@ const Userlist = () => {
 
   /** Open Modal*/
   const handleShowUserDetailModal = async ({id}) => {
-    setShowModal(!showModal)
     try {
       const {
         data: {result, isSuccess, code, message},
@@ -54,6 +53,7 @@ const Userlist = () => {
       }
       if (code === 1000) {
         setSelectedItem(result)
+        setShowModal(!showModal)
       } else {
         alert(message)
       }
@@ -64,7 +64,7 @@ const Userlist = () => {
 
   return (
     <CRow>
-      <PageHeader title='회원 리스트' />
+      <PageHeader title='회원 관리 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>

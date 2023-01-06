@@ -84,6 +84,7 @@ const DealerSupportList = () => {
                 onClick={handleShowDealerSupportDetailModal}
                 columns={dealerSupportList}
                 className={'userList'}
+                datePickerHidden={false}
               />
             </CCardBody>
           </CCard>

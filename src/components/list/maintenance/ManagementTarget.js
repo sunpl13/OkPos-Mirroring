@@ -13,29 +13,27 @@ import {
 } from '@coreui/react'
 import styled from 'styled-components'
 
-const ManagementTarget = ({items, onClick, columns, className}) => {
+const ManagementTarget = ({items, onClick, columns, label}) => {
   const [listItems, setListItems] = useState([])
-  console.log(items)
   useEffect(() => {
     setListItems(items)
   }, [items])
 
   return (
     <CCol>
-      <ListTitleForm>
-        <span>③</span>
-        관리 대상 H/W 현황
-      </ListTitleForm>
+      <CFormLabel className='col-form-label'>
+        <span>{label || ' * '}</span>
+      </CFormLabel>
       <CCol className={'searchInput pb-3'}>
         <CFormInput type='text' placeholder='주력 H/W 모델명을 입력해 주세요' aria-label='Disabled input' />
       </CCol>
       <CCol>
         <CustomCTable stripedColumns>
           <CTableHead color='light'>
-            <CTableHeaderCell>구분</CTableHeaderCell>
-            <CTableHeaderCell>제조사/모델명</CTableHeaderCell>
-            <CTableHeaderCell>구분</CTableHeaderCell>
-            <CTableHeaderCell>제조사/모델명</CTableHeaderCell>
+            <CTableHeaderCell key={'a'}>구분</CTableHeaderCell>
+            <CTableHeaderCell key={'b'}>제조사/모델명</CTableHeaderCell>
+            <CTableHeaderCell key={'c'}>구분</CTableHeaderCell>
+            <CTableHeaderCell key={'d'}>제조사/모델명</CTableHeaderCell>
           </CTableHead>
           <CTableBody>
             <CTableRow>

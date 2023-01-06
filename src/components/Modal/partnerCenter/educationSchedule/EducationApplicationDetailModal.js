@@ -14,10 +14,6 @@ const EducationApplicationDetailModal = ({onChange, value, visible, setVisible, 
     applicantsNum, // applicantNum: 교육 신청 인원,
     adminApplicantDTOs, // adminApplicantDTOs: 교육 신청 인원 리스트
   } = value
-  useEffect(() => {
-    if (visible) {
-    }
-  }, [visible])
   return (
     <DetailModalTemplate title={'교육 신청서'} visible={visible} setVisible={setVisible} notEditBtn={true}>
       <CRow className={'p-2'}>

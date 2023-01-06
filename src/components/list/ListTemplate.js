@@ -7,6 +7,7 @@ import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
 import {isPrice} from '../../utils/utility'
 import {antdImageFormat} from '../../utils/awsCustom'
+import defaultImg from '../../assets/defaultImg.png'
 import TestRangeDatePicker from '../common/TestRangeDatePicker'
 
 const ListTemplate = ({
@@ -200,8 +201,7 @@ const ListTemplate = ({
 
   return (
     <>
-      {/*<TestRangeDatePicker datePicker={datePickerOnChange} options={datePickerOptions} />*/}
-      <CRow className={'justify-content-end'}>
+      <CRow className={'justify-content-end align-items-end'}>
         {/*
         {searchInputHidden && (
           <CCol xs={4}>
@@ -244,11 +244,12 @@ const ListTemplate = ({
         )}
         */}
 
-        {datePickerHidden && (
+        {/*{datePickerHidden && (
           <CCol xs={4}>
             <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
           </CCol>
-        )}
+        )}*/}
+        {datePickerHidden && <TestRangeDatePicker datePicker={datePickerOnChange} options={datePickerOptions} />}
       </CRow>
 
       <br />
@@ -309,7 +310,11 @@ const ListTemplate = ({
           // 단일 이미지
           image: ({image}) => (
             <td>
-              <CImage rounded thumbnail src={image} alt='' />
+              {image ? (
+                <CImage rounded thumbnail src={image} alt='' />
+              ) : (
+                <CImage rounded thumbnail src={defaultImg} alt='' />
+              )}
             </td>
           ),
           // 이미지 리스트

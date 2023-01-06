@@ -16,14 +16,13 @@ const InquiryDetailModal = ({
   editMode,
   setEditMode,
 }) => {
-  const {id, userName, userPhoneNum, content, inquiryCategory, inquiryFiles, inquiryReplies} = value
+  const {id, title, userName, userPhoneNum, content, inquiryCategory, inquiryFiles} = value
   return (
     <DetailModalEditModeTemplate
       visible={visible}
       title={'문의 상세 보기'}
       setVisible={setVisible}
       upDate={upDate}
-      btnText={inquiryReplies?.length !== 0 ? '수정' : '답변등록'}
       onDelete={onDelete}
       editMode={editMode}
       setEditMode={setEditMode}
@@ -43,12 +42,15 @@ const InquiryDetailModal = ({
         />
         <ModalInput
           id={'phoneNumber'}
-          placeholder={'휴대전화번호'}
-          label={'휴대전화번호'}
+          placeholder={'전화번호'}
+          label={'전화번호'}
           value={userPhoneNum}
           readOnly
           disabled
         />
+      </CRow>
+      <CRow className={'p-2'}>
+        <ModalInput id={'title'} placeholder={'문의 제목'} label={'문의 제목'} value={title} readOnly disabled />
       </CRow>
       <CRow className={'p-2'}>
         <ModalTextArrayInput id='userInquiry' value={content} readOnly={true} disabled rows={9} label={'문의 내용'} />
@@ -65,6 +67,7 @@ const InquiryDetailModal = ({
           value={editor}
           setValue={setEditor}
           readOnly={editMode}
+          maxLength={450}
           isRequired
         />
       </CRow>

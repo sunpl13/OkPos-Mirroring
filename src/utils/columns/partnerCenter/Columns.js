@@ -1,20 +1,19 @@
 // 회원 리스트
-import {CFormSelect} from '@coreui/react'
 import React from 'react'
 export const userListColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
   {
     key: 'userName',
-    label: '회원 이름',
+    label: '사용자명',
     _props: {color: 'primary', className: 'userName'},
   },
   {
     key: 'certificateNum',
-    label: '사업자번호',
+    label: '사업자 번호',
     _props: {color: 'primary', className: 'certificateNum'},
   },
   {
@@ -24,7 +23,7 @@ export const userListColumns = [
   },
   {
     key: 'createdAt',
-    label: '계정 생성일',
+    label: '최초 등록일',
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },
@@ -39,30 +38,30 @@ export const userListColumns = [
 // 탈퇴 회원 리스트
 export const withdrawalUsersColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
   {
     key: 'userName',
-    label: '회원 이름',
+    label: '사용자명',
     _props: {color: 'primary', className: 'userName'},
   },
   {
     key: 'createdAt',
-    label: '계정 생성일',
+    label: '최초 등록일',
+    filter: false,
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
     key: 'status',
     label: '계정 상태',
     _props: {color: 'primary', className: 'status'},
-    sorter: false,
     filter: false,
   },
   {
     key: 'deletedAt',
-    label: '계정 삭제일',
+    label: '계정 탈퇴일',
     _props: {color: 'primary', className: 'deletedAt'},
     sorter: false,
     filter: false,
@@ -74,7 +73,7 @@ export const withdrawalUsersColumns = [
   },
   {
     key: 'certificateFile',
-    label: '사업자 등록증 파일',
+    label: '사업자 등록증',
     _props: {color: 'primary', className: 'certificateFile'},
   },
   {
@@ -101,7 +100,7 @@ export const withdrawalUsersColumns = [
 // 1:1 문의 리스트
 export const userInquiryListColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -112,7 +111,7 @@ export const userInquiryListColumns = [
   },
   {
     key: 'userName',
-    label: '회원 이름',
+    label: '이름',
     _props: {color: 'primary', className: 'userName'},
   },
   {
@@ -124,7 +123,7 @@ export const userInquiryListColumns = [
 // 공지사항 리스트
 export const noticeList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'no'},
   },
@@ -141,7 +140,7 @@ export const noticeList = [
   },
   {
     key: 'noticeFiles',
-    label: '파일',
+    label: '첨부 파일',
     _props: {color: 'primary', className: 'noticeFiles'},
     filter: false,
     sorter: false,
@@ -151,7 +150,7 @@ export const noticeList = [
 // 영업 대리점/ 딜러 지원 리스트
 export const dealerSupportList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {className: 'no'},
   },
@@ -172,35 +171,34 @@ export const dealerSupportList = [
     _props: {className: 'name'},
   },
   {
-    key: 'phoneNum',
-    label: '전화번호',
-    _props: {className: 'phoneNum'},
-  },
-  {
     key: 'email',
     label: '이메일',
     _props: {className: 'email'},
+  },
+  {
+    key: 'phoneNum',
+    label: '전화번호',
+    _props: {className: 'phoneNum'},
   },
 ]
 
 // 자료 리스트
 export const dataRoomList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {className: 'id'},
+  },
+  {
+    key: 'dataRoomCategory',
+    label: '카테고리',
+    _props: {className: 'createdAt'},
   },
   {
     key: 'title',
     label: '제목',
     _props: {className: 'title'},
   },
-  {
-    key: 'dataRoomCategory',
-    label: '자료 유형',
-    _props: {className: 'dataRoomCategory'},
-  },
-
   {
     key: 'createdAt',
     label: '등록일',
@@ -212,19 +210,24 @@ export const dataRoomList = [
 // 발주 신청 리스트
 export const orderList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {className: 'id'},
   },
   {
     key: 'orderNum',
-    label: '발주 신청 식별 번호',
+    label: '발주번호',
     _props: {className: 'orderNum'},
   },
   {
     key: 'businessName',
     label: '상호명',
     _props: {className: 'BusinessName'},
+  },
+  {
+    key: 'certificateNum',
+    label: '사업자 번호',
+    _props: {className: 'certificateNum'},
   },
   {
     key: 'representativeName',
@@ -234,7 +237,7 @@ export const orderList = [
 
   {
     key: 'createdAt',
-    label: '신청 일자',
+    label: '주문 일자',
     _props: {className: 'createdAt'},
     filter: false,
   },
@@ -284,7 +287,7 @@ export const orderListColumns = [
 ]
 export const maintenanceApplicationList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -437,7 +440,7 @@ export const managementTargetColumns = [
 // 교육 일정 / 교육 일정 리스트
 export const educationScheduleListColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     filter: false,
     _props: {color: 'primary', className: 'no'},
@@ -460,7 +463,7 @@ export const educationScheduleListColumns = [
 // 교육 일정 / 교육 신청서 리스트
 export const educationApplicationListColumns = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -517,7 +520,7 @@ export const educationApplicationListDetailColumns = [
 // 교육 일정 / 교육 신청 리스트
 export const educationRegistrationsList = [
   {
-    key: 'id',
+    key: 'idx',
     label: 'No',
     _props: {color: 'primary', className: 'id'},
   },
@@ -536,11 +539,13 @@ export const educationRegistrationsList = [
   {
     key: 'start',
     label: '교육신청 시작일',
+    filter: false,
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
     key: 'deadline',
     label: '교육신청 마감일',
+    filter: false,
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
