@@ -122,6 +122,7 @@ const DataRoomModal = ({
               readOnly={isReadOnly}
               setValue={setContent}
               label='본문'
+              maxLength={150}
             />
           </CRow>
           <br />

@@ -82,6 +82,7 @@ const InquiryDetailModal = ({
             disabled={isReadOnly}
             setValue={setInquiryReplyContent}
             label='답변'
+            maxLength={450}
           />
         </CRow>
         <br />
