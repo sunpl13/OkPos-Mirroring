@@ -48,21 +48,20 @@ table {
     &.orderDate,
     &.region,
     &.remark,
-    &.trainingDate{
+    &.trainingDate {
       max-width: 200px;
       min-width: 130px;
     }
     &.orderItemPrice,
     &.phoneNumber,
     &.businessName,
-    &.orderNum{
+    &.orderNum {
       min-width: 160px;
     }
     &.businessAddress,
     &.secessionReason,
     &.businessNumber,
-    &.distributorName,
-     {
+    &.distributorName {
       min-width: 180px;
     }
     &.itemName,
@@ -157,6 +156,6 @@ th.large {
 }
 
 .ant-picker-dropdown.css-dev-only-do-not-override-26rdvq.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomLeft,
-.ant-picker-dropdown.css-dev-only-do-not-override-26rdvq.ant-picker-dropdown-placement-bottomLeft{
+.ant-picker-dropdown.css-dev-only-do-not-override-26rdvq.ant-picker-dropdown-placement-bottomLeft {
   z-index: 9000;
 }
