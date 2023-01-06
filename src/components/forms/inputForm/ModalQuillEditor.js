@@ -127,6 +127,7 @@ const EditorStyle = styled(ReactQuill)`
   background-color: ${({readOnly}) => (readOnly ? '#d8dbe0' : 'transparent')};
   border-radius: 0.375rem;
   border: none;
+  padding-bottom: ${({readOnly}) => (readOnly ? '0' : '67px')};
   .ql-container {
     border-radius: ${({readOnly}) => (readOnly ? '0.375rem' : '0')};
     border-bottom-left-radius: 0.375rem;

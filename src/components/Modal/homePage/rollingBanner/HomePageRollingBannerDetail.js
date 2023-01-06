@@ -185,6 +185,7 @@ const HomePageRollingBannerDetail = ({
               readOnly={isReadOnly}
               disabled={isReadOnly}
               value={value.title}
+              isRequired={true}
             />
           </CRow>
           <CRow className='mb-3'>
