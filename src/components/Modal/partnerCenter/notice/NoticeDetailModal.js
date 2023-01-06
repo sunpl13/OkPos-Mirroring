@@ -25,8 +25,8 @@ const NoticeDetailModal = ({
   files,
   setFiles,
 }) => {
-  const {id, title, category} = value
-
+  const {id, title, category, createdAt} = value
+  console.log(value)
   return (
     <DetailModalEditModeTemplate
       visible={visible}
@@ -38,17 +38,42 @@ const NoticeDetailModal = ({
       onDelete={id && onDelete}
       addModal={!id}
     >
+      {id && (
+        <CRow className={'p-2'}>
+          <ModalInput
+            id={'title'}
+            placeholder={'공지사항 제목'}
+            label={'공지사항 제목'}
+            value={title || ''}
+            onChange={onChange}
+            readOnly={id && editMode}
+            disabled={id && editMode}
+            isRequired
+          />
+        </CRow>
+      )}
       <CRow className={'p-2'}>
-        <ModalInput
-          id={'title'}
-          placeholder={'공지사항 제목'}
-          label={'공지사항 제목'}
-          value={title || ''}
-          onChange={onChange}
-          readOnly={id && editMode}
-          disabled={id && editMode}
-          isRequired
-        />
+        {id ? (
+          <ModalInput
+            id={'공고 등록일'}
+            placeholder={'공고 등록일'}
+            label={'공고 등록일'}
+            value={createdAt || ''}
+            readOnly
+            disabled
+          />
+        ) : (
+          <ModalInput
+            id={'title'}
+            placeholder={'공지사항 제목'}
+            label={'공지사항 제목'}
+            value={title || ''}
+            onChange={onChange}
+            readOnly={id && editMode}
+            disabled={id && editMode}
+            isRequired
+          />
+        )}
         <ModalSelect
           id={'category'}
           placeholder={'카테고리를 선택해 주세요'}
@@ -70,6 +95,8 @@ const NoticeDetailModal = ({
           fileList={files}
           setFileList={setFiles}
           filePath='dataRoom_files'
+          oneSheet
+          maxFileLength={5}
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -79,6 +106,8 @@ const NoticeDetailModal = ({
           setFileList={setImages}
           readOnly={id && editMode}
           disabled={id && editMode}
+          oneSheet
+          maxFileLength={10}
         />
       </CRow>
 
@@ -93,6 +122,7 @@ const NoticeDetailModal = ({
           isRequired
         />
       </CRow>
+      <br />
       <br />
     </DetailModalEditModeTemplate>
   )

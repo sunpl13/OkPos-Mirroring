@@ -16,8 +16,7 @@ const InquiryDetailModal = ({
   editMode,
   setEditMode,
 }) => {
-  const {id, title, userName, userPhoneNum, content, inquiryCategory, inquiryFiles, inquiryReplies} = value
-  console.log(value)
+  const {id, title, userName, userPhoneNum, content, inquiryCategory, inquiryFiles} = value
   return (
     <DetailModalEditModeTemplate
       visible={visible}

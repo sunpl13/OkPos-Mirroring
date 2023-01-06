@@ -6,35 +6,19 @@ import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import DetailModalTemplate from '../DetailModalTemplate'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 
-const category = {
-  DEALER: {key: 'DEALER', value: '딜러'},
-  AGENCY: {
-    key: 'AGENCY',
-    value: '대리점',
-  },
-}
-
-const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelete, isReadOnly, setIsReadOnly}) => {
+const DealerSupportDetailModal = ({value, visible, setVisible, onChange, onDelete}) => {
   // - VAN 영업 경력 (유/무)"
   const {
     noticeTitle, // 지원한 공지 제목
-    noticeContent, //지원한 공지 본문
-    noticeImages, //지원한 공지 이미지
-    supportArea, //지원 분야 (대리점 / 딜러)
+    noticeContent, // 지원한 공지 본문
+    noticeImages, // 지원한 공지 이미지
+    supportArea, // 지원 분야 (대리점 / 딜러)
     name, // 이름
     email, // 이메일
     phoneNum, // 전화번호
     isExperiences, // 경력 유무
   } = value
 
-  const userDetailEditMode = () => {
-    if (!isReadOnly) {
-      setIsReadOnly(true)
-    } else {
-      //여기에 수정 api 작성
-      setIsReadOnly(false)
-    }
-  }
   return (
     <>
       <DetailModalTemplate
@@ -115,9 +99,7 @@ DealerSupportDetailModal.propTypes = {
   visible: PropTypes.bool,
   setVisible: PropTypes.func,
   onChange: PropTypes.func,
-  isReadOnly: PropTypes.bool,
-  setIsReadOnly: PropTypes.func,
-  edgeMode: PropTypes.bool,
+  onDelete: PropTypes.func,
 }
 
 export default DealerSupportDetailModal

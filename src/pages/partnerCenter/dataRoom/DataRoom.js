@@ -160,6 +160,7 @@ const DataRoom = () => {
   }
 
   const handleDataRoomModalOnChange = ({target: {id, value}}) => {
+    if (id === 'title' && value.length >= 15) return null
     setSelectedItem({
       ...selectedItem,
       [id]: value,

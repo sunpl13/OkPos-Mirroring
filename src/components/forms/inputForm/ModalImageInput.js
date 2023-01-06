@@ -1,7 +1,7 @@
 import {PlusOutlined} from '@ant-design/icons'
 import {Upload} from 'antd'
-import {useEffect, useState} from 'react'
-import {CCol, CFormLabel, CImage} from '@coreui/react'
+import React, {useEffect, useState} from 'react'
+import {CCol, CFormLabel, CImage, CPopover} from '@coreui/react'
 import styled from 'styled-components'
 import AWS from 'aws-sdk'
 import {antdImageFormat, returnBucketName} from '../../../utils/awsCustom'
@@ -24,6 +24,7 @@ const ModalImageInput = ({
   isRequired,
   readOnly,
   oneSheet = false,
+  maxFileLength = 1,
 }) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
@@ -60,7 +61,6 @@ const ModalImageInput = ({
     const httpRequest = successData.request.httpRequest
     const file = httpRequest.body
     const {protocol, host} = httpRequest.endpoint
-
     const fileData = {
       uid: successData.request.params.Key,
       name: file.name,
@@ -72,8 +72,8 @@ const ModalImageInput = ({
   }
 
   const customReq = ({file, onError, onProgress, onSuccess}) => {
-    if (oneSheet && fileList.length === 1) {
-      alert('이미지는 한장만 등록 가능합니다!')
+    if (oneSheet && fileList.length === maxFileLength) {
+      alert(`이미지는 최대 ${maxFileLength}개만 등록 가능합니다!`)
       return
     }
     AWS.config.update({
@@ -145,11 +145,15 @@ const ModalImageInput = ({
       </Upload>
       {previewImage && (
         <CCol>
-          <CFormLabel className='col-form-label'>
-            <span>{previewTitle || ''}</span>
+          <CFormLabel className='col-form-label w-75'>
+            <ImageTitleBox>
+              <span>{previewTitle || ''}</span>
+            </ImageTitleBox>
           </CFormLabel>
           <PreviewImageBox className={'text-center p-2'}>
-            <CImage rounded alt='example' onClick={() => handleCloseImage()} src={previewImage} />
+            <div>
+              <CImage rounded alt='example' onClick={() => handleCloseImage()} src={previewImage} />
+            </div>
           </PreviewImageBox>
         </CCol>
       )}
@@ -164,10 +168,24 @@ const PreviewImageBox = styled(CCol)`
   background: #fafafa;
   border: 1px dashed #d9d9d9;
   border-radius: 2px;
-  height: 300px;
-  & img {
-    width: auto;
-    max-height: 100%;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div {
+    width: 75%;
+
+    & img {
+      max-width: 100%;
+      height: auto;
+      cursor: pointer;
+      max-height: 600px;
+    }
   }
+`
+const ImageTitleBox = styled.div`
+  width: 100%;
+  padding: 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `

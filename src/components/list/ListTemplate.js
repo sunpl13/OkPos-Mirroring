@@ -201,8 +201,7 @@ const ListTemplate = ({
 
   return (
     <>
-      {/*<TestRangeDatePicker datePicker={datePickerOnChange} options={datePickerOptions} />*/}
-      <CRow className={'justify-content-end'}>
+      <CRow className={'justify-content-end align-items-end'}>
         {/*
         {searchInputHidden && (
           <CCol xs={4}>
@@ -245,11 +244,12 @@ const ListTemplate = ({
         )}
         */}
 
-        {datePickerHidden && (
+        {/*{datePickerHidden && (
           <CCol xs={4}>
             <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
           </CCol>
-        )}
+        )}*/}
+        {datePickerHidden && <TestRangeDatePicker datePicker={datePickerOnChange} options={datePickerOptions} />}
       </CRow>
 
       <br />

@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {Table} from 'antd'
 import {CFormLabel} from '@coreui/react'
 import PropTypes from 'prop-types'
 
-const AntDesignListForm = ({items, onClick, columns, className, title, listIndex, summary, children}) => {
+const AntDesignListForm = ({items, onClick, columns, className, label, listIndex, summary, children}) => {
   const getListIndex = num => {
     switch (+num) {
       case 1:
@@ -33,9 +33,10 @@ const AntDesignListForm = ({items, onClick, columns, className, title, listIndex
   }
   return (
     <>
-      <ListTitleForm>
-        <span>{getListIndex(listIndex)}</span>
-        {title}
+      <ListTitleForm id={'tsts'}>
+        <CFormLabel className='col-form-label'>
+          <span>{`${getListIndex(listIndex)} ${label}` || ''}</span>
+        </CFormLabel>
       </ListTitleForm>
       {children}
       <AntTable
@@ -51,8 +52,7 @@ const AntDesignListForm = ({items, onClick, columns, className, title, listIndex
         //         }}
         onCell={{
           cat: item => {
-            console.log(item)
-            return <div>asdasd</div>
+            console.log()
           },
         }}
         columns={columns || []}
@@ -93,9 +93,8 @@ const AntTable = styled(Table)`
   }
   & th,
   & td{
-    border: 1px solid #d8dbe0;
     text-align: center;
-    padding:0.5rem;
+    padding:0.3rem;
     & select {
      border:none;
       
@@ -108,7 +107,7 @@ const AntTable = styled(Table)`
   & td:nth-child(5){
   padding:0;
     & select{
-      padding:.8rem;
+      padding:0.8rem;
     }
   }
   
@@ -121,7 +120,7 @@ const ListTitleForm = styled(CFormLabel)`
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   & span {
-    font-size: 17px;
+    line-height: 1.5;
     margin-right: 0.2rem;
   }
 `

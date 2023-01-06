@@ -54,24 +54,4 @@ const PickerCCol = styled(CCol)`
   justify-content: end;
   height: 100%;
   width: 100%;
-  margin-bottom: 1rem;
-  & div {
-    height: 100%;
-  }
-  & .ant-space-item {
-    width: 100%;
-  }
-  & .ant-picker {
-    border-radius: 0.375rem;
-    border: solid 1px #9da5b1;
-  }
-  & .ant-space-item {
-    width: 100%;
-    & > div {
-      width: 100%;
-    }
-  }
-  & .ant-space.ant-space-vertical {
-    width: 100%;
-  }
 `

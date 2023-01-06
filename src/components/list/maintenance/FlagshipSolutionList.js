@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import AntDesignListForm from './AntDesignListForm'
 import {Table} from 'antd'
 
-const FlagshipSolutionList = ({items, onClick, columns, className}) => {
+const FlagshipSolutionList = ({items, onClick, columns, className, label}) => {
   const [listItems, setListItems] = useState([])
   useEffect(() => {
     setListItems(items)
@@ -14,7 +14,7 @@ const FlagshipSolutionList = ({items, onClick, columns, className}) => {
         columns={columns || []}
         items={listItems || []}
         className={className}
-        title={'주력 솔루션 및 VAN 사'}
+        label={label || ''}
         listIndex={2}
         summary={() => {
           return (

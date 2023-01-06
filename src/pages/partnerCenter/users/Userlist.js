@@ -64,7 +64,7 @@ const Userlist = () => {
 
   return (
     <CRow>
-      <PageHeader title='회원 리스트' />
+      <PageHeader title='회원 관리 리스트' />
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
