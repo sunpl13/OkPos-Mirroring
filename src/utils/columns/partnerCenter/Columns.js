@@ -1,5 +1,4 @@
 // 회원 리스트
-import {CFormSelect} from '@coreui/react'
 import React from 'react'
 export const userListColumns = [
   {
@@ -9,12 +8,12 @@ export const userListColumns = [
   },
   {
     key: 'userName',
-    label: '회원 이름',
+    label: '사용자명',
     _props: {color: 'primary', className: 'userName'},
   },
   {
     key: 'certificateNum',
-    label: '사업자번호',
+    label: '사업자 번호',
     _props: {color: 'primary', className: 'certificateNum'},
   },
   {
@@ -24,7 +23,7 @@ export const userListColumns = [
   },
   {
     key: 'createdAt',
-    label: '계정 생성일',
+    label: '최초 등록일',
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },
@@ -45,24 +44,24 @@ export const withdrawalUsersColumns = [
   },
   {
     key: 'userName',
-    label: '회원 이름',
+    label: '사용자명',
     _props: {color: 'primary', className: 'userName'},
   },
   {
     key: 'createdAt',
-    label: '계정 생성일',
+    label: '최초 등록일',
+    filter: false,
     _props: {color: 'primary', className: 'createdAt'},
   },
   {
     key: 'status',
     label: '계정 상태',
     _props: {color: 'primary', className: 'status'},
-    sorter: false,
     filter: false,
   },
   {
     key: 'deletedAt',
-    label: '계정 삭제일',
+    label: '계정 탈퇴일',
     _props: {color: 'primary', className: 'deletedAt'},
     sorter: false,
     filter: false,
@@ -74,7 +73,7 @@ export const withdrawalUsersColumns = [
   },
   {
     key: 'certificateFile',
-    label: '사업자 등록증 파일',
+    label: '사업자 등록증',
     _props: {color: 'primary', className: 'certificateFile'},
   },
   {
@@ -112,7 +111,7 @@ export const userInquiryListColumns = [
   },
   {
     key: 'userName',
-    label: '회원 이름',
+    label: '이름',
     _props: {color: 'primary', className: 'userName'},
   },
   {
@@ -172,14 +171,14 @@ export const dealerSupportList = [
     _props: {className: 'name'},
   },
   {
-    key: 'phoneNum',
-    label: '전화번호',
-    _props: {className: 'phoneNum'},
-  },
-  {
     key: 'email',
     label: '이메일',
     _props: {className: 'email'},
+  },
+  {
+    key: 'phoneNum',
+    label: '전화번호',
+    _props: {className: 'phoneNum'},
   },
 ]
 
@@ -191,16 +190,15 @@ export const dataRoomList = [
     _props: {className: 'id'},
   },
   {
+    key: 'dataRoomCategory',
+    label: '카테고리',
+    _props: {className: 'createdAt'},
+  },
+  {
     key: 'title',
     label: '제목',
     _props: {className: 'title'},
   },
-  {
-    key: 'dataRoomCategory',
-    label: '자료 유형',
-    _props: {className: 'dataRoomCategory'},
-  },
-
   {
     key: 'createdAt',
     label: '등록일',
@@ -218,13 +216,18 @@ export const orderList = [
   },
   {
     key: 'orderNum',
-    label: '발주 신청 식별 번호',
+    label: '발주번호',
     _props: {className: 'orderNum'},
   },
   {
     key: 'businessName',
     label: '상호명',
     _props: {className: 'BusinessName'},
+  },
+  {
+    key: 'certificateNum',
+    label: '사업자 번호',
+    _props: {className: 'certificateNum'},
   },
   {
     key: 'representativeName',
@@ -234,7 +237,7 @@ export const orderList = [
 
   {
     key: 'createdAt',
-    label: '신청 일자',
+    label: '주문 일자',
     _props: {className: 'createdAt'},
     filter: false,
   },

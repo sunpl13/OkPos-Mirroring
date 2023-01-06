@@ -24,6 +24,7 @@ const ModalImageInput = ({
   isRequired,
   readOnly,
   oneSheet = false,
+  maxFileLength = 1,
 }) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
@@ -60,7 +61,6 @@ const ModalImageInput = ({
     const httpRequest = successData.request.httpRequest
     const file = httpRequest.body
     const {protocol, host} = httpRequest.endpoint
-
     const fileData = {
       uid: successData.request.params.Key,
       name: file.name,
@@ -72,8 +72,8 @@ const ModalImageInput = ({
   }
 
   const customReq = ({file, onError, onProgress, onSuccess}) => {
-    if (oneSheet && fileList.length === 1) {
-      alert('이미지는 한장만 등록 가능합니다!')
+    if (oneSheet && fileList.length === maxFileLength) {
+      alert(`이미지는 최대 ${maxFileLength}개만 등록 가능합니다!`)
       return
     }
     AWS.config.update({

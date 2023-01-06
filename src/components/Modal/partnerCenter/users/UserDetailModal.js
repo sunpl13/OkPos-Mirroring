@@ -15,7 +15,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange, readOnly}) => {
     createdAt, // 계정 등록일
     phoneNum, // 휴대전화 번호
     status, // 계정 상태
-    userName, // 회원 이름
+    userName, // 사용자명
     certificateFile, // 사업자 등록증
   } = value
 
@@ -25,8 +25,8 @@ const UserDetailModal = ({value, visible, setVisible, onChange, readOnly}) => {
         <CRow className={'pb-4'}>
           <ModalInput
             id={'userName'}
-            placeholder={'회원 이름'}
-            label={'회원 이름'}
+            placeholder={'사용자명'}
+            label={'사용자명'}
             value={userName}
             onChange={onChange}
             readOnly={readOnly}
@@ -45,8 +45,8 @@ const UserDetailModal = ({value, visible, setVisible, onChange, readOnly}) => {
         <CRow className={'pb-4'}>
           <ModalInput
             id={'createdAt'}
-            placeholder={'계정 등록일'}
-            label={'계정 등록일'}
+            placeholder={'최초 등록일'}
+            label={'최초 등록일'}
             value={createdAt}
             onChange={onChange}
             readOnly={readOnly}
@@ -65,8 +65,8 @@ const UserDetailModal = ({value, visible, setVisible, onChange, readOnly}) => {
         <CRow className={'pb-4'}>
           <ModalInput
             id={'phoneNum'}
-            placeholder={'휴대전화번호'}
-            label={'휴대전화번호'}
+            placeholder={'휴대전화 번호'}
+            label={'휴대전화 번호'}
             value={phoneNum}
             onChange={onChange}
             readOnly={readOnly}

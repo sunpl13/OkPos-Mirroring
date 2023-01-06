@@ -38,6 +38,11 @@ const InActiveUserList = () => {
     },
   }
 
+  const datePickerOptions = [
+    {key: 'createdAt', value: '최초 등록일'},
+    {key: 'deletedAt', value: '계정 탈퇴일'},
+  ]
+
   // 탈퇴회원 API
   const getList = async () => {
     try {
@@ -111,6 +116,7 @@ const InActiveUserList = () => {
               onClick={handleShowUserDetailModal}
               columns={withdrawalUsersColumns}
               className={'userList'}
+              datePickerOptions={datePickerOptions}
             />
           </CCardBody>
         </CCard>

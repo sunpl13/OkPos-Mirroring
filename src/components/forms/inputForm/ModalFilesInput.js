@@ -6,7 +6,18 @@ import AWS from 'aws-sdk'
 import {useEffect} from 'react'
 import {antdImageFormat, returnBucketNameFile} from '../../../utils/awsCustom'
 
-const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, filePath, isRequired}) => {
+const ModalFilesInput = ({
+  files,
+  label,
+  id,
+  disabled,
+  fileList,
+  setFileList,
+  filePath,
+  isRequired,
+  oneSheet = false,
+  maxFileLength = 1,
+}) => {
   // files = 조회를 통해 가져온 데이터가 있는 경우
   useEffect(() => {
     if (files && files.length > 0) {
@@ -34,7 +45,7 @@ const ModalFilesInput = ({files, label, id, disabled, fileList, setFileList, fil
     const httpRequest = successData.request.httpRequest
     const file = httpRequest.body
     const {protocol, host} = httpRequest.endpoint
-
+    if (oneSheet && fileList.length >= maxFileLength) return alert(`파일은 최대 ${maxFileLength}개만 등록 가능합니다!`)
     const fileData = {
       uid: successData.request.params.Key,
       name: file.name,

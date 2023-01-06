@@ -95,6 +95,7 @@ const DataRoomDetailModal = ({
           setValue={setEditor}
           readOnly={id && editMode}
           disabled={id && editMode}
+          maxLength={150}
           isRequired
         />
       </CRow>
@@ -106,6 +107,8 @@ const DataRoomDetailModal = ({
           setFileList={setImages}
           readOnly={id && editMode}
           disabled={id && editMode}
+          oneSheet
+          maxFileLength={10}
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -117,6 +120,8 @@ const DataRoomDetailModal = ({
           fileList={files}
           setFileList={setFiles}
           filePath='dataRoom_files'
+          oneSheet
+          maxFileLength={5}
         />
       </CRow>
     </DetailModalEditModeTemplate>

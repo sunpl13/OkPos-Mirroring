@@ -48,19 +48,21 @@ table {
     &.orderDate,
     &.region,
     &.remark,
-    &.trainingDate {
+    &.trainingDate{
       max-width: 200px;
       min-width: 130px;
     }
     &.orderItemPrice,
     &.phoneNumber,
-    &.businessName {
+    &.businessName,
+    &.orderNum{
       min-width: 160px;
     }
     &.businessAddress,
     &.secessionReason,
     &.businessNumber,
-    &.distributorName {
+    &.distributorName,
+     {
       min-width: 180px;
     }
     &.itemName,
