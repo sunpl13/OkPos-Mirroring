@@ -122,6 +122,11 @@ th.large {
   }
 }
 
+.modal-scroll {
+  max-height: 700px;
+  overflow-y: scroll;
+}
+
 // 탈퇴 회원 차트 크기
 .mallChart {
   width: 600px;
