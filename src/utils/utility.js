@@ -15,3 +15,18 @@ export function isValidPhoneNumber(phoneNumber) {
 export function isPrice(price) {
   if (price) return price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',') + ' 원'
 }
+
+export function getTextLength(text) {
+  let str_character
+  let int_char_count = 0
+  let int_contents_length = text.length
+  for (let k = 0; k < int_contents_length; k++) {
+    str_character = text.charAt(k)
+    if (escape(str_character).length > 4) {
+      int_char_count += 2
+    } else {
+      int_char_count++
+    }
+  }
+  return int_char_count
+}
