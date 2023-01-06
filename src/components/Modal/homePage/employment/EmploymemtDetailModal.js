@@ -8,10 +8,10 @@ import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import PropTypes from 'prop-types'
-import {useDispatch} from 'react-redux'
 import {isEmpty} from '../../../../utils/utility'
 import moment from 'moment'
 import {sendImageUrlFormat} from '../../../../utils/awsCustom'
+import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 
 export const category = [
   {key: 'SERVICE_PLANNING', value: '서비스 기획'},
@@ -34,11 +34,6 @@ export const category = [
   {key: 'ONSITE_SUPPORT_TECHNICAL_SUPPORT', value: '현장 지원-기술 지원'},
   {key: 'ONSITE_SUPPORT_LOGISTICS', value: '현장 지원 - 물류'},
   {key: 'OPERATIONAL_INNOVATION_TF', value: '운영 혁신 TF'},
-]
-
-const status = [
-  {key: 1, value: '채용중'},
-  {key: 0, value: '채용 마감'},
 ]
 
 const type = [
@@ -67,9 +62,20 @@ const EmploymemtDetailModal = ({
   onChange,
   isReadOnly,
   setIsReadOnly,
+  duty,
+  setDuty,
+  qualification,
+  setQualification,
+  preference,
+  setPreference,
+  hiringReason,
+  setHiringReason,
+  departmentStatus,
+  setDepartmentStatus,
+  otherNote,
+  setOtherNote,
 }) => {
   const [fileList, setFileList] = useState([])
-  const dispatch = useDispatch()
   const userDetailEditMode = () => {
     if (!isReadOnly) {
       onUpdate()
@@ -79,39 +85,61 @@ const EmploymemtDetailModal = ({
   }
 
   const validateCheck = () => {
-    if (isEmpty(value.categoryEnglish)) {
-      alert('카테고리를 선택해 주세요.')
-      return false
+    if (value.recruitmentId !== -1) {
+      if (value.jobType === '선택해주세요') {
+        alert('고용 형태를 선택해주세요.')
+        return false
+      }
+      if (value.category === '선택해주세요') {
+        alert('카테고리를 선택해 주세요.')
+        return false
+      }
+      if (isEmpty(value.title)) {
+        alert('공고 제목을 입력해주세요.')
+        return false
+      }
+      if (isEmpty(value.location)) {
+        alert('근무 지역을 입력해주세요.')
+        return false
+      }
+      if (value.education === '선택해주세요') {
+        alert('학력 및 전공을 선택해주세요.')
+        return false
+      }
+      if (value.career === '선택해주세요') {
+        alert('경력 정보를 선택해주세요.')
+        return false
+      }
+    } else {
+      if (isEmpty(value.category)) {
+        alert('카테고리를 선택해 주세요.')
+        return false
+      }
+      if (isEmpty(value.title)) {
+        alert('공고 제목을 입력해주세요.')
+        return false
+      }
+      if (isEmpty(value.jobType) || value.jobType === '선택해주세요') {
+        alert('고용 형태를 선택해주세요.')
+        return false
+      }
+      if (isEmpty(value.location)) {
+        alert('근무 지역을 입력해주세요.')
+        return false
+      }
+      if (isEmpty(value.education) || value.education === '선택해주세요') {
+        alert('학력 및 전공을 선택해주세요.')
+        return false
+      }
+      if (isEmpty(value.career) || value.career === '선택해주세요') {
+        alert('경력 정보를 선택해주세요.')
+        return false
+      }
+      if (isEmpty(duty) || duty === '<p><br></p>') {
+        alert('직무 내용을 입력해주세요.')
+        return false
+      }
     }
-    if (isEmpty(value.title)) {
-      alert('공고 제목을 입력해주세요.')
-      return false
-    }
-    if (value.proceed === '선택해주세요') {
-      alert('진행상태를 선택해주세요.')
-      return false
-    }
-    if (isEmpty(value.jobTypeEnglish) || value.jobTypeEnglish === '선택해주세요') {
-      alert('고용 형태를 선택해주세요.')
-      return false
-    }
-    if (isEmpty(value.location)) {
-      alert('근무 지역을 입력해주세요.')
-      return false
-    }
-    if (isEmpty(value.educationEnglish) || value.educationEnglish === '선택해주세요') {
-      alert('학력 및 전공을 선택해주세요.')
-      return false
-    }
-    if (isEmpty(value.careerEnglish) || value.careerEnglish === '선택해주세요') {
-      alert('경력 정보를 선택해주세요.')
-      return false
-    }
-    if (isEmpty(value.qualification)) {
-      alert('자격 요건을 입력해주세요.')
-      return false
-    }
-
     return true
   }
 
@@ -125,21 +153,21 @@ const EmploymemtDetailModal = ({
       const urls = sendImageUrlFormat(fileList)
       const {data} = await ApiConfig.request({
         data: {
-          category: value.categoryEnglish,
+          category: value.category ?? value.categoryEnglish,
           title: value.title,
           startedAt: startTime,
           closedAt: endTime,
           imageUrls: urls,
-          jobType: value.jobTypeEnglish,
+          jobType: value.jobType ?? value.jobTypeEnglish,
           location: value.location,
-          education: value.educationEnglish,
-          career: value.careerEnglish,
-          duty: value.duty,
-          qualification: value.qualification,
-          preference: value.preference,
-          hiringReason: value.hiringReason,
-          departmentStatus: value.departmentStatus,
-          otherNote: value.otherNote,
+          education: value.education ?? value.educationEnglish,
+          career: value.career ?? value.careerEnglish,
+          duty: duty,
+          qualification: qualification === '' || qualification === '<p><br></p>' ? null : qualification,
+          preference: preference === '' || preference === '<p><br></p>' ? null : preference,
+          hiringReason: hiringReason === '' || hiringReason === '<p><br></p>' ? null : hiringReason,
+          departmentStatus: departmentStatus === '' || departmentStatus === '<p><br></p>' ? null : departmentStatus,
+          otherNote: otherNote === '' || otherNote === '<p><br></p>' ? null : otherNote,
         },
         query: {},
         path: {},
@@ -195,21 +223,21 @@ const EmploymemtDetailModal = ({
       const {data} = await ApiConfig.request({
         data: {
           recruitmentId: value.recruitmentId,
-          category: value.categoryEnglish,
+          category: value.category ?? value.categoryEnglish,
           title: value.title,
           startedAt: startTime,
           closedAt: endTime,
           imageUrls: urls,
-          jobType: value.jobTypeEnglish,
+          jobType: value.jobType ?? value.jobTypeEnglish,
           location: value.location,
-          education: value.educationEnglish,
-          career: value.careerEnglish,
-          duty: value.duty,
-          qualification: value.qualification,
-          preference: value.preference,
-          hiringReason: value.hiringReason,
-          departmentStatus: value.departmentStatus,
-          otherNote: value.otherNote,
+          education: value.education ?? value.educationEnglish,
+          career: value.career ?? value.careerEnglish,
+          duty: duty,
+          qualification: qualification === '' || qualification === '<p><br></p>' ? null : qualification,
+          preference: preference === '' || preference === '<p><br></p>' ? null : preference,
+          hiringReason: hiringReason === '' || hiringReason === '<p><br></p>' ? null : hiringReason,
+          departmentStatus: departmentStatus === '' || departmentStatus === '<p><br></p>' ? null : departmentStatus,
+          otherNote: otherNote === '' || otherNote === '<p><br></p>' ? null : otherNote,
         },
         query: {},
         path: {
@@ -255,7 +283,7 @@ const EmploymemtDetailModal = ({
 
   return (
     <>
-      <CModal alignment='center' size='lg' visible={visible}>
+      <CModal alignment='center' size='xl' visible={visible}>
         <CCustomModalHeader onClick={onCloseCheck}>채용 상세</CCustomModalHeader>
         <CModalBody className='modal-scroll'>
           <CRow className='mb-3'>
@@ -273,7 +301,7 @@ const EmploymemtDetailModal = ({
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
-              id='jobTypeEnglish'
+              id='jobType'
               options={type}
               value={value.jobTypeEnglish}
               isRequired={true}
@@ -300,11 +328,23 @@ const EmploymemtDetailModal = ({
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
-              id='categoryEnglish'
+              id='category'
               value={value.categoryEnglish}
               isRequired={true}
               placeholder='선택해주세요'
               label='카테고리'
+            />
+            <ModalSelect
+              onChange={onChange}
+              size='sm'
+              options={career}
+              value={value.careerEnglish}
+              id='career'
+              placeholder='선택해주세요'
+              isRequired={true}
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              label='경력'
             />
           </CRow>
           <CRow className='mb-3'>
@@ -343,36 +383,12 @@ const EmploymemtDetailModal = ({
               disabled={isReadOnly}
               onChange={onChange}
               size='sm'
-              id='educationEnglish'
+              id='education'
               options={education}
               isRequired={true}
               value={value.educationEnglish}
               placeholder='선택해주세요'
               label='학력 및 전공'
-            />
-          </CRow>
-          <CRow className='mb-3'>
-            <ModalInput
-              onChange={onChange}
-              id='duty'
-              placeholder='duty'
-              label='직무 내용'
-              isRequired={true}
-              value={value.duty}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-            />
-            <ModalSelect
-              onChange={onChange}
-              size='sm'
-              options={career}
-              value={value.careerEnglish}
-              id='careerEnglish'
-              placeholder='선택해주세요'
-              isRequired={true}
-              readOnly={isReadOnly}
-              disabled={isReadOnly}
-              label='경력'
             />
           </CRow>
           <CRow className='mb-3'>
@@ -387,59 +403,75 @@ const EmploymemtDetailModal = ({
             />
           </CRow>
           <CRow className='mb-3'>
-            <ModalInput
+            <ModalQuillEditor
+              onChange={onChange}
+              id='duty'
+              label='직무 내용'
+              isRequired={true}
+              value={duty}
+              readOnly={isReadOnly}
+              setValue={setDuty}
+              maxLength={300}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalQuillEditor
               onChange={onChange}
               id='qualification'
-              placeholder='qualification'
               label='자격 요건'
-              isRequired={true}
-              value={value.qualification === null ? '' : value.qualification}
+              isRequired={false}
+              value={qualification}
               readOnly={isReadOnly}
-              disabled={isReadOnly}
+              setValue={setQualification}
+              maxLength={300}
             />
           </CRow>
           <CRow className='mb-3'>
-            <ModalInput
+            <ModalQuillEditor
               onChange={onChange}
               id='preference'
-              placeholder='preference'
               label='우대사항'
-              value={value.preference === null ? '' : value.preference}
+              isRequired={false}
+              value={preference}
               readOnly={isReadOnly}
-              disabled={isReadOnly}
+              setValue={setPreference}
+              maxLength={300}
             />
           </CRow>
           <CRow className='mb-3'>
-            <ModalInput
+            <ModalQuillEditor
               onChange={onChange}
               id='hiringReason'
-              placeholder='hiringReason'
               label='채용 사유'
-              value={value.hiringReason === null ? '' : value.hiringReason}
+              isRequired={false}
+              value={hiringReason}
               readOnly={isReadOnly}
-              disabled={isReadOnly}
+              setValue={setHiringReason}
+              maxLength={300}
             />
           </CRow>
           <CRow className='mb-3'>
-            <ModalInput
+            <ModalQuillEditor
               onChange={onChange}
               id='departmentStatus'
-              placeholder='departmentStatus'
               label='부서 현황'
-              value={value.departmentStatus === null ? '' : value.departmentStatus}
+              isRequired={false}
+              value={departmentStatus}
               readOnly={isReadOnly}
-              disabled={isReadOnly}
+              setValue={setDepartmentStatus}
+              maxLength={300}
             />
           </CRow>
           <CRow className='mb-3'>
-            <ModalInput
+            <ModalQuillEditor
               onChange={onChange}
               id='otherNote'
-              placeholder='otherNote'
-              label='기타 참고사항'
-              value={value.otherNote === null ? '' : value.otherNote}
+              label='기타 참고 사항'
+              isRequired={false}
+              value={otherNote}
               readOnly={isReadOnly}
-              disabled={isReadOnly}
+              setValue={setOtherNote}
+              maxLength={300}
             />
           </CRow>
         </CModalBody>

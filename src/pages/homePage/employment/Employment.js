@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
 import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
@@ -7,10 +7,17 @@ import {employmentColumns} from '../../../utils/columns/homePage/employment/Colu
 import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
+import {getTextLength} from '../../../utils/utility'
 const Employment = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
+  const [duty, setDuty] = useState('')
+  const [qualification, setQualification] = useState('')
+  const [preference, setPreference] = useState('')
+  const [hiringReason, setHiringReason] = useState('')
+  const [departmentStatus, setDepartmentStatus] = useState('')
+  const [otherNote, setOtherNote] = useState('')
   const [selectedItem, setSelectedItem] = useState({
     recruitmentId: -1,
     category: '',
@@ -153,6 +160,18 @@ const Employment = () => {
         setIsReadOnly={setIsReadOnly}
         getList={onLoadEmploymentList}
         setSelectedItem={setSelectedItem}
+        duty={duty}
+        setDuty={setDuty}
+        qualification={qualification}
+        setQualification={setQualification}
+        preference={preference}
+        setPreference={setPreference}
+        hiringReason={hiringReason}
+        setHiringReason={setHiringReason}
+        departmentStatus={departmentStatus}
+        setDepartmentStatus={setDepartmentStatus}
+        otherNote={otherNote}
+        setOtherNote={setOtherNote}
       />
     </>
   )
