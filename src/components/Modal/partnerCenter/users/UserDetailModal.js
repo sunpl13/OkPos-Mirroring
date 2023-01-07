@@ -19,6 +19,18 @@ const UserDetailModal = ({value, visible, setVisible, onChange, readOnly}) => {
     certificateFile, // 사업자 등록증
   } = value
 
+  const userStatus = value => {
+    switch (value) {
+      case 'ACTIVE':
+        return '활성화'
+      case 'INACTIVE':
+        return '비활성화'
+      case true:
+        return 'success'
+      default:
+        return ' '
+    }
+  }
   return (
     <DetailModalTemplate title={'회원 상세'} visible={visible} setVisible={setVisible} notEditBtn={true}>
       <CModalBody>
@@ -56,7 +68,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange, readOnly}) => {
             id={'status'}
             placeholder={'계정 상태'}
             label={'계정 상태'}
-            value={status}
+            value={userStatus(status)}
             onChange={onChange}
             readOnly={readOnly}
             disabled={readOnly}

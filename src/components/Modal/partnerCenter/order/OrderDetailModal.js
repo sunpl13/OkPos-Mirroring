@@ -116,8 +116,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
       <CRow className={'p-2'}>
         <ModalInput
           id={'representativeName'}
-          placeholder={'대표자명'}
-          label={'대표자명'}
+          placeholder={'대표자 명'}
+          label={'대표자 명'}
           value={representativeName}
           onChange={onChange}
           readOnly={readOnly}
@@ -165,8 +165,8 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
         />
         <ModalInput
           id={'phoneNumber'}
-          placeholder={'휴대전화'}
-          label={'휴대전화'}
+          placeholder={'휴대전화 번호'}
+          label={'휴대전화 번호'}
           value={mobilePhoneNum}
           onChange={onChange}
           readOnly={readOnly}

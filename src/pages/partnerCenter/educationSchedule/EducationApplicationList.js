@@ -12,7 +12,12 @@ const EducationApplicationList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [showModal, setShowModal] = useState(false)
-
+  const datepickerOption = [
+    {
+      key: 'educationDate',
+      value: '신청 교육 일자',
+    },
+  ]
   // 교육 신청 리스트 API
   const getList = async () => {
     try {
@@ -78,6 +83,7 @@ const EducationApplicationList = () => {
               onClick={handleShowDetailModal}
               columns={educationApplicationListColumns}
               className={'userList'}
+              datePickerOptions={datepickerOption}
             />
           </CCardBody>
         </CCard>

@@ -3,12 +3,11 @@ import {CSmartTable} from '../custom/smart-table/CSmartTable'
 import PropTypes from 'prop-types'
 import {CBadge, CCol, CFormCheck, CImage, CRow} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
-import RangeDatePicker from '../common/RangeDatePicker'
 import moment from 'moment'
 import {isPrice} from '../../utils/utility'
 import {antdImageFormat} from '../../utils/awsCustom'
 import defaultImg from '../../assets/defaultImg.png'
-import TestRangeDatePicker from '../common/TestRangeDatePicker'
+import RangeDatePicker from '../common/TestRangeDatePicker'
 
 const ListTemplate = ({
   items, // 리스트 아이템
@@ -158,11 +157,17 @@ const ListTemplate = ({
     */
   }, [items])
 
+  const formatTimes = (value, format) => {
+    if (!value || !format) return undefined
+    if (format === 'YYYY-MM-DD') return moment(value, format).format('YYYY-MM-DD')
+    if (format === 'YYYYMMDDHHmmss') return moment(value, format).format('YYYY-MM-DD')
+  }
+
   const datePickerOnChange = (startDate, endDate, {key}) => {
     if (endDate) {
       setFilterItems(
         listItems.filter(value => {
-          const date = moment(value[key], 'YYYYMMDDHHmmss').format('YYYY-MM-DD') || moment(value[key], 'YYYYMMDDHHmmss')
+          const date = formatTimes(value[key], 'YYYYMMDDHHmmss')
           return date >= startDate && date <= endDate
         }),
       )
@@ -249,7 +254,7 @@ const ListTemplate = ({
             <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
           </CCol>
         )}*/}
-        {datePickerHidden && <TestRangeDatePicker datePicker={datePickerOnChange} options={datePickerOptions} />}
+        {datePickerHidden && <RangeDatePicker datePicker={datePickerOnChange} options={datePickerOptions} />}
       </CRow>
 
       <br />

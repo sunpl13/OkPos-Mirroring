@@ -8,7 +8,7 @@ export const userListColumns = [
   },
   {
     key: 'userName',
-    label: '사용자명',
+    label: '사용자 명',
     _props: {color: 'primary', className: 'userName'},
   },
   {
@@ -44,7 +44,7 @@ export const withdrawalUsersColumns = [
   },
   {
     key: 'userName',
-    label: '사용자명',
+    label: '사용자 명',
     _props: {color: 'primary', className: 'userName'},
   },
   {
@@ -293,7 +293,7 @@ export const maintenanceApplicationList = [
   },
   {
     key: 'maintenanceNum',
-    label: '유지보수 신청 번호',
+    label: '유지보수 번호',
     _props: {color: 'primary', className: 'maintenanceNum'},
   },
   {
@@ -303,7 +303,7 @@ export const maintenanceApplicationList = [
   },
   {
     key: 'certificateNum',
-    label: '사업자 등록번호',
+    label: '사업자 번호',
     _props: {color: 'primary', className: 'certificateNum'},
   },
   {
@@ -314,7 +314,7 @@ export const maintenanceApplicationList = [
 
   {
     key: 'createdAt',
-    label: '신청 일자',
+    label: '주문 일자',
     _props: {color: 'primary', className: 'createdAt'},
     filter: false,
   },
@@ -478,18 +478,18 @@ export const educationApplicationListColumns = [
     _props: {color: 'primary', className: 'phoneNum'},
     sorter: false,
   },
-  {
-    key: 'educationDate',
-    label: '신청 교육 일자',
-    _props: {color: 'primary', className: 'educationDate'},
-    filter: false,
-  },
 
   {
     key: 'applicantNum',
     label: '신청 인원',
     _props: {color: 'primary', className: 'applicantNum'},
     sorter: false,
+  },
+  {
+    key: 'educationDate',
+    label: '신청 교육 일자',
+    _props: {color: 'primary', className: 'educationDate'},
+    filter: false,
   },
 ]
 

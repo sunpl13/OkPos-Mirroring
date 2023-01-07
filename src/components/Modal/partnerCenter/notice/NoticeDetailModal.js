@@ -26,7 +26,6 @@ const NoticeDetailModal = ({
   setFiles,
 }) => {
   const {id, title, category, createdAt} = value
-  console.log(value)
   return (
     <DetailModalEditModeTemplate
       visible={visible}

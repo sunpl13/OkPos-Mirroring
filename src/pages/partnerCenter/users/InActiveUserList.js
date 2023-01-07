@@ -17,7 +17,7 @@ const InActiveUserList = () => {
 
   const chartList = {
     inconvenienceOfService: {
-      value: '불편한 서비스',
+      value: '서비스 이용 불편',
       backgroundColor: 'rgba(255, 99, 132, 0.2)',
       borderColor: 'rgb(255, 159, 64)',
     },
@@ -27,7 +27,7 @@ const InActiveUserList = () => {
       borderColor: 'rgb(201, 203, 207)',
     },
     disSatisfiedWithProductFeature: {
-      value: '제품 기능에 만족하지 못함',
+      value: '제품 기능 불만족',
       backgroundColor: 'rgba(201, 203, 207, 0.2)',
       borderColor: 'rgb(255, 205, 86)',
     },

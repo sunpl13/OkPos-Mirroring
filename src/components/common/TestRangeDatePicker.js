@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from 'react'
-import {ConfigProvider, DatePicker, Select, Space, TimePicker} from 'antd'
+import {ConfigProvider, DatePicker, Select, Space} from 'antd'
 import moment from 'moment'
 import {CCol} from '@coreui/react'
 import styled from 'styled-components'
 import locale from 'antd/lib/locale/ko_KR'
 const {Option} = Select
 
-const TestRangeDatePicker = ({options, datePicker}) => {
+const RangeDatePicker = ({options, datePicker}) => {
   const [option, setOption] = useState({key: 'createdAt', value: '', children: ''})
   const {RangePicker} = DatePicker
-  moment.locale('ko')
+  useEffect(() => {
+    options && setOption(options[0])
+  }, [])
 
+  moment.locale('ko')
   const selectedOnChange = (value, key) => {
     setOption(key)
   }
-
   const datePickerOnChange = date => {
     if (date) {
       datePicker(moment(date[0].$d).format('YYYY-MM-DD'), moment(date[1].$d).format('YYYY-MM-DD'), option)
@@ -26,8 +28,8 @@ const TestRangeDatePicker = ({options, datePicker}) => {
   return (
     <PickerCCol>
       <Space>
-        {options && (
-          <Select value={option?.value || options[0]?.value} onChange={selectedOnChange}>
+        {options && options?.length > 1 && (
+          <Select value={option.value || options[0]?.value} onChange={selectedOnChange}>
             {options.map(({value, key}) => (
               <Option value={value} key={key}>
                 {value}
@@ -45,7 +47,7 @@ const TestRangeDatePicker = ({options, datePicker}) => {
   )
 }
 
-export default TestRangeDatePicker
+export default RangeDatePicker
 
 const PickerCCol = styled(CCol)`
   display: flex;

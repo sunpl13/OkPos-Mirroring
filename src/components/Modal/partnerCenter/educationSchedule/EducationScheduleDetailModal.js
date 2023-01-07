@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
-import {CRow} from '@coreui/react'
+import {CCol, CRow} from '@coreui/react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
@@ -24,7 +24,7 @@ const EducationScheduleDetailModal = ({
   files,
   setFiles,
 }) => {
-  const {id, title} = value
+  const {id, title, createdAt} = value
   return (
     <DetailModalEditModeTemplate
       title={id ? '교육 일정 상세' : '교육 일정 추가'}
@@ -47,6 +47,16 @@ const EducationScheduleDetailModal = ({
           disabled={id && editMode}
           isRequired
         />
+        {id && (
+          <ModalInput
+            id={'createdAt'}
+            placeholder={'공고 등록일'}
+            label={'공고 등록일'}
+            value={createdAt}
+            readOnly
+            disabled
+          />
+        )}
       </CRow>
       <CRow className={'p-2'}>
         <ModalFilesInput
