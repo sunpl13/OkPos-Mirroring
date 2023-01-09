@@ -7,6 +7,7 @@ import {noticeList} from '../../../utils/columns/partnerCenter/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import {createdInfo, upDateInfo} from '../../../components/function/partnerCenter/ApiModules'
 
 const NoticeList = () => {
   const [items, setItems] = useState()
@@ -115,25 +116,11 @@ const NoticeList = () => {
         //if (noticeImages.length === 0) return alert('이미지를 등록해 주세요.')
         if (!editor) return alert('공지사항 본문을 작성해 주세요.')
         if (!category) return alert('카테고리를 선택해 주세요.')
-        try {
-          const {
-            data: {isSuccess, result, code, message},
-          } = await ApiConfig.request({
-            method: HttpMethod.PUT,
-            url: `${EndPoint.PARTNER_NOTICES}/${id}`,
-            data: json,
+        upDateInfo(EndPoint.PARTNER_NOTICES, id, json)
+          .then(res => {
+            return alert(res)
           })
-          if (!isSuccess || isEmpty(result)) {
-            return alert(message)
-          }
-          if (code === 1000) {
-            getList()
-            alert(message)
-            return setShowModal(false)
-          }
-        } catch (error) {
-          console.log(error)
-        }
+          .catch(err => console.log(err))
       } else {
         setShowModal(false)
       }
@@ -142,27 +129,13 @@ const NoticeList = () => {
         if (!title) return alert('공지사항 제목을 입력해 주세요.')
         if (!category) return alert('카테고리를 선택해 주세요.')
         if (!editor) return alert('공지사항 본문을 입력해 주세요.')
-        try {
-          const {
-            data: {isSuccess, result, code, message},
-          } = await ApiConfig.request({
-            method: HttpMethod.POST,
-            url: EndPoint.PARTNER_NOTICES,
-            data: json,
-          })
-          if (!isSuccess || isEmpty(result)) {
-            return alert(message)
-          }
-          if (code === 1000) {
+        createdInfo(EndPoint.PARTNER_NOTICES, json)
+          .then(res => {
             getList()
-            alert(message)
-            return setShowModal(false)
-          } else {
-            alert(message)
-          }
-        } catch (error) {
-          return alert(error)
-        }
+            setShowModal(false)
+            return alert(res)
+          })
+          .catch(err => console.log(err))
       }
     }
   }

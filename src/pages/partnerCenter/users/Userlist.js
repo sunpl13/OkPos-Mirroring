@@ -4,9 +4,8 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userListColumns} from '../../../utils/columns/partnerCenter/Columns'
-import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from '../../../utils/utility'
+import {getDetailInfo, getListData} from '../../../components/function/partnerCenter/ApiModules'
 
 const Userlist = () => {
   const [items, setItems] = useState([])
@@ -14,52 +13,24 @@ const Userlist = () => {
   const [showModal, setShowModal] = useState(false)
 
   // 회원 리스트 API
-  const getUsers = async () => {
-    try {
-      const {
-        data: {result, isSuccess, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: EndPoint.PARTNER_USERS,
-      })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setItems(result?.adminUserInfoPartnerDTOs)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+  const getList = async () => {
+    getListData(EndPoint.PARTNER_USERS)
+      .then(res => setItems(res?.adminUserInfoPartnerDTOs))
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
-    getUsers()
+    getList()
   }, [])
 
   /** Open Modal*/
   const handleShowUserDetailModal = async ({id}) => {
-    try {
-      const {
-        data: {result, isSuccess, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_USERS}/${id}`,
-      })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setSelectedItem(result)
+    getDetailInfo(EndPoint.PARTNER_USERS, id)
+      .then(res => {
+        setSelectedItem(res)
         setShowModal(!showModal)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      })
+      .catch(err => console.log(err))
   }
 
   return (

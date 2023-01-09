@@ -4,6 +4,7 @@ import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import ModalFilesView from '../../../forms/inputForm/ModalFilesView'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
+import {useEffect} from 'react'
 
 const InquiryDetailModal = ({
   upDate,
@@ -16,7 +17,7 @@ const InquiryDetailModal = ({
   editMode,
   setEditMode,
 }) => {
-  const {id, title, userName, userPhoneNum, content, inquiryCategory, inquiryFiles} = value
+  const {id, title, userName, userPhoneNum, content, inquiryCategory, inquiryFiles, inquiryReplies} = value
   return (
     <DetailModalEditModeTemplate
       visible={visible}
@@ -24,8 +25,9 @@ const InquiryDetailModal = ({
       setVisible={setVisible}
       upDate={upDate}
       onDelete={onDelete}
-      editMode={editMode}
+      editMode={inquiryReplies?.length !== 0 && editMode}
       setEditMode={setEditMode}
+      addModal={inquiryReplies?.length === 0}
     >
       <CRow className={'p-2'}>
         <ModalInput id={'id'} placeholder={'문의 번호'} label={'문의 번호'} value={id} readOnly disabled />
@@ -66,7 +68,7 @@ const InquiryDetailModal = ({
           label={'문의 답변'}
           value={editor}
           setValue={setEditor}
-          readOnly={editMode}
+          readOnly={inquiryReplies?.length !== 0 && editMode}
           maxLength={450}
           isRequired
         />

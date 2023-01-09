@@ -7,6 +7,13 @@ import {userInquiryListColumns} from '../../../utils/columns/partnerCenter/Colum
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import {
+  createdInfo,
+  deletedInfo,
+  getDetailInfo,
+  getListData,
+  upDateInfo,
+} from '../../../components/function/partnerCenter/ApiModules'
 
 const InquiryList = () => {
   const [items, setItems] = useState([])
@@ -18,80 +25,42 @@ const InquiryList = () => {
 
   // 1:1 문의 리스트 API
   const getList = async () => {
-    try {
-      const {
-        data: {result, isSuccess, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: EndPoint.PARTNER_INQUIRIES,
+    getListData(EndPoint.PARTNER_INQUIRIES)
+      .then(res => {
+        setItems(res?.inquiryPartnerDTOs)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setItems(result?.inquiryPartnerDTOs)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
     getList()
   }, [])
 
-  /** Open Modal*/
+  // Open Modal
   const handleShowModal = async ({id}) => {
     setShowModal(!showModal)
-    try {
-      const {
-        data: {result, isSuccess, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_INQUIRIES}/${id}`,
-      })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setSelectedItem(result)
-        setEditCheck(result?.inquiryReplies)
-        if (result?.inquiryReplies.length !== 0) {
-          setEditor(result?.inquiryReplies[0].content)
+    getDetailInfo(EndPoint.PARTNER_INQUIRIES, id)
+      .then(res => {
+        console.log(res)
+        setSelectedItem(res)
+        setEditCheck(res?.inquiryReplies)
+        if (res?.inquiryReplies.length !== 0) {
+          setEditor(res?.inquiryReplies[0].content)
         }
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      })
+      .catch(err => console.log(err))
   }
 
   // 1:1 문의 삭제
   const handleInquiryModalOnDelete = async () => {
     const {id} = selectedItem
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      try {
-        const {
-          data: {result, isSuccess, code, message},
-        } = await ApiConfig.request({
-          method: HttpMethod.PATCH,
-          url: `${EndPoint.PARTNER_INQUIRIES}/reply/${id}`,
-        })
-        if (!isSuccess || isEmpty(result)) {
-          return alert(message)
-        }
-        if (code === 1000) {
-          alert(message)
+      deletedInfo(`${EndPoint.PARTNER_INQUIRIES}/reply`, id)
+        .then(res => {
           getList()
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+          return alert(res)
+        })
+        .catch(err => console.log(err))
     }
   }
 
@@ -100,60 +69,54 @@ const InquiryList = () => {
     setEditor(htmlTagValue)
   }
 
-  // 1 : 1 문이 업데이트
+  // 1:1 문이 업데이트
   const handleInquiryModalUpdate = async () => {
     const {id} = selectedItem
     if (editCheck.length !== 0) {
       if (window.confirm('답변을 수정하시겠습니까?')) {
         if (!editor) return alert('답변을 작성해 주세요.')
-        try {
-          const {
-            data: {result, isSuccess, code, message},
-          } = await ApiConfig.request({
-            method: HttpMethod.PUT,
-            url: `${EndPoint.PARTNER_INQUIRIES}/reply/${id}`,
-            data: {
-              content: editor,
-            },
-          })
-          if (!isSuccess || isEmpty(result)) {
-            return alert(message)
-          }
-          if (code === 1000) {
+        if (!editor) return alert('답변을 작성해 주세요.')
+        upDateInfo(`${EndPoint.PARTNER_INQUIRIES}/reply`, id, {
+          content: editor,
+        })
+          .then(res => {
+            getList()
             setShowModal(false)
-            return alert(message)
-          } else {
-            alert(message)
-          }
-        } catch (error) {
-          console.log(error)
-        }
+            return alert(res)
+          })
+          .catch(error => console.log(error))
       }
     } else if (window.confirm('답변을 등록하시겠습니까?')) {
-      if (!editor) return alert('답변을 작성해 주세요.')
-      try {
-        const {
-          data: {result, isSuccess, code, message},
-        } = await ApiConfig.request({
-          method: HttpMethod.POST,
-          url: `${EndPoint.PARTNER_INQUIRIES}/${id}/reply`,
-          data: {
-            content: editor,
-          },
-        })
-        if (!isSuccess || isEmpty(result)) {
-          return alert(message)
-        }
-        if (code === 1000) {
-          getList()
-          setShowModal(false)
-          return alert(message)
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+      createdInfo(`${EndPoint.PARTNER_INQUIRIES}/${id}/reply`, {
+        content: editor,
+      }).then(res => {
+        getList()
+        setShowModal(false)
+        return alert(res)
+      })
+      //try {
+      //         const {
+      //           data: {result, isSuccess, code, message},
+      //         } = await ApiConfig.request({
+      //           method: HttpMethod.POST,
+      //           url: `${EndPoint.PARTNER_INQUIRIES}/${id}/reply`,
+      //           data: {
+      //             content: editor,
+      //           },
+      //         })
+      //         if (!isSuccess || isEmpty(result)) {
+      //           return alert(message)
+      //         }
+      //         if (code === 1000) {
+      //           getList()
+      //           setShowModal(false)
+      //           return alert(message)
+      //         } else {
+      //           alert(message)
+      //         }
+      //       } catch (error) {
+      //         console.log(error)
+      //       }
     }
   }
   useEffect(() => {
