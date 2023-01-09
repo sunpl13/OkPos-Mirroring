@@ -30,6 +30,5 @@ export const employmentColumns = [
     key: 'proceed',
     label: '진행 상태',
     _props: {color: 'primary', className: 'proceed'},
-    filter: false,
   },
 ]

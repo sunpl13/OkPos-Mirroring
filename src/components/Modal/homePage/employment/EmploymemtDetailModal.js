@@ -111,30 +111,32 @@ const EmploymemtDetailModal = ({
         return false
       }
     } else {
-      if (isEmpty(value.category)) {
-        alert('카테고리를 선택해 주세요.')
-        return false
-      }
-      if (isEmpty(value.title)) {
-        alert('공고 제목을 입력해주세요.')
-        return false
-      }
       if (isEmpty(value.jobType) || value.jobType === '선택해주세요') {
         alert('고용 형태를 선택해주세요.')
         return false
       }
-      if (isEmpty(value.location)) {
-        alert('근무 지역을 입력해주세요.')
+      if (isEmpty(value.title) || value.title === '선택해주세요') {
+        alert('공고 제목을 입력해주세요.')
         return false
       }
-      if (isEmpty(value.education) || value.education === '선택해주세요') {
-        alert('학력 및 전공을 선택해주세요.')
+      if (isEmpty(value.category) || value.category === '선택해주세요') {
+        alert('카테고리를 선택해 주세요.')
         return false
       }
       if (isEmpty(value.career) || value.career === '선택해주세요') {
         alert('경력 정보를 선택해주세요.')
         return false
       }
+      if (isEmpty(value.location)) {
+        alert('근무 지역을 입력해주세요.')
+        return false
+      }
+      console.log(isEmpty(value.education), value.education)
+      if (isEmpty(value.education) || value.education === '선택해주세요') {
+        alert('학력 및 전공을 선택해주세요.')
+        return false
+      }
+
       if (isEmpty(duty) || duty === '<p><br></p>') {
         alert('직무 내용을 입력해주세요.')
         return false
@@ -303,7 +305,7 @@ const EmploymemtDetailModal = ({
               size='sm'
               id='jobType'
               options={type}
-              value={value.jobTypeEnglish}
+              value={value.jobType ?? value.jobTypeEnglish}
               isRequired={true}
               placeholder='선택해주세요'
               label='고용 형태'
@@ -329,7 +331,7 @@ const EmploymemtDetailModal = ({
               onChange={onChange}
               size='sm'
               id='category'
-              value={value.categoryEnglish}
+              value={value.category ?? value.categoryEnglish}
               isRequired={true}
               placeholder='선택해주세요'
               label='카테고리'
@@ -338,7 +340,7 @@ const EmploymemtDetailModal = ({
               onChange={onChange}
               size='sm'
               options={career}
-              value={value.careerEnglish}
+              value={value.career ?? value.careerEnglish}
               id='career'
               placeholder='선택해주세요'
               isRequired={true}
@@ -386,7 +388,7 @@ const EmploymemtDetailModal = ({
               id='education'
               options={education}
               isRequired={true}
-              value={value.educationEnglish}
+              value={value.education ?? value.educationEnglish}
               placeholder='선택해주세요'
               label='학력 및 전공'
             />
