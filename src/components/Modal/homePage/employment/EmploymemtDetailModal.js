@@ -224,7 +224,6 @@ const EmploymemtDetailModal = ({
       }
       const {data} = await ApiConfig.request({
         data: {
-          recruitmentId: value.recruitmentId,
           category: value.category ?? value.categoryEnglish,
           title: value.title,
           startedAt: startTime,
@@ -250,10 +249,10 @@ const EmploymemtDetailModal = ({
       })
       if (data.isSuccess) {
         getList()
-        setFileList([])
-        setIsReadOnly(true)
-        setVisible(false)
         alert(data.result)
+        onClose()
+      } else {
+        alert(data.message)
       }
     } catch (error) {
       alert(error)
