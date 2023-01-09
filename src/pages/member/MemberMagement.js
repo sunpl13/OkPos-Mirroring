@@ -9,15 +9,7 @@ import {EndPoint} from '../../dataManager/apiMapper'
 const MemberManageMent = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [isReadOnly, setIsReadOnly] = useState(true)
-  const [selectedItem, setSelectedItem] = useState({
-    number: -1,
-    editorId: 4,
-    loginId: '',
-    createdAt: '',
-    accessAuthority: '',
-    isAuthorized: 1,
-  })
+  const datePickerOps = [{key: 'createdAt', value: '최초 등록일'}]
 
   const onLoadMemberManageMentList = async () => {
     try {
@@ -29,6 +21,7 @@ const MemberManageMent = () => {
         url: EndPoint.EDITOR,
       })
       setItems(data?.data.result.responses)
+      return data?.data.result.responses
     } catch (error) {
       alert(error)
     }
@@ -49,7 +42,7 @@ const MemberManageMent = () => {
         url: `${EndPoint.EDITOR}/auth`,
       })
       if (data.data.isSuccess) {
-        onLoadMemberManageMentList()
+        return onLoadMemberManageMentList()
       }
     } catch (error) {
       alert(error)
@@ -68,19 +61,6 @@ const MemberManageMent = () => {
     setShowModal(!showModal)
   }
 
-  const handleMemberManageMentAddModal = () => {
-    setIsReadOnly(false)
-    setSelectedItem({
-      number: -1,
-      editorId: 1,
-      loginId: '',
-      createdAt: '',
-      accessAuthority: '',
-      isAuthorized: 1,
-    })
-    setShowModal(!showModal)
-  }
-
   return (
     <>
       <PageHeader title='회원관리' />
@@ -94,7 +74,7 @@ const MemberManageMent = () => {
                 columns={EditorColumns}
                 className={'userList'}
                 func={handleOnCheckedApi}
-                datePickerHidden={false}
+                datePickerOptions={datePickerOps}
               />
             </CCardBody>
           </CCard>

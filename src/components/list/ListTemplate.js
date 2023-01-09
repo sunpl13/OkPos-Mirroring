@@ -33,7 +33,8 @@ const ListTemplate = ({
   const [endDate, setEndDate] = useState('')
 
   const [allSelected, setAllSelected] = useState(false)
-
+  const [dumyEnddate, setdumyEnddate] = useState('')
+  const [dumyStartdate, setdumyStartdate] = useState('')
   // 리스트 헤더 전체 체크박스
   const handleAllSelectedOnChange = () => {
     setAllSelected(!allSelected)
@@ -128,21 +129,16 @@ const ListTemplate = ({
   }
 
   const handleOnCheckedApi = async item => {
-    console.log(item)
-    // try {
-    //   const data = await ApiConfig.request({
-    //     data: {
-    //       editorIds: [item.editorId],
-    //     },
-    //     query: {},
-    //     path: {},
-    //     method: HttpMethod.PATCH,
-    //     url: `${EndPoint.EDITOR}/auth`,
-    //   })
-    //   console.log(data)
-    // } catch (error) {
-    //   alert(error)
-    // }
+    const lists = await func(item)
+    if (dumyEnddate) {
+      const datas = lists.filter(value => {
+        const date = formatTimes(value['createdAt'], 'YYYYMMDDHHmmss')
+        return date >= dumyStartdate && date <= dumyEnddate
+      })
+      setFilterItems(datas)
+    } else {
+      setFilterItems('')
+    }
   }
 
   useEffect(() => {
@@ -165,14 +161,17 @@ const ListTemplate = ({
 
   const datePickerOnChange = (startDate, endDate, {key}) => {
     if (endDate) {
-      setFilterItems(
-        listItems.filter(value => {
-          const date = formatTimes(value[key], 'YYYYMMDDHHmmss')
-          return date >= startDate && date <= endDate
-        }),
-      )
+      const datas = listItems.filter(value => {
+        const date = formatTimes(value[key], 'YYYYMMDDHHmmss')
+        return date >= startDate && date <= endDate
+      })
+      setFilterItems(datas)
+      setdumyStartdate(startDate)
+      setdumyEnddate(endDate)
     } else {
       setFilterItems('')
+      setdumyStartdate('')
+      setdumyEnddate('')
     }
   }
 
@@ -293,7 +292,7 @@ const ListTemplate = ({
           ),
           isAuthorized: item => (
             <td onClick={event => event.stopPropagation()}>
-              <CFormCheck onChange={() => func(item)} checked={item.isAuthorized || false} />
+              <CFormCheck onChange={() => handleOnCheckedApi(item)} checked={item.isAuthorized || false} />
             </td>
           ),
           // 상태
