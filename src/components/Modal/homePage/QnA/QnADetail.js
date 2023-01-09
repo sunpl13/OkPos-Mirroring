@@ -101,7 +101,7 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
             <ModalQuillEditor
               id='content'
               value={content}
-              isRequired={true}
+              isRequired={false}
               readOnly={isReadOnly}
               setValue={setContent}
               label='문의 내용'

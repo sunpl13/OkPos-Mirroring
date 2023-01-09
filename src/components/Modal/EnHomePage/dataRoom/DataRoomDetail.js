@@ -46,7 +46,6 @@ const DataRoomDetail = ({
   const validateCheck = () => {
     if (value.dataRoomEnglishId !== -1) {
       if (value.category === '선택해주세요') {
-        console.log('hi')
         alert('카테고리를 선택 해주세요.')
         return false
       }
@@ -196,7 +195,7 @@ const DataRoomDetail = ({
     <>
       <CModal alignment='center' size='lg' visible={visible}>
         <CCustomModalHeader onClick={onCloseCheck}>Data Room 상세</CCustomModalHeader>
-        <CModalBody>
+        <CModalBody className='modal-scroll'>
           <CRow className='mb-3'>
             <ModalInput
               xs={4}

@@ -25,7 +25,6 @@ const NoticeDetail = ({
 }) => {
   const [iamgeList, setImageList] = useState([])
   const [fileList, setFileList] = useState([])
-  const dispatch = useDispatch()
   const userDetailEditMode = () => {
     if (!isReadOnly) {
       onUpdate()
@@ -39,7 +38,7 @@ const NoticeDetail = ({
       alert('공지 제목을 입력해주세요.')
       return false
     }
-    if (isEmpty(content)) {
+    if (isEmpty(content) || content === '<p><br></p>') {
       alert('공지 내용을 입력해주세요.')
       return false
     }

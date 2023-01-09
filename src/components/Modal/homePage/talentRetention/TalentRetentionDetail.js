@@ -70,7 +70,7 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
             <ModalInput
               onChange={onChange}
               id='number'
-              placeholder='phone number'
+              placeholder=''
               label='전화번호'
               value={value.number}
               readOnly={isReadOnly}
