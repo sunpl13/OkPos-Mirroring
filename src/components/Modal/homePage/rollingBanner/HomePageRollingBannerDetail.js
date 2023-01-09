@@ -37,7 +37,7 @@ const HomePageRollingBannerDetail = ({
       alert('배너 제목을 입력해주세요.')
       return false
     }
-    if (isEmpty(content)) {
+    if (isEmpty(content) || content === '<p><br></p>') {
       alert('배너 내용을 입력해주세요.')
       return false
     }

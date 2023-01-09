@@ -2,13 +2,23 @@ import {useState} from 'react'
 import {CModal, CModalBody, CModalHeader, CModalTitle, CRow, CModalFooter, CButton, CFormLabel} from '@coreui/react'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import {category} from '../employment/EmploymemtDetailModal'
 import CloseCheckModal from '../../CloseCheckModal'
 import DeleteModalTemplate from '../../DeleteModalTemplate'
 import PropTypes from 'prop-types'
 import DatePickerForm from '../../../common/DatePickerForm'
 import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
 import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
+
+const category = [
+  {key: 'DEVELOPMENT', value: '개발'},
+  {key: 'MARKETING', value: '마켓팅'},
+  {key: 'DESIGN', value: '디자인'},
+  {key: 'BUSINESS_PLANNING', value: '사업 기획'},
+  {key: 'BUSINESS_SUPPORT', value: '경영 지원'},
+  {key: 'CUSTOMER_SUPPORT', value: '고객 지원'},
+  {key: 'SERVICE_PLANNING', value: '서비스 기획'},
+  {key: 'OPERATION_PLANNING', value: '운영 기획'},
+]
 
 const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly, setIsReadOnly}) => {
   const [showDeleteModal, setshowDeleteModal] = useState(false)
@@ -84,7 +94,7 @@ const TalentRetentionDetail = ({value, visible, setVisible, onChange, isReadOnly
               size='sm'
               id='positionEnglish'
               options={category}
-              value={value.positionEnglish}
+              value={value.position ?? value.positionEnglish}
               placeholder='선택해주세요'
               label='지원 포지션'
             />

@@ -110,6 +110,10 @@ const EmploymemtDetailModal = ({
         alert('경력 정보를 선택해주세요.')
         return false
       }
+      if (duty === '<p><br></p>') {
+        alert('직무 내용을 입력해주세요.')
+        return false
+      }
     } else {
       if (isEmpty(value.jobType) || value.jobType === '선택해주세요') {
         alert('고용 형태를 선택해주세요.')
