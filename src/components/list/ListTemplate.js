@@ -275,7 +275,6 @@ const ListTemplate = ({
           limit: 10,
         }}
         tableHeadProps={{
-          color: '#003366',
           id: 'smTable',
         }}
         onRowClick={onClick}

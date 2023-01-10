@@ -138,7 +138,7 @@ const TalentPoolList = ({
         pagination
         clickableRows
         tableHeadProps={{
-          color: 'primary',
+          id: 'smTable',
         }}
         onRowClick={onClick}
         tableProps={{

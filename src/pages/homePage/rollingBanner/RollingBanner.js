@@ -84,6 +84,7 @@ const RollingBanner = () => {
       [id]: value,
     })
   }
+
   return (
     <>
       <PageHeader title='롤링배너 관리' />

@@ -7,7 +7,12 @@ import {noticeList} from '../../../utils/columns/partnerCenter/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
-import {createdInfo, upDateInfo} from '../../../components/function/partnerCenter/ApiModules'
+import {
+  createdInfo,
+  deletedInfo,
+  getDetailInfo,
+  upDateInfo,
+} from '../../../components/function/partnerCenter/ApiModules'
 
 const NoticeList = () => {
   const [items, setItems] = useState()
@@ -48,33 +53,20 @@ const NoticeList = () => {
   const handleShowModal = async ({id}) => {
     setShowModal(!showModal)
     if (id) {
-      try {
-        const {
-          data: {isSuccess, result, code, message},
-        } = await ApiConfig.request({
-          method: HttpMethod.GET,
-          url: `${EndPoint.PARTNER_NOTICES}/${id}`,
-        })
-        if (!isSuccess || isEmpty(result)) {
-          return alert(message)
-        }
-        if (code === 1000) {
-          setSelectedItem(result)
-          setEditCheck(result)
-          setEditor(result.content)
-          setImages(result?.noticeImages)
+      getDetailInfo(EndPoint.PARTNER_NOTICES, id)
+        .then(res => {
+          setSelectedItem(res)
+          setEditCheck(res)
+          setEditor(res.content)
+          setImages(res?.noticeImages)
           setFiles(
-            result?.noticeFiles.map(value => ({
+            res?.noticeFiles.map(value => ({
               ...value,
               name: value.title,
             })),
           )
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+        })
+        .catch(err => console.log(err))
     } else {
       setSelectedItem({})
       setEditCheck({})
@@ -83,7 +75,8 @@ const NoticeList = () => {
       setFiles([])
     }
   }
-  // Detail Modal
+
+  // Modal onChange
   const handleNoticeModalOnChange = ({target: {id, value}}) => {
     setSelectedItem({
       ...selectedItem,
@@ -144,26 +137,12 @@ const NoticeList = () => {
   const handleNoticeDeleteBtnOnClick = async () => {
     const {id} = selectedItem
     if (window.confirm('해당 공지사항을 삭제하시겠습니까?')) {
-      try {
-        const {
-          data: {isSuccess, result, code, message},
-        } = await ApiConfig.request({
-          method: HttpMethod.PATCH,
-          url: `${EndPoint.PARTNER_NOTICES}/${id}`,
-        })
-        if (!isSuccess) {
-          return alert(message)
-        }
-        if (code === 1000) {
+      deletedInfo(EndPoint.PARTNER_NOTICES, id)
+        .then(res => {
           getList()
-          alert(message)
-          return setShowModal(false)
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+          return alert(res)
+        })
+        .catch(err => console.log(err))
     }
   }
 

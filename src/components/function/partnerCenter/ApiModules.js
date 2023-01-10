@@ -56,12 +56,12 @@ export const deletedInfo = async (url, id) => {
       url: `${url}/${id}`,
     })
     if (!isSuccess || isEmpty(result)) {
-      return alert(message)
+      return message
     }
     if (code === 1000) {
       return message
     } else {
-      alert(message)
+      return message
     }
   } catch (error) {
     return error
@@ -126,3 +126,10 @@ export const createdInfo = async (url, data) => {
 //         setShowModal(!showModal)
 //       })
 //       .catch(err => console.log(err))
+
+//deletedInfo(EndPoint.PARTNER_NOTICES, id)
+//         .then(res => {
+//           getList()
+//           return alert(res)
+//         })
+//         .catch(err => console.log(err))

@@ -4,9 +4,8 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import InquiryDetailModal from '../../../components/Modal/partnerCenter/inquiry/InquiryDetailModal'
 import PageHeader from '../../../components/common/PageHeader'
 import {userInquiryListColumns} from '../../../utils/columns/partnerCenter/Columns'
-import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from '../../../utils/utility'
+
 import {
   createdInfo,
   deletedInfo,
