@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkneordinary_template_react_js_admin=self.webpackChunkneordinary_template_react_js_admin||[]).push([[9331],{9331:function(e,n,r){r.r(n);r(72791);var a=r(80184);n.default=function(){return(0,a.jsx)(a.Fragment,{children:(0,a.jsx)("h1",{children:"\ud14c\uc2a4\ud2b8 \uc0dd\uc131 \ud654\uba74\uc785\ub2c8\ub2e4."})})}}}]);
-//# sourceMappingURL=9331.b06e9d0b.chunk.js.map
