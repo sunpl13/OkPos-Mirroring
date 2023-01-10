@@ -40,7 +40,6 @@ const InquiryList = () => {
     setShowModal(!showModal)
     getDetailInfo(EndPoint.PARTNER_INQUIRIES, id)
       .then(res => {
-        console.log(res)
         setSelectedItem(res)
         setEditCheck(res?.inquiryReplies)
         if (res?.inquiryReplies.length !== 0) {
@@ -52,11 +51,12 @@ const InquiryList = () => {
 
   // 1:1 문의 삭제
   const handleInquiryModalOnDelete = async () => {
-    const {id} = selectedItem
+    const {id} = editCheck[0]
     if (window.confirm('정말 삭제하시겠습니까?')) {
       deletedInfo(`${EndPoint.PARTNER_INQUIRIES}/reply`, id)
         .then(res => {
           getList()
+          setShowModal(false)
           return alert(res)
         })
         .catch(err => console.log(err))
@@ -72,10 +72,10 @@ const InquiryList = () => {
   const handleInquiryModalUpdate = async () => {
     const {id} = selectedItem
     if (editCheck.length !== 0) {
+      const replyId = editCheck[0]?.id
       if (window.confirm('답변을 수정하시겠습니까?')) {
         if (!editor) return alert('답변을 작성해 주세요.')
-        if (!editor) return alert('답변을 작성해 주세요.')
-        upDateInfo(`${EndPoint.PARTNER_INQUIRIES}/reply`, id, {
+        upDateInfo(`${EndPoint.PARTNER_INQUIRIES}/reply`, replyId, {
           content: editor,
         })
           .then(res => {
