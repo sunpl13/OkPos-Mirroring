@@ -5,10 +5,15 @@
 // Columns 크기는 아래 지정
 table {
   border-collapse: collapse;
+  thead#smTable th{
+    background: #003366;
+    color: #fff;
+  }
   tr {
     text-align: center;
   }
   th {
+
     &.radioButton,
     &.deleteBtn,
     &.files,

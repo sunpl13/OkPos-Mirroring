@@ -5,9 +5,8 @@ import UserDetailModal from '../../../components/Modal/partnerCenter/users/UserD
 import BarChartTemplate from '../../../components/chart/BarChartTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {withdrawalUsersColumns} from '../../../utils/columns/partnerCenter/Columns'
-import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from '../../../utils/utility'
+import {getDetailInfo, getListData} from '../../../components/function/partnerCenter/ApiModules'
 
 const InActiveUserList = () => {
   const [items, setItems] = useState([])
@@ -45,37 +44,24 @@ const InActiveUserList = () => {
 
   // 탈퇴회원 API
   const getList = async () => {
-    try {
-      const {
-        data: {isSuccess, result, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_INACTIVE_USERS}`,
+    getListData(EndPoint.PARTNER_INACTIVE_USERS)
+      .then(res => {
+        setItems(res?.inActiveUserInfoPartnerDTOs)
+        setChartData([])
+        for (const [key, value] of Object.entries(res?.inActiveUserWithdrawalCategoryStatistics)) {
+          setChartData(chartData => [
+            ...chartData,
+            {
+              label: chartList[key].value,
+              data: [value],
+              backgroundColor: chartList[key].backgroundColor,
+              borderColor: chartList[key].borderColor,
+              borderWidth: 1,
+            },
+          ])
+        }
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-      } else {
-        alert(message)
-      }
-      setItems(result?.inActiveUserInfoPartnerDTOs)
-      setChartData([])
-      for (const [key, value] of Object.entries(result?.inActiveUserWithdrawalCategoryStatistics)) {
-        setChartData(chartData => [
-          ...chartData,
-          {
-            label: chartList[key].value,
-            data: [value],
-            backgroundColor: chartList[key].backgroundColor,
-            borderColor: chartList[key].borderColor,
-            borderWidth: 1,
-          },
-        ])
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
   useEffect(() => {
     getList()
@@ -83,25 +69,12 @@ const InActiveUserList = () => {
 
   /** Open Modal*/
   const handleShowUserDetailModal = async ({id}) => {
-    setShowModal(!showModal)
-    try {
-      const {
-        data: {isSuccess, result, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_INACTIVE_USERS}/${id}`,
+    getDetailInfo(EndPoint.PARTNER_INACTIVE_USERS, id)
+      .then(res => {
+        setSelectedItem(res)
+        setShowModal(!showModal)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setSelectedItem(result)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
 
   return (

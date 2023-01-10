@@ -7,6 +7,7 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import OrderDetailModal from '../../../components/Modal/partnerCenter/order/OrderDetailModal'
+import {getListData} from '../../../components/function/partnerCenter/ApiModules'
 
 const OrderList = () => {
   const [items, setItems] = useState([])
@@ -15,24 +16,11 @@ const OrderList = () => {
 
   // 발주신청 리스트 API
   const getList = async () => {
-    try {
-      const {
-        data: {isSuccess, result, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: EndPoint.PARTNER_ORDERS,
+    getListData(EndPoint.PARTNER_ORDERS)
+      .then(res => {
+        setItems(res?.adminOrderPartnerDTOs)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setItems(result?.adminOrderPartnerDTOs)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
