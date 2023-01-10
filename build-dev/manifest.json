@@ -1,0 +1,15 @@
+{
+  "short_name": "오케이포스 관리자",
+  "name": "20만 가맹점의 선택 ㅣ오케이포스",
+  "icons": [
+    {
+      "src": "./assets/img/favicon.png",
+      "sizes": "100x100",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
