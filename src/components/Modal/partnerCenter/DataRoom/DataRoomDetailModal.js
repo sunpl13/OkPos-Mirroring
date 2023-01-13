@@ -26,6 +26,7 @@ const DataRoomDetailModal = ({
   setFiles,
 }) => {
   const {id, title, category, createdAt} = value
+
   return (
     <DetailModalEditModeTemplate
       title={id ? '자료 상세' : '자료 추가'}

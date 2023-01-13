@@ -176,7 +176,7 @@ const EducationScheduleList = () => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
       try {
         const {
-          data: {isSuccess, result, code, message},
+          data: {isSuccess, code, message},
         } = await ApiConfig.request({
           method: HttpMethod.PATCH,
           url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
