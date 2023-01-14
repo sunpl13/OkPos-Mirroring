@@ -85,7 +85,6 @@ const InquiryDetailModal = ({
             maxLength={450}
           />
         </CRow>
-        <br />
       </CModalBody>
       <CModalFooter>
         {isReadOnly ? (
