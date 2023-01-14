@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
-import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {homePageNoticeColumns} from '../../../utils/columns/homePage/notice/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import NoticeDetail from '../../../components/Modal/homePage/notice/NoticeDetail'
+import PrimaryBtn from '../../../components/common/PrimaryBtn'
 const Notice = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -98,9 +99,7 @@ const Notice = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleNoticeAddModal}>
-                    추가
-                  </CButton>
+                  <PrimaryBtn onClick={handleNoticeAddModal}>추가</PrimaryBtn>
                 </CCol>
               </CForm>
             </CCardHeader>

@@ -6,6 +6,7 @@ import {rollingBannerColumns} from '../../../utils/columns/EnHomePage/rollingBan
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import RollingBannerDetail from '../../../components/Modal/EnHomePage/rollingBanner/RollingBannerDetail'
+import PrimaryBtn from '../../../components/common/PrimaryBtn'
 
 const RollingBanner = () => {
   const [items, setItems] = useState([])
@@ -89,9 +90,7 @@ const RollingBanner = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleBannerAddModal}>
-                    추가
-                  </CButton>
+                  <PrimaryBtn onClick={handleBannerAddModal}>추가</PrimaryBtn>
                 </CCol>
               </CForm>
             </CCardHeader>

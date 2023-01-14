@@ -2,7 +2,6 @@ import {useState} from 'react'
 import {CModal, CButton, CModalBody, CModalFooter, CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import {isEmpty} from '../../../../utils/utility'
-import {useDispatch} from 'react-redux'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import {sendImageUrlFormat} from '../../../../utils/awsCustom'
 import {EndPoint} from '../../../../dataManager/apiMapper'
@@ -20,7 +19,6 @@ const RollingBannerDetail = ({
   setIsReadOnly,
 }) => {
   const [iamgeList, setImageList] = useState([])
-  const dispatch = useDispatch()
 
   const userDetailEditMode = () => {
     if (!isReadOnly) {
@@ -32,9 +30,15 @@ const RollingBannerDetail = ({
 
   const validateCheck = () => {
     if (isEmpty(value.title)) {
-      alert('배너 제목을 입력해주세요.')
+      alert('배너 타이틀을 입력해주세요.')
       return false
     }
+
+    if (iamgeList.length === 0) {
+      alert('이미지를 첨부해주세요.')
+      return false
+    }
+
     return true
   }
 
@@ -184,6 +188,7 @@ const RollingBannerDetail = ({
               images={value.imageUrls}
               imgPath='english_banner_images'
               readOnly={isReadOnly}
+              isRequired={true}
             />
           </CRow>
         </CModalBody>

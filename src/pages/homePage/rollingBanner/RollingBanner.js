@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
-import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import {rollingBannerColumns} from '../../../utils/columns/homePage/rollingBanner/Columns'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import HomePageRollingBannerDetail from '../../../components/Modal/homePage/rollingBanner/HomePageRollingBannerDetail'
+import PrimaryBtn from '../../../components/common/PrimaryBtn'
 const RollingBanner = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -94,9 +95,7 @@ const RollingBanner = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleBannerAddModal}>
-                    추가
-                  </CButton>
+                  <PrimaryBtn onClick={handleBannerAddModal}>추가</PrimaryBtn>
                 </CCol>
               </CForm>
             </CCardHeader>
