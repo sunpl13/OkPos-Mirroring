@@ -4,6 +4,7 @@ import {LoadingOutlined, PlusOutlined} from '@ant-design/icons'
 import {returnBucketNameFile} from '../../../utils/awsCustom'
 import {useState} from 'react'
 import {CCol, CFormLabel} from '@coreui/react'
+import styled from 'styled-components'
 
 const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, filePath, isRequired}) => {
   const [loading, setLoading] = useState(false)
@@ -73,22 +74,15 @@ const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, fileP
 
   // 업로드 버튼
   const uploadButton = (
-    <div
-      style={{
-        border: '1px solid #d8dbe0',
-        verticalAlign: 'middle',
-        textAlign: 'center',
-        width: 32,
-        height: 32,
-      }}
-    >
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+    <div>
+      <PlusOutlined />
+      <div style={{marginTop: 8}}>Upload</div>
     </div>
   )
 
   const props = {
     name: 'avatar',
-    listType: 'picture',
+    listType: 'picture-card',
     className: 'avatar-uploader',
     showUploadList: false,
     disabled: disabled,
@@ -130,3 +124,30 @@ const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, fileP
 }
 
 export default ModalSingleImageInput
+
+const PreviewImageBox = styled(CCol)`
+  padding: 0.5rem 0;
+  background: #fafafa;
+  border: 1px dashed #d9d9d9;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div {
+    width: 75%;
+
+    & img {
+      max-width: 100%;
+      height: auto;
+      cursor: pointer;
+      max-height: 600px;
+    }
+  }
+`
+const ImageTitleBox = styled.div`
+  width: 100%;
+  padding: 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`

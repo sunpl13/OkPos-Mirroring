@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import 'react-datepicker/dist/react-datepicker.css'
 import moment from 'moment'
 // CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 const DatePickerForm = ({id, date, onChange, label, readOnly = false, isRequired, isDisabled = false}) => {
   const onSetDate = date => {
