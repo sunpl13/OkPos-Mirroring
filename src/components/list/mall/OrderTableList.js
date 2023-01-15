@@ -164,7 +164,7 @@ const OrderTableList = ({
           limit: 10,
         }}
         tableHeadProps={{
-          color: 'primary',
+          id: 'smTable',
         }}
         clickableRows
         onRowClick={onClick}
