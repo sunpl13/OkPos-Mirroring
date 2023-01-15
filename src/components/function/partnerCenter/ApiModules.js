@@ -114,7 +114,7 @@ export const createdInfo = async (url, data) => {
   }
 }
 
-//  getListData(EndPoint.PARTNER_INACTIVE_USERS)
+//  getListData(EndPoint.)
 //       .then(res => {
 //         setItems(res?.inActiveUserInfoPartnerDTOs)
 //       })

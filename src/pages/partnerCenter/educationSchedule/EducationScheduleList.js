@@ -7,6 +7,7 @@ import EducationScheduleDetailModal from '../../../components/Modal/partnerCente
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import {getDetailInfo, getListData} from '../../../components/function/partnerCenter/ApiModules'
 
 const EducationScheduleList = () => {
   const [items, setItems] = useState([])
@@ -20,24 +21,11 @@ const EducationScheduleList = () => {
 
   // 교육 일정 리스트 API
   const getList = async () => {
-    try {
-      const {
-        data: {isSuccess, result, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: EndPoint.PARTNER_SCHEDULES,
+    getListData(EndPoint.PARTNER_SCHEDULES)
+      .then(res => {
+        setItems(res?.adminEducationScheduleDTOs)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setItems(result?.adminEducationScheduleDTOs)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -50,36 +38,22 @@ const EducationScheduleList = () => {
       setShowModal(!showModal)
       setSelectedItem({})
     } else {
-      try {
-        const {
-          data: {isSuccess, result, code, message},
-        } = await ApiConfig.request({
-          method: HttpMethod.GET,
-          url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
-        })
-        if (!isSuccess || isEmpty(result)) {
-          return alert(message)
-        }
-        if (code === 1000) {
-          setSelectedItem({
-            ...result,
-          })
-          setEditCheck(result)
-          setEditor(result.content)
+      getDetailInfo(EndPoint.PARTNER_SCHEDULES, id)
+        .then(res => {
+          console.log(res)
+          setSelectedItem(res)
+          setEditCheck(res)
+          setEditor(res.content)
           setShowModal(!showModal)
-          setImages(result?.educationScheduleImages)
+          setImages(res?.educationScheduleImages)
           setFiles(
-            result?.educationScheduleFiles.map(value => ({
+            res?.educationScheduleFiles.map(value => ({
               ...value,
               name: value.title,
             })),
           )
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+        })
+        .catch(err => console.log(err))
     }
   }
 

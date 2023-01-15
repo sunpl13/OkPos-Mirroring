@@ -75,6 +75,20 @@ const DataRoom = () => {
     setShowModal(!showModal)
   }
 
+  const handleDetailModalOnClose = () => {
+    const {id, title, category} = selectedItem
+    const {content} = editCheck
+    if (editCheck.title !== title || editCheck.category !== category || content !== editor) {
+      if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+        return setShowModal(false)
+      } else {
+        return null
+      }
+    } else {
+      return setShowModal(false)
+    }
+  }
+
   // Modal UpDate
   const handleDetailModalUpDate = () => {
     const {id, title, category} = selectedItem
@@ -92,15 +106,7 @@ const DataRoom = () => {
       files: obj,
       images: images.length !== 0 ? images.map(img => img.url) : [],
     })
-    console.log(editor, editCheck)
-    if (editCheck.title !== title || editCheck.category !== category || content !== editor) {
-      console.log(editor)
-      if (window.confirm('지금 닫으시면 저장이 되지 않습니다 정말 닫으시겠습니까?')) {
-        return setShowModal(false)
-      } else {
-        return null
-      }
-    }
+
     if (id) {
       if (window.confirm('자료를 수정하시겠습니까?')) {
         if (!title) return alert('제목을 입력해 주세요.')
@@ -190,6 +196,7 @@ const DataRoom = () => {
         setImages={setImages}
         files={files}
         setFiles={setFiles}
+        onClose={handleDetailModalOnClose}
       />
     </CRow>
   )

@@ -1,5 +1,5 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
-import {useCallback, useEffect, useRef} from 'react'
+import {useEffect} from 'react'
 
 const DetailModalEditModeTemplate = ({
   visible,
@@ -11,33 +11,23 @@ const DetailModalEditModeTemplate = ({
   editMode,
   setEditMode,
   addModal,
+  onClose,
 }) => {
-  let ref = useRef('')
-  let element = useRef('')
-  const call = useCallback(ref => {
-    upDate()
-  }, [])
-
   const handleEditModeToggle = () => {
     setEditMode(!editMode)
     if (!editMode) {
       upDate()
     }
   }
-  const refClick = () => {
-    //ref.current.addEventListener('click', () => console.log('fafa'))
-    console.log(call)
-  }
+
   useEffect(() => {
     if (!visible) {
       setEditMode(true)
     }
-
-    console.log(ref.current)
   }, [visible])
 
   return (
-    <CModal size='lg' visible={visible} ref={call} onClose={() => refClick()}>
+    <CModal size='lg' visible={visible}>
       <CModalHeader>
         <CModalTitle>{title || 'Not Title'}</CModalTitle>
       </CModalHeader>
@@ -56,7 +46,7 @@ const DetailModalEditModeTemplate = ({
             삭제
           </CButton>
         )}
-        <CButton color='secondary' onClick={() => upDate()}>
+        <CButton color='secondary' onClick={() => onClose()}>
           닫기
         </CButton>
       </CModalFooter>

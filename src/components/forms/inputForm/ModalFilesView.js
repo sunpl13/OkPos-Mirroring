@@ -7,10 +7,10 @@ import {antdImageFormat} from '../../../utils/awsCustom'
 const ModalFilesView = ({fileItem}) => {
   const [fileList, setFileList] = useState([])
   useEffect(() => {
-    if (fileItem && fileItem.length > 0) {
+    if (fileItem && fileItem?.length > 0) {
       setFileList(
         fileItem.map(path => {
-          const nameArr = path.split('/')
+          const nameArr = path?.split('/')
           return {
             uid: path,
             name: nameArr[nameArr.length - 1],
@@ -26,9 +26,9 @@ const ModalFilesView = ({fileItem}) => {
     <CCol>
       {fileList.length !== 0 ? (
         fileList.map(item => (
-          <DivBox key={item.uid}>
+          <DivBox key={item?.uid}>
             <PaperClipOutlined />
-            <a>{item.name}</a>
+            <a>{item?.name}</a>
           </DivBox>
         ))
       ) : (

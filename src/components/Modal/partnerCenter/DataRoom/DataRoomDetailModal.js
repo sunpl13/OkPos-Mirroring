@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
@@ -24,6 +24,7 @@ const DataRoomDetailModal = ({
   setImages,
   files,
   setFiles,
+  onClose,
 }) => {
   const {id, title, category, createdAt} = value
 
@@ -32,11 +33,12 @@ const DataRoomDetailModal = ({
       title={id ? '자료 상세' : '자료 추가'}
       visible={visible}
       setVisible={setVisible}
-      upDate={upDate}
+      upDate={() => upDate()}
       editMode={id && editMode}
       setEditMode={setEditMode}
       onDelete={id && onDelete}
       addModal={!id}
+      onClose={onClose}
     >
       <CRow className={'p-2'}>
         {id ? (

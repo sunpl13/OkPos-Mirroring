@@ -17,7 +17,7 @@ import {
 const InquiryList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
-  const [editCheck, setEditCheck] = useState([])
+  const [editCheck, setEditCheck] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [editor, setEditor] = useState('')
   const [editMode, setEditMode] = useState(true)
@@ -41,12 +41,24 @@ const InquiryList = () => {
     getDetailInfo(EndPoint.PARTNER_INQUIRIES, id)
       .then(res => {
         setSelectedItem(res)
-        setEditCheck(res?.inquiryReplies)
         if (res?.inquiryReplies.length !== 0) {
+          setEditCheck(res?.inquiryReplies[0].content)
           setEditor(res?.inquiryReplies[0].content)
         }
       })
       .catch(err => console.log(err))
+  }
+  // Close Modal
+  const handleDetailModalOnClose = () => {
+    if (editCheck.length !== 0 && editCheck !== editor) {
+      if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+        return setShowModal(false)
+      } else {
+        return null
+      }
+    } else {
+      return setShowModal(false)
+    }
   }
 
   // 1:1 문의 삭제
@@ -86,6 +98,7 @@ const InquiryList = () => {
           .catch(error => console.log(error))
       }
     } else if (window.confirm('답변을 등록하시겠습니까?')) {
+      if (!editor) return alert('답변을 작성해 주세요.')
       createdInfo(`${EndPoint.PARTNER_INQUIRIES}/${id}/reply`, {
         content: editor,
       }).then(res => {
@@ -93,34 +106,12 @@ const InquiryList = () => {
         setShowModal(false)
         return alert(res)
       })
-      //try {
-      //         const {
-      //           data: {result, isSuccess, code, message},
-      //         } = await ApiConfig.request({
-      //           method: HttpMethod.POST,
-      //           url: `${EndPoint.PARTNER_INQUIRIES}/${id}/reply`,
-      //           data: {
-      //             content: editor,
-      //           },
-      //         })
-      //         if (!isSuccess || isEmpty(result)) {
-      //           return alert(message)
-      //         }
-      //         if (code === 1000) {
-      //           getList()
-      //           setShowModal(false)
-      //           return alert(message)
-      //         } else {
-      //           alert(message)
-      //         }
-      //       } catch (error) {
-      //         console.log(error)
-      //       }
     }
   }
   useEffect(() => {
     if (!showModal) {
       setEditor('')
+      setEditCheck('')
     }
   }, [showModal])
 
@@ -151,6 +142,7 @@ const InquiryList = () => {
         setEditor={setEditor}
         editMode={editMode}
         setEditMode={setEditMode}
+        onClose={handleDetailModalOnClose}
       />
     </CRow>
   )
