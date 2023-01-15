@@ -31,8 +31,9 @@ const OrderList = () => {
   const handleShowMaterialDetailModal = async ({id}) => {
     getDetailInfo(EndPoint.PARTNER_ORDERS, id)
       .then(res => {
+        console.log(res)
         setSelectedItem(res)
-        !showModal && setShowModal(true)
+        setShowModal(true)
       })
       .catch(err => console.log(err))
   }

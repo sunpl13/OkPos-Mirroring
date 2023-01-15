@@ -36,12 +36,12 @@ const EducationApplicationList = () => {
       getDetailInfo(EndPoint.PARTNER_REGISTRAUINS, id)
         .then(res => {
           setSelectedItem(res)
+          setShowModal(!showModal)
         })
         .catch(err => console.log(err))
     } else {
       setSelectedItem({})
     }
-    setShowModal(!showModal)
   }
 
   return (

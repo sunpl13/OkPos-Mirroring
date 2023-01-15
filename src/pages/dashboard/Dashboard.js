@@ -34,14 +34,9 @@ const Dashboard = () => {
   return (
     <>
       <br />
-      <h4 className='card-title mb-0'>
-        {window.sessionStorage.getItem('userName')} 님, 너디너리 템플릿에 오신 것을 환영합니다 🎉
-      </h4>
       {/*<CButton color="primary" onClick={() => extendJwtExpirationTime()}>
       자동 로그인 만료 {moment.unix(expiredAt).format('YYYY-MM-DD HH:mm:ss')} 연장하기
     </CButton>*/}
-      <div className='small text-medium-emphasis'>대시보드 개발중 입니다.</div>
-      <div className='small text-medium-emphasis'>테스트 메시지</div>
       <br />
     </>
   )

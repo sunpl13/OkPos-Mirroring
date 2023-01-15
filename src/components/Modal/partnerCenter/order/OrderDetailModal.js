@@ -47,16 +47,19 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
 
   // 운송장 번호 수정 API
   const handleInvoiceEditModalUpDate = async () => {
+    const {id, invoiceNum} = selectedItem
     const json = JSON.stringify({
-      invoiceNum: selectedItem?.invoiceNum,
+      invoiceNum: invoiceNum,
     })
+
     if (window.confirm('운송장 번호를 등록하시겠습니까?')) {
+      console.log(id, invoiceNum)
       try {
         const {
           data: {isSuccess, result, code, message},
         } = await ApiConfig.request({
           method: HttpMethod.PATCH,
-          url: `${EndPoint.PARTNER_ORDERS}/${selectedItem.id}`,
+          url: `${EndPoint.PARTNER_ORDERS}/${id}`,
           data: json,
         })
         if (!isSuccess || isEmpty(result)) {

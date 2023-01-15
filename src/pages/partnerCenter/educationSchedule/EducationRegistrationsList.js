@@ -9,6 +9,7 @@ import {isEmpty} from '../../../utils/utility'
 import EducationRegistrationsDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationRegistrationsDetailModal'
 import {
   createdInfo,
+  deletedInfo,
   getDetailInfo,
   getListData,
   upDateInfo,
@@ -74,6 +75,12 @@ const EducationRegistrationsList = () => {
       setSelectedItem({})
       setEditor('')
       setEndDate('')
+      setEditCheck({
+        content: '',
+        start: '',
+        deadline: '',
+        educationDate: '',
+      })
       setStartDate('')
       setSingleDate('')
     }
@@ -105,37 +112,34 @@ const EducationRegistrationsList = () => {
       files: obj,
       images: images.length !== 0 ? images.map(img => img.url) : [],
     })
-    if (id) {
-      if (window.confirm('수정하시겠습니까?')) {
-        if (!title) return alert('제목을 입력해 주세요.')
-        if (!editor) return alert('본문을 입력해 주세요.')
-        if (!endDate || !startDate) return alert('접수기간을 입력해 주세요.')
-        if (!singleDate) return alert('교육 일자를 입력해주세요.')
-        if (!place) return alert('교육 장소를 입력해주세요.')
-        if (!applicantsCap) return alert('교육 인원을 입력해주세요.')
-        upDateInfo(EndPoint.PARTNER_REGISTRAUINS_NOTICES, id, json)
-          .then(res => {
-            getList()
-            return alert(res)
-          })
-          .catch(err => console.log(err))
-      }
-    } else {
-      if (window.confirm('추가하시겠습니까?')) {
-        if (!title) return alert('제목을 입력해 주세요.')
-        if (!editor) return alert('본문을 입력해 주세요.')
-        if (!endDate || !startDate) return alert('접기기간을 입력해 주세요.')
-        if (!singleDate) return alert('교육 일정을 입력해주세요.')
-        if (!place) return alert('교육 장소를 입력해주세요.')
-        if (!applicantsCap) return alert('교육 인원을 입력해주세요.')
-        createdInfo(EndPoint.PARTNER_REGISTRAUINS_NOTICES, json)
-          .then(res => {
-            getList()
-            setShowModal(false)
-            return alert(res)
-          })
-          .catch(err => console.log(err))
-      }
+    if (id ? window.confirm('수정하시겠습니까?') : window.confirm('추가하시겠습니까?')) {
+      if (!title) return alert('제목을 입력해 주세요.')
+      if (!editor) return alert('본문을 입력해 주세요.')
+      if (!endDate || !startDate) return alert('접수기간을 입력해 주세요.')
+      if (!singleDate) return alert('교육 일자를 입력해주세요.')
+      if (!place) return alert('교육 장소를 입력해주세요.')
+      if (!applicantsCap) return alert('교육 인원을 입력해주세요.')
+      id
+        ? upDateInfo(EndPoint.PARTNER_REGISTRAUINS_NOTICES, id, json)
+            .then(res => {
+              getList()
+              setEditCheck({
+                ...selectedItem,
+                content: editor,
+                start: startDate,
+                deadline: endDate,
+                educationDate: singleDate,
+              })
+              return alert(res)
+            })
+            .catch(err => console.log(err))
+        : createdInfo(EndPoint.PARTNER_REGISTRAUINS_NOTICES, json)
+            .then(res => {
+              getList()
+              setShowModal(false)
+              return alert(res)
+            })
+            .catch(err => console.log(err))
     }
   }
   // Modal onClose
@@ -146,7 +150,6 @@ const EducationRegistrationsList = () => {
       title, // 공고 제목
     } = selectedItem
     const {content} = editCheck
-    console.log(editCheck)
     if (
       editCheck.title !== title ||
       content?.replace(/<[^>]*>?| /g, '') !== editor?.replace(/<[^>]*>?| /g, '') ||
@@ -178,27 +181,13 @@ const EducationRegistrationsList = () => {
   const handleOrderOnDelete = async () => {
     const {id} = selectedItem
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      try {
-        const {
-          data: {result, code, message, isSuccess},
-        } = await ApiConfig.request({
-          method: HttpMethod.PATCH,
-          url: `${EndPoint.PARTNER_REGISTRAUINS_NOTICES}/${id}`,
-        })
-
-        if (!isSuccess) {
-          return alert(message)
-        }
-        if (code === 1000) {
+      deletedInfo(EndPoint.PARTNER_REGISTRAUINS_NOTICES, id)
+        .then(res => {
           getList()
           setShowModal(false)
-          return alert(message)
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+          return alert(res)
+        })
+        .catch(err => console.log(err))
     }
   }
 
