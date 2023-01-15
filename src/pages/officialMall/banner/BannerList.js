@@ -93,8 +93,9 @@ const BannerList = () => {
           alert(res?.message)
         }
         return
+      } else {
+        alert('배너가 추가되었습니다.')
       }
-      alert(res?.message)
       setSelectedItem(setInitItem)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')

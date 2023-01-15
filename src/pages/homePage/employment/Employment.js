@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react'
 import PageHeader from '../../../components/common/PageHeader'
-import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui/react'
+import {CCard, CCardBody, CCardHeader, CCol, CForm, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import EmploymemtDetailModal from '../../../components/Modal/homePage/employment/EmploymemtDetailModal'
 import {employmentColumns} from '../../../utils/columns/homePage/employment/Columns'
 import {category} from '../../../utils/columns/homePage/employment/ColumnsSelectedValue'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {getTextLength} from '../../../utils/utility'
+import PrimaryBtn from '../../../components/common/PrimaryBtn'
 const Employment = () => {
   const [items, setItems] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -132,9 +132,7 @@ const Employment = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleEmploymentAddModal}>
-                    추가
-                  </CButton>
+                  <PrimaryBtn onClick={handleEmploymentAddModal}>추가</PrimaryBtn>
                 </CCol>
               </CForm>
             </CCardHeader>

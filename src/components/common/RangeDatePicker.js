@@ -1,6 +1,6 @@
 import {ConfigProvider, DatePicker, Space} from 'antd'
 import locale from 'antd/lib/locale/ko_KR'
-//import 'antd/dist/antd.min.css'
+// import 'antd/dist/antd.min.css'
 import moment from 'moment'
 import 'moment/locale/ko'
 import {CCol} from '@coreui/react'

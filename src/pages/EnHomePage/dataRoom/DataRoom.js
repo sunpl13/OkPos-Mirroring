@@ -6,6 +6,7 @@ import {dataRoomColumns} from '../../../utils/columns/EnHomePage/dataRoom/Column
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import DataRoomDetail from '../../../components/Modal/EnHomePage/dataRoom/DataRoomDetail'
+import PrimaryBtn from '../../../components/common/PrimaryBtn'
 
 const DataRoom = () => {
   const [items, setItems] = useState([])
@@ -100,9 +101,7 @@ const DataRoom = () => {
             <CCardHeader>
               <CForm className='row g-3'>
                 <CCol xs={1}>
-                  <CButton color='primary' onClick={handleDataRoomAddModal}>
-                    추가
-                  </CButton>
+                  <PrimaryBtn onClick={handleDataRoomAddModal}>추가</PrimaryBtn>
                 </CCol>
               </CForm>
             </CCardHeader>

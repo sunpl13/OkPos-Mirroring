@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {Link} from 'react-router-dom'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {sidebarToggle} from '../store/sidebars'
 import {
   CButton,
@@ -18,6 +18,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import {cilHamburgerMenu} from '@coreui/icons'
 import packageJson from '../../package.json'
+import PrimaryBtn from './common/PrimaryBtn'
 
 const AppHeader = () => {
   const dispatch = useDispatch()
@@ -52,7 +53,7 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className='px-3'>
-          <CButton onClick={() => setVisible(!visible)}>로그아웃</CButton>
+          <PrimaryBtn onClick={() => setVisible(!visible)}>로그아웃</PrimaryBtn>
           <CModal visible={visible} onClose={() => setVisible(false)}>
             <CModalHeader>
               <CModalTitle>로그아웃</CModalTitle>
