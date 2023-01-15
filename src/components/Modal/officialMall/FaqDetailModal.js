@@ -82,7 +82,7 @@ const FaqDetailModal = ({
               readOnly={isReadOnly}
               setValue={setContent}
               label='본문'
-              maxLength={150}
+              maxLength={300}
             />
           </CRow>
           <br />
