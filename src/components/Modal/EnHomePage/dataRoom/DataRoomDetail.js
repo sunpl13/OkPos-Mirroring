@@ -5,7 +5,6 @@ import CCustomModalHeader from '../../../custom/Modal/CCustomModalHeader'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
-import {useDispatch} from 'react-redux'
 import {isEmpty} from '../../../../utils/utility'
 import {sendImageUrlFormat} from '../../../../utils/awsCustom'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
@@ -13,12 +12,13 @@ import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
 
 export const category = [
-  {key: 'ALL', value: '전체'},
-  {key: 'HARDWARE', value: '하드웨어'},
-  {key: 'SOFTWARE', value: '소프트웨어'},
-  {key: 'RENTAL', value: '렌탈'},
-  {key: 'ADDITIONAL_SERVICE', value: '부가서비스'},
-  {key: 'MAINTENANCE', value: '유지보수'},
+  {key: 'ALL', value: 'All'},
+  {key: 'PROGRAMS', value: 'Programs'},
+  {key: 'DRIVER', value: 'Driver'},
+  {key: 'MANUAL', value: 'Manual'},
+  {key: 'FIRMWARE', value: 'Firmware'},
+  {key: 'TECHNIQUE', value: 'Technique'},
+  {key: 'OTHER', value: 'Other'},
 ]
 
 const DataRoomDetail = ({
@@ -216,7 +216,7 @@ const DataRoomDetail = ({
               onChange={onChange}
               size='sm'
               id='category'
-              value={value.categoryEnglish}
+              value={value.category ?? value.categoryEnglish}
               isRequired={true}
               placeholder='선택해주세요'
               label='카테고리'

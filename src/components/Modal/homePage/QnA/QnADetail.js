@@ -5,6 +5,15 @@ import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownload
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
+import ModalSelect from '../../../forms/inputForm/ModalSelect'
+
+const category = [
+  {key: 'PRODUCTS', value: '상품'},
+  {key: 'ADDITIONAL_SERVICES', value: '부가서비스'},
+  {key: 'RECRUITMENT', value: '채용'},
+  {key: 'PARTNERSHIPS', value: '제휴'},
+  {key: 'ETC', value: '기타'},
+]
 
 const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, setIsReadOnly, content, setContent}) => {
   const onDelete = async () => {
@@ -95,6 +104,19 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
               value={value.number}
               readOnly={isReadOnly}
               disabled={isReadOnly}
+            />
+          </CRow>
+          <CRow className='mb-3'>
+            <ModalSelect
+              onChange={onChange}
+              size='sm'
+              options={category}
+              value={value.category ?? value.categoryEnglish}
+              id='category'
+              placeholder='선택해주세요'
+              readOnly={isReadOnly}
+              disabled={isReadOnly}
+              label='문의유형'
             />
           </CRow>
           <CRow>
