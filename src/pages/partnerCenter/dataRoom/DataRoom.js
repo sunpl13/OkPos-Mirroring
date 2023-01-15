@@ -75,6 +75,7 @@ const DataRoom = () => {
     setShowModal(!showModal)
   }
 
+  // Modal onClose
   const handleDetailModalOnClose = () => {
     const {id, title, category} = selectedItem
     const {content} = editCheck

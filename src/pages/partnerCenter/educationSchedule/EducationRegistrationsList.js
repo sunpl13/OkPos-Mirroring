@@ -7,6 +7,12 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import EducationRegistrationsDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationRegistrationsDetailModal'
+import {
+  createdInfo,
+  getDetailInfo,
+  getListData,
+  upDateInfo,
+} from '../../../components/function/partnerCenter/ApiModules'
 
 const EducationRegistrationsList = () => {
   const [items, setItems] = useState([])
@@ -30,24 +36,11 @@ const EducationRegistrationsList = () => {
 
   // 교육 신청 리스트 API
   const getList = async () => {
-    try {
-      const {
-        data: {result, code, message, isSuccess},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: EndPoint.PARTNER_REGISTRAUINS_NOTICES,
+    getListData(EndPoint.PARTNER_REGISTRAUINS_NOTICES)
+      .then(res => {
+        setItems(res?.adminEducationRegistrationNoticeDTOs)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setItems(result?.adminEducationRegistrationNoticeDTOs)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -57,36 +50,23 @@ const EducationRegistrationsList = () => {
   /** Open Modal*/
   const handleShowDetailModal = async ({id}) => {
     if (id) {
-      try {
-        const {
-          data: {result, code, message, isSuccess},
-        } = await ApiConfig.request({
-          method: HttpMethod.GET,
-          url: `${EndPoint.PARTNER_REGISTRAUINS_NOTICES}/${id}`,
-        })
-        if (!isSuccess || isEmpty(result)) {
-          return alert(message)
-        }
-        if (code === 1000) {
-          setSelectedItem(result)
-          setEditor(result?.content)
-          setStartDate(result?.start)
-          setEndDate(result?.deadline)
-          setSingleDate(result?.educationDate)
+      getDetailInfo(EndPoint.PARTNER_REGISTRAUINS_NOTICES, id)
+        .then(res => {
+          setSelectedItem(res)
+          setEditor(res?.content)
+          setStartDate(res?.start)
+          setEndDate(res?.deadline)
+          setSingleDate(res?.educationDate)
           setShowModal(!showModal)
-          setImages(result?.educationRegistrationNoticeImages)
+          setImages(res?.educationRegistrationNoticeImages)
           setFiles(
-            result?.educationRegistrationNoticeFiles.map(value => ({
+            res?.educationRegistrationNoticeFiles.map(value => ({
               ...value,
               name: value.title,
             })),
           )
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+        })
+        .catch(err => console.log(err))
     } else {
       setShowModal(!showModal)
       setSelectedItem({})
@@ -131,27 +111,12 @@ const EducationRegistrationsList = () => {
         if (!singleDate) return alert('교육 일자를 입력해주세요.')
         if (!place) return alert('교육 장소를 입력해주세요.')
         if (!applicantsCap) return alert('교육 인원을 입력해주세요.')
-        try {
-          const {
-            data: {result, code, message, isSuccess},
-          } = await ApiConfig.request({
-            method: HttpMethod.PUT,
-            url: `${EndPoint.PARTNER_REGISTRAUINS_NOTICES}/${id}`,
-            data: json,
-          })
-          if (!isSuccess || isEmpty(result)) {
-            return alert(message)
-          }
-          if (code === 1000) {
+        upDateInfo(EndPoint.PARTNER_REGISTRAUINS_NOTICES, id, json)
+          .then(res => {
             getList()
-            setShowModal(false)
-            return alert(message)
-          } else {
-            alert(message)
-          }
-        } catch (error) {
-          console.log(error)
-        }
+            return alert(res)
+          })
+          .catch(err => console.log(err))
       }
     } else {
       if (window.confirm('추가하시겠습니까?')) {
@@ -161,27 +126,13 @@ const EducationRegistrationsList = () => {
         if (!singleDate) return alert('교육 일정을 입력해주세요.')
         if (!place) return alert('교육 장소를 입력해주세요.')
         if (!applicantsCap) return alert('교육 인원을 입력해주세요.')
-        try {
-          const {
-            data: {result, code, message, isSuccess},
-          } = await ApiConfig.request({
-            method: HttpMethod.POST,
-            url: EndPoint.PARTNER_REGISTRAUINS_NOTICES,
-            data: json,
-          })
-          if (!isSuccess || isEmpty(result)) {
-            return alert(message)
-          }
-          if (code === 1000) {
+        createdInfo(EndPoint.PARTNER_REGISTRAUINS_NOTICES, json)
+          .then(res => {
             getList()
             setShowModal(false)
-            return alert(message)
-          } else {
-            alert(message)
-          }
-        } catch (error) {
-          console.log(error)
-        }
+            return alert(res)
+          })
+          .catch(err => console.log(err))
       }
     }
   }

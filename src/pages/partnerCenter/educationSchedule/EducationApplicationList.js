@@ -4,9 +4,8 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {educationApplicationListColumns} from '../../../utils/columns/partnerCenter/Columns'
 import EducationApplicationDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationApplicationDetailModal'
-import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from '../../../utils/utility'
+import {getDetailInfo, getListData} from '../../../components/function/partnerCenter/ApiModules'
 
 const EducationApplicationList = () => {
   const [items, setItems] = useState([])
@@ -18,26 +17,13 @@ const EducationApplicationList = () => {
       value: '신청 교육 일자',
     },
   ]
-  // 교육 신청 리스트 API
+  // 교육 신청서 리스트 API
   const getList = async () => {
-    try {
-      const {
-        data: {result, code, message, isSuccess},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: EndPoint.PARTNER_REGISTRAUINS,
+    getListData(EndPoint.PARTNER_REGISTRAUINS)
+      .then(res => {
+        setItems(res?.adminEducationRegistrationDTOs)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setItems(result?.adminEducationRegistrationDTOs)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -47,29 +33,15 @@ const EducationApplicationList = () => {
   /** Open Modal*/
   const handleShowDetailModal = async ({id}) => {
     if (id) {
-      try {
-        const {
-          data: {result, code, message, isSuccess},
-        } = await ApiConfig.request({
-          method: HttpMethod.GET,
-          url: `${EndPoint.PARTNER_REGISTRAUINS}/${id}`,
+      getDetailInfo(EndPoint.PARTNER_REGISTRAUINS, id)
+        .then(res => {
+          setSelectedItem(res)
         })
-        if (!isSuccess || isEmpty(result)) {
-          return alert(message)
-        }
-        if (code === 1000) {
-          setSelectedItem(result)
-          setShowModal(!showModal)
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+        .catch(err => console.log(err))
     } else {
-      setShowModal(!showModal)
       setSelectedItem({})
     }
+    setShowModal(!showModal)
   }
 
   return (

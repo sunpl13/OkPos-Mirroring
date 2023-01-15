@@ -36,7 +36,7 @@ const ModalRangeDatePicker = ({
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
         <span className={isRequired ? 'required' : ''}>{label || ' * '}</span>
       </CFormLabel>
-      <PickerCCol>
+      <PickerCCol className={'fsfsfs'}>
         <ConfigProvider locale={locale}>
           <Space direction='vertical'>
             <RangePicker
@@ -44,6 +44,7 @@ const ModalRangeDatePicker = ({
               onChange={datePickerOnChange}
               defaultValue={startDate && endDate && [dayjs(startDate, dateFormat), dayjs(endDate, dateFormat)]}
               disabled={readOnly}
+              className={'qqqqq'}
             />
           </Space>
         </ConfigProvider>
