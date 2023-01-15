@@ -30,6 +30,7 @@ const EducationRegistrationsDetailModal = ({
   setImages,
   files,
   setFiles,
+  onClose,
 }) => {
   const {
     applicantsCap, // 교육 신청 제한 인원
@@ -48,6 +49,7 @@ const EducationRegistrationsDetailModal = ({
       setEditMode={setEditMode}
       onDelete={id && onDelete}
       addModal={!id}
+      onClose={onClose}
     >
       <CRow className={'p-2'}>
         <ModalInput

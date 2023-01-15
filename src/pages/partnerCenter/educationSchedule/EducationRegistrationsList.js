@@ -19,6 +19,7 @@ const EducationRegistrationsList = () => {
   const [selectedItem, setSelectedItem] = useState({})
   const [showModal, setShowModal] = useState(false)
   const [editMode, setEditMode] = useState(true)
+  const [editCheck, setEditCheck] = useState({})
   const [editor, setEditor] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
@@ -53,6 +54,7 @@ const EducationRegistrationsList = () => {
       getDetailInfo(EndPoint.PARTNER_REGISTRAUINS_NOTICES, id)
         .then(res => {
           setSelectedItem(res)
+          setEditCheck(res)
           setEditor(res?.content)
           setStartDate(res?.start)
           setEndDate(res?.deadline)
@@ -76,7 +78,7 @@ const EducationRegistrationsList = () => {
       setSingleDate('')
     }
   }
-
+  // Modal Update
   const handleDetailModalUpDate = async () => {
     const {
       id, // 교육 신청 공고 ID
@@ -136,13 +138,43 @@ const EducationRegistrationsList = () => {
       }
     }
   }
+  // Modal onClose
+  const handleDetailModalOnClose = () => {
+    const {
+      applicantsCap, // 교육신청 제한 인원
+      place, // 교육 장소
+      title, // 공고 제목
+    } = selectedItem
+    const {content} = editCheck
+    console.log(editCheck)
+    if (
+      editCheck.title !== title ||
+      content?.replace(/<[^>]*>?| /g, '') !== editor?.replace(/<[^>]*>?| /g, '') ||
+      editCheck.applicantsCap !== applicantsCap ||
+      editCheck.place !== place ||
+      editCheck.start !== startDate ||
+      editCheck.deadline !== endDate ||
+      editCheck.educationDate !== singleDate
+    ) {
+      if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+        return setShowModal(false)
+      } else {
+        return null
+      }
+    } else {
+      return setShowModal(false)
+    }
+  }
 
+  // Modal onChange
   const handleOrderModalOnChange = ({target: {id, value}}) => {
     setSelectedItem({
       ...selectedItem,
       [id]: value,
     })
   }
+
+  // Modal Delete
   const handleOrderOnDelete = async () => {
     const {id} = selectedItem
     if (window.confirm('정말로 삭제하시겠습니까?')) {
@@ -216,6 +248,7 @@ const EducationRegistrationsList = () => {
         setImages={setImages}
         files={files}
         setFiles={setFiles}
+        onClose={handleDetailModalOnClose}
       />
     </CRow>
   )
