@@ -5,15 +5,15 @@ export const EndPoint = {
   GET_V1_TEST_AUTO_LOGIN: `${API}/test/v1/jwt/check/:isManual`,
   POST_LOGIN: `${API}/admin/login`,
   POST_TEST_V1_REGISTER: `${API}/test/v1/register`,
-  RECRUITMENT: `${API}/admin/recruitment`,
-  TALENTPOOL: `${API}/admin/talent-pool`,
+  RECRUITMENT: `${API}/admin/recruitments`,
+  TALENTPOOL: `${API}/admin/talents`,
   EDITOR: `${API}/admin/editor`,
-  HOME_INQUIRY: `${API}/admin/inquiry`,
-  ENGLISH_HOME_INQUIRY: `${API}/admin/english/inquiry`,
-  NOTICE: `${API}/admin/notice`,
-  DATA_ROOM: `${API}/admin/english/data-room`,
-  HOME_BANNER: `${API}/admin/banner`,
-  ENGLISH_BANNER: `${API}/admin/english/banner`,
+  HOME_INQUIRY: `${API}/admin/inquiries`,
+  ENGLISH_HOME_INQUIRY: `${API}/admin/english/inquiries`,
+  NOTICE: `${API}/admin/notices`,
+  DATA_ROOM: `${API}/admin/english/datarooms`,
+  HOME_BANNER: `${API}/admin/banners`,
+  ENGLISH_BANNER: `${API}/admin/english/banners`,
 
   // ------ 파트너 센터 페이지
   PARTNER_USERS: `${API}/admin/partner/users`, // 유저 리스트
