@@ -94,8 +94,10 @@ const InquiryList = () => {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.POST,
         url: EndPoint.POST_MALL_INQUIRY_REPLY,
-        data: {
+        path: {
           inquiryId: inquiryId,
+        },
+        data: {
           inquiryReplyContent: inquiryReplyContent,
         },
       })
