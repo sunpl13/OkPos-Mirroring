@@ -12,11 +12,14 @@ const QnAList = () => {
   const [showModal, setShowModal] = useState(false)
   const [isReadOnly, setIsReadOnly] = useState(true)
   const [content, setContent] = useState('') //quill용 state
+  const [reply, setReply] = useState('') //quill용 state
   const [selectedItem, setSelectedItem] = useState({
     inquiryId: -1,
     content: '',
     name: '',
     email: '',
+    hasReply: false,
+    replyId: -1,
     pNum: '',
     inquiryType: '',
     fileUrl: [],
@@ -48,8 +51,14 @@ const QnAList = () => {
         method: HttpMethod.GET,
         url: `${EndPoint.HOME_INQUIRY}/:id`,
       })
-
-      setSelectedItem(data.result)
+      if (data.result.hasReply) {
+        const {reply, ...rest} = data.result
+        setSelectedItem({...rest, replyId: reply.replyId})
+        setReply(data.result.reply.content)
+      } else {
+        setReply('')
+        setSelectedItem({...data.result, replyId: -1})
+      }
       setContent(data.result.content)
     } catch (error) {
       alert(error)
@@ -101,6 +110,8 @@ const QnAList = () => {
         getList={onLoadInquiryList}
         content={content}
         setContent={setContent}
+        reply={reply}
+        setReply={setReply}
       />
     </main>
   )

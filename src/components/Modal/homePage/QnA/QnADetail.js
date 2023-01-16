@@ -6,6 +6,7 @@ import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import ModalSelect from '../../../forms/inputForm/ModalSelect'
+import {useEffect, useState} from 'react'
 
 const category = [
   {key: 'PRODUCTS', value: '상품'},
@@ -15,7 +16,21 @@ const category = [
   {key: 'ETC', value: '기타'},
 ]
 
-const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, setIsReadOnly, content, setContent}) => {
+const QnADetail = ({
+  getList,
+  reply,
+  setReply,
+  value,
+  visible,
+  setVisible,
+  onChange,
+  isReadOnly,
+  setIsReadOnly,
+  content,
+  setContent,
+}) => {
+  const [isReplyReanOnly, setIsReplyReanOnly] = useState(true)
+
   const onDelete = async () => {
     try {
       const {data} = await ApiConfig.request({
@@ -39,7 +54,7 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
   }
 
   const onCloseCheck = () => {
-    if (!isReadOnly && value.No !== -1) {
+    if (!isReplyReanOnly && value.No !== -1) {
       if (window.confirm('정말 페이지에서 나가시겠습니까? \n\n 지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
         onClose()
       }
@@ -51,11 +66,91 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
   const onClose = () => {
     setVisible(false)
     setIsReadOnly(true)
+    setIsReplyReanOnly(true)
   }
 
   const onDeleteConfilm = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       onDelete()
+    }
+  }
+
+  const onPostReply = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {
+          content: reply,
+        },
+        query: {},
+        path: {
+          id: value.inquiryId,
+        },
+        method: HttpMethod.POST,
+        url: `${EndPoint.HOME_INQUIRY}/:id/replies`,
+      })
+      if (data.isSuccess) {
+        getList()
+        alert('답변이 정상적으로 등록 되었습니다.')
+        onClose()
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  const onUpdateReply = async () => {
+    try {
+      const {data} = await ApiConfig.request({
+        data: {
+          content: reply,
+        },
+        query: {},
+        path: {
+          id: value.inquiryId,
+          replyId: value.replyId,
+        },
+        method: HttpMethod.PATCH,
+        url: `${EndPoint.HOME_INQUIRY}/:id/replies/:replyId`,
+      })
+      if (data.isSuccess) {
+        getList()
+        alert(data.result)
+        onClose()
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  const returnReplyBtn = () => {
+    if (value.hasReply) {
+      if (isReplyReanOnly) {
+        return (
+          <CButton color='primary' onClick={() => setIsReplyReanOnly(false)}>
+            답변 수정
+          </CButton>
+        )
+      } else {
+        return (
+          <CButton color='success' onClick={onUpdateReply}>
+            저장
+          </CButton>
+        )
+      }
+    } else {
+      if (isReplyReanOnly) {
+        return (
+          <CButton color='primary' onClick={() => setIsReplyReanOnly(false)}>
+            답변 달기
+          </CButton>
+        )
+      } else {
+        return (
+          <CButton color='success' onClick={onPostReply}>
+            등록
+          </CButton>
+        )
+      }
     }
   }
   return (
@@ -129,11 +224,22 @@ const QnADetail = ({getList, value, visible, setVisible, onChange, isReadOnly, s
               label='문의 내용'
             />
           </CRow>
-          <CRow>
+          <CRow className='mb-3'>
             <MultiFileDownloadForm files={value.fileUrl} id='fileUrl' label='첨부파일' />
+          </CRow>
+          <CRow>
+            <ModalQuillEditor
+              id='reply'
+              value={reply}
+              isRequired={true}
+              readOnly={isReplyReanOnly}
+              setValue={setReply}
+              label='문의 답변'
+            />
           </CRow>
         </CModalBody>
         <CModalFooter>
+          {returnReplyBtn()}
           <CButton color='danger' onClick={onDeleteConfilm}>
             삭제
           </CButton>
