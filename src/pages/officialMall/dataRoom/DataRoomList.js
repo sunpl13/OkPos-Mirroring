@@ -86,7 +86,6 @@ const DataRoomList = () => {
           files: item.files,
         },
       })
-
       if (!res?.isSuccess) {
         if (res?.code === 2014) {
           navigate('/login')
@@ -128,6 +127,9 @@ const DataRoomList = () => {
           alert(res?.message)
         }
         return
+      } else {
+        setIsReadOnly(true)
+        setIsUpdate(false)
       }
       alert(res?.message)
     } catch (error) {
@@ -228,8 +230,6 @@ const DataRoomList = () => {
         // update
         await onUpdateMallDataRoom(selectedItem)
         await onLoadMallDataRoom(dataRoomId)
-        setIsReadOnly(true)
-        setIsUpdate(false)
       } else {
         // create
         await onCreateMallDataRoom(selectedItem)
