@@ -7,7 +7,13 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import DataRoomDetailModal from '../../../components/Modal/partnerCenter/DataRoom/DataRoomDetailModal'
-import {createdInfo, deletedInfo, getListData, upDateInfo} from '../../../components/function/partnerCenter/ApiModules'
+import {
+  createdInfo,
+  deletedInfo,
+  getDetailInfo,
+  getListData,
+  upDateInfo,
+} from '../../../components/function/partnerCenter/ApiModules'
 
 const DataRoom = () => {
   const [items, setItems] = useState([])
@@ -35,39 +41,28 @@ const DataRoom = () => {
   /** Open Modal*/
   const handleShowDataRoomDetailModal = async ({id}) => {
     if (id) {
-      try {
-        const {
-          data: {isSuccess, result, code, message},
-        } = await ApiConfig.request({
-          method: HttpMethod.GET,
-          url: `${EndPoint.PARTNER_DATAROOMS}/${id}`,
-        })
-        if (!isSuccess || isEmpty(result)) {
-          return alert(message)
-        }
-        if (code === 1000) {
+      getDetailInfo(EndPoint.PARTNER_DATAROOMS, id)
+        .then(res => {
           setSelectedItem({
             id: id,
-            ...result,
+            ...res,
           })
-          setEditor(result?.content)
-          setEditCheck(result)
-          setImages(result?.dataRoomImages)
+          setEditCheck(res)
+          setEditor(res?.content)
+          setImages(res?.dataRoomImages)
           setFiles(
-            result?.dataRoomFiles.map(value => ({
+            res?.dataRoomFiles.map(value => ({
               ...value,
               name: value.title,
             })),
           )
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+        })
+        .catch(err => console.log(err))
     } else {
       setSelectedItem({})
-      setEditCheck({})
+      setEditCheck({
+        content: '',
+      })
       setEditor('')
       setImages([])
       setFiles([])
@@ -75,16 +70,35 @@ const DataRoom = () => {
     setShowModal(!showModal)
   }
 
+  // Modal onClose
+  const handleDetailModalOnClose = () => {
+    const {title, category} = selectedItem
+    const {content} = editCheck
+    if (
+      editCheck.title !== title ||
+      editCheck.category !== category ||
+      content?.replace(/<[^>]*>?| /g, '') !== editor?.replace(/<[^>]*>?| /g, '')
+    ) {
+      if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+        return setShowModal(false)
+      } else {
+        return null
+      }
+    } else {
+      return setShowModal(false)
+    }
+  }
+
   // Modal UpDate
-  const handleDetailModalUpDate = async () => {
+  const handleDetailModalUpDate = () => {
     const {id, title, category} = selectedItem
+    const {content} = editCheck
     let obj = {}
     if (files.length !== 0) {
       files.forEach(value => {
         obj[value?.name] = value.url
       })
     }
-
     const json = JSON.stringify({
       title: title,
       content: editor,
@@ -92,6 +106,7 @@ const DataRoom = () => {
       files: obj,
       images: images.length !== 0 ? images.map(img => img.url) : [],
     })
+
     if (id) {
       if (window.confirm('자료를 수정하시겠습니까?')) {
         if (!title) return alert('제목을 입력해 주세요.')
@@ -181,6 +196,7 @@ const DataRoom = () => {
         setImages={setImages}
         files={files}
         setFiles={setFiles}
+        onClose={handleDetailModalOnClose}
       />
     </CRow>
   )

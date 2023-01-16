@@ -33,6 +33,7 @@ const AppHeader = () => {
         </CHeaderToggler>
         <CHeaderNav className='d-none d-md-flex me-auto'>
           <CNavItem>
+            {/*
             <p>
               {process.env.REACT_APP_ENV !== 'production' ? (
                 <>
@@ -50,6 +51,7 @@ const AppHeader = () => {
                 ''
               )}
             </p>
+            */}
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className='px-3'>

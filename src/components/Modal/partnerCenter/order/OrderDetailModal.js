@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import {CCol, CFormInput, CFormLabel, CRow} from '@coreui/react'
 import ListTemplate from '../../../list/ListTemplate'
-import {deliveryStatusOptions} from '../../../../utils/columns/partnerCenter/SelectCategoryOptions'
 import {orderListColumns} from '../../../../utils/columns/partnerCenter/Columns'
 import DetailModalTemplate from '../DetailModalTemplate'
 import InvoiceEditModal from './InvoiceEditModal'
@@ -33,7 +32,6 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
 
   // 운송장 번호 수정 함수
   const handleInvoiceOnChange = ({target: {id, value}}) => {
-    console.log(id, value, selectedItem)
     setSelectedItem({
       ...selectedItem,
       [id]: value,
@@ -49,23 +47,26 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
 
   // 운송장 번호 수정 API
   const handleInvoiceEditModalUpDate = async () => {
+    const {id, invoiceNum} = selectedItem
     const json = JSON.stringify({
-      invoiceNum: selectedItem?.invoiceNum,
+      invoiceNum: invoiceNum,
     })
+
     if (window.confirm('운송장 번호를 등록하시겠습니까?')) {
+      console.log(id, invoiceNum)
       try {
         const {
           data: {isSuccess, result, code, message},
         } = await ApiConfig.request({
           method: HttpMethod.PATCH,
-          url: `${EndPoint.PARTNER_ORDERS}/${selectedItem.id}`,
+          url: `${EndPoint.PARTNER_ORDERS}/${id}`,
           data: json,
         })
         if (!isSuccess || isEmpty(result)) {
           return alert(message)
         }
         if (code === 1000) {
-          upDate(selectedItem, true)
+          upDate(value, true)
           setOrderItemList(orderItemList.map(item => (item.id === selectedItem.id ? selectedItem : item)))
           setInvoiceEditModal(false)
           alert(message)

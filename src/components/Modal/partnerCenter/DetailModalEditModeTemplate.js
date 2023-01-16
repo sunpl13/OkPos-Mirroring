@@ -11,6 +11,7 @@ const DetailModalEditModeTemplate = ({
   editMode,
   setEditMode,
   addModal,
+  onClose,
 }) => {
   const handleEditModeToggle = () => {
     setEditMode(!editMode)
@@ -18,6 +19,7 @@ const DetailModalEditModeTemplate = ({
       upDate()
     }
   }
+
   useEffect(() => {
     if (!visible) {
       setEditMode(true)
@@ -25,7 +27,7 @@ const DetailModalEditModeTemplate = ({
   }, [visible])
 
   return (
-    <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
+    <CModal size='lg' visible={visible}>
       <CModalHeader>
         <CModalTitle>{title || 'Not Title'}</CModalTitle>
       </CModalHeader>
@@ -44,7 +46,7 @@ const DetailModalEditModeTemplate = ({
             삭제
           </CButton>
         )}
-        <CButton color='secondary' onClick={() => setVisible(false)}>
+        <CButton color='secondary' onClick={() => onClose()}>
           닫기
         </CButton>
       </CModalFooter>

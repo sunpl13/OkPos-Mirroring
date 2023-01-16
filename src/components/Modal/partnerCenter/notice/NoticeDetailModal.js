@@ -24,6 +24,7 @@ const NoticeDetailModal = ({
   setImages,
   files,
   setFiles,
+  onClose,
 }) => {
   const {id, title, category, createdAt} = value
   return (
@@ -36,6 +37,7 @@ const NoticeDetailModal = ({
       setEditMode={setEditMode}
       onDelete={id && onDelete}
       addModal={!id}
+      onClose={onClose}
     >
       {id && (
         <CRow className={'p-2'}>
