@@ -27,4 +27,10 @@ export const qnaColumns = [
     label: '문의 유형',
     _props: {color: 'primary', className: 'categoryKorean'},
   },
+  {
+    key: 'hasReply',
+    label: '답변 여부',
+    _props: {color: 'primary', className: 'hasReply'},
+    filter: false,
+  },
 ]

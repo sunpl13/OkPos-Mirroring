@@ -311,6 +311,14 @@ const ListTemplate = ({
               </CBadge>
             </td>
           ),
+          // 공식 홈 1:1 문의 답변 상태
+          hasReply: ({hasReply}) => (
+            <td>
+              <CBadge size='sm' color={getBadgeColor(hasReply)}>
+                {getBadgeText(hasReply)}
+              </CBadge>
+            </td>
+          ),
           // 단일 이미지
           image: ({image}) => (
             <td>
