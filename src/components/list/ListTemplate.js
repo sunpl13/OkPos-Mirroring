@@ -338,7 +338,7 @@ const ListTemplate = ({
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           inquiryType: ({inquiryType}) => <td>{selectedOptions ? selectedOptions[inquiryType] : ''}</td>,
           career: ({career}) => <td>{selectedOptions ? selectedOptions[career] : ''}</td>,
-          proceed: ({proceed}) => <td>{proceed ? '채용 마감' : '채용중'}</td>,
+          proceed: ({proceed}) => <td>{proceed ? '채용중' : '채용 마감'}</td>,
           deliveryStatus: ({deliveryStatus}) => (
             <td>
               <CBadge color={'primary'}>{selectedOptions ? selectedOptions[deliveryStatus] : 'Not Data'} </CBadge>
