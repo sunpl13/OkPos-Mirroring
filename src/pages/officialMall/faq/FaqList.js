@@ -110,6 +110,8 @@ const FaqList = () => {
           alert(res?.message)
         }
         return
+      } else {
+        setShowModal(false)
       }
       await onLoadFaqList()
       alert(res?.message)
@@ -141,6 +143,10 @@ const FaqList = () => {
           alert(res?.message)
         }
         return
+      } else {
+        setShowModal(true)
+        setIsReadOnly(true)
+        setIsUpdate(false)
       }
       alert(res?.message)
       setSelectedItem(item)
@@ -222,13 +228,9 @@ const FaqList = () => {
       if (faqId) {
         // update
         onUpdateFaq(selectedItem, content)
-        setShowModal(true)
-        setIsReadOnly(true)
-        setIsUpdate(false)
       } else {
         // create
         onCreateFaq(selectedItem, content)
-        setShowModal(false)
       }
     }
   }
