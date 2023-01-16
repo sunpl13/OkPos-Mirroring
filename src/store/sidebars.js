@@ -21,9 +21,9 @@ export const sidebarUnfoldableToggle = () => {
 }
 
 const initialState = {
-  sidebarShow: false,
-  asideShow: true,
-  sidebarUnfoldable: true,
+  sidebarShow: true,
+  asideShow: false,
+  sidebarUnfoldable: false,
 }
 
 const sidebarState = (state = initialState, action) => {
