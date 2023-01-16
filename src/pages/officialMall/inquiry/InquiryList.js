@@ -105,6 +105,9 @@ const InquiryList = () => {
         if (res?.code === 2014) {
           navigate('/login')
         }
+      } else {
+        setIsReadOnly(true)
+        setIsUpdate(false)
       }
       alert(res?.message)
       await onloadMallInquiry(inquiryId)
@@ -134,6 +137,9 @@ const InquiryList = () => {
           alert(res?.message)
         }
         return
+      } else {
+        setIsReadOnly(true)
+        setIsUpdate(false)
       }
       alert(res?.message)
     } catch (error) {
@@ -207,10 +213,7 @@ const InquiryList = () => {
         // 생성
         await onCreateMallInquiryAnswer(inquiryId, inquiryReplyContent)
       }
-
       await onLoadMallInquiryList()
-      setIsReadOnly(true)
-      setIsUpdate(false)
     }
   }
   return (
