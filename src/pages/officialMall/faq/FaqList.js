@@ -221,7 +221,7 @@ const FaqList = () => {
     if (!category || !_.includes(categoryVals, category)) return alert('카테고리를 선택해주세요')
     if (!title) return alert('제목을 입력해주세요.')
     if (title.length > 50) return alert('제목 글자수 초과입니다.(50자)')
-    if (!content) return alert('본문을 입력해주세요.')
+    if (content.replace(/<[^>]*>?|/g, '').length === 0) return alert('본문을 입력해주세요.')
     if (content.replace(/<[^>]*>?|/g, '').length > 300) return alert('본문 글자수 초과입니다.')
 
     if (window.confirm('저장 하시겠습니까?')) {
