@@ -1,6 +1,5 @@
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {isEmpty} from '../../../utils/utility'
-import {EndPoint} from '../../../dataManager/apiMapper'
 
 // get List
 export const getListData = async url => {
@@ -113,23 +112,3 @@ export const createdInfo = async (url, data) => {
     return error
   }
 }
-
-//  getListData(EndPoint.PARTNER_INACTIVE_USERS)
-//       .then(res => {
-//         setItems(res?.inActiveUserInfoPartnerDTOs)
-//       })
-//       .catch(err => console.log(err))
-
-//getDetailInfo(EndPoint.PARTNER_USERS, id)
-//       .then(res => {
-//         setSelectedItem(res)
-//         setShowModal(!showModal)
-//       })
-//       .catch(err => console.log(err))
-
-//deletedInfo(EndPoint.PARTNER_NOTICES, id)
-//         .then(res => {
-//           getList()
-//           return alert(res)
-//         })
-//         .catch(err => console.log(err))

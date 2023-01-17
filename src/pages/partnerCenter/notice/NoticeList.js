@@ -75,6 +75,19 @@ const NoticeList = () => {
       setFiles([])
     }
   }
+  // Close Modal
+  const handleDetailModalOnClose = () => {
+    const {title, category} = selectedItem
+    if (editCheck.content !== editor || editCheck.title !== title || editCheck.category !== category) {
+      if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+        return setShowModal(false)
+      } else {
+        return null
+      }
+    } else {
+      return setShowModal(false)
+    }
+  }
 
   // Modal onChange
   const handleNoticeModalOnChange = ({target: {id, value}}) => {
@@ -146,6 +159,13 @@ const NoticeList = () => {
     }
   }
 
+  useEffect(() => {
+    if (!showModal) {
+      setEditor('')
+      setSelectedItem({})
+    }
+  }, [showModal])
+
   return (
     <CRow>
       <PageHeader title='공지사항 리스트' />
@@ -180,6 +200,7 @@ const NoticeList = () => {
         setImages={setImages}
         files={files}
         setFiles={setFiles}
+        onClose={handleDetailModalOnClose}
       />
     </CRow>
   )

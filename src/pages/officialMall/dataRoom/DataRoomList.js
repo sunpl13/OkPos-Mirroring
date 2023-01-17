@@ -86,7 +86,6 @@ const DataRoomList = () => {
           files: item.files,
         },
       })
-
       if (!res?.isSuccess) {
         if (res?.code === 2014) {
           navigate('/login')
@@ -128,6 +127,9 @@ const DataRoomList = () => {
           alert(res?.message)
         }
         return
+      } else {
+        setIsReadOnly(true)
+        setIsUpdate(false)
       }
       alert(res?.message)
     } catch (error) {
@@ -213,11 +215,11 @@ const DataRoomList = () => {
     if (!title) return alert('제목을 입력해주세요')
     if (!category) return alert('카테고리를 선택해주세요')
     if (!content) return alert('본문을 입력해주세요')
-    if (!content.replace(/<[^>]*>?|/g, '').length > 150) return alert('본문 글자수 초과입니다.')
+    if (!content.replace(/<[^>]*>?|/g, '').length > 150) return alert('본문 글자수 초과입니다.(150)')
     if (imageList.length < 1) return alert('이미지를 등록해주세요')
-    if (imageList.length > 10) return alert('이미지 등록 갯수 초과입니다.')
+    if (imageList.length > 10) return alert('이미지 등록 갯수 초과입니다.(10개)')
     if (fileList.length < 1) return alert('자료를 등록해주세요')
-    if (fileList.length > 5) return alert('자료 등록 갯수 초과입니다.')
+    if (fileList.length > 5) return alert('자료 등록 갯수 초과입니다.(5개)')
 
     selectedItem.files = await handleMultiFileUrl(fileList)
     selectedItem.images = await sendImageUrlFormat(imageList)
@@ -228,8 +230,6 @@ const DataRoomList = () => {
         // update
         await onUpdateMallDataRoom(selectedItem)
         await onLoadMallDataRoom(dataRoomId)
-        setIsReadOnly(true)
-        setIsUpdate(false)
       } else {
         // create
         await onCreateMallDataRoom(selectedItem)

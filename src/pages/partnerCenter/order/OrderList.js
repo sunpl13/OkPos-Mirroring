@@ -7,7 +7,7 @@ import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
 import OrderDetailModal from '../../../components/Modal/partnerCenter/order/OrderDetailModal'
-import {getListData} from '../../../components/function/partnerCenter/ApiModules'
+import {getDetailInfo, getListData} from '../../../components/function/partnerCenter/ApiModules'
 
 const OrderList = () => {
   const [items, setItems] = useState([])
@@ -29,25 +29,13 @@ const OrderList = () => {
 
   /** Open Modal*/
   const handleShowMaterialDetailModal = async ({id}) => {
-    try {
-      const {
-        data: {isSuccess, result, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_ORDERS}/${id}`,
+    getDetailInfo(EndPoint.PARTNER_ORDERS, id)
+      .then(res => {
+        console.log(res)
+        setSelectedItem(res)
+        setShowModal(true)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setSelectedItem(result)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-    setShowModal(!showModal)
+      .catch(err => console.log(err))
   }
 
   const handleOrderModalOnChange = ({target: {id, value}}) => {

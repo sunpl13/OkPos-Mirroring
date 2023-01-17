@@ -4,9 +4,14 @@ import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {educationScheduleListColumns} from '../../../utils/columns/partnerCenter/Columns'
 import EducationScheduleDetailModal from '../../../components/Modal/partnerCenter/educationSchedule/EducationScheduleDetailModal'
-import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from '../../../utils/utility'
+import {
+  createdInfo,
+  deletedInfo,
+  getDetailInfo,
+  getListData,
+  upDateInfo,
+} from '../../../components/function/partnerCenter/ApiModules'
 
 const EducationScheduleList = () => {
   const [items, setItems] = useState([])
@@ -20,24 +25,11 @@ const EducationScheduleList = () => {
 
   // 교육 일정 리스트 API
   const getList = async () => {
-    try {
-      const {
-        data: {isSuccess, result, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: EndPoint.PARTNER_SCHEDULES,
+    getListData(EndPoint.PARTNER_SCHEDULES)
+      .then(res => {
+        setItems(res?.adminEducationScheduleDTOs)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setItems(result?.adminEducationScheduleDTOs)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -46,43 +38,49 @@ const EducationScheduleList = () => {
 
   /** Open Modal*/
   const handleShowMaterialDetailModal = async ({id}) => {
-    if (!id) {
-      setShowModal(!showModal)
-      setSelectedItem({})
-    } else {
-      try {
-        const {
-          data: {isSuccess, result, code, message},
-        } = await ApiConfig.request({
-          method: HttpMethod.GET,
-          url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
-        })
-        if (!isSuccess || isEmpty(result)) {
-          return alert(message)
-        }
-        if (code === 1000) {
-          setSelectedItem({
-            ...result,
-          })
-          setEditCheck(result)
-          setEditor(result.content)
+    if (id) {
+      getDetailInfo(EndPoint.PARTNER_SCHEDULES, id)
+        .then(res => {
+          setSelectedItem(res)
+          setEditCheck(res)
+          setEditor(res?.content)
           setShowModal(!showModal)
-          setImages(result?.educationScheduleImages)
+          setImages(res?.educationScheduleImages)
           setFiles(
-            result?.educationScheduleFiles.map(value => ({
+            res?.educationScheduleFiles.map(value => ({
               ...value,
               name: value.title,
             })),
           )
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+        })
+        .catch(err => console.log(err))
+    } else {
+      setShowModal(!showModal)
+      setImages([])
+      setFiles([])
+      setSelectedItem({})
+      setEditCheck({
+        content: '',
+      })
+      setEditor('')
     }
   }
 
+  const handleDetailModalOnClose = () => {
+    const {title} = selectedItem
+    const {content} = editCheck
+    if (editCheck.title !== title || content?.replace(/<[^>]*>?| /g, '') !== editor?.replace(/<[^>]*>?| /g, '')) {
+      if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+        return setShowModal(false)
+      } else {
+        return null
+      }
+    } else {
+      return setShowModal(false)
+    }
+  }
+
+  // Modal UpDate
   const handleDetailModalUpDate = async () => {
     const {id, title} = selectedItem
     let obj = {}
@@ -96,70 +94,32 @@ const EducationScheduleList = () => {
       title: title,
       content: editor,
       files: obj,
-      images: images.length !== 0 ? images.map(img => img.url) : [],
+      images: images?.length !== 0 ? images.map(img => img?.url) : [],
     })
-    if (id) {
-      if (window.confirm('교육 일정을 수정하시겠습니까?')) {
-        if (!title) return alert('제목을 입력해 주세요.')
-        //if (!files) return alert('Not File')
-        //if (!images) return alert('Not Image')
-        if (!editor) return alert('본문을 입력해 주세요.')
-        try {
-          const {
-            data: {isSuccess, result, code, message},
-          } = await ApiConfig.request({
-            method: HttpMethod.PUT,
-            url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
-            data: json,
-          })
-          if (!isSuccess || isEmpty(result)) {
-            return alert(message)
-          }
-          if (code === 1000) {
-            setSelectedItem({
-              ...result,
-              id: id,
+
+    if (id ? window.confirm('교육 일정을 수정하시겠습니까?') : window.confirm('교육 일정을 등록하시겠습니까?')) {
+      if (!title) return alert('제목을 입력해 주세요.')
+      //if (!files) return alert('Not File')
+      //if (!images) return alert('Not Image')
+      if (!editor) return alert('본문을 입력해 주세요.')
+      id
+        ? upDateInfo(EndPoint.PARTNER_SCHEDULES, id, json)
+            .then(res => {
+              getList()
+              setEditCheck({
+                ...selectedItem,
+                content: editor,
+              })
+              return alert(res)
             })
-            setEditCheck(result)
-            setEditor(result.content)
-            setShowModal(!showModal)
-            alert(message)
-          } else {
-            alert(message)
-          }
-        } catch (error) {
-          console.log(error)
-        }
-        setShowModal(false)
-      }
-    } else {
-      if (window.confirm('교육 일정을 등록하시겠습니까?')) {
-        if (!title) return alert('제목을 입력해 주세요.')
-        //if (!files) return alert('Not File')
-        //if (!images) return alert('Not Image')
-        if (!editor) return alert('본문을 입력해 주세요.')
-        try {
-          const {
-            data: {isSuccess, result, code, message},
-          } = await ApiConfig.request({
-            method: HttpMethod.POST,
-            url: EndPoint.PARTNER_SCHEDULES,
-            data: json,
-          })
-          if (!isSuccess || isEmpty(result)) {
-            return alert(message)
-          }
-          if (code === 1000) {
-            getList()
-            alert(message)
-          } else {
-            alert(message)
-          }
-        } catch (error) {
-          console.log(error)
-        }
-        setShowModal(false)
-      }
+            .catch(err => console.log(err))
+        : createdInfo(EndPoint.PARTNER_SCHEDULES, json)
+            .then(res => {
+              getList()
+              setShowModal(false)
+              return alert(res)
+            })
+            .catch(err => console.log(err))
     }
   }
 
@@ -174,35 +134,13 @@ const EducationScheduleList = () => {
   const handleOrderListOnDelete = async () => {
     const {id} = selectedItem
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      try {
-        const {
-          data: {isSuccess, result, code, message},
-        } = await ApiConfig.request({
-          method: HttpMethod.PATCH,
-          url: `${EndPoint.PARTNER_SCHEDULES}/${id}`,
-        })
-        if (!isSuccess) {
-          return alert(message)
-        }
-        if (code === 1000) {
+      deletedInfo(EndPoint.PARTNER_SCHEDULES, id)
+        .then(res => {
           getList()
-          alert(message)
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    setShowModal(!showModal)
-  }
-
-  const handleOrderOnDelete = ({productId}) => {
-    if (window.confirm('Delete ?')) {
-      setSelectedItem({
-        ...selectedItem,
-        orderList: selectedItem.orderList.filter(value => value.productId !== productId),
-      })
+          setShowModal(false)
+          return alert(res)
+        })
+        .catch(err => console.log(err))
     }
   }
 
@@ -251,6 +189,7 @@ const EducationScheduleList = () => {
         setImages={setImages}
         files={files}
         setFiles={setFiles}
+        onClose={handleDetailModalOnClose}
       />
     </CRow>
   )

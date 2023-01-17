@@ -95,8 +95,9 @@ const BannerList = () => {
         return
       } else {
         alert('배너가 추가되었습니다.')
+        setShowModal(false)
+        setSelectedItem(setInitItem)
       }
-      setSelectedItem(setInitItem)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -128,6 +129,8 @@ const BannerList = () => {
       }
       alert(res?.message)
       setSelectedItem(item)
+      setIsReadOnly(true)
+      setIsUpdate(false)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -212,12 +215,9 @@ const BannerList = () => {
       if (bannerId) {
         // 수정
         await onUpdateMallBanner(selectedItem)
-        setIsReadOnly(true)
-        setIsUpdate(false)
       } else {
         // 생성
         await onCreateMallBanner(selectedItem)
-        setShowModal(false)
       }
       await onLoadMallBannerList()
     }

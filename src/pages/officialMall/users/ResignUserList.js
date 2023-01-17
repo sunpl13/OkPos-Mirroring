@@ -28,28 +28,28 @@ const ResignUserList = () => {
   ])
   const [chartData, setChartData] = useState([])
 
-  const chartList = {
-    countResignReasonByService: {
-      value: '서비스 이용 불편',
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: 'rgb(255, 159, 64)',
-    },
-    countResignReasonByPrice: {
-      value: '가격 불만족',
-      backgroundColor: 'rgba(255, 159, 64, 0.2)',
-      borderColor: 'rgb(201, 203, 207)',
-    },
-    countResignReasonByItem: {
-      value: '제품 기능에 불만족',
-      backgroundColor: 'rgba(201, 203, 207, 0.2)',
-      borderColor: 'rgb(255, 205, 86)',
-    },
-    countResignReasonBySelf: {
-      value: '직접 입력',
-      backgroundColor: 'rgba(255, 205, 86, 0.2)',
-      borderColor: 'rgb(75, 192, 192)',
-    },
-  }
+  // const chartList = {
+  //   countResignReasonByService: {
+  //     value: '서비스 이용 불편',
+  //     backgroundColor: 'rgba(255, 99, 132, 0.2)',
+  //     borderColor: 'rgb(255, 159, 64)',
+  //   },
+  //   countResignReasonByPrice: {
+  //     value: '가격 불만족',
+  //     backgroundColor: 'rgba(255, 159, 64, 0.2)',
+  //     borderColor: 'rgb(201, 203, 207)',
+  //   },
+  //   countResignReasonByItem: {
+  //     value: '제품 기능에 불만족',
+  //     backgroundColor: 'rgba(201, 203, 207, 0.2)',
+  //     borderColor: 'rgb(255, 205, 86)',
+  //   },
+  //   countResignReasonBySelf: {
+  //     value: '직접 입력',
+  //     backgroundColor: 'rgba(255, 205, 86, 0.2)',
+  //     borderColor: 'rgb(75, 192, 192)',
+  //   },
+  // }
 
   const resignUserOptions = [
     {
@@ -120,6 +120,10 @@ const ResignUserList = () => {
                 </CCardBody>
               </CCol>
             </CRow>
+            <div>서비스 이용 불편 : {chartData[0]}</div>
+            <div> 가격 불만족 : {chartData[1]}</div>
+            <div> 제품 기능 불만족 : {chartData[2]}</div>
+            <div>기타(직접 입력) : {chartData[3]}</div>
           </CCardBody>
         </CCard>
       </CCol>

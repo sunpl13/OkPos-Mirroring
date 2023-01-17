@@ -1,5 +1,6 @@
 // 회원 리스트
 import React from 'react'
+import {CFormSelect} from '@coreui/react'
 export const userListColumns = [
   {
     key: 'idx',
@@ -265,11 +266,6 @@ export const orderListColumns = [
     _props: {className: 'itemName'},
   },
   {
-    key: 'quantity',
-    label: '발주 수량',
-    _props: {className: 'quantity'},
-  },
-  {
     key: 'processingStatus',
     label: '배송 현황',
     _props: {className: 'processingStatus'},
@@ -375,22 +371,21 @@ export const solutionListColumns = [
     title: '구분',
     dataIndex: 'category',
     width: '20%',
-    //render: (value, row) => {
-    //       console.log(value)
-    //       if (value) {
-    //         return (
-    //           <CFormSelect
-    //             aria-label='Default select example'
-    //             options={[
-    //               '선택',
-    //               {label: 'One', value: '1'},
-    //               {label: 'Two', value: '2'},
-    //               {label: 'Three', value: '3', disabled: true},
-    //             ]}
-    //           />
-    //         )
-    //       }
-    //     },
+    render: (value, row) => {
+      if (value) {
+        return (
+          <CFormSelect
+            aria-label='Default select example'
+            options={[
+              '선택',
+              {label: '외식업', value: '외식업'},
+              {label: '유통업', value: '유통업'},
+              {label: '기타', value: '기타'},
+            ]}
+          />
+        )
+      }
+    },
   },
   {
     title: '솔루션명',
@@ -406,21 +401,29 @@ export const solutionListColumns = [
     title: '주력 VAN사',
     dataIndex: 'van',
     width: '20%',
-    //render: (value, row) => {
-    //       if (value) {
-    //         return (
-    //           <CFormSelect
-    //             aria-label='Default select example'
-    //             options={[
-    //               '선택',
-    //               {label: 'One', value: '1'},
-    //               {label: 'Two', value: '2'},
-    //               {label: 'Three', value: '3', disabled: true},
-    //             ]}
-    //           />
-    //         )
-    //       }
-    //     },
+    render: (value, row) => {
+      if (value) {
+        return (
+          <CFormSelect
+            aria-label='Default select example'
+            options={[
+              '선택',
+              {label: 'NICE', value: 'NICE'},
+              {label: 'KIS', value: 'KIS'},
+              {label: 'JTNET', value: 'JTNET'},
+              {label: 'KICC', value: 'KICC'},
+              {label: 'KSNET', value: 'KSNET'},
+              {label: 'KCP', value: 'KCP'},
+              {label: 'KOCES', value: 'KOCES'},
+              {label: 'SMARTRO', value: 'SMARTRO'},
+              {label: 'FDK', value: 'FDK'},
+              {label: 'DAOUDATA', value: 'DAOUDATA'},
+              {label: 'KFTC', value: 'KFTC'},
+            ]}
+          />
+        )
+      }
+    },
   },
 ]
 // 유지보수 신청 정보 / 관리 대상 H/W 현황

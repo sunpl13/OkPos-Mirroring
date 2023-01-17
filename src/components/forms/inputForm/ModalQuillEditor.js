@@ -31,7 +31,6 @@ const ModalQuillEditor = ({
     // 파일이 input 태그에 담기면 실행 될 함수
     input.onchange = async () => {
       const file = input.files
-      console.log(file)
       if (file !== null) {
         formData.append('image', file[0])
         try {
@@ -81,15 +80,15 @@ const ModalQuillEditor = ({
 
   const handleEditorOnChange = item => {
     if (maxLength) {
-      const textReplace = item.replace(/<[^>]*>?| /g, '').length
+      const textReplace = item?.replace(/<[^>]*>?| /g, '').length
       if (maxLength >= textReplace) {
-        setValue(item)
+        setValue(() => item)
         setTextLengthCheck(false)
       } else {
         setTextLengthCheck(true)
       }
     } else if (!maxLength) {
-      setValue(item)
+      setValue(() => item)
     }
   }
 

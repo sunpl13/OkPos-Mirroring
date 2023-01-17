@@ -1,12 +1,10 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
-import {CCol, CRow} from '@coreui/react'
+import {CRow} from '@coreui/react'
 import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
-import ModalTextArrayInput from '../../../forms/inputForm/ModalTextArrayInput'
 import ModalImageInput from '../../../forms/inputForm/ModalImageInput'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
-import MultiFileDownloadForm from '../../../forms/downloadForm/MultiFileDownloadForm'
 
 const EducationScheduleDetailModal = ({
   onChange,
@@ -23,6 +21,7 @@ const EducationScheduleDetailModal = ({
   setImages,
   files,
   setFiles,
+  onClose,
 }) => {
   const {id, title, createdAt} = value
   return (
@@ -35,6 +34,7 @@ const EducationScheduleDetailModal = ({
       setEditMode={setEditMode}
       onDelete={onDelete}
       addModal={!id}
+      onClose={onClose}
     >
       <CRow className={'p-2'}>
         <ModalInput
@@ -47,7 +47,7 @@ const EducationScheduleDetailModal = ({
           disabled={id && editMode}
           isRequired
         />
-        {id && (
+        {/*id && (
           <ModalInput
             id={'createdAt'}
             placeholder={'공고 등록일'}
@@ -56,7 +56,7 @@ const EducationScheduleDetailModal = ({
             readOnly
             disabled
           />
-        )}
+        )*/}
       </CRow>
       <CRow className={'p-2'}>
         <ModalFilesInput

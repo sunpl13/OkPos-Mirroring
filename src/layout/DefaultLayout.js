@@ -56,6 +56,12 @@ const DefaultLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toast])
 
+  useEffect(() => {
+    if (sessionStorage.getItem('auth') === 'EDITOR_PROHIBIT') {
+      alert('메인 관리자의 승인이 있을시 관리자페이지 이용이 가능합니다. 메인 관리자의 회원관리 내역을 확인해주세요.')
+    }
+  }, [])
+
   return (
     <Container>
       <AppSidebar />
