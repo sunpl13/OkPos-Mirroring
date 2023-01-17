@@ -204,7 +204,6 @@ const BannerList = () => {
 
   // 배너 업데이트
   const handleDetailModalUpdate = async () => {
-    if (bannerList.length >= 5) return alert('배너는 최대 5개까지 만들 수 있습니다.')
     const {bannerId, title, subTitle, image} = selectedItem
     // validation
     if (!title) return alert('배너 타이틀을 입력해주세요.')
@@ -219,6 +218,7 @@ const BannerList = () => {
         await onUpdateMallBanner(selectedItem)
       } else {
         // 생성
+        if (bannerList.length >= 5) return alert('배너는 최대 5개까지 만들 수 있습니다.')
         await onCreateMallBanner(selectedItem)
       }
       await onLoadMallBannerList()
@@ -241,7 +241,7 @@ const BannerList = () => {
             <CForm className='row g-3'>
               <CCol xs={1}>
                 <CButton color='primary' onClick={handleShowFaqItemAddModal}>
-                  추가
+                  추가 {bannerList.length} / 5
                 </CButton>
               </CCol>
             </CForm>

@@ -32,7 +32,7 @@ export const inquiryListColumns = [
 
 // FAQ 리스트
 export const faqListColumns = [
-  {key: 'faqId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'faqId', label: 'INDEX', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'category', label: '카테고리', _props: {className: 'category'}},
   {key: 'title', label: '제목', _props: {className: 'title'}},
 ]
