@@ -109,7 +109,7 @@ const DataRoomModal = ({
               setFileList={setImageList}
               images={images}
               isRequired={true}
-              imgPath='mall/dataRroom_images'
+              imgPath='mall/dataRoom_images'
               readOnly={isReadOnly}
               disabled={isReadOnly}
             />
@@ -133,7 +133,7 @@ const DataRoomModal = ({
               setFileList={setFileList}
               files={files}
               label={'첨부파일'}
-              filePath={'mall/dataroom_files'}
+              filePath={'mall/dataRoom_files'}
               readOnly={isReadOnly}
               disabled={isReadOnly}
               isRequired

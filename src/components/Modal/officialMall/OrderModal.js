@@ -201,7 +201,7 @@ const OrderModal = ({value, visible, setVisible}) => {
   // 주문 상태 값 저장
   const handleOrderInvoice = () => {
     if (!invoice) return alert('송장번호를 입력해주세요.')
-    if (invoice.length != 11) return alert('송장번호를 확인해주세요.(11자리)')
+    if (invoice.length !== 11) return alert('송장번호를 확인해주세요.(11자리)')
     if (!selectedProduct.orderItemId) return alert('주문상품을 선택해주세요.')
 
     onUpdateInvoice(selectedProduct.orderItemId, invoice)
@@ -315,7 +315,12 @@ const OrderModal = ({value, visible, setVisible}) => {
           <CButton className='me-md-2' color='success' size='sm' onClick={handleOrderStatus}>
             주문상태 변경
           </CButton>
-          <CFormInput className='me-md-2 orderInvoiceForm' size='sm' onChange={invoiceChange} />
+          <CFormInput
+            className='me-md-2 orderInvoiceForm'
+            placeholder='송장번호 입력'
+            size='sm'
+            onChange={invoiceChange}
+          />
           <CButton className='me-md-2' color='warning' size='sm' onClick={handleOrderInvoice}>
             송장등록
           </CButton>

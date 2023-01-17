@@ -1,6 +1,8 @@
 import {CButton, CForm, CImage, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from '@coreui/react'
 import ModalSingleImageInput from '../../forms/inputForm/ModalSingleImageInput'
 import ModalInput from '../../forms/inputForm/ModalInput'
+import ModalImageInput from '../../forms/inputForm/ModalImageInput'
+import {useEffect, useState} from 'react'
 
 const BannerDetailModal = ({
   item,
@@ -10,6 +12,8 @@ const BannerDetailModal = ({
   onDelete,
   visible,
   setVisible,
+  imageList,
+  setImageList,
   isReadOnly,
   setIsReadOnly,
   isUpdate,
@@ -24,6 +28,14 @@ const BannerDetailModal = ({
   let modalTitle = '배너 추가'
   if (isUpdate) modalTitle = '배너 수정'
   if (isReadOnly) modalTitle = '배너 상세 내용'
+
+  const [img, setImg] = useState('')
+
+  useEffect(() => {
+    if (item?.image) {
+      setImg(item?.image?.split('.com/')[1])
+    }
+  }, [item])
 
   return (
     <CModal size='lg' visible={visible} onClose={() => setVisible(false)}>
@@ -70,6 +82,7 @@ const BannerDetailModal = ({
               onChangeImage={onChangeImage}
               readOnly={isReadOnly}
               disabled={isReadOnly}
+              imgPath='mall/banner_images'
               isRequired
             />
           </CRow>

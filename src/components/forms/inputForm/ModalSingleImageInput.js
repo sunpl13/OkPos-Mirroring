@@ -1,14 +1,12 @@
 import {message, Upload} from 'antd'
 import AWS from 'aws-sdk'
-import {LoadingOutlined, PlusOutlined} from '@ant-design/icons'
+import {PlusOutlined} from '@ant-design/icons'
 import {returnBucketNameFile} from '../../../utils/awsCustom'
-import {useState} from 'react'
-import {CCol, CFormLabel} from '@coreui/react'
+import {CCol, CFormLabel, CImage} from '@coreui/react'
 import styled from 'styled-components'
+import {useState} from 'react'
 
 const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, filePath, isRequired}) => {
-  const [loading, setLoading] = useState(false)
-
   const beforeUpload = file => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
@@ -104,7 +102,7 @@ const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, fileP
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
         <span className={isRequired ? 'required' : ''}>{label || ' * '}</span>
       </CFormLabel>
-      <CCol className='align-items-center' style={{display: 'flex'}}>
+      <CCol className='align-items-center col-sm-10' style={{display: 'flex'}}>
         <Upload {...props}>
           {image ? (
             <img
@@ -119,6 +117,16 @@ const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, fileP
           )}
         </Upload>
       </CCol>
+      {image && (
+        <>
+          <CFormLabel className='col-sm-2 col-form-label'>
+            <span>이미지 보기</span>
+          </CFormLabel>
+          <CCol className='align-items-center col-sm-10'>
+            <CImage rounded fluid src={image} />
+          </CCol>
+        </>
+      )}
     </>
   )
 }
