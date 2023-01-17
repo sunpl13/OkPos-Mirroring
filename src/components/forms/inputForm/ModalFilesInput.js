@@ -139,4 +139,7 @@ const DivBox = styled.div`
     display: flex;
     flex-direction: column;
   }
+  & > span.ant-upload-wrapper.css-dev-only-do-not-override-sk7ap8 {
+    flex-direction: column-reverse;
+  }
 `
