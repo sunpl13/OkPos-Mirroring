@@ -8,8 +8,8 @@ import {resignUserListColumns} from '../../../utils/columns/officialMall/Columns
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
-import MallDoughnutChartTemplate from '../../../components/chart/MallDoughnutChartTemplate'
-import MallBarChartTemplate from '../../../components/chart/MallBarChartTemplate'
+import DoughnutChartTemplate from '../../../components/chart/DoughnutChartTemplate'
+import BarChartTemplate from '../../../components/chart/BarChartTemplate'
 
 const ResignUserList = () => {
   // 모듈 선언
@@ -111,12 +111,12 @@ const ResignUserList = () => {
             <CRow>
               <CCol xs={4}>
                 <CCardBody>
-                  <MallDoughnutChartTemplate title={'탈퇴 사유'} labels={chartLabels} data={chartData} />
+                  <DoughnutChartTemplate title={'탈퇴 사유'} labels={chartLabels} data={chartData} />
                 </CCardBody>
               </CCol>
               <CCol xs={8}>
                 <CCardBody>
-                  <MallBarChartTemplate title={'탈퇴 사유'} labels={chartLabels} data={chartData} />
+                  <BarChartTemplate title={'탈퇴 사유'} labels={chartLabels} data={chartData} />
                 </CCardBody>
               </CCol>
             </CRow>

@@ -8,6 +8,7 @@ import InvoiceEditModal from './InvoiceEditModal'
 import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import {isEmpty} from '../../../../utils/utility'
+import {deletedInfo} from '../../../function/partnerCenter/ApiModules'
 
 const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnly}) => {
   const {
@@ -51,31 +52,15 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
     const json = JSON.stringify({
       invoiceNum: invoiceNum,
     })
-
     if (window.confirm('운송장 번호를 등록하시겠습니까?')) {
-      console.log(id, invoiceNum)
-      try {
-        const {
-          data: {isSuccess, result, code, message},
-        } = await ApiConfig.request({
-          method: HttpMethod.PATCH,
-          url: `${EndPoint.PARTNER_ORDERS}/${id}`,
-          data: json,
-        })
-        if (!isSuccess || isEmpty(result)) {
-          return alert(message)
-        }
-        if (code === 1000) {
-          upDate(value, true)
+      deletedInfo(EndPoint.PARTNER_ORDERS, id, json)
+        .then(res => {
+          upDate(value)
           setOrderItemList(orderItemList.map(item => (item.id === selectedItem.id ? selectedItem : item)))
           setInvoiceEditModal(false)
-          alert(message)
-        } else {
-          alert(message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+          return alert(res)
+        })
+        .catch(err => console.log(err))
     }
   }
 

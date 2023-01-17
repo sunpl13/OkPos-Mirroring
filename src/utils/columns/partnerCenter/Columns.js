@@ -445,13 +445,11 @@ export const educationScheduleListColumns = [
   {
     key: 'idx',
     label: 'No',
-    filter: false,
     _props: {className: 'no'},
   },
   {
     key: 'title',
     label: '제목',
-    filter: false,
     _props: {className: 'title'},
   },
 

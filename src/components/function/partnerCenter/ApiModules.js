@@ -46,13 +46,14 @@ export const getDetailInfo = async (url, id) => {
 }
 
 // Deleted
-export const deletedInfo = async (url, id) => {
+export const deletedInfo = async (url, id, data) => {
   try {
     const {
       data: {result, isSuccess, code, message},
     } = await ApiConfig.request({
       method: HttpMethod.PATCH,
       url: `${url}/${id}`,
+      data: data,
     })
     if (!isSuccess || isEmpty(result)) {
       return message

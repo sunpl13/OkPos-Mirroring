@@ -1,8 +1,7 @@
 import React from 'react'
 import {CChart} from '@coreui/react-chartjs'
-import PropTypes, {object} from 'prop-types'
 
-const MallDoughnutChartTemplate = ({title, labels, data}) => {
+const DoughnutChartTemplate = ({title, labels, data}) => {
   const dataSet = {
     labels: labels,
     datasets: [
@@ -51,4 +50,4 @@ const MallDoughnutChartTemplate = ({title, labels, data}) => {
     <CChart type='doughnut' data={dataSet} customTooltips={false} options={options} />
   )
 }
-export default React.memo(MallDoughnutChartTemplate)
+export default React.memo(DoughnutChartTemplate)

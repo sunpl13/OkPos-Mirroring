@@ -3,9 +3,7 @@ import {CCard, CCardBody, CCol, CRow} from '@coreui/react'
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {orderList} from '../../../utils/columns/partnerCenter/Columns'
-import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from '../../../utils/utility'
 import OrderDetailModal from '../../../components/Modal/partnerCenter/order/OrderDetailModal'
 import {getDetailInfo, getListData} from '../../../components/function/partnerCenter/ApiModules'
 
@@ -28,7 +26,7 @@ const OrderList = () => {
   }, [])
 
   /** Open Modal*/
-  const handleShowMaterialDetailModal = async ({id}) => {
+  const handleShowDetailModal = async ({id}) => {
     getDetailInfo(EndPoint.PARTNER_ORDERS, id)
       .then(res => {
         setSelectedItem(res)
@@ -49,12 +47,7 @@ const OrderList = () => {
       <CCol xs={12}>
         <CCard className='mb-4'>
           <CCardBody>
-            <ListTemplate
-              items={items}
-              onClick={handleShowMaterialDetailModal}
-              columns={orderList}
-              className={'userList'}
-            />
+            <ListTemplate items={items} onClick={handleShowDetailModal} columns={orderList} className={'userList'} />
           </CCardBody>
         </CCard>
       </CCol>
@@ -63,7 +56,7 @@ const OrderList = () => {
         visible={showModal}
         setVisible={setShowModal}
         onChange={handleOrderModalOnChange}
-        upDate={handleShowMaterialDetailModal}
+        upDate={handleShowDetailModal}
         readOnly
       />
     </CRow>

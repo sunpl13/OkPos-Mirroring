@@ -208,7 +208,7 @@ const NoticeDetail = ({
               label='이미지 첨부'
               fileList={iamgeList}
               setFileList={setImageList}
-              images={value.imageUrls}
+              images={value?.imageUrls}
               imgPath='notice_images'
               readOnly={isReadOnly}
             />
