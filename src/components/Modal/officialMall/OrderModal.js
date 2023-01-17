@@ -315,7 +315,12 @@ const OrderModal = ({value, visible, setVisible}) => {
           <CButton className='me-md-2' color='success' size='sm' onClick={handleOrderStatus}>
             주문상태 변경
           </CButton>
-          <CFormInput className='me-md-2 orderInvoiceForm' size='sm' onChange={invoiceChange} />
+          <CFormInput
+            className='me-md-2 orderInvoiceForm'
+            placeholder='송장번호 입력'
+            size='sm'
+            onChange={invoiceChange}
+          />
           <CButton className='me-md-2' color='warning' size='sm' onClick={handleOrderInvoice}>
             송장등록
           </CButton>
