@@ -168,7 +168,6 @@ const DataRoomList = () => {
       title: '',
       content: '',
       category: '',
-      content: '',
       images: [],
       files: [],
     }
