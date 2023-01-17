@@ -82,7 +82,7 @@ const BannerDetailModal = ({
               onChangeImage={onChangeImage}
               readOnly={isReadOnly}
               disabled={isReadOnly}
-              imgPath='mall_banner_images'
+              imgPath='mall/banner_images'
               isRequired
             />
           </CRow>
