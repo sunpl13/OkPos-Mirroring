@@ -286,6 +286,7 @@ const ListTemplate = ({
         }}
         scopedColumns={{
           bannerId: (item, index) => <td>{index + 1}</td>,
+          faqId: (item, index) => <td>{index + 1}</td>,
           checkBox: item => (
             <td onClick={event => event.stopPropagation()}>
               <CFormCheck onChange={() => handleItemOnSelected(item)} checked={item.checked || false} />
