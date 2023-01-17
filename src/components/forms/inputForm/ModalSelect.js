@@ -27,7 +27,7 @@ const ModalSelect = ({
       </CFormLabel>
       <CCol xs={xs}>
         <CFormSelect value={value} disabled={disabled} id={id} size={size} onChange={onChange} readOnly={readOnly}>
-          <option>{placeholder}</option>
+          <option value=''>{placeholder}</option>
           {newOptions}
         </CFormSelect>
       </CCol>
