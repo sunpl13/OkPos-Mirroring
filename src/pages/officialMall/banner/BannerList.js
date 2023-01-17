@@ -173,6 +173,7 @@ const BannerList = () => {
 
   // 자료 추가 Modal Open 함수
   const handleShowFaqItemAddModal = () => {
+    if (bannerList.length >= 5) return alert('배너는 최대 5개까지 만들 수 있습니다.')
     setSelectedItem(setInitItem)
     setIsReadOnly(false)
     setIsUpdate(false)
@@ -203,10 +204,11 @@ const BannerList = () => {
 
   // 배너 업데이트
   const handleDetailModalUpdate = async () => {
+    if (bannerList.length >= 5) return alert('배너는 최대 5개까지 만들 수 있습니다.')
     const {bannerId, title, subTitle, image} = selectedItem
     // validation
     if (!title) return alert('배너 타이틀을 입력해주세요.')
-    if (title.length > 30) return alert('배너 타이틀을 글자수 초과입니다.(30자)')
+    if (title.length > 30) return alert('배너 타이틀 글자수 초과입니다.(30자)')
     if (!subTitle) return alert('서브 타이틀을 입력해주세요.')
     if (subTitle > 15) return alert('서브 타이틀 글자수 초과입니다.(15자)')
     if (!image) return alert('이미지를 등록해주세요.')

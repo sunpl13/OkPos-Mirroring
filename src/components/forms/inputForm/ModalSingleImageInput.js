@@ -4,6 +4,7 @@ import {PlusOutlined} from '@ant-design/icons'
 import {returnBucketNameFile} from '../../../utils/awsCustom'
 import {CCol, CFormLabel, CImage} from '@coreui/react'
 import styled from 'styled-components'
+import {useState} from 'react'
 
 const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, filePath, isRequired}) => {
   const beforeUpload = file => {
@@ -119,7 +120,7 @@ const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, fileP
       {image && (
         <>
           <CFormLabel className='col-sm-2 col-form-label'>
-            <span>전체보기</span>
+            <span>이미지 보기</span>
           </CFormLabel>
           <CCol className='align-items-center col-sm-10'>
             <CImage rounded fluid src={image} />
