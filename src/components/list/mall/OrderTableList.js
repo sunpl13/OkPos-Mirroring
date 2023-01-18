@@ -85,10 +85,11 @@ const OrderTableList = ({
     if (value) {
       setFilterItems(
         listItems.filter(order => {
-          for (let i = 0; i < order.subInfos.length; i++)
+          for (let i = 0; i < order.subInfos.length; i++) {
             if (order.subInfos[i].orderStatus === value) {
               return true
             }
+          }
         }),
       )
     } else {

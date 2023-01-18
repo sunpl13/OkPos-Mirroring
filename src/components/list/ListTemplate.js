@@ -167,34 +167,6 @@ const ListTemplate = ({
     }
   }
 
-  useEffect(() => {
-    // data picker 에 선택된 값
-    if (endDate) {
-      if (listItems[0]?.orderDate) {
-        setFilterItems(
-          listItems.filter(
-            value =>
-              moment(value.orderDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') >= startDate &&
-              moment(value.orderDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
-          ),
-        )
-      } else {
-        // default 는 createdAt 그 외 하고 싶은 값은 위에 작성
-        setFilterItems(
-          listItems.filter(
-            value =>
-              moment(value.createdAt, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') >= startDate &&
-              moment(value.createdAt, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
-          ),
-        )
-      }
-
-      // 생성일로 필터
-    } else {
-      setFilterItems('')
-    }
-  }, [endDate])
-
   return (
     <>
       <CRow className={'justify-content-end align-items-end pb-2'}>
