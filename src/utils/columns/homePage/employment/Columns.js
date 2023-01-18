@@ -27,8 +27,8 @@ export const employmentColumns = [
     filter: false,
   },
   {
-    key: 'proceed',
+    key: 'proceedStatus',
     label: '진행 상태',
-    _props: {color: 'primary', className: 'proceed'},
+    _props: {color: 'primary', className: 'proceedStatus'},
   },
 ]
