@@ -45,7 +45,7 @@ export const getDetailInfo = async (url, id) => {
   }
 }
 
-// Deleted
+// deleted or upDate
 export const deletedInfo = async (url, id, data) => {
   try {
     const {

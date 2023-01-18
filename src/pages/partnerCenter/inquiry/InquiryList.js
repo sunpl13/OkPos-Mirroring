@@ -42,7 +42,7 @@ const InquiryList = () => {
       .then(res => {
         setSelectedItem(res)
         if (res?.inquiryReplies.length !== 0) {
-          setEditCheck(res?.inquiryReplies[0].content)
+          setEditCheck(res?.inquiryReplies[0])
           setEditor(res?.inquiryReplies[0].content)
         }
       })
@@ -50,7 +50,8 @@ const InquiryList = () => {
   }
   // Close Modal
   const handleDetailModalOnClose = () => {
-    if (editCheck.length !== 0 && editCheck !== editor) {
+    const {content} = editCheck
+    if (content?.length !== 0 && content !== editor) {
       if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
         return setShowModal(false)
       } else {
@@ -84,7 +85,7 @@ const InquiryList = () => {
   const handleInquiryModalUpdate = async () => {
     const {id} = selectedItem
     if (editCheck.length !== 0) {
-      const replyId = editCheck[0]?.id
+      const replyId = editCheck?.id
       if (window.confirm('답변을 수정하시겠습니까?')) {
         if (!editor) return alert('답변을 작성해 주세요.')
         upDateInfo(`${EndPoint.PARTNER_INQUIRIES}/reply`, replyId, {
