@@ -62,7 +62,6 @@ const ListTemplate = ({
     } else {
       item.checked = false
     }
-    console.log(item)
   }
   // 테이블 헤더의 전체 체크박스
   const allCheckBox = {
@@ -303,7 +302,7 @@ const ListTemplate = ({
               )}
             </td>
           ),
-          invoiceNum: row => <td onClick={event => func(row, event)}>{row.invoiceNum}</td>,
+          invoiceNum: row => <td onClick={event => func(row, event)}>{row.invoiceNum || '송장번호 입력'}</td>,
         }}
         noItemsLabel={'데이터가 없습니다.'}
         itemsPerPage={20}

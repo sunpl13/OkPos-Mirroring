@@ -63,7 +63,13 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
         .catch(err => console.log(err))
     }
   }
-
+  // 송장 번호 조회
+  const handleInvoiceSearch = async () => {
+    const {invoiceNum} = selectedItem
+    if (invoiceNum) {
+      window.open(`https://www.ilogen.com/web/personal/trace/${invoiceNum}`, '_blank')
+    }
+  }
   useEffect(() => {
     setOrderItemList(orderItemPartnerDTOs)
     if (!visible) {
@@ -213,19 +219,19 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
       </CRow>
       {invoiceEditModal && (
         <InvoiceEditModal
-          tabindex={2}
-          title={'운송장 번호'}
+          title={'송장 번호'}
           visible={invoiceEditModal}
           setVisible={setInvoiceEditModal}
           mousePos={mousePos}
           btnText={'등록'}
           upDate={handleInvoiceEditModalUpDate}
+          search={handleInvoiceSearch}
         >
           <CCol className='align-items-center' xs={'xs'} style={{display: 'flex'}}>
             <CFormInput
               id={'invoiceNum'}
               type={'text'}
-              placeholder={'운송장 번호를 등록해 주세요.'}
+              placeholder={'송장 번호를 등록해 주세요.'}
               value={selectedItem?.invoiceNum || ''}
               onChange={handleInvoiceOnChange}
             />

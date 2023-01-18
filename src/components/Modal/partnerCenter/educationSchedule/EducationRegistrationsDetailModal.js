@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
 import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import {CRow} from '@coreui/react'
@@ -36,9 +36,16 @@ const EducationRegistrationsDetailModal = ({
     applicantsCap, // 교육 신청 제한 인원
     id, // 교육신청 고고 ID
     place, // 교육 장소
-    start, // 교육신청 시작일
     title, // 교육신청 공고 제목
   } = value
+  useEffect(() => {
+    if (singleDate <= endDate) {
+      return setSingleDate(endDate)
+    } else if (endDate && !singleDate) {
+      return setSingleDate(endDate)
+    } else if (!endDate && !singleDate) {
+    }
+  }, [endDate, singleDate])
   return (
     <DetailModalEditModeTemplate
       title={id ? '교육 신청 상세' : '교육 신청 추가'}
@@ -76,6 +83,7 @@ const EducationRegistrationsDetailModal = ({
               onChange={onChange}
               readOnly={id && editMode}
               disabled={id && editMode}
+              disabledDate={setSingleDate}
               isRequired
             />
             <ModalSingleDatePicker
@@ -87,6 +95,7 @@ const EducationRegistrationsDetailModal = ({
               onChange={onChange}
               readOnly={id && editMode}
               disabled={id && editMode}
+              disabledDate={endDate}
               isRequired
             />
           </CRow>
@@ -95,7 +104,7 @@ const EducationRegistrationsDetailModal = ({
               id={'start'}
               placeholder={'등록일'}
               label={'공고 등록일'}
-              value={start}
+              value={startDate}
               onChange={onChange}
               readOnly
               disabled
