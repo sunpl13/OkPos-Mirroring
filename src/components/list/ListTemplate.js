@@ -205,58 +205,9 @@ const ListTemplate = ({
 
   return (
     <>
-      <CRow className={'justify-content-end align-items-end'}>
-        {/*
-        {searchInputHidden && (
-          <CCol xs={4}>
-            <CInputGroup>
-              <CDropdown alignment='end' variant='input-group'>
-                <CDropdownToggle color='secondary' variant='outline' split>
-                  {searchSelectedBox[searchOption?.category]}
-                </CDropdownToggle>
-                <CFormInput
-                  aria-label='Text input with segmented dropdown button'
-                  onChange={({target: {value}}) =>
-                    setSearchOption({
-                      ...searchOption,
-                      value: value,
-                    })
-                  }
-                />
-                <CDropdownMenu>
-                  {columns.map(({key}) => {
-                    if (key !== 'createdAt' && key !== 'noticeFiles' && key !== searchOption.category) {
-                      //console.log(searchSelectedBox[key])
-                      return (
-                        <CDropdownItem
-                          key={key}
-                          value={searchSelectedBox[key]}
-                          onClick={() => handleSearchItemOnClick(key)}
-                        >
-                          {searchSelectedBox[key]}
-                        </CDropdownItem>
-                      )
-                    }
-                  })}
-                </CDropdownMenu>
-              </CDropdown>
-              <CButton type='button' color='secondary' variant='outline' onClick={() => itemOnSearch(searchOption)}>
-                검색
-              </CButton>
-            </CInputGroup>
-          </CCol>
-        )}
-        */}
-
-        {/*{datePickerHidden && (
-          <CCol xs={4}>
-            <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
-          </CCol>
-        )}*/}
+      <CRow className={'justify-content-end align-items-end pb-2'}>
         {datePickerHidden && <RangeDatePicker datePicker={datePickerOnChange} options={datePickerOptions} />}
       </CRow>
-
-      <br />
       <CSmartTable
         items={filterItems || listItems}
         columns={checkBoxInputHidden ? [allCheckBox, ...columns] : columns || null}
@@ -264,12 +215,6 @@ const ListTemplate = ({
         pagination
         clickableRows
         columnFilter
-        //onActivePageChange={selectPage => pageOnChange(selectPage)}
-        // paginationProps={{
-        //   activePage: currentPage,
-        //   align: 'center',
-        //   pages: totalPage,
-        // }}
         paginationProps={{
           limit: 10,
         }}
@@ -285,6 +230,7 @@ const ListTemplate = ({
           className: className,
         }}
         scopedColumns={{
+          userId: (item, index) => <td>{index + 1}</td>,
           bannerId: (item, index) => <td>{index + 1}</td>,
           faqId: (item, index) => <td>{index + 1}</td>,
           checkBox: item => (

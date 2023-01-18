@@ -104,7 +104,7 @@ const OrderTableList = ({
 
   return (
     <>
-      <CRow className={'d-md-flex justify-content-md-end pt-2 pb-2'}>
+      <CRow className={'d-md-flex justify-content-md-end pb-2'}>
         {dataSearch && (
           <CFormSelect className='me-md-2 orderStatusForm' size='sm' onChange={orderStatusChange}>
             <option value=''>전체보기</option>
