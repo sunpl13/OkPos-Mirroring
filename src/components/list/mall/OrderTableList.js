@@ -176,6 +176,10 @@ const OrderTableList = ({
           className: className,
         }}
         scopedColumns={{
+          // No 값
+          orderId: (item, index) => <td>{items.length - index}</td>,
+          orderCancelId: (item, index) => <td>{items.length - index}</td>,
+          orderExchangeId: (item, index) => <td>{items.length - index}</td>,
           radioButton: (item, index) => (
             <td>
               <input id={`${index}`} name='select-radio' type='radio' onClick={() => setSelectedProduct(item)} />

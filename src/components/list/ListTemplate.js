@@ -143,14 +143,6 @@ const ListTemplate = ({
 
   useEffect(() => {
     setListItems(items)
-    /*
-    if (columns) {
-      setSearchOption({
-        ...searchOption,
-        category: columns[0].key,
-      })
-    }
-    */
   }, [items])
 
   const formatTimes = (value, format) => {
@@ -230,9 +222,15 @@ const ListTemplate = ({
           className: className,
         }}
         scopedColumns={{
-          userId: (item, index) => <td>{index + 1}</td>,
-          bannerId: (item, index) => <td>{index + 1}</td>,
-          faqId: (item, index) => <td>{index + 1}</td>,
+          // No 값
+          userId: (item, index) => <td>{items.length - index}</td>,
+          bannerId: (item, index) => <td>{items.length - index}</td>,
+          inquiryId: (item, index) => <td>{items.length - index}</td>,
+          faqId: (item, index) => <td>{items.length - index}</td>,
+          dataRoomId: (item, index) => <td>{items.length - index}</td>,
+          orderId: (item, index) => <td>{items.length - index}</td>,
+          orderCancelId: (item, index) => <td>{items.length - index}</td>,
+          orderExchangeId: (item, index) => <td>{items.length - index}</td>,
           checkBox: item => (
             <td onClick={event => event.stopPropagation()}>
               <CFormCheck onChange={() => handleItemOnSelected(item)} checked={item.checked || false} />
@@ -288,8 +286,7 @@ const ListTemplate = ({
               <CBadge color={'danger'}>삭제</CBadge>
             </td>
           ),
-          //
-          //category: ({category}) => <td>{selectedOptions ? selectedOptions[category] : ''}</td>,
+
           jobType: ({jobType}) => <td>{selectedOptions ? selectedOptions[jobType] : ''}</td>,
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           inquiryType: ({inquiryType}) => <td>{selectedOptions ? selectedOptions[inquiryType] : ''}</td>,
@@ -337,25 +334,8 @@ const ListTemplate = ({
             </td>
           ),
           invoiceNum: row => <td onClick={event => func(row, event)}>{row.invoiceNum}</td>,
-          // 변수명 겹침
-          // image: ({image}) => (
-          //   <td onClick={event => (image.length !== 0 && image[0] !== '.' ? testOnClick(event, image[0]) : onClick)}>
-          //     {image.length === 0 || image[0] === '.' ? (
-          //       ''
-          //     ) : (
-          //       <CImage
-          //         rounded
-          //         src={antdImageFormat(image[0])}
-          //         alt={antdImageFormat(image[0])}
-          //         width={100}
-          //         height={60}
-          //       />
-          //     )}
-          //   </td>
-          // ),
         }}
         noItemsLabel={'데이터가 없습니다.'}
-        //itemsPerPageSelect={itemPerPageHidden}
         itemsPerPage={20}
       />
       {showModal ? (
