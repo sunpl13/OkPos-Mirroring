@@ -1,16 +1,15 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {ConfigProvider, DatePicker, Space} from 'antd'
 import dayjs from 'dayjs'
 import moment from 'moment'
 import 'moment/locale/ko'
 import locale from 'antd/lib/locale/ko_KR'
-import {CCol, CFormLabel, CRow} from '@coreui/react'
+import {CCol, CFormLabel} from '@coreui/react'
 import styled from 'styled-components'
 
-const ModalSingleDatePicker = ({id, label, isRequired, readOnly, value, setValue, placeholder}) => {
-  const {RangePicker} = DatePicker
+const ModalSingleDatePicker = ({id, label, isRequired, readOnly, value, setValue, placeholder, disabledDate}) => {
   moment.locale('ko')
-  const dateFormat = 'YYYY.MM.DD'
+  const dateFormat = 'YYYY-MM-DD'
   const datePickerOnChange = date => {
     if (date) {
       setValue(moment(date?.$d).format('YYYY.MM.DD'))
@@ -28,7 +27,7 @@ const ModalSingleDatePicker = ({id, label, isRequired, readOnly, value, setValue
           <Space direction='vertical' size={12}>
             <DatePicker
               allowClear={true}
-              defaultValue={value && dayjs(value, dateFormat)}
+              value={value && dayjs(value, dateFormat)}
               format={dateFormat}
               placeholder={placeholder}
               onChange={datePickerOnChange}
@@ -42,6 +41,7 @@ const ModalSingleDatePicker = ({id, label, isRequired, readOnly, value, setValue
 }
 
 export default ModalSingleDatePicker
+
 const PickerCCol = styled(CCol)`
   display: flex;
   flex-direction: row;
