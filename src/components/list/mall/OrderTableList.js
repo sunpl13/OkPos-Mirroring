@@ -85,10 +85,11 @@ const OrderTableList = ({
     if (value) {
       setFilterItems(
         listItems.filter(order => {
-          for (let i = 0; i < order.subInfos.length; i++)
+          for (let i = 0; i < order.subInfos.length; i++) {
             if (order.subInfos[i].orderStatus === value) {
               return true
             }
+          }
         }),
       )
     } else {
@@ -104,7 +105,7 @@ const OrderTableList = ({
 
   return (
     <>
-      <CRow className={'d-md-flex justify-content-md-end pt-2 pb-2'}>
+      <CRow className={'d-md-flex justify-content-md-end pb-2'}>
         {dataSearch && (
           <CFormSelect className='me-md-2 orderStatusForm' size='sm' onChange={orderStatusChange}>
             <option value=''>전체보기</option>
@@ -176,6 +177,10 @@ const OrderTableList = ({
           className: className,
         }}
         scopedColumns={{
+          // No 값
+          orderId: (item, index) => <td>{items.length - index}</td>,
+          orderCancelId: (item, index) => <td>{items.length - index}</td>,
+          orderExchangeId: (item, index) => <td>{items.length - index}</td>,
           radioButton: (item, index) => (
             <td>
               <input id={`${index}`} name='select-radio' type='radio' onClick={() => setSelectedProduct(item)} />

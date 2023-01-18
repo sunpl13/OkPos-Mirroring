@@ -93,7 +93,7 @@ const ProductList = ({
           limit: 10,
         }}
         tableHeadProps={{
-          color: 'primary',
+          id: 'smTable',
         }}
         clickableRows
         onRowClick={onClickRadioButton}

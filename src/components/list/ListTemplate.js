@@ -143,14 +143,6 @@ const ListTemplate = ({
 
   useEffect(() => {
     setListItems(items)
-    /*
-    if (columns) {
-      setSearchOption({
-        ...searchOption,
-        category: columns[0].key,
-      })
-    }
-    */
   }, [items])
 
   const formatTimes = (value, format) => {
@@ -175,88 +167,11 @@ const ListTemplate = ({
     }
   }
 
-  useEffect(() => {
-    // data picker 에 선택된 값
-    if (endDate) {
-      if (listItems[0]?.orderDate) {
-        setFilterItems(
-          listItems.filter(
-            value =>
-              moment(value.orderDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') >= startDate &&
-              moment(value.orderDate, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
-          ),
-        )
-      } else {
-        // default 는 createdAt 그 외 하고 싶은 값은 위에 작성
-        setFilterItems(
-          listItems.filter(
-            value =>
-              moment(value.createdAt, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') >= startDate &&
-              moment(value.createdAt, 'YYYYMMDDHHmmss').format('YYYY-MM-DD') <= endDate,
-          ),
-        )
-      }
-
-      // 생성일로 필터
-    } else {
-      setFilterItems('')
-    }
-  }, [endDate])
-
   return (
     <>
-      <CRow className={'justify-content-end align-items-end'}>
-        {/*
-        {searchInputHidden && (
-          <CCol xs={4}>
-            <CInputGroup>
-              <CDropdown alignment='end' variant='input-group'>
-                <CDropdownToggle color='secondary' variant='outline' split>
-                  {searchSelectedBox[searchOption?.category]}
-                </CDropdownToggle>
-                <CFormInput
-                  aria-label='Text input with segmented dropdown button'
-                  onChange={({target: {value}}) =>
-                    setSearchOption({
-                      ...searchOption,
-                      value: value,
-                    })
-                  }
-                />
-                <CDropdownMenu>
-                  {columns.map(({key}) => {
-                    if (key !== 'createdAt' && key !== 'noticeFiles' && key !== searchOption.category) {
-                      //console.log(searchSelectedBox[key])
-                      return (
-                        <CDropdownItem
-                          key={key}
-                          value={searchSelectedBox[key]}
-                          onClick={() => handleSearchItemOnClick(key)}
-                        >
-                          {searchSelectedBox[key]}
-                        </CDropdownItem>
-                      )
-                    }
-                  })}
-                </CDropdownMenu>
-              </CDropdown>
-              <CButton type='button' color='secondary' variant='outline' onClick={() => itemOnSearch(searchOption)}>
-                검색
-              </CButton>
-            </CInputGroup>
-          </CCol>
-        )}
-        */}
-
-        {/*{datePickerHidden && (
-          <CCol xs={4}>
-            <RangeDatePicker setStartDate={setStartDate} setEndDate={setEndDate} />
-          </CCol>
-        )}*/}
+      <CRow className={'justify-content-end align-items-end pb-2'}>
         {datePickerHidden && <RangeDatePicker datePicker={datePickerOnChange} options={datePickerOptions} />}
       </CRow>
-
-      <br />
       <CSmartTable
         items={filterItems || listItems}
         columns={checkBoxInputHidden ? [allCheckBox, ...columns] : columns || null}
@@ -264,12 +179,6 @@ const ListTemplate = ({
         pagination
         clickableRows
         columnFilter
-        //onActivePageChange={selectPage => pageOnChange(selectPage)}
-        // paginationProps={{
-        //   activePage: currentPage,
-        //   align: 'center',
-        //   pages: totalPage,
-        // }}
         paginationProps={{
           limit: 10,
         }}
@@ -285,8 +194,15 @@ const ListTemplate = ({
           className: className,
         }}
         scopedColumns={{
-          bannerId: (item, index) => <td>{index + 1}</td>,
-          faqId: (item, index) => <td>{index + 1}</td>,
+          // No 값
+          userId: (item, index) => <td>{items.length - index}</td>,
+          bannerId: (item, index) => <td>{items.length - index}</td>,
+          inquiryId: (item, index) => <td>{items.length - index}</td>,
+          faqId: (item, index) => <td>{items.length - index}</td>,
+          dataRoomId: (item, index) => <td>{items.length - index}</td>,
+          orderId: (item, index) => <td>{items.length - index}</td>,
+          orderCancelId: (item, index) => <td>{items.length - index}</td>,
+          orderExchangeId: (item, index) => <td>{items.length - index}</td>,
           checkBox: item => (
             <td onClick={event => event.stopPropagation()}>
               <CFormCheck onChange={() => handleItemOnSelected(item)} checked={item.checked || false} />
@@ -342,7 +258,6 @@ const ListTemplate = ({
               <CBadge color={'danger'}>삭제</CBadge>
             </td>
           ),
-          //category: ({category}) => <td>{selectedOptions ? selectedOptions[category] : ''}</td>,
           jobType: ({jobType}) => <td>{selectedOptions ? selectedOptions[jobType] : ''}</td>,
           education: ({education}) => <td>{selectedOptions ? selectedOptions[education] : ''}</td>,
           inquiryType: ({inquiryType}) => <td>{selectedOptions ? selectedOptions[inquiryType] : ''}</td>,
@@ -389,25 +304,8 @@ const ListTemplate = ({
             </td>
           ),
           invoiceNum: row => <td onClick={event => func(row, event)}>{row.invoiceNum}</td>,
-          // 변수명 겹침
-          // image: ({image}) => (
-          //   <td onClick={event => (image.length !== 0 && image[0] !== '.' ? testOnClick(event, image[0]) : onClick)}>
-          //     {image.length === 0 || image[0] === '.' ? (
-          //       ''
-          //     ) : (
-          //       <CImage
-          //         rounded
-          //         src={antdImageFormat(image[0])}
-          //         alt={antdImageFormat(image[0])}
-          //         width={100}
-          //         height={60}
-          //       />
-          //     )}
-          //   </td>
-          // ),
         }}
         noItemsLabel={'데이터가 없습니다.'}
-        //itemsPerPageSelect={itemPerPageHidden}
         itemsPerPage={20}
       />
       {showModal ? (
