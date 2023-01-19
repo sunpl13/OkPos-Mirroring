@@ -238,7 +238,7 @@ export const orderList = [
 
   {
     key: 'createdAt',
-    label: '주문 일자',
+    label: '신청 일자',
     _props: {className: 'createdAt'},
     filter: false,
   },
@@ -310,7 +310,7 @@ export const maintenanceApplicationList = [
 
   {
     key: 'createdAt',
-    label: '주문 일자',
+    label: '신청 일자',
     _props: {className: 'createdAt'},
     filter: false,
   },

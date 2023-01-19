@@ -1,6 +1,5 @@
 import {ConfigProvider, DatePicker, Space} from 'antd'
 import locale from 'antd/lib/locale/ko_KR'
-//import 'antd/dist/antd.min.css'
 import moment from 'moment'
 import 'moment/locale/ko'
 import {CCol, CFormLabel} from '@coreui/react'
@@ -36,15 +35,14 @@ const ModalRangeDatePicker = ({
       <CFormLabel htmlFor={`${id}Static`} className='col-sm-2 col-form-label'>
         <span className={isRequired ? 'required' : ''}>{label || ' * '}</span>
       </CFormLabel>
-      <PickerCCol className={'fsfsfs'}>
+      <PickerCCol>
         <ConfigProvider locale={locale}>
           <Space direction='vertical'>
             <RangePicker
               allowClear={true}
               onChange={datePickerOnChange}
-              defaultValue={startDate && endDate && [dayjs(startDate, dateFormat), dayjs(endDate, dateFormat)]}
+              value={startDate && endDate && [dayjs(startDate, dateFormat), dayjs(endDate, dateFormat)]}
               disabled={readOnly}
-              className={'qqqqq'}
             />
           </Space>
         </ConfigProvider>
