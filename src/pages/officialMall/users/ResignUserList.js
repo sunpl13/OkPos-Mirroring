@@ -76,7 +76,11 @@ const ResignUserList = () => {
         }
         return
       }
-      setResignUserList(res.result.resignUserInfos)
+      setResignUserList(
+        res.result.resignUserInfos.map((item, index) => {
+          return {...item, no: res.result.resignUserInfos.length - index}
+        }),
+      )
       setChartData([
         res.result.countResignReasonByService,
         res.result.countResignReasonByPrice,

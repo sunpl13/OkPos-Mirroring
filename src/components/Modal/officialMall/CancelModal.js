@@ -125,7 +125,7 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList, onLo
             id={'orderCancelId'}
             placeholder={'orderCancelId'}
             label={'No'}
-            value={order.orderCancelId}
+            value={order.no}
             readOnly
             disabled
           />

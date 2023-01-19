@@ -1,6 +1,6 @@
 import {CFormSelect} from '@coreui/react' // 회원 리스트
 export const userListColumns = [
-  {key: 'userId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'no', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'name', label: '이름', _props: {className: 'name'}},
   {key: 'email', label: '이메일', _props: {className: 'email'}},
   {key: 'phoneNumber', label: '휴대전화번호', _props: {className: 'phoneNumber'}},
@@ -10,7 +10,7 @@ export const userListColumns = [
 
 // 탈퇴회원 리스트
 export const resignUserListColumns = [
-  {key: 'userId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'no', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'name', label: '이름', _props: {className: 'name'}},
   {key: 'email', label: '이메일', _props: {className: 'email'}},
   {key: 'phoneNumber', label: '휴대전화번호', _props: {className: 'phoneNumber'}},
@@ -22,7 +22,7 @@ export const resignUserListColumns = [
 
 // 1:1 문의 리스트
 export const inquiryListColumns = [
-  {key: 'inquiryId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'no', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'category', label: '카테고리', _props: {className: 'category'}},
   {key: 'title', label: '제목', _props: {className: 'title'}},
   {key: 'name', label: '이름', _props: {className: 'name'}},
@@ -32,14 +32,14 @@ export const inquiryListColumns = [
 
 // FAQ 리스트
 export const faqListColumns = [
-  {key: 'faqId', label: 'INDEX', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'no', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'category', label: '카테고리', _props: {className: 'category'}},
   {key: 'title', label: '제목', _props: {className: 'title'}},
 ]
 
 // 자료실 리스트
 export const dataRoomListColumns = [
-  {key: 'dataRoomId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'no', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'category', label: '카테고리', _props: {className: 'category'}},
   {key: 'title', label: '제목', _props: {className: 'title'}},
   {key: 'createdAt', label: '작성일', sorter: false, filter: false, _props: {className: 'createdAt'}},
@@ -47,7 +47,7 @@ export const dataRoomListColumns = [
 
 // 주문 현황 관리
 export const orderListColumns = [
-  {key: 'orderId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'no', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'orderNumber', label: '주문번호', sorter: false, _props: {className: 'orderNumber'}},
   {key: 'receiver', label: '수취인', sorter: false, _props: {className: 'receiver'}},
   {key: 'phoneNumber', label: '휴대전화번호', sorter: false, _props: {className: 'phoneNumber'}},
@@ -67,7 +67,7 @@ export const productListColumns = [
 
 // 취소 현황 관리
 export const cancelListColumns = [
-  {key: 'orderCancelId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'no', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'orderNumber', label: '주문번호', sorter: false, _props: {className: 'orderNumber'}},
   {key: 'itemName', label: '제품명', sorter: false, _props: {className: 'itemName'}},
   {key: 'receiver', label: '수취인', sorter: false, _props: {className: 'receiver'}},
@@ -96,7 +96,7 @@ export const cancelListColumns = [
 ]
 // 취소 현황 관리
 export const exchangeListColumns = [
-  {key: 'orderExchangeId', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'no', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'orderNumber', label: '주문번호', sorter: false, _props: {className: 'orderNumber'}},
   {key: 'itemName', label: '제품명', sorter: false, _props: {className: 'itemName'}},
   {key: 'receiver', label: '수취인', sorter: false, _props: {className: 'receiver'}},
@@ -112,7 +112,7 @@ export const exchangeListColumns = [
 
 // 배너 관리
 export const bannerListColumns = [
-  {key: 'bannerId', label: 'INDEX', sorter: false, filter: false, _props: {className: 'no'}},
+  {key: 'no', label: 'No', sorter: false, filter: false, _props: {className: 'no'}},
   {key: 'title', label: '배너 타이틀', sorter: false, _props: {className: 'title'}},
   {key: 'image', label: '이미지', sorter: false, filter: false, _props: {className: 'image'}},
 ]

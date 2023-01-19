@@ -12,8 +12,6 @@ const BannerDetailModal = ({
   onDelete,
   visible,
   setVisible,
-  imageList,
-  setImageList,
   isReadOnly,
   setIsReadOnly,
   isUpdate,
@@ -46,7 +44,7 @@ const BannerDetailModal = ({
         <CForm>
           <CRow className={'p-2'}>
             {(isReadOnly || isUpdate) && (
-              <ModalInput id={'bannerId'} placeholder={''} label={'No'} value={item.bannerId || ''} readOnly disabled />
+              <ModalInput id={'bannerId'} placeholder={''} label={'No'} value={item.no || ''} readOnly disabled />
             )}
           </CRow>
           <CRow className={'p-2'}>

@@ -39,7 +39,11 @@ const DataRoomList = () => {
           alert(res?.message)
         }
       } else {
-        setItems(res.result.dataRoomInfos)
+        setItems(
+          res.result.dataRoomInfos.map((item, index) => {
+            return {...item, no: res.result.dataRoomInfos.length - index}
+          }),
+        )
       }
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -47,7 +51,7 @@ const DataRoomList = () => {
   }
 
   // 자료 상세 조회
-  const onLoadMallDataRoom = async dataRoomId => {
+  const onLoadMallDataRoom = async (dataRoomId, no) => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
@@ -65,7 +69,7 @@ const DataRoomList = () => {
       }
 
       res.result.dataRoomId = dataRoomId
-      setSelectedItem(res.result)
+      setSelectedItem({...res.result, no: no})
       setContent(res.result.content)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -184,7 +188,7 @@ const DataRoomList = () => {
     setShowModal(!showModal)
   }
   const handleShowDataRoomDetailModal = item => {
-    onLoadMallDataRoom(item.dataRoomId)
+    onLoadMallDataRoom(item.dataRoomId, item.no)
     setIsReadOnly(true)
     setIsUpdate(false)
     setShowModal(!showModal)

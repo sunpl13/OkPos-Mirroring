@@ -224,7 +224,7 @@ const OrderModal = ({value, visible, setVisible}) => {
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
-          <ModalInput id={'orderId'} placeholder={'User Id'} label={'No'} value={order.orderId} readOnly disabled />
+          <ModalInput id={'orderId'} placeholder={'User Id'} label={'No'} value={order.no} readOnly disabled />
           <ModalInput
             id={'orderNumber'}
             placeholder={''}

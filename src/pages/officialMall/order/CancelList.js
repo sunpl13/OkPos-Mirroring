@@ -35,7 +35,11 @@ const CancelList = () => {
         }
         return
       }
-      setCanelList(res.result.responses)
+      setCanelList(
+        res.result.responses.map((item, index) => {
+          return {...item, no: res.result.responses.length - index}
+        }),
+      )
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')

@@ -125,7 +125,7 @@ const ExchangeModal = ({value, visible, setVisible, exchangeList, setExchangeLis
             id={'orderExchangeId'}
             placeholder={'orderExchangeId'}
             label={'No'}
-            value={order.orderExchangeId}
+            value={order.no}
             readOnly
             disabled
           />

@@ -35,7 +35,12 @@ const UserList = () => {
         }
         return
       }
-      setUserList(res.result.userInfos)
+
+      setUserList(
+        res.result.userInfos.map((item, index) => {
+          return {...item, no: res.result.userInfos.length - index}
+        }),
+      )
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')

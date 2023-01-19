@@ -57,7 +57,11 @@ const FaqList = () => {
           alert(res?.message)
         }
       } else {
-        setItems(res.result.faqInfos)
+        setItems(
+          res.result.faqInfos.map((item, index) => {
+            return {...item, no: res.result.faqInfos.length - index}
+          }),
+        )
       }
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -65,7 +69,7 @@ const FaqList = () => {
   }
 
   // Load FAQ Detail
-  const onLoadFaq = async faqId => {
+  const onLoadFaq = async (faqId, no) => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
@@ -82,7 +86,7 @@ const FaqList = () => {
         return
       }
       res.result.faqId = faqId
-      setSelectedItem(res.result)
+      setSelectedItem({...res.result, no: no})
       setContent(res.result.content)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -198,7 +202,7 @@ const FaqList = () => {
     setShowModal(!showModal)
   }
   const handleShowFaqDetailModal = item => {
-    onLoadFaq(item.faqId)
+    onLoadFaq(item.faqId, item.no)
     setIsReadOnly(true)
     setIsUpdate(false)
     setShowModal(!showModal)

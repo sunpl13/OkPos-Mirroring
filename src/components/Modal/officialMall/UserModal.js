@@ -74,7 +74,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}) => {
             id={'id'}
             placeholder={'User Id'}
             label={'No'}
-            value={value.userId}
+            value={value.no}
             onChange={onChange}
             readOnly
             disabled
