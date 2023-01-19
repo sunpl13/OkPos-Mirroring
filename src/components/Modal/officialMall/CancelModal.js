@@ -16,7 +16,7 @@ import {isPrice} from '../../../utils/utility'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 
-const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => {
+const CancelModal = ({value, visible, setVisible, cancelList, setCanelList, onLoadMallCancelList}) => {
   // 모듈 선언
   const navigate = useNavigate()
 
@@ -82,7 +82,7 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList}) => 
       const findIndex = cancelList.findIndex(product => product.orderCancelId === orderCancelId)
       cancelList[findIndex].orderStatus = orderStatus
       setCanelList(cancelList => [...cancelList])
-
+      await onLoadMallCancelList()
       alert(res?.message)
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')

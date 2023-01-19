@@ -77,6 +77,7 @@ const CancelList = () => {
         setVisible={setShowModal}
         cancelList={cancelList}
         setCanelList={setCanelList}
+        onLoadMallCancelList={onLoadMallCancelList}
         readOnly
       />
     </CRow>

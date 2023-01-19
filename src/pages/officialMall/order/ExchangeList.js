@@ -77,6 +77,7 @@ const ExchangeList = () => {
         setVisible={setShowModal}
         exchangeList={exchangeList}
         setExchangeList={setExchangeList}
+        onLoadMallexchangeList={onLoadMallexchangeList}
         readOnly
       />
     </CRow>
