@@ -46,6 +46,7 @@ const CancelModal = ({value, visible, setVisible, cancelList, setCanelList, onLo
     if (visible) {
       setOrder(value)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
 
   const closeModal = () => {

@@ -45,6 +45,8 @@ const ExchangeModal = ({value, visible, setVisible, exchangeList, setExchangeLis
     if (visible) {
       setOrder(value)
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
 
   const closeModal = () => {
