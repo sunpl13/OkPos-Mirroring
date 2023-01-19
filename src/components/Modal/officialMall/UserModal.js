@@ -58,6 +58,7 @@ const UserDetailModal = ({value, visible, setVisible, onChange}) => {
     if (visible) {
       onloadMallUser(value)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
 
   const closeModal = () => {

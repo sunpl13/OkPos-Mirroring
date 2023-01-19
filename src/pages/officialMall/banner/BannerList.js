@@ -164,6 +164,7 @@ const BannerList = () => {
 
   useEffect(() => {
     onLoadMallBannerList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 초기화

@@ -53,6 +53,7 @@ const OrderList = () => {
   // Life Cycle 선언
   useEffect(() => {
     onLoadMallorderList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 함수 선언

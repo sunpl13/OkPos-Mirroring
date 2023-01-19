@@ -181,6 +181,7 @@ const InquiryList = () => {
   // Life Cycle 선언
   useEffect(() => {
     onLoadMallInquiryList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 함수 선언

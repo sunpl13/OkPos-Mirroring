@@ -165,6 +165,7 @@ const DataRoomList = () => {
 
   useEffect(() => {
     onLoadMallDataRoomList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const setInitItem = () => {

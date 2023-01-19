@@ -184,6 +184,7 @@ const FaqList = () => {
 
   useEffect(() => {
     onLoadFaqList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function setInitItem() {

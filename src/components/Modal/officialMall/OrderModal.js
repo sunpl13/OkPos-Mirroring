@@ -50,6 +50,7 @@ const OrderModal = ({value, visible, setVisible}) => {
     if (visible) {
       setOrder(value)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
 
   const closeModal = () => {
