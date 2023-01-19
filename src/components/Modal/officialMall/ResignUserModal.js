@@ -60,6 +60,7 @@ const UserDetailModal = ({value, visible, setVisible}) => {
     if (visible) {
       onloadMallResignUser(value)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
 
   const closeModal = () => {
@@ -72,7 +73,7 @@ const UserDetailModal = ({value, visible, setVisible}) => {
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
-          <ModalInput id={'id'} placeholder={'User Id'} label={'No'} value={value.userId} readOnly disabled />
+          <ModalInput id={'id'} placeholder={'User Id'} label={'No'} value={value.no} readOnly disabled />
           <ModalInput id={'userName'} placeholder={'이름'} label={'이름'} value={resignUser.name} readOnly disabled />
         </CRow>
         <CRow className={'p-2'}>

@@ -43,14 +43,18 @@ const BannerList = () => {
           alert(res?.message)
         }
       }
-      setBannerList(res.result.bannerInfos)
+      setBannerList(
+        res.result.bannerInfos.map((item, index) => {
+          return {...item, no: res.result.bannerInfos.length - index}
+        }),
+      )
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
   }
 
   // 배너 상세 조회
-  const onLoadMallBanner = async bannerId => {
+  const onLoadMallBanner = async (bannerId, no) => {
     try {
       const {data: res} = await ApiConfig.request({
         method: HttpMethod.GET,
@@ -67,7 +71,7 @@ const BannerList = () => {
         return
       }
       res.result.bannerId = bannerId
-      setSelectedItem(res.result)
+      setSelectedItem({...res.result, no: no})
     } catch (error) {
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
     }
@@ -160,6 +164,7 @@ const BannerList = () => {
 
   useEffect(() => {
     onLoadMallBannerList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 초기화
@@ -180,7 +185,7 @@ const BannerList = () => {
     setShowModal(!showModal)
   }
   const handleShowDataRoomDetailModal = item => {
-    onLoadMallBanner(item.bannerId)
+    onLoadMallBanner(item.bannerId, item.no)
     setIsReadOnly(true)
     setIsUpdate(false)
     setShowModal(!showModal)

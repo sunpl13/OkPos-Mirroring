@@ -16,7 +16,7 @@ import {isPrice} from '../../../utils/utility'
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 
-const ExchangeModal = ({value, visible, setVisible, exchangeList, setExchangeList}) => {
+const ExchangeModal = ({value, visible, setVisible, exchangeList, setExchangeList, onLoadMallexchangeList}) => {
   // 모듈 선언
   const navigate = useNavigate()
 
@@ -45,6 +45,8 @@ const ExchangeModal = ({value, visible, setVisible, exchangeList, setExchangeLis
     if (visible) {
       setOrder(value)
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
 
   const closeModal = () => {
@@ -81,6 +83,7 @@ const ExchangeModal = ({value, visible, setVisible, exchangeList, setExchangeLis
       const findIndex = exchangeList.findIndex(product => product.orderExchangeId === orderExchangeId)
       exchangeList[findIndex].orderStatus = orderStatus
       setExchangeList(exchangeList => [...exchangeList])
+      await onLoadMallexchangeList()
 
       alert(res?.message)
     } catch (error) {
@@ -97,7 +100,6 @@ const ExchangeModal = ({value, visible, setVisible, exchangeList, setExchangeLis
   // 주문상태 변경 함수
   const handleOrderStatus = () => {
     if (!orderStatus) return alert('주문상태를 선택해주세요.')
-
     onUpdateOrderStatus(order.orderExchangeId, orderStatus)
     setOrderStatus('')
   }
@@ -123,7 +125,7 @@ const ExchangeModal = ({value, visible, setVisible, exchangeList, setExchangeLis
             id={'orderExchangeId'}
             placeholder={'orderExchangeId'}
             label={'No'}
-            value={order.orderExchangeId}
+            value={order.no}
             readOnly
             disabled
           />

@@ -50,6 +50,7 @@ const OrderModal = ({value, visible, setVisible}) => {
     if (visible) {
       setOrder(value)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
 
   const closeModal = () => {
@@ -224,7 +225,7 @@ const OrderModal = ({value, visible, setVisible}) => {
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
-          <ModalInput id={'orderId'} placeholder={'User Id'} label={'No'} value={order.orderId} readOnly disabled />
+          <ModalInput id={'orderId'} placeholder={'User Id'} label={'No'} value={order.no} readOnly disabled />
           <ModalInput
             id={'orderNumber'}
             placeholder={''}

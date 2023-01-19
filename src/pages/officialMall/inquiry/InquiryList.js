@@ -49,7 +49,11 @@ const InquiryList = () => {
         }
         return
       }
-      setInquiryList(res.result.inquiryInfos)
+      setInquiryList(
+        res.result.inquiryInfos.map((item, index) => {
+          return {...item, no: res.result.inquiryInfos.length - index}
+        }),
+      )
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -57,7 +61,7 @@ const InquiryList = () => {
   }
 
   // 1:1 문의 상세정보 조회
-  const onloadMallInquiry = async inquiryId => {
+  const onloadMallInquiry = async (inquiryId, no) => {
     try {
       const {data: res} = await ApiConfig.request({
         data: {},
@@ -75,7 +79,7 @@ const InquiryList = () => {
         }
         return
       }
-      await setSelectedItem(res.result)
+      await setSelectedItem({...res.result, no: no})
       await setInquiryReplyContent(res.result.inquiryReplyContent)
       if (res.result.inquiryReplyId) {
         setIsReadOnly(true)
@@ -177,13 +181,14 @@ const InquiryList = () => {
   // Life Cycle 선언
   useEffect(() => {
     onLoadMallInquiryList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 함수 선언
 
   // Open Modal
   const handleShowInquiryDetailModal = async item => {
-    await onloadMallInquiry(item.inquiryId)
+    await onloadMallInquiry(item.inquiryId, item.no)
     await setShowModal(!showModal)
   }
 

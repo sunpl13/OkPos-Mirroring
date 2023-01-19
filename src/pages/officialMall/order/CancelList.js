@@ -35,7 +35,11 @@ const CancelList = () => {
         }
         return
       }
-      setCanelList(res.result.responses)
+      setCanelList(
+        res.result.responses.map((item, index) => {
+          return {...item, no: res.result.responses.length - index}
+        }),
+      )
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -45,6 +49,7 @@ const CancelList = () => {
   // Life Cycle 선언
   useEffect(() => {
     onLoadMallCancelList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 함수 선언
@@ -77,6 +82,7 @@ const CancelList = () => {
         setVisible={setShowModal}
         cancelList={cancelList}
         setCanelList={setCanelList}
+        onLoadMallCancelList={onLoadMallCancelList}
         readOnly
       />
     </CRow>

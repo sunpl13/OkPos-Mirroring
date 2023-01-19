@@ -76,7 +76,11 @@ const ResignUserList = () => {
         }
         return
       }
-      setResignUserList(res.result.resignUserInfos)
+      setResignUserList(
+        res.result.resignUserInfos.map((item, index) => {
+          return {...item, no: res.result.resignUserInfos.length - index}
+        }),
+      )
       setChartData([
         res.result.countResignReasonByService,
         res.result.countResignReasonByPrice,
@@ -92,6 +96,7 @@ const ResignUserList = () => {
   // Life Cycle 선언
   useEffect(() => {
     onLoadMallReginUserList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 함수 선언

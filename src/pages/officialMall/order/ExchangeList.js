@@ -35,7 +35,11 @@ const ExchangeList = () => {
         }
         return
       }
-      setExchangeList(res.result.responses)
+      setExchangeList(
+        res.result.responses.map((item, index) => {
+          return {...item, no: res.result.responses.length - index}
+        }),
+      )
     } catch (error) {
       console.log(error)
       alert('네트워크 통신 실패. 잠시후 다시 시도해주세요.')
@@ -45,6 +49,8 @@ const ExchangeList = () => {
   // Life Cycle 선언
   useEffect(() => {
     onLoadMallexchangeList()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 함수 선언
@@ -77,6 +83,7 @@ const ExchangeList = () => {
         setVisible={setShowModal}
         exchangeList={exchangeList}
         setExchangeList={setExchangeList}
+        onLoadMallexchangeList={onLoadMallexchangeList}
         readOnly
       />
     </CRow>

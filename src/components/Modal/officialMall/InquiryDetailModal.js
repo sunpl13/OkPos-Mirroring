@@ -35,7 +35,7 @@ const InquiryDetailModal = ({
       </CModalHeader>
       <CModalBody>
         <CRow className={'p-2'}>
-          <ModalInput id={'id'} placeholder={'inquiryId'} label={'No'} value={value.inquiryId} readOnly disabled />{' '}
+          <ModalInput id={'id'} placeholder={'inquiryId'} label={'No'} value={value.no} readOnly disabled />{' '}
           <ModalInput
             id={'category'}
             placeholder={'문의 유형'}

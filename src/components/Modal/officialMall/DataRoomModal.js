@@ -27,7 +27,7 @@ const DataRoomModal = ({
   isReadOnly,
 }) => {
   // Local state 선언
-  const {category, dataRoomId, title, images, files, createdAt} = item
+  const {category, no, title, images, files, createdAt} = item
 
   // modal Title 세팅
   let modalTitle = '자료 추가'
@@ -54,15 +54,7 @@ const DataRoomModal = ({
         <CForm>
           <CRow className={'p-2'}>
             {(isReadOnly || isUpdate) && (
-              <ModalInput
-                id={'no'}
-                placeholder={'No'}
-                label={'No'}
-                value={dataRoomId}
-                onChange={onChange}
-                readOnly
-                disabled
-              />
+              <ModalInput id={'no'} placeholder={'No'} label={'No'} value={no} onChange={onChange} readOnly disabled />
             )}
             <ModalSelect
               options={dataRoomCategoryOptions}

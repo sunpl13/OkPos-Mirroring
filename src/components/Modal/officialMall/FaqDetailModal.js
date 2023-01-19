@@ -47,7 +47,7 @@ const FaqDetailModal = ({
         <CForm>
           <CRow className={'p-2'}>
             {(isReadOnly || isUpdate) && (
-              <ModalInput id={'faqId'} placeholder={''} label={'No'} value={item.faqId || ''} readOnly disabled />
+              <ModalInput id={'faqId'} placeholder={''} label={'No'} value={item.no || ''} readOnly disabled />
             )}
             <ModalSelect
               id={'category'}
