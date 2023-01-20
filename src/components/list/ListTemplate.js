@@ -302,7 +302,13 @@ const ListTemplate = ({
               )}
             </td>
           ),
-          invoiceNum: row => <td onClick={event => func(row, event)}>{row.invoiceNum || '송장번호 입력'}</td>,
+          invoiceNum: row => (
+            <td onClick={event => func(row, event, 'invoiceNum')}>{row?.invoiceNum || '송장번호 입력'}</td>
+          ),
+          // 배송 현황
+          processingStatus: row => (
+            <td onClick={event => func(row, event, 'processingStatus')}>{row?.processingStatus || ''}</td>
+          ),
         }}
         noItemsLabel={'데이터가 없습니다.'}
         itemsPerPage={20}
