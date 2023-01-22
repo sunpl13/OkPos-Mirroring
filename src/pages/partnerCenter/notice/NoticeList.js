@@ -4,13 +4,12 @@ import PageHeader from '../../../components/common/PageHeader'
 import ListTemplate from '../../../components/list/ListTemplate'
 import NoticeDetailModal from '../../../components/Modal/partnerCenter/notice/NoticeDetailModal'
 import {noticeList} from '../../../utils/columns/partnerCenter/Columns'
-import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from '../../../utils/utility'
 import {
   createdInfo,
   deletedInfo,
   getDetailInfo,
+  getListData,
   upDateInfo,
 } from '../../../components/function/partnerCenter/ApiModules'
 
@@ -26,24 +25,11 @@ const NoticeList = () => {
 
   // 공지사항 API
   const getList = async () => {
-    try {
-      const {
-        data: {isSuccess, result, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: EndPoint.PARTNER_NOTICES,
+    getListData(EndPoint.PARTNER_NOTICES)
+      .then(res => {
+        setItems(res?.adminNoticePartnerDTOs)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setItems(result?.adminNoticePartnerDTOs)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
   useEffect(() => {
     getList()

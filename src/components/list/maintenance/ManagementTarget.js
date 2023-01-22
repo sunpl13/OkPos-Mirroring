@@ -13,7 +13,7 @@ import {
 } from '@coreui/react'
 import styled from 'styled-components'
 
-const ManagementTarget = ({items, onClick, columns, label}) => {
+const ManagementTarget = ({items, label}) => {
   const [listItems, setListItems] = useState([])
   useEffect(() => {
     setListItems(items)
@@ -29,31 +29,46 @@ const ManagementTarget = ({items, onClick, columns, label}) => {
       </CCol>
       <CCol>
         <CustomCTable stripedColumns>
-          <CTableHead color='light'>
-            <CTableHeaderCell key={'a'}>구분</CTableHeaderCell>
-            <CTableHeaderCell key={'b'}>제조사/모델명</CTableHeaderCell>
-            <CTableHeaderCell key={'c'}>구분</CTableHeaderCell>
-            <CTableHeaderCell key={'d'}>제조사/모델명</CTableHeaderCell>
+          <CTableHead id='head' color='light'>
+            <CTableRow>
+              <CTableHeaderCell key={'a'}>구분</CTableHeaderCell>
+              <CTableHeaderCell key={'b'}>제조사/모델명</CTableHeaderCell>
+              <CTableHeaderCell key={'c'}>구분</CTableHeaderCell>
+              <CTableHeaderCell key={'d'}>제조사/모델명</CTableHeaderCell>
+            </CTableRow>
           </CTableHead>
           <CTableBody>
             <CTableRow>
               <CTableDataCell className={'rowTitle'}>POS</CTableDataCell>
               <CTableDataCell>
-                <CCol>1</CCol>
-                <CCol>1</CCol>
-                <CCol>1</CCol>
-                <CCol>1</CCol>
-                <CCol>1</CCol>
-                <CCol>1</CCol>
+                {listItems?.length !== 0 ? (
+                  listItems.map((value, index) => {
+                    if (value.category === 'POS') {
+                      return (
+                        <CCol key={index}>
+                          {value?.hardware}/{value?.modelName}
+                        </CCol>
+                      )
+                    }
+                    return null
+                  })
+                ) : (
+                  <CCol>0</CCol>
+                )}
               </CTableDataCell>
               <CTableDataCell className={'rowTitle'}>KIOSK</CTableDataCell>
               <CTableDataCell>
-                <CCol>1</CCol>
-                <CCol>1</CCol>
-                <CCol>1</CCol>
-                <CCol>1</CCol>
-                <CCol>1</CCol>
-                <CCol>1</CCol>
+                {listItems?.length !== 0 &&
+                  listItems.map((value, index) => {
+                    if (value.category === 'KIOSK') {
+                      return (
+                        <CCol key={index}>
+                          {value?.hardware}/{value?.modelName}
+                        </CCol>
+                      )
+                    }
+                    return null
+                  })}
               </CTableDataCell>
             </CTableRow>
           </CTableBody>
@@ -83,23 +98,13 @@ const CustomCTable = styled(CTable)`
     vertical-align: middle;
   }
   & tbody td {
-    padding: 0;
-    & .col {
     padding: 0.5rem;
-    &.col:not(:last-child) {
-      border-bottom: 1px solid #D8DBE0;
+    & .col {
+      padding: 0.5rem;
+
+      &.col:not(:last-child) {
+        border-bottom: 1px solid #d8dbe0;
+      }
     }
-  }
-`
-const ListTitleForm = styled(CFormLabel)`
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  & span {
-    font-size: 17px;
-    margin-right: 0.2rem;
   }
 `

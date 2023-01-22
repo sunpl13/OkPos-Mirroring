@@ -269,7 +269,6 @@ export const orderListColumns = [
     key: 'processingStatus',
     label: '배송 현황',
     _props: {className: 'processingStatus'},
-    filter: false,
   },
   {
     key: 'quantity',
@@ -324,106 +323,68 @@ export const maintenanceApplicationList = [
 // 유지보수 신청 정보 / 신청 가맹점 수
 export const generalListApplicationColumns = [
   {
-    title: '지역',
-    dataIndex: 'region',
-    width: '20%',
+    key: 'region',
+    label: '지역',
+    sorter: false,
+    _props: {className: 'region'},
   },
   {
-    title: 'CAT',
-    dataIndex: 'catcount',
-    width: '10%',
+    key: 'catcount',
+    label: 'CAT',
+    sorter: false,
+    _props: {className: 'catcount'},
   },
   {
-    title: 'POS',
-    dataIndex: 'poscount',
-    width: '10%',
+    key: 'poscount',
+    label: 'POS',
+    sorter: false,
+    _props: {className: 'poscount'},
   },
   {
-    title: 'KIOSK',
-    dataIndex: 'kioskcount',
-    width: '10%',
+    key: 'kioskcount',
+    label: 'KIOSK',
+    sorter: false,
+    _props: {className: 'kioskcount'},
+  },
+
+  {
+    key: 'sum',
+    label: 'SUM',
+    sorter: false,
+    _props: {className: 'sum'},
   },
   {
-    title: '합계',
-    dataIndex: 'sum',
-    width: '10%',
-    //render: (value, row) => {
-    //       if (value) {
-    //         console.log(value)
-    //         return row.poscount + row.catcount + row.kioskcount
-    //       }
-    //     },
-  },
-  {
-    title: '비고',
-    dataIndex: 'note',
-    width: '10%',
+    key: 'note',
+    label: '비고',
+    _props: {className: 'note'},
   },
 ]
 // 유지보수 신청 정보 / 주력 솔루션 및 VAN 사
 export const solutionListColumns = [
   {
-    title: 'No.',
-    dataIndex: 'id',
-    width: '5%',
+    key: 'id',
+    label: 'No.',
+    _props: {className: 'id'},
   },
   {
-    title: '구분',
-    dataIndex: 'category',
-    width: '20%',
-    render: (value, row) => {
-      if (value) {
-        return (
-          <CFormSelect
-            aria-label='Default select example'
-            options={[
-              '선택',
-              {label: '외식업', value: '외식업'},
-              {label: '유통업', value: '유통업'},
-              {label: '기타', value: '기타'},
-            ]}
-          />
-        )
-      }
-    },
+    key: 'category',
+    label: '구분',
+    _props: {className: 'category'},
   },
   {
-    title: '솔루션명',
-    dataIndex: 'name',
-    width: '20%',
+    key: 'name',
+    label: '솔루션 명',
+    _props: {className: 'name'},
   },
   {
-    title: 'No.',
-    dataIndex: 'id',
-    width: '5%',
+    key: 'id',
+    label: 'No.',
+    _props: {className: 'id'},
   },
   {
-    title: '주력 VAN사',
-    dataIndex: 'van',
-    width: '20%',
-    render: (value, row) => {
-      if (value) {
-        return (
-          <CFormSelect
-            aria-label='Default select example'
-            options={[
-              '선택',
-              {label: 'NICE', value: 'NICE'},
-              {label: 'KIS', value: 'KIS'},
-              {label: 'JTNET', value: 'JTNET'},
-              {label: 'KICC', value: 'KICC'},
-              {label: 'KSNET', value: 'KSNET'},
-              {label: 'KCP', value: 'KCP'},
-              {label: 'KOCES', value: 'KOCES'},
-              {label: 'SMARTRO', value: 'SMARTRO'},
-              {label: 'FDK', value: 'FDK'},
-              {label: 'DAOUDATA', value: 'DAOUDATA'},
-              {label: 'KFTC', value: 'KFTC'},
-            ]}
-          />
-        )
-      }
-    },
+    key: 'van',
+    label: '주력 VAN사',
+    _props: {className: 'van'},
   },
 ]
 // 유지보수 신청 정보 / 관리 대상 H/W 현황

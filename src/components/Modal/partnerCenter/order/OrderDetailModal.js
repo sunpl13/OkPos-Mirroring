@@ -5,9 +5,7 @@ import ListTemplate from '../../../list/ListTemplate'
 import {orderListColumns} from '../../../../utils/columns/partnerCenter/Columns'
 import DetailModalTemplate from '../DetailModalTemplate'
 import OrderProductEdiModal from './OrderProductEdiModal'
-import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
 import {EndPoint} from '../../../../dataManager/apiMapper'
-import {isEmpty} from '../../../../utils/utility'
 import {deletedInfo} from '../../../function/partnerCenter/ApiModules'
 
 const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnly}) => {
@@ -46,7 +44,6 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
     setSelectedItem(item)
     setMousePos({x: clientX, y: clientY})
     setInvoiceEditModal(!invoiceEditModal)
-    console.log(selectedItem)
   }
 
   // 송장 번호 수정 API
@@ -81,7 +78,6 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
   }
   useEffect(() => {
     setOrderItemList(orderItemPartnerDTOs)
-    console.log(selectedItem)
     if (!visible) {
       setSelectedItem({})
     }
@@ -225,7 +221,6 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
           datePickerHidden={false}
           itemPerPageHidden={false}
           func={handleShowInvoiceEditModal}
-          checkBoxInputHidden
         />
       </CRow>
       {invoiceEditModal && (

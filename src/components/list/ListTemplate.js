@@ -22,6 +22,7 @@ const ListTemplate = ({
   checkBoxInputHidden = false, // 체크박스 출력 유무
   func, //보낼 함수
   datePickerOptions, // datePicker selected Options,
+  notFilter, // 리스트 필터 사용 여부
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
@@ -177,7 +178,7 @@ const ListTemplate = ({
         columnSorter
         pagination
         clickableRows
-        columnFilter
+        columnFilter={!notFilter}
         paginationProps={{
           limit: 10,
         }}

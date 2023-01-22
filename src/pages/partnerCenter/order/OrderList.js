@@ -31,7 +31,6 @@ const OrderList = () => {
       .then(res => {
         setSelectedItem(res)
         setShowModal(true)
-        console.log(res)
       })
       .catch(err => console.log(err))
   }
