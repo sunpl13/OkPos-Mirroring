@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import {CCol, CFormInput, CFormLabel, CRow} from '@coreui/react'
+import {CCol, CFormInput, CFormLabel, CFormSelect, CRow} from '@coreui/react'
 import ListTemplate from '../../../list/ListTemplate'
 import {orderListColumns} from '../../../../utils/columns/partnerCenter/Columns'
 import DetailModalTemplate from '../DetailModalTemplate'
-import InvoiceEditModal from './InvoiceEditModal'
-import ApiConfig, {HttpMethod} from '../../../../dataManager/apiConfig'
+import OrderProductEdiModal from './OrderProductEdiModal'
 import {EndPoint} from '../../../../dataManager/apiMapper'
-import {isEmpty} from '../../../../utils/utility'
 import {deletedInfo} from '../../../function/partnerCenter/ApiModules'
 
 const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnly}) => {
@@ -30,8 +28,9 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
   const [mousePos, setMousePos] = useState({})
   const [selectedItem, setSelectedItem] = useState({})
   const [orderItemList, setOrderItemList] = useState([])
+  const [orderModalType, setOrderModalType] = useState('')
 
-  // 운송장 번호 수정 함수
+  // 송장 번호, 배송 현황 onChange
   const handleInvoiceOnChange = ({target: {id, value}}) => {
     setSelectedItem({
       ...selectedItem,
@@ -39,20 +38,27 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
     })
   }
 
-  // 운송장 번호 수정모달
-  const handleShowInvoiceEditModal = (item, {clientX, clientY}) => {
+  // 송장 번호 수정모달
+  const handleShowInvoiceEditModal = (item, {clientX, clientY}, type) => {
+    setOrderModalType(type)
     setSelectedItem(item)
     setMousePos({x: clientX, y: clientY})
     setInvoiceEditModal(!invoiceEditModal)
   }
 
-  // 운송장 번호 수정 API
+  // 송장 번호 수정 API
   const handleInvoiceEditModalUpDate = async () => {
-    const {id, invoiceNum} = selectedItem
+    const {id, invoiceNum, processingStatus} = selectedItem
     const json = JSON.stringify({
       invoiceNum: invoiceNum,
+      processingStatus: processingStatus,
     })
-    if (window.confirm('운송장 번호를 등록하시겠습니까?')) {
+    if (
+      window.confirm(
+        orderModalType === 'invoiceNum' ? '송장 번호를 등록하시겠습니까?' : '배송 현황을 변경하시겠습니까?',
+      )
+    ) {
+      if (orderModalType === 'processingStatus' && !invoiceNum) return alert('송장 번호를 등록해 주세요.')
       deletedInfo(EndPoint.PARTNER_ORDERS, id, json)
         .then(res => {
           upDate(value)
@@ -218,25 +224,40 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
         />
       </CRow>
       {invoiceEditModal && (
-        <InvoiceEditModal
-          title={'송장 번호'}
+        <OrderProductEdiModal
+          title={orderModalType === 'invoiceNum' ? '송장 번호' : '배송 현황'}
           visible={invoiceEditModal}
           setVisible={setInvoiceEditModal}
           mousePos={mousePos}
-          btnText={'등록'}
+          btnText={orderModalType === 'invoiceNum' ? '등록' : '변경'}
           upDate={handleInvoiceEditModalUpDate}
           search={handleInvoiceSearch}
+          searchBtn={orderModalType === 'invoiceNum'}
         >
           <CCol className='align-items-center' xs={'xs'} style={{display: 'flex'}}>
-            <CFormInput
-              id={'invoiceNum'}
-              type={'text'}
-              placeholder={'송장 번호를 등록해 주세요.'}
-              value={selectedItem?.invoiceNum || ''}
-              onChange={handleInvoiceOnChange}
-            />
+            {orderModalType === 'invoiceNum' ? (
+              <CFormInput
+                id={'invoiceNum'}
+                type={'text'}
+                placeholder={'송장 번호를 등록해 주세요.'}
+                value={selectedItem?.invoiceNum || ''}
+                onChange={handleInvoiceOnChange}
+              />
+            ) : (
+              <CFormSelect
+                id={'processingStatus'}
+                value={selectedItem?.processingStatus}
+                onChange={handleInvoiceOnChange}
+                options={[
+                  {label: '결제 대기', value: '결제대기'},
+                  {label: '배송 전', value: '배송전'},
+                  {label: '배송 중', value: '배송중'},
+                  {label: '배송 완료', value: '배송완료'},
+                ]}
+              />
+            )}
           </CCol>
-        </InvoiceEditModal>
+        </OrderProductEdiModal>
       )}
 
       {/*

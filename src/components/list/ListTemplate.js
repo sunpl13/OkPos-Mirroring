@@ -22,6 +22,7 @@ const ListTemplate = ({
   checkBoxInputHidden = false, // 체크박스 출력 유무
   func, //보낼 함수
   datePickerOptions, // datePicker selected Options,
+  notFilter, // 리스트 필터 사용 여부
 }) => {
   // Local state 선언
   const [listItems, setListItems] = useState([])
@@ -177,7 +178,7 @@ const ListTemplate = ({
         columnSorter
         pagination
         clickableRows
-        columnFilter
+        columnFilter={!notFilter}
         paginationProps={{
           limit: 10,
         }}
@@ -302,7 +303,13 @@ const ListTemplate = ({
               )}
             </td>
           ),
-          invoiceNum: row => <td onClick={event => func(row, event)}>{row.invoiceNum || '송장번호 입력'}</td>,
+          invoiceNum: row => (
+            <td onClick={event => func(row, event, 'invoiceNum')}>{row?.invoiceNum || '송장번호 입력'}</td>
+          ),
+          // 배송 현황
+          processingStatus: row => (
+            <td onClick={event => func(row, event, 'processingStatus')}>{row?.processingStatus || ''}</td>
+          ),
         }}
         noItemsLabel={'데이터가 없습니다.'}
         itemsPerPage={20}

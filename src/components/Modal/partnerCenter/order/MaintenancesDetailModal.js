@@ -1,23 +1,25 @@
 import {CRow} from '@coreui/react'
 import ModalInput from '../../../forms/inputForm/ModalInput'
-import DetailModalTemplate from '../DetailModalTemplate'
-import NumberOfStoresList from '../../../list/maintenance/NumberOfStoresList'
 import {
   generalListApplicationColumns,
   managementTargetColumns,
   solutionListColumns,
 } from '../../../../utils/columns/partnerCenter/Columns'
-import FlagshipSolutionList from '../../../list/maintenance/FlagshipSolutionList'
-import ManagementTarget from '../../../list/maintenance/ManagementTarget'
+import ManagementTarget from '../../../list/partnerCenter/ManagementTarget'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import {useEffect, useState} from 'react'
+import OrderList from '../../../list/partnerCenter/orderList'
+import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
+import {deletedInfo} from '../../../function/partnerCenter/ApiModules'
+import {EndPoint} from '../../../../dataManager/apiMapper'
 
-const MaintenancesDetailModal = ({value, visible, setVisible}) => {
+const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditMode, onClose}) => {
   const {
     id, // 리스트 id
     maintenanceNum, // 발주 번호
     certificateNum, // 사업자 번호
     representativeName, // 대표자 명
+    businessName, // 상호명
     createdAt, // 주문일자
     mobilePhoneNum, // 휴대전화 번호
     phoneNum, // 전화번호
@@ -30,8 +32,77 @@ const MaintenancesDetailModal = ({value, visible, setVisible}) => {
     operationalProcesses, // 현장 운영중인 엄무 프로세스
   } = value
   const [editor, setEditor] = useState('')
+  const [solutionList, setSolutionList] = useState([])
+  const [totalItems, setTotalItems] = useState({
+    region: '전체 합계',
+    catcount: 0,
+    poscount: 0,
+    kioskcount: 0,
+    sum: 0,
+    note: '',
+  })
+  const [vanItems, setVanItems] = useState({
+    id: '기타',
+    category: '',
+    name: '',
+    van: '',
+  })
+  const upDate = () => {
+    if (window.confirm('유지보수 신청을 수정 하시겟습니까?')) {
+      const json = JSON.stringify(solutionList)
+      deletedInfo(EndPoint.PARTNER_MAINTENANCES, id, json)
+        .then(res => {
+          setEditMode(!editMode)
+          setVisible(!visible)
+          return alert(res)
+        })
+        .catch(err => console.log(err))
+    }
+  }
+
+  const vanOnChange = (item, {target: {id, value}}) => {
+    setSolutionList(van =>
+      van.map(state => {
+        if (state.id === item.id) {
+          return {
+            ...state,
+            [id]: value,
+          }
+        } else {
+          return state
+        }
+      }),
+    )
+  }
+  useEffect(() => {
+    setSolutionList(adminMaintenanceSolutionDTOs || [])
+    setTotalItems({region: '전체 합계', catcount: 0, poscount: 0, kioskcount: 0, sum: 0, note: ''})
+    if (adminMaintenanceStoreDTOs?.length !== 0 && visible) {
+      adminMaintenanceStoreDTOs?.map(value => {
+        setTotalItems(item => ({
+          region: '전체 합계',
+          catcount: (item.catcount += +value?.catcount),
+          poscount: (item.poscount += +value?.poscount),
+          kioskcount: (item.kioskcount += +value?.kioskcount),
+          sum: (item.sum += +value?.sum),
+          note: '',
+        }))
+        return value
+      })
+    } else if (!visible) {
+    }
+  }, [visible, adminMaintenanceStoreDTOs])
+
   return (
-    <DetailModalTemplate title={'유지보수 신청 상세'} visible={visible} setVisible={setVisible} notEditBtn>
+    <DetailModalEditModeTemplate
+      title={'유지보수 신청 상세'}
+      visible={visible}
+      setVisible={setVisible}
+      editMode={editMode}
+      setEditMode={setEditMode}
+      upDate={upDate}
+      onClose={onClose}
+    >
       <CRow className={'p-2'}>
         <ModalInput
           id={'orderNum'}
@@ -45,7 +116,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible}) => {
           id={'businessName'}
           placeholder={'상호명'}
           label={'상호명'}
-          //value={businessName}
+          value={businessName}
           readOnly
           disabled
         />
@@ -86,7 +157,6 @@ const MaintenancesDetailModal = ({value, visible, setVisible}) => {
           disabled
         />
       </CRow>
-
       <CRow className={'p-2'}>
         <ModalInput
           id={'phoneNum'}
@@ -117,23 +187,21 @@ const MaintenancesDetailModal = ({value, visible, setVisible}) => {
         />
       </CRow>
       <CRow className={'p-2'}>
-        <NumberOfStoresList
-          label={'신청 가맹점 수'}
-          className={'userList'}
+        <OrderList
+          title={'① 신청 가맹점 수'}
+          items={[...(adminMaintenanceStoreDTOs || []), totalItems] || []}
           columns={generalListApplicationColumns}
-          items={adminMaintenanceStoreDTOs}
-          readOnly
-          disabled
+          className={'orderList'}
         />
       </CRow>
       <CRow className={'p-2'}>
-        <FlagshipSolutionList
-          label={'주력 솔루션 및 VAN사'}
-          className={'userList solutionList'}
+        <OrderList
+          title={'② 주력 솔루션 및 VAN사'}
+          items={[...solutionList, vanItems] || []}
           columns={solutionListColumns}
-          items={adminMaintenanceSolutionDTOs}
-          readOnly
-          disabled
+          vanOnChange={vanOnChange}
+          readOnly={editMode}
+          disabled={editMode}
         />
       </CRow>
       <CRow className={'p-2'}>
@@ -151,7 +219,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible}) => {
           readOnly
         />
       </CRow>
-    </DetailModalTemplate>
+    </DetailModalEditModeTemplate>
   )
 }
 

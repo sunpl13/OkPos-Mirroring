@@ -3,67 +3,47 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {maintenanceApplicationList} from '../../../utils/columns/partnerCenter/Columns'
-import OrderDetailModal from '../../../components/Modal/partnerCenter/order/OrderDetailModal'
-import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from '../../../utils/utility'
 import MaintenancesDetailModal from '../../../components/Modal/partnerCenter/order/MaintenancesDetailModal'
+import {getDetailInfo, getListData} from '../../../components/function/partnerCenter/ApiModules'
 
 const MaintenancesList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
   const [editCheck, setEditCheck] = useState({})
-
+  const [editMode, setEditMode] = useState(true)
   const [showModal, setShowModal] = useState(false)
 
   // 발주신청 리스트 API
   const getList = async () => {
-    try {
-      const {
-        data: {isSuccess, result, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: EndPoint.PARTNER_MAINTENANCES,
+    getListData(EndPoint.PARTNER_MAINTENANCES)
+      .then(res => {
+        setItems(res?.adminMaintenanceDTOs)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return
-      }
-      if (code === 1000) {
-        setItems(result?.adminMaintenanceDTOs)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
     getList()
   }, [])
 
-  /** Open Modal*/
+  // Open Modal
   const handleShowMaterialDetailModal = async ({id}) => {
-    try {
-      const {
-        data: {isSuccess, result, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: `${EndPoint.PARTNER_MAINTENANCES}/${id}`,
+    getDetailInfo(EndPoint.PARTNER_MAINTENANCES, id)
+      .then(res => {
+        setSelectedItem(res)
+        setEditCheck(res)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setSelectedItem(result)
-        setEditCheck(result)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
     setShowModal(!showModal)
+  }
+  // Close Modal
+  const handleDetailModalOnClose = () => {
+    if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+      return setShowModal(false)
+    } else {
+      return null
+    }
   }
 
   const handleOrderModalOnChange = ({target: {id, value}}) => {
@@ -72,19 +52,7 @@ const MaintenancesList = () => {
       [id]: value,
     })
   }
-  const handleOrderListOnDelete = ({no}) => {
-    if (window.confirm('Delete ?')) {
-      setItems(items.filter(value => value.no !== no))
-    }
-  }
-  const handleOrderOnDelete = ({productId}) => {
-    if (window.confirm('Delete ?')) {
-      setSelectedItem({
-        ...selectedItem,
-        orderList: selectedItem.orderList.filter(value => value.productId !== productId),
-      })
-    }
-  }
+
   return (
     <CRow>
       <PageHeader title='유지보수 신청 리스트' />
@@ -96,7 +64,6 @@ const MaintenancesList = () => {
               onClick={handleShowMaterialDetailModal}
               columns={maintenanceApplicationList}
               className={'userList'}
-              onDelete={handleOrderListOnDelete}
             />
           </CCardBody>
         </CCard>
@@ -106,7 +73,9 @@ const MaintenancesList = () => {
         visible={showModal}
         setVisible={setShowModal}
         onChange={handleOrderModalOnChange}
-        onDelete={handleOrderOnDelete}
+        editMode={editMode}
+        setEditMode={setEditMode}
+        onClose={handleDetailModalOnClose}
       />
     </CRow>
   )
