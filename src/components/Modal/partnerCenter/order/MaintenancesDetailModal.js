@@ -5,7 +5,7 @@ import {
   managementTargetColumns,
   solutionListColumns,
 } from '../../../../utils/columns/partnerCenter/Columns'
-import ManagementTarget from '../../../list/maintenance/ManagementTarget'
+import ManagementTarget from '../../../list/partnerCenter/ManagementTarget'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 import {useEffect, useState} from 'react'
 import OrderList from '../../../list/partnerCenter/orderList'
@@ -47,7 +47,6 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
     name: '',
     van: '',
   })
-
   const upDate = () => {
     if (window.confirm('유지보수 신청을 수정 하시겟습니까?')) {
       const json = JSON.stringify(solutionList)
@@ -77,21 +76,22 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
   }
   useEffect(() => {
     setSolutionList(adminMaintenanceSolutionDTOs || [])
-    if (adminMaintenanceStoreDTOs && visible) {
-      setTotalItems({region: '전체 합계', catcount: 0, poscount: 0, kioskcount: 0, sum: 0, note: ''})
+    setTotalItems({region: '전체 합계', catcount: 0, poscount: 0, kioskcount: 0, sum: 0, note: ''})
+    if (adminMaintenanceStoreDTOs?.length !== 0 && visible) {
       adminMaintenanceStoreDTOs?.map(value => {
         setTotalItems(item => ({
           region: '전체 합계',
-          catcount: (item.catcount += +value.catcount),
-          poscount: (item.poscount += +value.poscount),
-          kioskcount: (item.kioskcount += +value.kioskcount),
-          sum: (item.sum += +value.sum),
+          catcount: (item.catcount += +value?.catcount),
+          poscount: (item.poscount += +value?.poscount),
+          kioskcount: (item.kioskcount += +value?.kioskcount),
+          sum: (item.sum += +value?.sum),
           note: '',
         }))
         return value
       })
+    } else if (!visible) {
     }
-  }, [visible])
+  }, [visible, adminMaintenanceStoreDTOs])
 
   return (
     <DetailModalEditModeTemplate

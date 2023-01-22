@@ -27,13 +27,17 @@ const ManagementTarget = ({items, label}) => {
       <CCol className={'searchInput pb-3'}>
         <CFormInput type='text' placeholder='주력 H/W 모델명을 입력해 주세요' aria-label='Disabled input' />
       </CCol>
-      <CCol>
+      <CCol style={{overflowX: 'scroll'}}>
         <CustomCTable stripedColumns>
           <CTableHead id='head' color='light'>
             <CTableRow>
-              <CTableHeaderCell key={'a'}>구분</CTableHeaderCell>
+              <CTableHeaderCell style={{width: '15%'}} key={'a'}>
+                구분
+              </CTableHeaderCell>
               <CTableHeaderCell key={'b'}>제조사/모델명</CTableHeaderCell>
-              <CTableHeaderCell key={'c'}>구분</CTableHeaderCell>
+              <CTableHeaderCell style={{width: '15%'}} key={'c'}>
+                구분
+              </CTableHeaderCell>
               <CTableHeaderCell key={'d'}>제조사/모델명</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
@@ -42,11 +46,11 @@ const ManagementTarget = ({items, label}) => {
               <CTableDataCell className={'rowTitle'}>POS</CTableDataCell>
               <CTableDataCell>
                 {listItems?.length !== 0 ? (
-                  listItems.map((value, index) => {
+                  listItems?.map((value, index) => {
                     if (value.category === 'POS') {
                       return (
                         <CCol key={index}>
-                          {value?.hardware}/{value?.modelName}
+                          {value?.hardware} / {value?.modelName}
                         </CCol>
                       )
                     }
@@ -59,11 +63,11 @@ const ManagementTarget = ({items, label}) => {
               <CTableDataCell className={'rowTitle'}>KIOSK</CTableDataCell>
               <CTableDataCell>
                 {listItems?.length !== 0 &&
-                  listItems.map((value, index) => {
+                  listItems?.map((value, index) => {
                     if (value.category === 'KIOSK') {
                       return (
                         <CCol key={index}>
-                          {value?.hardware}/{value?.modelName}
+                          {value?.hardware} / {value?.modelName}
                         </CCol>
                       )
                     }
@@ -90,6 +94,7 @@ export default ManagementTarget
 
 const CustomCTable = styled(CTable)`
   text-align: center;
+  width: 100%;
   & th {
     padding: 0.5rem 0;
   }
