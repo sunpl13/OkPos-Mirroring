@@ -49,11 +49,18 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
   })
   const upDate = () => {
     if (window.confirm('유지보수 신청을 수정 하시겟습니까?')) {
-      const json = JSON.stringify(solutionList)
+      const json = JSON.stringify(
+        solutionList.map(item => {
+          return {
+            id: item?.id,
+            category: item?.category,
+            van: item?.van,
+          }
+        }),
+      )
       deletedInfo(EndPoint.PARTNER_MAINTENANCES, id, json)
         .then(res => {
           setEditMode(!editMode)
-          setVisible(!visible)
           return alert(res)
         })
         .catch(err => console.log(err))
