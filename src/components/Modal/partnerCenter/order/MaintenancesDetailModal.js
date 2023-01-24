@@ -13,7 +13,7 @@ import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import {deletedInfo} from '../../../function/partnerCenter/ApiModules'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 
-const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditMode, onClose}) => {
+const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditMode, onClose, getList}) => {
   const {
     id, // 리스트 id
     maintenanceNum, // 발주 번호
@@ -51,8 +51,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
     if (window.confirm('유지보수 신청을 수정 하시겟습니까?')) {
       if (
         solutionList?.map(item => {
-          if (!item?.category || !item?.van) return false
-          return true
+          return !(!item?.category || !item?.van)
         })
       )
         return alert('주력 솔루션 및 VAN사 를 선택해 주세요')
@@ -68,6 +67,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
       deletedInfo(EndPoint.PARTNER_MAINTENANCES, id, json)
         .then(res => {
           setEditMode(!editMode)
+          getList()
           return alert(res)
         })
         .catch(err => console.log(err))

@@ -46,13 +46,6 @@ const MaintenancesList = () => {
     }
   }
 
-  const handleOrderModalOnChange = ({target: {id, value}}) => {
-    setSelectedItem({
-      ...selectedItem,
-      [id]: value,
-    })
-  }
-
   return (
     <CRow>
       <PageHeader title='유지보수 신청 리스트' />
@@ -72,10 +65,10 @@ const MaintenancesList = () => {
         value={selectedItem}
         visible={showModal}
         setVisible={setShowModal}
-        onChange={handleOrderModalOnChange}
         editMode={editMode}
         setEditMode={setEditMode}
         onClose={handleDetailModalOnClose}
+        getList={getList}
       />
     </CRow>
   )
