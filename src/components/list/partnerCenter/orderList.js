@@ -42,9 +42,12 @@ const OrderList = ({
         onRowClick={onClick}
         tableProps={{
           responsive: true,
-          striped: true,
           align: 'middle',
           className: className,
+          id: 'orderTable',
+        }}
+        tableHeadProps={{
+          id: 'orderTable',
         }}
         scopedColumns={{
           catcount: ({catcount}) => <td>{catcount || '0'}</td>,

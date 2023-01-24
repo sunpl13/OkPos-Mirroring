@@ -9,6 +9,9 @@ table {
     background: #003366;
     color: #fff;
   }
+  thead#orderTable {
+    backGround: #ebedef;
+  }
   &.orderList{
     thead > tr > th:first-child {
       text-align: start;
@@ -17,9 +20,17 @@ table {
     tbody > tr > td:first-child {
       text-align: start;
       padding-left: 2rem;
+      background: #ebedef;
     }
-    tbody > tr:last-child {
+    tbody > tr:last-child,
+    tbody > tr:last-child td{
       background: #b2ddef;
+    }
+  }
+  &.orderVanList{
+    tbody > tr > td:first-child,
+    tbody > tr > td:nth-child(4) {
+      background: #ebedef;
     }
   }
   tr {

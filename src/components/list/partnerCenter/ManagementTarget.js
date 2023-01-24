@@ -17,6 +17,7 @@ const ManagementTarget = ({items, label}) => {
   const [listItems, setListItems] = useState([])
   useEffect(() => {
     setListItems(items)
+    console.log(items)
   }, [items])
 
   return (
@@ -27,8 +28,8 @@ const ManagementTarget = ({items, label}) => {
       <CCol className={'searchInput pb-3'}>
         <CFormInput type='text' placeholder='주력 H/W 모델명을 입력해 주세요' aria-label='Disabled input' />
       </CCol>
-      <CCol style={{overflowX: 'scroll'}}>
-        <CustomCTable stripedColumns>
+      <TableContainer>
+        <CustomCTable>
           <CTableHead id='head' color='light'>
             <CTableRow>
               <CTableHeaderCell style={{width: '15%'}} key={'a'}>
@@ -57,12 +58,12 @@ const ManagementTarget = ({items, label}) => {
                     return null
                   })
                 ) : (
-                  <CCol>0</CCol>
+                  <CCol></CCol>
                 )}
               </CTableDataCell>
               <CTableDataCell className={'rowTitle'}>KIOSK</CTableDataCell>
               <CTableDataCell>
-                {listItems?.length !== 0 &&
+                {listItems?.length !== 0 ? (
                   listItems?.map((value, index) => {
                     if (value.category === 'KIOSK') {
                       return (
@@ -72,12 +73,15 @@ const ManagementTarget = ({items, label}) => {
                       )
                     }
                     return null
-                  })}
+                  })
+                ) : (
+                  <CCol></CCol>
+                )}
               </CTableDataCell>
             </CTableRow>
           </CTableBody>
         </CustomCTable>
-      </CCol>
+      </TableContainer>
     </CCol>
   )
 }
@@ -101,15 +105,18 @@ const CustomCTable = styled(CTable)`
   & .rowTitle {
     display: table-cell;
     vertical-align: middle;
+    background: #ebedef;
+  }
+  & thead#head {
+    background: #ebedef;
   }
   & tbody td {
     padding: 0.5rem;
     & .col {
       padding: 0.5rem;
-
-      &.col:not(:last-child) {
-        border-bottom: 1px solid #d8dbe0;
-      }
     }
   }
+`
+const TableContainer = styled(CCol)`
+  overflow-x: auto;
 `

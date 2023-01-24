@@ -49,8 +49,15 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
   })
   const upDate = () => {
     if (window.confirm('유지보수 신청을 수정 하시겟습니까?')) {
+      if (
+        solutionList?.map(item => {
+          if (!item?.category || !item?.van) return false
+          return true
+        })
+      )
+        return alert('주력 솔루션 및 VAN사 를 선택해 주세요')
       const json = JSON.stringify(
-        solutionList.map(item => {
+        solutionList?.map(item => {
           return {
             id: item?.id,
             category: item?.category,
@@ -204,6 +211,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
       <CRow className={'p-2'}>
         <OrderList
           title={'② 주력 솔루션 및 VAN사'}
+          className={'orderVanList'}
           items={[...solutionList, vanItems] || []}
           columns={solutionListColumns}
           vanOnChange={vanOnChange}

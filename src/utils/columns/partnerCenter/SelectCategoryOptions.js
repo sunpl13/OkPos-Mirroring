@@ -8,13 +8,13 @@ exports.noticeOptions = [
 ]
 
 exports.orderCategorySelectedOptions = [
-  {label: '선택', value: ''},
+  {label: '선택', value: ' '},
   {label: '외식업', value: '외식업'},
   {label: '유통업', value: '유통업'},
   {label: '기타', value: '기타'},
 ]
 exports.orderVanSelectedOptions = [
-  {label: '선택', value: ''},
+  {label: '선택', value: ' '},
   {label: 'NICE', value: 'NICE'},
   {label: 'KIS', value: 'KIS'},
   {label: 'JTNET', value: 'JTNET'},
