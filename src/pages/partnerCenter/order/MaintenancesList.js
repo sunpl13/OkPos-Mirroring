@@ -10,7 +10,6 @@ import {getDetailInfo, getListData} from '../../../components/function/partnerCe
 const MaintenancesList = () => {
   const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({})
-  const [editCheck, setEditCheck] = useState({})
   const [editMode, setEditMode] = useState(true)
   const [showModal, setShowModal] = useState(false)
 
@@ -32,18 +31,9 @@ const MaintenancesList = () => {
     getDetailInfo(EndPoint.PARTNER_MAINTENANCES, id)
       .then(res => {
         setSelectedItem(res)
-        setEditCheck(res)
       })
       .catch(err => console.log(err))
     setShowModal(!showModal)
-  }
-  // Close Modal
-  const handleDetailModalOnClose = () => {
-    if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
-      return setShowModal(false)
-    } else {
-      return null
-    }
   }
 
   return (
@@ -67,7 +57,6 @@ const MaintenancesList = () => {
         setVisible={setShowModal}
         editMode={editMode}
         setEditMode={setEditMode}
-        onClose={handleDetailModalOnClose}
         getList={getList}
       />
     </CRow>

@@ -17,7 +17,6 @@ const ManagementTarget = ({items, label}) => {
   const [listItems, setListItems] = useState([])
   useEffect(() => {
     setListItems(items)
-    console.log(items)
   }, [items])
 
   return (
