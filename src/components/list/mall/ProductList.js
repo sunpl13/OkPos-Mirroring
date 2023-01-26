@@ -61,6 +61,7 @@ const ProductList = ({
     } else {
       setFilterItems('')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endDate])
 
   const onClickRadioButton = item => {
