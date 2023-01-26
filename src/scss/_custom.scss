@@ -10,9 +10,9 @@ table {
     color: #fff;
   }
   thead#orderTable {
-    backGround: #ebedef;
+    background: #ebedef;
   }
-  &.orderList{
+  &.orderList {
     thead > tr > th:first-child {
       text-align: start;
       padding-left: 2rem;
@@ -23,11 +23,11 @@ table {
       background: #ebedef;
     }
     tbody > tr:last-child,
-    tbody > tr:last-child td{
+    tbody > tr:last-child td {
       background: #b2ddef;
     }
   }
-  &.orderVanList{
+  &.orderVanList {
     tbody > tr > td:first-child,
     tbody > tr > td:nth-child(4) {
       background: #ebedef;
@@ -109,7 +109,7 @@ table {
       width: 50px;
       min-width: 0;
     }
-    &.region{
+    &.region {
       width: 20%;
       max-width: 150px;
       min-width: 90px;
@@ -117,12 +117,16 @@ table {
     &.poscount,
     &.kioskcount,
     &.sum,
-    &.catcount{width: 10%;
+    &.catcount {
+      width: 10%;
       max-width: 100px;
-      min-width: 90px;}
-    &.note{width: 10%;
+      min-width: 90px;
+    }
+    &.note {
+      width: 10%;
       max-width: 120px;
-      min-width: 100px;}
+      min-width: 100px;
+    }
   }
 
   td {
