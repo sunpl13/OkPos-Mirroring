@@ -77,6 +77,7 @@ const OrderTableList = ({
     } else {
       setFilterItems('')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate])
 
   // 주문 상태 값 저장
@@ -174,7 +175,6 @@ const OrderTableList = ({
           responsive: true,
           striped: true,
           align: 'middle',
-          className: className,
         }}
         scopedColumns={{
           // No 값
