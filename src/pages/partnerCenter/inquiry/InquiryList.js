@@ -51,7 +51,7 @@ const InquiryList = () => {
   // Close Modal
   const handleDetailModalOnClose = () => {
     const {content} = editCheck
-    if (content?.length !== 0 && content !== editor) {
+    if (editor.replace(/<[^>]*>?| /g, '') && content !== editor) {
       if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
         return setShowModal(false)
       } else {

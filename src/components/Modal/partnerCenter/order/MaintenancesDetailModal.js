@@ -75,7 +75,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
     }
   }
 
-  const vanOnChange = (item, {target: {id, value}}) => {
+  const handleVanOnChange = (item, {target: {id, value}}) => {
     setSolutionList(van =>
       van.map(state => {
         if (state.id === item.id) {
@@ -92,7 +92,6 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
 
   // Close Modal
   const handleDetailModalOnClose = () => {
-    console.log(solutionList, editCheck)
     if (solutionList?.length !== 0) {
       solutionList?.map((value, index) => {
         if (value?.id === editCheck[index]?.id) {
@@ -240,7 +239,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
           className={'orderVanList'}
           items={[...solutionList, vanItems] || []}
           columns={solutionListColumns}
-          vanOnChange={vanOnChange}
+          vanOnChange={handleVanOnChange}
           readOnly={editMode}
           disabled={editMode}
         />
