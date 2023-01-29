@@ -13,7 +13,7 @@ import DetailModalEditModeTemplate from '../DetailModalEditModeTemplate'
 import {deletedInfo} from '../../../function/partnerCenter/ApiModules'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 
-const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditMode, onClose, getList}) => {
+const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditMode, getList}) => {
   const {
     id, // 리스트 id
     maintenanceNum, // 발주 번호
@@ -33,6 +33,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
   } = value
   const [editor, setEditor] = useState('')
   const [solutionList, setSolutionList] = useState([])
+  const [editCheck, setEditCheck] = useState([])
   const [totalItems, setTotalItems] = useState({
     region: '전체 합계',
     catcount: 0,
@@ -74,7 +75,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
     }
   }
 
-  const vanOnChange = (item, {target: {id, value}}) => {
+  const handleVanOnChange = (item, {target: {id, value}}) => {
     setSolutionList(van =>
       van.map(state => {
         if (state.id === item.id) {
@@ -88,8 +89,32 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
       }),
     )
   }
+
+  // Close Modal
+  const handleDetailModalOnClose = () => {
+    if (solutionList?.length !== 0) {
+      solutionList?.map((value, index) => {
+        if (value?.id === editCheck[index]?.id) {
+          if (value?.category !== editCheck[index]?.category || value?.van !== editCheck[index]?.van) {
+            if (
+              window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')
+            ) {
+              return setVisible(false)
+            } else {
+              return null
+            }
+          }
+        }
+      })
+      setVisible(false)
+    } else {
+      setVisible(false)
+    }
+  }
+
   useEffect(() => {
     setSolutionList(adminMaintenanceSolutionDTOs || [])
+    setEditCheck(adminMaintenanceSolutionDTOs || [])
     setTotalItems({region: '전체 합계', catcount: 0, poscount: 0, kioskcount: 0, sum: 0, note: ''})
     if (adminMaintenanceStoreDTOs?.length !== 0 && visible) {
       adminMaintenanceStoreDTOs?.map(value => {
@@ -115,7 +140,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
       editMode={editMode}
       setEditMode={setEditMode}
       upDate={upDate}
-      onClose={onClose}
+      onClose={handleDetailModalOnClose}
     >
       <CRow className={'p-2'}>
         <ModalInput
@@ -214,7 +239,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
           className={'orderVanList'}
           items={[...solutionList, vanItems] || []}
           columns={solutionListColumns}
-          vanOnChange={vanOnChange}
+          vanOnChange={handleVanOnChange}
           readOnly={editMode}
           disabled={editMode}
         />

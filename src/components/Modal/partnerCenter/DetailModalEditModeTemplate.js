@@ -1,5 +1,6 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
 import {useEffect} from 'react'
+import styled from 'styled-components'
 
 const DetailModalEditModeTemplate = ({
   visible,
@@ -19,12 +20,27 @@ const DetailModalEditModeTemplate = ({
       upDate()
     }
   }
-
+  const click = ({target: {className}}) => {
+    if (
+      className?.includes('modal') &&
+      className?.includes('fade') &&
+      className?.includes('d-block') &&
+      className?.includes('show')
+    ) {
+      return onClose()
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('mousedown', click)
+    return () => {
+      document.removeEventListener('mousedown', click)
+    }
+  })
   useEffect(() => {
     if (!visible) {
       setEditMode(true)
     }
-  }, [visible])
+  }, [setEditMode, visible])
 
   return (
     <CModal size='lg' visible={visible}>
