@@ -7,6 +7,7 @@ import DetailModalTemplate from '../DetailModalTemplate'
 import OrderProductEdiModal from './OrderProductEdiModal'
 import {EndPoint} from '../../../../dataManager/apiMapper'
 import {deletedInfo} from '../../../function/partnerCenter/ApiModules'
+import {orderApplication} from '../../../../utils/columns/partnerCenter/SelectCategoryOptions'
 
 const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnly}) => {
   const {
@@ -58,7 +59,10 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
         orderModalType === 'invoiceNum' ? '송장 번호를 등록하시겠습니까?' : '배송 현황을 변경하시겠습니까?',
       )
     ) {
-      if (orderModalType === 'processingStatus' && !invoiceNum) return alert('송장 번호를 등록해 주세요.')
+      if (!invoiceNum) {
+        setInvoiceEditModal(false)
+        return alert('송장 번호를 등록해 주세요.')
+      }
       deletedInfo(EndPoint.PARTNER_ORDERS, id, json)
         .then(res => {
           upDate(value)
@@ -81,7 +85,7 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
     if (!visible) {
       setSelectedItem({})
     }
-  }, [visible])
+  }, [orderItemPartnerDTOs, visible])
 
   return (
     <DetailModalTemplate
@@ -248,29 +252,12 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
                 id={'processingStatus'}
                 value={selectedItem?.processingStatus}
                 onChange={handleInvoiceOnChange}
-                options={[
-                  {label: '결제 대기', value: '결제대기'},
-                  {label: '배송 전', value: '배송전'},
-                  {label: '배송 중', value: '배송중'},
-                  {label: '배송 완료', value: '배송완료'},
-                ]}
+                options={orderApplication}
               />
             )}
           </CCol>
         </OrderProductEdiModal>
       )}
-
-      {/*
-      <CRow className={'p-2'}>
-        <NumberOfStoresList className={'userList'} columns={generalListApplicationColumns} items={GeneralList} />
-      </CRow>
-      <CRow className={'p-2'}>
-        <FlagshipSolutionList className={'userList solutionList'} columns={solutionListColumns} items={SolutionList} />
-      </CRow>
-      <CRow className={'p-2'}>
-        <ManagementTarget className={'userList'} columns={managementTargetColumns} items={SolutionList} />
-      </CRow>
-      */}
     </DetailModalTemplate>
   )
 }

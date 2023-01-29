@@ -1,5 +1,5 @@
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from '@coreui/react'
-import {useEffect, useRef} from 'react'
+import {useEffect} from 'react'
 import styled from 'styled-components'
 
 const DetailModalEditModeTemplate = ({
@@ -20,12 +20,12 @@ const DetailModalEditModeTemplate = ({
       upDate()
     }
   }
-  const click = e => {
+  const click = ({target: {className}}) => {
     if (
-      e.target.className.includes('modal') &&
-      e.target.className.includes('fade') &&
-      e.target.className.includes('d-block') &&
-      e.target.className.includes('show')
+      className?.includes('modal') &&
+      className?.includes('fade') &&
+      className?.includes('d-block') &&
+      className?.includes('show')
     ) {
       return onClose()
     }
@@ -40,10 +40,10 @@ const DetailModalEditModeTemplate = ({
     if (!visible) {
       setEditMode(true)
     }
-  }, [visible])
+  }, [setEditMode, visible])
 
   return (
-    <CoreModal size='lg' visible={visible}>
+    <CModal size='lg' visible={visible}>
       <CModalHeader>
         <CModalTitle>{title || 'Not Title'}</CModalTitle>
       </CModalHeader>
@@ -66,14 +66,8 @@ const DetailModalEditModeTemplate = ({
           닫기
         </CButton>
       </CModalFooter>
-    </CoreModal>
+    </CModal>
   )
 }
 
 export default DetailModalEditModeTemplate
-
-const CoreModal = styled(CModal)`
-  #faqwe.modal-content {
-    z-index: 1100;
-  }
-`
