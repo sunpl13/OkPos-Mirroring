@@ -85,6 +85,7 @@ const OrderTableList = ({
     const {value} = e.target
     if (value) {
       setFilterItems(
+        // eslint-disable-next-line array-callback-return
         listItems.filter(order => {
           for (let i = 0; i < order.subInfos.length; i++) {
             if (order.subInfos[i].orderStatus === value) {

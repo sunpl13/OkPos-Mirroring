@@ -98,13 +98,11 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
           if (value?.category !== editCheck[index]?.category || value?.van !== editCheck[index]?.van) {
             if (
               window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')
-            ) {
+            )
               return setVisible(false)
-            } else {
-              return null
-            }
           }
         }
+        return value
       })
       setVisible(false)
     } else {
@@ -130,7 +128,7 @@ const MaintenancesDetailModal = ({value, visible, setVisible, editMode, setEditM
       })
     } else if (!visible) {
     }
-  }, [visible, adminMaintenanceStoreDTOs])
+  }, [visible, adminMaintenanceStoreDTOs, adminMaintenanceSolutionDTOs])
 
   return (
     <DetailModalEditModeTemplate
