@@ -70,7 +70,7 @@ const NoticeList = () => {
       editCheck.title !== title ||
       editCheck.category !== category
     ) {
-      if (window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
+      if (window.confirm('정말 페이지에서 나가시겠습니까? \n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
         return setShowModal(false)
       } else {
         return null
@@ -80,9 +80,7 @@ const NoticeList = () => {
       editCheck.title !== title ||
       editCheck.category !== category
     ) {
-      if (
-        window.confirm('정말 페이지에서 나가시겠습니까?.\n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다. 2')
-      ) {
+      if (window.confirm('정말 페이지에서 나가시겠습니까? \n\n지금 페이지를 나가시면 변경사항이 저장되지 않습니다.')) {
         return setShowModal(false)
       } else {
         return null
@@ -118,34 +116,27 @@ const NoticeList = () => {
       images: images.length !== 0 ? images.map(img => img.url) : [],
     })
 
-    if (id) {
-      if (window.confirm('공지사항을 수정하시겠습니까?')) {
-        if (!title) return alert('공지사항 제목을 입력해 주세요.')
-        //if (noticeFiles.length === 0) return alert('파일을 등록해 주세요.')
-        //if (noticeImages.length === 0) return alert('이미지를 등록해 주세요.')
-        if (!editor) return alert('공지사항 본문을 작성해 주세요.')
-        if (!category) return alert('카테고리를 선택해 주세요.')
-        upDateInfo(EndPoint.PARTNER_NOTICES, id, json)
-          .then(res => {
-            return alert(res)
-          })
-          .catch(err => console.log(err))
-      } else {
-        setShowModal(false)
-      }
-    } else {
-      if (window.confirm('공지사항을 추가하시겠습니까?')) {
-        if (!title) return alert('공지사항 제목을 입력해 주세요.')
-        if (!category) return alert('카테고리를 선택해 주세요.')
-        if (!editor) return alert('공지사항 본문을 입력해 주세요.')
-        createdInfo(EndPoint.PARTNER_NOTICES, json)
-          .then(res => {
-            getList()
-            setShowModal(false)
-            return alert(res)
-          })
-          .catch(err => console.log(err))
-      }
+    if (id ? window.confirm('공지사항을 수정하시겠습니까?') : window.confirm('공지사항을 추가하시겠습니까?')) {
+      if (!title) return alert('공지사항 제목을 입력해 주세요.')
+      //if (noticeFiles.length === 0) return alert('파일을 등록해 주세요.')
+      //if (noticeImages.length === 0) return alert('이미지를 등록해 주세요.')
+      if (!category) return alert('카테고리를 선택해 주세요.')
+      if (!editor) return alert('공지사항 본문을 작성해 주세요.')
+      id
+        ? upDateInfo(EndPoint.PARTNER_NOTICES, id, json)
+            .then(res => {
+              getList()
+              setShowModal(false)
+              return alert(res)
+            })
+            .catch(err => console.log(err))
+        : createdInfo(EndPoint.PARTNER_NOTICES, json)
+            .then(res => {
+              getList()
+              setShowModal(false)
+              return alert(res)
+            })
+            .catch(err => console.log(err))
     }
   }
 

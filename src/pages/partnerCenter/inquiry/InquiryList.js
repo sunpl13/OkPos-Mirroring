@@ -64,7 +64,7 @@ const InquiryList = () => {
 
   // 1:1 문의 삭제
   const handleInquiryModalOnDelete = async () => {
-    const {id} = editCheck[0]
+    const {id} = editCheck
     if (window.confirm('정말 삭제하시겠습니까?')) {
       deletedInfo(`${EndPoint.PARTNER_INQUIRIES}/reply`, id)
         .then(res => {

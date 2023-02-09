@@ -3,9 +3,7 @@ import {CCard, CCardBody, CCardHeader, CCol, CForm, CButton, CRow} from '@coreui
 import ListTemplate from '../../../components/list/ListTemplate'
 import PageHeader from '../../../components/common/PageHeader'
 import {dataRoomList} from '../../../utils/columns/partnerCenter/Columns'
-import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
-import {isEmpty} from '../../../utils/utility'
 import DataRoomDetailModal from '../../../components/Modal/partnerCenter/DataRoom/DataRoomDetailModal'
 import {
   createdInfo,
@@ -115,6 +113,7 @@ const DataRoom = () => {
         upDateInfo(EndPoint.PARTNER_DATAROOMS, id, json)
           .then(res => {
             getList()
+            setShowModal(false)
             return alert(res)
           })
           .catch(err => console.log(err))
