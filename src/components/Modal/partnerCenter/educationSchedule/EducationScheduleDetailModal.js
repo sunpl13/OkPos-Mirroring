@@ -47,16 +47,11 @@ const EducationScheduleDetailModal = ({
           disabled={id && editMode}
           isRequired
         />
-        {/*id && (
-          <ModalInput
-            id={'createdAt'}
-            placeholder={'공고 등록일'}
-            label={'공고 등록일'}
-            value={createdAt}
-            readOnly
-            disabled
-          />
-        )*/}
+      </CRow>
+      <CRow className={'p-2'}>
+        {id && (
+          <ModalInput id={'createdAt'} placeholder={'등록일'} label={'등록일'} value={createdAt} readOnly disabled />
+        )}
       </CRow>
       <CRow className={'p-2'}>
         <ModalFilesInput

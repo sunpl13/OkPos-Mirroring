@@ -15,9 +15,10 @@ const DetailModalEditModeTemplate = ({
   onClose,
 }) => {
   const handleEditModeToggle = () => {
-    setEditMode(!editMode)
     if (!editMode) {
       upDate()
+    } else {
+      setEditMode(!editMode)
     }
   }
   const click = ({target: {className}}) => {

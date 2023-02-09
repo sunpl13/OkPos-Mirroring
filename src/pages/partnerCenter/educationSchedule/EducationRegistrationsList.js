@@ -111,7 +111,6 @@ const EducationRegistrationsList = () => {
       files: obj,
       images: images.length !== 0 ? images.map(img => img.url) : [],
     })
-    console.log(json)
     if (id ? window.confirm('수정하시겠습니까?') : window.confirm('추가하시겠습니까?')) {
       if (!title) return alert('제목을 입력해 주세요.')
       if (!editor) return alert('본문을 입력해 주세요.')
@@ -130,6 +129,7 @@ const EducationRegistrationsList = () => {
                 deadline: endDate,
                 educationDate: singleDate,
               })
+              setShowModal(false)
               return alert(res)
             })
             .catch(err => console.log(err))
