@@ -7,6 +7,7 @@ import {CButton, CForm, CModal, CModalBody, CModalFooter, CModalHeader, CModalTi
 import {dataRoomCategoryOptions} from '../../../utils/categoryOptions/officailMall/categoryOptions'
 import ModalImageInput from '../../forms/inputForm/ModalImageInput'
 import ModalTextOnlyQuillEditor from '../../forms/inputForm/ModalTextOnlyQuillEditor'
+import MallIamgeListInput from '../../forms/inputForm/MallImageListInput'
 
 const DataRoomModal = ({
   onChange,
@@ -94,7 +95,7 @@ const DataRoomModal = ({
             </CRow>
           )}
           <CRow className={'p-2'}>
-            <ModalImageInput
+            <MallIamgeListInput
               id='image'
               label='이미지 첨부'
               fileList={imageList}
