@@ -227,7 +227,7 @@ const FaqList = () => {
     if (!title) return alert('제목을 입력해주세요.')
     if (title.length > 30) return alert('제목 글자수 초과입니다.(30자)')
     if (content.replace(/<[^>]*>?|/g, '').length === 0) return alert('본문을 입력해주세요.')
-    if (content.replace(/<[^>]*>?|/g, '').length > 300) return alert('본문 글자수 초과입니다.')
+    if (content.replace(/<[^>]*>?|/g, '').length > 150) return alert('본문 글자수 초과입니다.')
 
     if (window.confirm('저장 하시겠습니까?')) {
       if (faqId) {
