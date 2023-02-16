@@ -19,9 +19,10 @@ const DatePickerForm = ({id, date, onChange, label, readOnly = false, isRequired
         <CDatePicker
           readOnly={readOnly}
           dateFormat='yyyy-MM-dd'
-          selected={moment(date).toDate()}
+          selected={date === null ? null : moment(date).toDate()}
           onChange={date => onSetDate(date)}
           disabled={isDisabled}
+          placeholderText='날짜 입력'
           id={id}
         />
       </CCol>
