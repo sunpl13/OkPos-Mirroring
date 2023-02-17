@@ -23,10 +23,11 @@ const DetailModalEditModeTemplate = ({
   }
   const click = ({target: {className}}) => {
     if (
-      className?.includes('modal') &&
-      className?.includes('fade') &&
-      className?.includes('d-block') &&
-      className?.includes('show')
+      (className?.includes('modal') &&
+        className?.includes('fade') &&
+        className?.includes('d-block') &&
+        className?.includes('show')) ||
+      (className?.includes('btn') && className?.includes('btn-close'))
     ) {
       return onClose()
     }

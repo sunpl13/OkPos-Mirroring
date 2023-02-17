@@ -109,7 +109,7 @@ const DataRoom = () => {
       if (window.confirm('자료를 수정하시겠습니까?')) {
         if (!title) return alert('제목을 입력해 주세요.')
         if (!category) return alert('카테고리를 선택해 주세요')
-        if (!editor) return alert('본문을 입력해 주세요.')
+        if (!editor.replace(/<[^>]*>?| /g, '')) return alert('본문을 입력해 주세요.')
         upDateInfo(EndPoint.PARTNER_DATAROOMS, id, json)
           .then(res => {
             getList()
@@ -123,7 +123,7 @@ const DataRoom = () => {
         if (!title) return alert('제목을 입력해 주세요.')
         //if (!dataRoomFiles) return alert('파일을 등록해 주세요')
         if (!category) return alert('카테고리를 선택해 주세요')
-        if (!editor) return alert('본문을 입력해 주세요.')
+        if (!editor.replace(/<[^>]*>?| /g, '')) return alert('본문을 입력해 주세요.')
         createdInfo(EndPoint.PARTNER_DATAROOMS, json)
           .then(res => {
             getList()
