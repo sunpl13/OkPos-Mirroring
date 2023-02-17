@@ -101,15 +101,12 @@ const EducationScheduleList = () => {
       if (!title) return alert('제목을 입력해 주세요.')
       //if (!files) return alert('Not File')
       //if (!images) return alert('Not Image')
-      if (!editor) return alert('본문을 입력해 주세요.')
+      if (!editor.replace(/<[^>]*>?| /g, '')) return alert('본문을 입력해 주세요.')
       id
         ? upDateInfo(EndPoint.PARTNER_SCHEDULES, id, json)
             .then(res => {
               getList()
-              setEditCheck({
-                ...selectedItem,
-                content: editor,
-              })
+              setShowModal(false)
               return alert(res)
             })
             .catch(err => console.log(err))

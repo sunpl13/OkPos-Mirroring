@@ -121,7 +121,7 @@ const NoticeList = () => {
       //if (noticeFiles.length === 0) return alert('파일을 등록해 주세요.')
       //if (noticeImages.length === 0) return alert('이미지를 등록해 주세요.')
       if (!category) return alert('카테고리를 선택해 주세요.')
-      if (!editor) return alert('공지사항 본문을 작성해 주세요.')
+      if (!editor.replace(/<[^>]*>?| /g, '')) return alert('공지사항 본문을 작성해 주세요.')
       id
         ? upDateInfo(EndPoint.PARTNER_NOTICES, id, json)
             .then(res => {
@@ -147,6 +147,7 @@ const NoticeList = () => {
       deletedInfo(EndPoint.PARTNER_NOTICES, id)
         .then(res => {
           getList()
+          setShowModal(false)
           return alert(res)
         })
         .catch(err => console.log(err))

@@ -113,7 +113,7 @@ const EducationRegistrationsList = () => {
     })
     if (id ? window.confirm('수정하시겠습니까?') : window.confirm('추가하시겠습니까?')) {
       if (!title) return alert('제목을 입력해 주세요.')
-      if (!editor) return alert('본문을 입력해 주세요.')
+      if (!editor.replace(/<[^>]*>?| /g, '')) return alert('본문을 입력해 주세요.')
       if (!endDate || !startDate) return alert('접수기간을 입력해 주세요.')
       if (!singleDate) return alert('교육 일자를 입력해주세요.')
       if (!place) return alert('교육 장소를 입력해주세요.')
