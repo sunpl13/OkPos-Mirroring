@@ -26,7 +26,7 @@ export const AppSidebarNav = ({items}) => {
     const {component, name, badge, accessauthority, icon, ...rest} = item
     const Component = component
     if (accessauthority === 'ALL') {
-      if (auth === 'EDITOR_PROHIBIT') return
+      if (auth === 'EDITOR_PROHIBIT' || auth === 'EDITOR_AUTHORIZE') return
     } else {
       if (name === '회원관리' && auth !== 'ADMIN') return
       if (authority !== accessauthority) return

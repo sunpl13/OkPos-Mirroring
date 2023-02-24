@@ -25,7 +25,7 @@ const DefaultLayout = () => {
       navigate(-1)
       return
     } else if (location.pathname !== '/' && location.pathname !== '/dashboard') {
-      if (auth === 'EDITOR_PROHIBIT') {
+      if (auth === 'EDITOR_PROHIBIT' || auth === 'EDITOR_AUTHORIZE') {
         alert('접근 권한이 없습니다!')
         navigate(-1)
         return
@@ -60,6 +60,7 @@ const DefaultLayout = () => {
   useEffect(() => {
     if (sessionStorage.getItem('auth') === 'EDITOR_PROHIBIT') {
       alert('메인 관리자의 승인이 있을시 관리자페이지 이용이 가능합니다. 메인 관리자의 회원관리 내역을 확인해주세요.')
+      return navigate('/dashboard')
     }
   }, [])
 

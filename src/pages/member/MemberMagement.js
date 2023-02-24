@@ -54,12 +54,16 @@ const MemberManageMent = () => {
   //삭제 onDelete
 
   useEffect(() => {
-    onLoadMemberManageMentList()
+    if (sessionStorage.getItem('auth') === 'ADMIN') {
+      onLoadMemberManageMentList()
+    }
   }, [])
 
   const handleShowMemberManageMentDetailModal = async item => {
     setShowModal(!showModal)
   }
+
+  if (sessionStorage.getItem('auth') !== 'ADMIN') return
 
   return (
     <>
