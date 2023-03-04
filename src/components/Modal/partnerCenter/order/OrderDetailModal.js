@@ -76,9 +76,9 @@ const OrderDetailModal = ({onChange, value, visible, setVisible, upDate, readOnl
   // 송장 번호 조회
   const handleInvoiceSearch = async () => {
     const {invoiceNum} = selectedItem
-    if (invoiceNum) {
-      window.open(`https://www.ilogen.com/web/personal/trace/${invoiceNum}`, '_blank')
-    }
+    invoiceNum
+      ? window.open(`https://www.ilogen.com/web/personal/trace/${invoiceNum.padStart(11, '0')}`)
+      : window.open('https://www.ilogen.com/web/personal/tkSearch')
   }
   useEffect(() => {
     setOrderItemList(orderItemPartnerDTOs)
