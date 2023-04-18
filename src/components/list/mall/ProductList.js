@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {CBadge, CButton, CCol, CFormInput, CRow} from '@coreui/react'
 import RangeDatePicker from '../../common/RangeDatePicker'
 import moment from 'moment'
-import {isPrice} from '../../../utils/utility'
+import {isPrice, maskString} from '../../../utils/utility'
 import {getMallBadgeColor} from '../../../utils/badge/officalMall/Badge'
 
 const ProductList = ({

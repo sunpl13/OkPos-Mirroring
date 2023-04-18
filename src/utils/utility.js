@@ -30,3 +30,23 @@ export function getTextLength(text) {
   }
   return int_char_count
 }
+
+// 문자열 앞,뒤에 원하는 갯수만큼 *을 적용하는 함수
+export const maskString = (str, num, start) => {
+  let maskedString
+
+  if (![str, num, start].every(Boolean)) return ''
+
+  if (str.length < num) return ''
+  switch (start) {
+    case 'left':
+      maskedString = '*'.repeat(num) + str.slice(num)
+      break
+    case 'right':
+      maskedString = str.slice(0, -num) + '*'.repeat(num)
+      break
+    default:
+      maskedString = ''
+  }
+  return maskedString
+}
