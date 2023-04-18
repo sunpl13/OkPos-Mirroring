@@ -10,7 +10,7 @@ const ModalSingleImageInput = ({image, onChangeImage, label, id, disabled, fileP
   const beforeUpload = file => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
-      window.alert('옳바른 확장자가 아닙니다 (JPG/PNG)')
+      window.alert('올바른 확장자가 아닙니다 (JPG/PNG)')
     }
     const isLt10M = file.size / 1024 / 1024 < 10
     if (!isLt10M) {

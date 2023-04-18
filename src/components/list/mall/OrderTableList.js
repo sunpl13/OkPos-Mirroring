@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {CBadge, CButton, CCol, CFormInput, CFormLabel, CFormSelect, CRow} from '@coreui/react'
 import RangeDatePicker from '../../common/RangeDatePicker'
 import moment from 'moment'
-import {isPrice} from '../../../utils/utility'
+import {isPrice, maskString} from '../../../utils/utility'
 import {getMallBadgeColor} from '../../../utils/badge/officalMall/Badge'
 
 const OrderTableList = ({
@@ -187,6 +187,11 @@ const OrderTableList = ({
               <input id={`${index}`} name='select-radio' type='radio' onClick={() => setSelectedProduct(item)} />
             </td>
           ),
+
+          // 마스킹
+          name: ({name}) => <td>{maskString(name, 1, 'right')}</td>,
+          receiver: ({receiver}) => <td>{maskString(receiver, 1, 'right')}</td>,
+          phoneNumber: ({phoneNumber}) => <td>{maskString(phoneNumber, 4, 'right')}</td>,
           // 상태
           orderStatus: ({orderStatus}) => (
             <td>

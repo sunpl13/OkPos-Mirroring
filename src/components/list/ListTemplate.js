@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {CBadge, CCol, CFormCheck, CImage, CRow} from '@coreui/react'
 import ThumbnailModal from './ThumbnailModal'
 import moment from 'moment'
-import {isPrice} from '../../utils/utility'
+import {isPrice, maskString} from '../../utils/utility'
 import {antdImageFormat} from '../../utils/awsCustom'
 import defaultImg from '../../assets/defaultImg.png'
 import RangeDatePicker from '../common/TestRangeDatePicker'
@@ -213,6 +213,10 @@ const ListTemplate = ({
               <CFormCheck onChange={() => handleOnCheckedApi(item)} checked={item.isAuthorized || false} />
             </td>
           ),
+          // 마스킹
+          name: ({name}) => <td>{maskString(name, 1, 'right')}</td>,
+          phoneNumber: ({phoneNumber}) => <td>{maskString(phoneNumber, 4, 'right')}</td>,
+
           // 상태
           status: ({status}) => (
             <td>
