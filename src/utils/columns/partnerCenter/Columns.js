@@ -470,7 +470,7 @@ export const educationApplicationListDetailColumns = [
   {
     key: 'email',
     label: '이메일',
-    _props: {className: 'distributorContact'},
+    _props: {className: 'email'},
   },
   {
     key: 'mobilePhoneNum',

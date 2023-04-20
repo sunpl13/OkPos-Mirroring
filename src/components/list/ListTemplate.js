@@ -216,6 +216,7 @@ const ListTemplate = ({
           // 마스킹
           name: ({name}) => <td>{maskString(name, 1, 'right')}</td>,
           phoneNumber: ({phoneNumber}) => <td>{maskString(phoneNumber, 4, 'right')}</td>,
+          email: ({email}) => <td>{maskString(email, 1, 'left')}</td>,
 
           // 상태
           status: ({status}) => (
