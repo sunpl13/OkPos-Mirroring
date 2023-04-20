@@ -15,7 +15,13 @@ const Userlist = () => {
   // 회원 리스트 API
   const getList = async () => {
     getListData(EndPoint.PARTNER_USERS)
-      .then(res => setItems(res?.adminUserInfoPartnerDTOs))
+      .then(res => {
+        setItems(
+          res?.adminUserInfoPartnerDTOs.map(v => {
+            return {name: v.userName, phoneNumber: v.phoneNum.replace(/-/g, ''), ...v}
+          }),
+        )
+      })
       .catch(err => console.log(err))
   }
 

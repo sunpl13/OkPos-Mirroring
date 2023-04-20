@@ -1,6 +1,5 @@
 // 회원 리스트
 import React from 'react'
-import {CFormSelect} from '@coreui/react'
 export const userListColumns = [
   {
     key: 'idx',
@@ -8,7 +7,7 @@ export const userListColumns = [
     _props: {className: 'id'},
   },
   {
-    key: 'userName',
+    key: 'name',
     label: '사용자 명',
     _props: {className: 'userName'},
   },
@@ -18,7 +17,7 @@ export const userListColumns = [
     _props: {className: 'certificateNum'},
   },
   {
-    key: 'phoneNum',
+    key: 'phoneNumber',
     label: '휴대전화 번호',
     _props: {className: 'phoneNum'},
   },
@@ -44,7 +43,7 @@ export const withdrawalUsersColumns = [
     _props: {className: 'id'},
   },
   {
-    key: 'userName',
+    key: 'name',
     label: '사용자 명',
     _props: {className: 'userName'},
   },
@@ -68,7 +67,7 @@ export const withdrawalUsersColumns = [
     filter: false,
   },
   {
-    key: 'phoneNum',
+    key: 'phoneNumber',
     label: '휴대전화 번호',
     _props: {className: 'phoneNum'},
   },
@@ -111,12 +110,12 @@ export const userInquiryListColumns = [
     _props: {className: 'inquiryCategory'},
   },
   {
-    key: 'userName',
+    key: 'name',
     label: '이름',
     _props: {className: 'userName'},
   },
   {
-    key: 'userPhoneNum',
+    key: 'phoneNumber',
     label: '전화번호',
     _props: {className: 'userPhoneNum'},
   },
@@ -177,7 +176,7 @@ export const dealerSupportList = [
     _props: {className: 'email'},
   },
   {
-    key: 'phoneNum',
+    key: 'phoneNumber',
     label: '전화번호',
     _props: {className: 'phoneNum'},
   },
@@ -435,7 +434,7 @@ export const educationApplicationListColumns = [
     _props: {className: 'agencyName'},
   },
   {
-    key: 'phoneNum',
+    key: 'phoneNumber',
     label: '대리점 연락처',
     _props: {className: 'phoneNum'},
     sorter: false,
@@ -463,9 +462,9 @@ export const educationApplicationListDetailColumns = [
     _props: {className: 'id'},
   },
   {
-    key: 'name',
+    key: 'userName',
     label: '이름',
-    _props: {className: 'distributorName'},
+    _props: {className: 'userName'},
   },
 
   {
