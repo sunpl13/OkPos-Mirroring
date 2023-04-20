@@ -26,7 +26,11 @@ const InquiryList = () => {
   const getList = async () => {
     getListData(EndPoint.PARTNER_INQUIRIES)
       .then(res => {
-        setItems(res?.inquiryPartnerDTOs)
+        setItems(
+          res?.inquiryPartnerDTOs.map(v => {
+            return {name: v.userName, phoneNumber: v.userPhoneNum.replace(/-/g, ''), ...v}
+          }),
+        )
       })
       .catch(err => console.log(err))
   }

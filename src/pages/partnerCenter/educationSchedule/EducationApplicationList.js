@@ -21,7 +21,11 @@ const EducationApplicationList = () => {
   const getList = async () => {
     getListData(EndPoint.PARTNER_REGISTRAUINS)
       .then(res => {
-        setItems(res?.adminEducationRegistrationDTOs)
+        setItems(
+          res?.adminEducationRegistrationDTOs.map(v => {
+            return {...v, phoneNumber: v.phoneNum.replace(/-/g, '')}
+          }),
+        )
       })
       .catch(err => console.log(err))
   }
@@ -35,7 +39,10 @@ const EducationApplicationList = () => {
     if (id) {
       getDetailInfo(EndPoint.PARTNER_REGISTRAUINS, id)
         .then(res => {
-          setSelectedItem(res)
+          const adminApplicantDTOs = res?.adminApplicantDTOs.map(v => {
+            return {...v, userName: v.name}
+          })
+          setSelectedItem({...res, adminApplicantDTOs: adminApplicantDTOs})
           setShowModal(!showModal)
         })
         .catch(err => console.log(err))

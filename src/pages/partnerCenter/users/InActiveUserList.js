@@ -30,7 +30,11 @@ const InActiveUserList = () => {
   const getList = async () => {
     getListData(EndPoint.PARTNER_INACTIVE_USERS)
       .then(res => {
-        setItems(res?.inActiveUserInfoPartnerDTOs)
+        setItems(
+          res?.inActiveUserInfoPartnerDTOs.map(v => {
+            return {name: v.userName, phoneNumber: v.phoneNum.replace(/-/g, ''), ...v}
+          }),
+        )
         const {inActiveUserWithdrawalCategoryStatistics} = res
         setChartData([
           inActiveUserWithdrawalCategoryStatistics.inconvenienceOfService,

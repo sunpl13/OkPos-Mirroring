@@ -7,6 +7,7 @@ import DealerSupportDetailModal from '../../../components/Modal/partnerCenter/ag
 import ApiConfig, {HttpMethod} from '../../../dataManager/apiConfig'
 import {EndPoint} from '../../../dataManager/apiMapper'
 import {isEmpty} from '../../../utils/utility'
+import {getListData} from '../../../components/function/partnerCenter/ApiModules'
 
 const DealerSupportList = () => {
   const [items, setItems] = useState([])
@@ -15,25 +16,16 @@ const DealerSupportList = () => {
 
   // 딜러 지원 리스트 API
   const getList = async () => {
-    try {
-      const {
-        data: {result, isSuccess, code, message},
-      } = await ApiConfig.request({
-        method: HttpMethod.GET,
-        url: EndPoint.PARTNER_AGENCYAPPLICANT,
+    getListData(EndPoint.PARTNER_AGENCYAPPLICANT)
+      .then(res => {
+        setItems(
+          res?.adminAgencyApplicantDTOs.map(v => {
+            return {phoneNumber: v.phoneNum.replace(/-/g, ''), ...v}
+          }),
+        )
+        setEditor(res?.noticeContent)
       })
-      if (!isSuccess || isEmpty(result)) {
-        return alert(message)
-      }
-      if (code === 1000) {
-        setItems(result?.adminAgencyApplicantDTOs)
-        setEditor(result?.noticeContent)
-      } else {
-        alert(message)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
