@@ -236,6 +236,19 @@ const _nav = [
       },
     ],
   },
+  {
+    component: CNavGroup,
+    name: '팝업 관리',
+    icon: <CIcon icon={cilNotes} customClassName='nav-icon' />,
+    accessauthority: 'HOME',
+    items: [
+      {
+        component: CNavItem,
+        name: '팝업 관리',
+        to: '/home/popup',
+      },
+    ],
+  },
 
   /*
   가맹점 전용 공식몰 코드 작성

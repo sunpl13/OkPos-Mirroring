@@ -4,7 +4,7 @@ import {cilFilterX} from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
 interface CSmartTableCleanerProps extends HTMLAttributes<HTMLButtonElement> {
-  content?: string | ReactNode
+  content?: string 
   isFiltered?: string
 }
 
@@ -28,7 +28,7 @@ export const CSmartTableCleaner = forwardRef<HTMLButtonElement, CSmartTableClean
 )
 
 CSmartTableCleaner.propTypes = {
-  content: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  content: PropTypes.oneOfType([PropTypes.string]),
   isFiltered: PropTypes.string,
 }
 

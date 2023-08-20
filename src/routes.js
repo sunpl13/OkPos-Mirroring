@@ -13,6 +13,7 @@ const Employment = React.lazy(() => import('./pages/homePage/employment/Employme
 const TalentRetention = React.lazy(() => import('./pages/homePage/talentRetention/TalentRetention'))
 const HomePageQnA = React.lazy(() => import('./pages/homePage/QnA/QnAList'))
 const HopageNotice = React.lazy(() => import('./pages/homePage/notice/Notice'))
+const PopUp = React.lazy(() => import('./pages/homePage/popup/PopUpPage'))
 
 const EnglishInquiry = React.lazy(() => import('./pages/EnHomePage/Inquiry/EnglishInquiry'))
 const EnglishDataRoom = React.lazy(() => import('./pages/EnHomePage/dataRoom/DataRoom'))
@@ -78,6 +79,7 @@ const routes = [
   {path: '/home/talentRetention', name: '인재풀 관리', element: TalentRetention},
   {path: '/home/QnA', name: '1:1문의', element: HomePageQnA},
   {path: '/home/notice', name: '공지사항', element: HopageNotice},
+  {path: '/home/popup', name: '팝업 관리', element: PopUp},
 
   // ------ 영문 홈페이지
   {path: `/home/en/inquiry`, name: '1:1 Inquiry', element: EnglishInquiry},
