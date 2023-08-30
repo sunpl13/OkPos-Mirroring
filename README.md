@@ -1,7 +1,11 @@
-<<<<<<< HEAD
 # web-admin
 
-
+## 배포 방식
+1. 로컬에서 빌드 및 실행
+npm run build-prod
+npx serve -s build
+2. git에 커밋/푸시
+3. 서버에서 git pull 받기
 
 ## Getting started
 
@@ -160,4 +164,3 @@ npm run build-prod
 ---
 
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
->>>>>>> master
