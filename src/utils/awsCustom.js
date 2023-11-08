@@ -10,7 +10,8 @@ export const returnBucketName = imgPath => {
 }
 
 export const antdImageFormat = path => {
-  return `https://${process.env.REACT_APP_AWS_BUCKET_NAME}.s3.${process.env.REACT_APP_AWS_REGION}.amazonaws.com/${path}`
+  if (path.includes('https://')) return path
+  else return `${process.env.REACT_APP_AWS_BUCKET_NAME}.s3.${process.env.REACT_APP_AWS_REGION}.amazonaws.com/${path}`
 }
 
 export const returnBucketNameFile = imgPath => {
