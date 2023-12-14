@@ -63,7 +63,7 @@ const NoticeDetail = ({
         query: {},
         path: {},
         method: HttpMethod.POST,
-        url: `${EndPoint.NOTICE}`,
+        url: `${EndPoint.POST_MALL_NOTICE}`,
       })
       console.log(data)
       if (data.isSuccess) {
@@ -84,10 +84,10 @@ const NoticeDetail = ({
         data: {},
         query: {},
         path: {
-          id: value.noticeId,
+          noticeId: value.noticeId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.NOTICE}/:id/d`,
+        url: `${EndPoint.DELETE_MALL_NOTICE}`,
       })
       if (data.isSuccess) {
         getList()
@@ -116,10 +116,10 @@ const NoticeDetail = ({
         },
         query: {},
         path: {
-          id: value.noticeId,
+          noticeId: value.noticeId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.NOTICE}/:id`,
+        url: `${EndPoint.PATCH_MALL_NOTICE}`,
       })
       if (data.isSuccess) {
         getList()
