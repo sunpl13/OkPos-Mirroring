@@ -351,6 +351,19 @@ const _nav = [
       },
     ],
   },
+  {
+    component: CNavGroup,
+    name: '공지사항 관리',
+    icon: <CIcon icon={cilNotes} customClassName='nav-icon' />,
+    accessauthority: 'MALL',
+    items: [
+      {
+        component: CNavItem,
+        name: '공지사항 관리',
+        to: '/mall/notice',
+      },
+    ],
+  },
 
   /*
   영문 홈페이지

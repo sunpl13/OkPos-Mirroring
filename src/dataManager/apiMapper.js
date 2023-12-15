@@ -66,6 +66,11 @@ export const EndPoint = {
   PATCH_MALL_ORDERS_INVOICE: `${API}/admin/mall/orders/:orderItemId/invoice`,
   PATCH_MALL_CANCEL_ORDERS_STATUS: `${API}/admin/mall/orders/:orderCancelId/cancel`,
   PATCH_MALL_EXCHANGE_ORDERS_STATUS: `${API}/admin/mall/orders/:orderExchangeId/exchange`,
+  GET_MALL_NOTICES: `${API}/admin/mall/notices`, // 공지사항 리스트 조회
+  GET_MALL_NOTICE: `${API}/admin/mall/notices/:noticeId`, // 공지사항 상세 조회
+  POST_MALL_NOTICE: `${API}/admin/mall/notices`, // 공지사항 작성
+  PATCH_MALL_NOTICE: `${API}/admin/mall/notices/:noticeId`, // 공지사항 수정
+  DELETE_MALL_NOTICE: `${API}/admin/mall/notices/:noticeId/d`, // 공지사항 삭제
 
   // ------ 대리점 전용 파트너 센터
   POST_REGISTER: `${API}/admin/join`,
@@ -91,6 +96,8 @@ const ApiMapper = {
     [EndPoint.GET_MALL_ORDERS]: {},
     [EndPoint.GET_MALL_CANCEL_ORDERS]: {},
     [EndPoint.GET_MALL_EXCHANGE_ORDERS]: {},
+    [EndPoint.GET_MALL_NOTICES]: {},
+    [EndPoint.GET_MALL_NOTICE]: {},
 
     // ------ 파트너센터 페이지
     [EndPoint.PARTNER_USERS]: {},
@@ -114,6 +121,7 @@ const ApiMapper = {
     [EndPoint.POST_MALL_DATAROOM]: {},
     [EndPoint.POST_MALL_BANNER]: {},
     [EndPoint.POST_MALL_ORDERS_STATUS]: {},
+    [EndPoint.POST_MALL_NOTICE]: {},
   },
   patch: {
     // ------ 가맹점 전용 공식몰 페이지
@@ -129,6 +137,8 @@ const ApiMapper = {
     [EndPoint.PATCH_MALL_ORDERS_INVOICE]: {},
     [EndPoint.PATCH_MALL_CANCEL_ORDERS_STATUS]: {},
     [EndPoint.PATCH_MALL_EXCHANGE_ORDERS_STATUS]: {},
+    [EndPoint.PATCH_MALL_NOTICE]: {},
+    [EndPoint.DELETE_MALL_NOTICE]: {},
   },
   put: {},
   delete: {},

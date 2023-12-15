@@ -35,6 +35,7 @@ const OfficialMallCancelList = React.lazy(() => import('./pages/officialMall/ord
 const OfficialMallExchangeList = React.lazy(() => import('./pages/officialMall/order/ExchangeList'))
 // 배너 관리
 const OfficialMallBannerList = React.lazy(() => import('./pages/officialMall/banner/BannerList'))
+const OfficialMallNoticeList = React.lazy(() => import('./pages/officialMall/notice/Notice'))
 
 // ------ 대리점 전용 파트너 센터
 // 유저 리스트
@@ -96,6 +97,7 @@ const routes = [
   {path: `/mall/cancel`, name: '취소 요청 관리', element: OfficialMallCancelList},
   {path: `/mall/exchange`, name: '교환 요청 관리', element: OfficialMallExchangeList},
   {path: `/mall/banner`, name: '배너 관리', element: OfficialMallBannerList},
+  {path: `/mall/notice`, name: '공지사항 관리', element: OfficialMallNoticeList},
 
   // ------ 대리점 전용 파트너 센터
 
