@@ -11,7 +11,7 @@ export const EndPoint = {
   HOME_INQUIRY: `${API}/admin/inquiries`,
   ENGLISH_HOME_INQUIRY: `${API}/admin/english/inquiries`,
   NOTICES: `${API}/admin/notices`,
-  GET_NOTICE: `${API}/admin/notices/:noticeId`,
+  GET_NOTICE: `${API}/admin/notices/:id`,
   PATCH_NOTICE: `${API}/admin/notices/:noticeId`,
   DELETE_NOTICE: `${API}/admin/notices/:noticeId/d`,
   DATA_ROOM: `${API}/admin/english/datarooms`,
