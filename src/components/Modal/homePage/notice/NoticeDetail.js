@@ -12,6 +12,7 @@ import ModalFilesInput from '../../../forms/inputForm/ModalFilesInput'
 import ModalQuillEditor from '../../../forms/inputForm/ModalQuillEditor'
 
 const NoticeDetail = ({
+  type,
   getList,
   value,
   visible,
@@ -63,7 +64,7 @@ const NoticeDetail = ({
         query: {},
         path: {},
         method: HttpMethod.POST,
-        url: `${EndPoint.POST_MALL_NOTICE}`,
+        url: `${type === 'home' ? EndPoint.POST_NOTICE : EndPoint.POST_MALL_NOTICE}`,
       })
       console.log(data)
       if (data.isSuccess) {
@@ -87,7 +88,7 @@ const NoticeDetail = ({
           noticeId: value.noticeId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.DELETE_MALL_NOTICE}`,
+        url: `${type === 'home' ? EndPoint.DELETE_NOTICE : EndPoint.DELETE_MALL_NOTICE}`,
       })
       if (data.isSuccess) {
         getList()
@@ -119,7 +120,7 @@ const NoticeDetail = ({
           noticeId: value.noticeId,
         },
         method: HttpMethod.PATCH,
-        url: `${EndPoint.PATCH_MALL_NOTICE}`,
+        url: `${type === 'home' ? EndPoint.PATCH_NOTICE : EndPoint.PATCH_MALL_NOTICE}`,
       })
       if (data.isSuccess) {
         getList()
