@@ -28,7 +28,7 @@ const Notice = () => {
         query: {},
         path: {},
         method: HttpMethod.GET,
-        url: EndPoint.NOTICE,
+        url: EndPoint.NOTICES,
       })
       setItems(data?.data.result.responses)
     } catch (error) {
@@ -49,7 +49,7 @@ const Notice = () => {
           id: id,
         },
         method: HttpMethod.GET,
-        url: `${EndPoint.NOTICE}/:id`,
+        url: `${EndPoint.GET_NOTICE}`,
       })
       setSelectedItem(data.result)
       setContent(data.result.content)
@@ -115,6 +115,7 @@ const Notice = () => {
         </CCol>
       </CRow>
       <NoticeDetail
+        type='home'
         onChange={handleNoticeDetailOnChange}
         visible={showModal}
         value={selectedItem}

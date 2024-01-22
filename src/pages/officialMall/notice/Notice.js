@@ -115,6 +115,7 @@ const Notice = () => {
         </CCol>
       </CRow>
       <NoticeDetail
+        type='mall'
         onChange={handleNoticeDetailOnChange}
         visible={showModal}
         value={selectedItem}
